@@ -1,0 +1,1795 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<title>Chicken Chaos</title>
+
+<style>
+*{box-sizing:border-box}
+html,body{
+  margin:0;width:100%;height:100%;overflow:hidden;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  background:#78c8f0;color:#fff;touch-action:none;user-select:none
+}
+canvas{display:block}
+
+button{
+  border:0;border-radius:14px;padding:11px 16px;
+  font-weight:900;cursor:pointer
+}
+
+#ui{
+  position:fixed;inset:0;z-index:10;pointer-events:none
+}
+
+.screen{
+  position:fixed;inset:0;z-index:20;display:none;
+  pointer-events:auto;overflow:auto
+}
+
+.show{display:block}
+
+.glass{
+  background:rgba(15,27,34,.78);
+  border:1px solid rgba(255,255,255,.15);
+  backdrop-filter:blur(12px);
+  box-shadow:0 12px 35px rgba(0,0,0,.22)
+}
+
+/* LOBBY */
+
+#lobby{
+  background:
+    linear-gradient(rgba(76,185,235,.35),rgba(255,255,255,.04)),
+    linear-gradient(#79cef3 0 58%,#79c85e 58% 100%)
+}
+
+#lobbyTop{
+  position:sticky;top:0;z-index:5;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:14px 18px;background:rgba(17,34,42,.78);backdrop-filter:blur(12px)
+}
+
+.logo{
+  font-size:24px;font-weight:1000
+}
+
+.currency{
+  display:flex;gap:12px;font-weight:900
+}
+
+#lobbyGrid{
+  width:min(1050px,94vw);margin:25px auto 70px;
+  display:grid;grid-template-columns:1.1fr .9fr;gap:18px
+}
+
+.card{
+  border-radius:22px;padding:20px
+}
+
+#selectedChickenBox{
+  min-height:330px;display:flex;flex-direction:column;
+  justify-content:center;align-items:center;text-align:center
+}
+
+#selectedChickenEmoji{
+  font-size:90px
+}
+
+#selectedChickenName{
+  font-size:28px;font-weight:1000;margin-top:8px
+}
+
+#selectedWeapon{
+  opacity:.7;margin-top:5px
+}
+
+#selectedStars{
+  color:#ffd155;font-size:22px;margin-top:6px
+}
+
+.actionGrid{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:20px
+}
+
+.actionGrid button{
+  min-height:62px;background:#f1f7f7;color:#15232b
+}
+
+.playBtn{
+  background:#ffcf45!important
+}
+
+#chickenList{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:9px;
+  max-height:520px;overflow:auto
+}
+
+.chickenTile{
+  border-radius:16px;padding:12px;text-align:center;
+  background:rgba(255,255,255,.10);cursor:pointer
+}
+
+.chickenTile.locked{opacity:.45}
+.chickenTile.selected{outline:3px solid #ffd34a}
+
+.chickenIcon{font-size:34px}
+.chickenTile small{display:block;margin-top:3px;opacity:.65}
+
+.sectionTitle{
+  font-size:20px;font-weight:1000;margin-bottom:12px
+}
+
+/* MODALS */
+
+.modalWrap{
+  display:none;position:fixed;inset:0;z-index:60;
+  align-items:center;justify-content:center;
+  background:rgba(3,8,11,.72);pointer-events:auto
+}
+
+.modalWrap.active{display:flex}
+
+.modal{
+  width:min(760px,92vw);max-height:86vh;overflow:auto;
+  border-radius:23px;padding:22px
+}
+
+.closeBtn{
+  float:right;background:#293a43;color:#fff
+}
+
+.eggRow{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px
+}
+
+.egg{
+  border-radius:18px;text-align:center;padding:20px;
+  background:rgba(255,255,255,.08)
+}
+
+.eggIcon{font-size:60px}
+
+.buyBtn{
+  width:100%;margin-top:12px;background:#ffd150;color:#162028
+}
+
+.shopRow,.taskRow{
+  display:flex;justify-content:space-between;align-items:center;
+  gap:12px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.1)
+}
+
+.taskReward{color:#ffd34f;font-size:12px}
+
+/* GAME HUD */
+
+#gameHud{display:none;position:fixed;inset:0;z-index:15;pointer-events:none}
+
+#hudLeft,#hudRight,#hudCenter{
+  position:absolute;top:14px;padding:10px 14px;border-radius:14px
+}
+
+#hudLeft{left:14px}
+#hudRight{right:14px;text-align:right}
+#hudCenter{left:50%;transform:translateX(-50%);text-align:center}
+
+#hpWrap{
+  position:absolute;left:18px;bottom:18px;width:200px
+}
+
+#hpBar{
+  height:12px;background:rgba(0,0,0,.35);border-radius:20px;overflow:hidden
+}
+
+#hpFill{
+  height:100%;width:100%;background:#67db71
+}
+
+#joystick{
+  display:none;position:absolute;left:20px;bottom:40px;
+  width:86px;height:86px;border-radius:50%;
+  background:rgba(0,0,0,.24);border:1px solid rgba(255,255,255,.35);
+  pointer-events:auto
+}
+
+#stick{
+  position:absolute;left:29px;top:29px;width:28px;height:28px;
+  border-radius:50%;background:rgba(255,255,255,.65)
+}
+
+#gameMessage{
+  position:absolute;left:50%;top:22%;transform:translateX(-50%);
+  font-size:28px;font-weight:1000;text-shadow:0 4px 14px #000
+}
+
+#quitBtn{
+  position:absolute;right:18px;bottom:18px;
+  background:rgba(0,0,0,.55);color:#fff;pointer-events:auto
+}
+
+@media(pointer:coarse){
+  #joystick{display:block}
+  #hpWrap{left:120px}
+}
+
+@media(max-width:760px){
+  #lobbyGrid{grid-template-columns:1fr}
+  #chickenList{grid-template-columns:repeat(3,1fr)}
+  .eggRow{grid-template-columns:1fr}
+}
+</style>
+</head>
+
+<body>
+
+<div id="lobby" class="screen show">
+  <div id="lobbyTop">
+    <div class="logo">🐔 CHICKEN CHAOS</div>
+    <div class="currency">
+      <span id="coinUI">🪙 0</span>
+      <span id="fragmentUI">🧩 0</span>
+    </div>
+  </div>
+
+  <div id="lobbyGrid">
+
+    <div class="card glass" id="selectedChickenBox">
+      <div id="selectedChickenEmoji">🐔</div>
+      <div id="selectedChickenName">WHITE CHICKEN</div>
+      <div id="selectedStars">★</div>
+      <div id="selectedWeapon">Pistol</div>
+
+      <div class="actionGrid">
+        <button onclick="openEggs()">🥚 EGG MACHINE</button>
+        <button onclick="openShop()">🛒 CHICKEN SHOP</button>
+        <button onclick="openTasks()">📋 MISSIONS</button>
+        <button onclick="upgradeChicken()">⬆️ UPGRADE</button>
+
+        <button class="playBtn" onclick="openModes()">
+          🎮 PLAY
+        </button>
+
+        <button onclick="upgradeSkin()">
+          ✨ SKIN EFFECT
+        </button>
+      </div>
+    </div>
+
+    <div class="card glass">
+      <div class="sectionTitle">YOUR CHICKENS</div>
+      <div id="chickenList"></div>
+    </div>
+
+  </div>
+</div>
+
+
+<div id="gameHud">
+  <div id="hudLeft" class="glass">
+    <b id="hudChicken">WHITE CHICKEN</b><br>
+    <small>KILLS <span id="killUI">0</span></small>
+  </div>
+
+  <div id="hudCenter" class="glass">
+    <b id="modeUI">SURVIVAL</b><br>
+    <small id="waveUI">WAVE 1</small>
+  </div>
+
+  <div id="hudRight" class="glass">
+    <b id="runCoins">🪙 0</b><br>
+    <small id="enemyUI">ENEMIES 0</small>
+  </div>
+
+  <div id="hpWrap">
+    <b id="hpText">HP 100 / 100</b>
+    <div id="hpBar"><div id="hpFill"></div></div>
+  </div>
+
+  <div id="joystick">
+    <div id="stick"></div>
+  </div>
+
+  <div id="gameMessage"></div>
+
+  <button id="quitBtn" onclick="returnLobby()">
+    EXIT
+  </button>
+</div>
+
+
+<!-- EGGS -->
+
+<div id="eggModal" class="modalWrap">
+  <div class="modal glass">
+    <button class="closeBtn" onclick="closeModals()">X</button>
+    <h2>🥚 EGG MACHINE</h2>
+
+    <div class="eggRow">
+
+      <div class="egg">
+        <div class="eggIcon">🥚</div>
+        <b>COMMON EGG</b>
+        <p>★ – ★★</p>
+        <button class="buyBtn" onclick="rollEgg('common')">
+          🪙 50
+        </button>
+      </div>
+
+      <div class="egg">
+        <div class="eggIcon">🌈</div>
+        <b>COLOR EGG</b>
+        <p>★★ – ★★★★</p>
+        <button class="buyBtn" onclick="rollEgg('color')">
+          🪙 500
+        </button>
+      </div>
+
+      <div class="egg">
+        <div class="eggIcon">👑</div>
+        <b>ROYAL EGG</b>
+        <p>★★★ – ★★★★★</p>
+        <button class="buyBtn" onclick="rollEgg('royal')">
+          🪙 5000
+        </button>
+      </div>
+
+    </div>
+
+    <h3 id="eggResult"></h3>
+  </div>
+</div>
+
+
+<!-- SHOP -->
+
+<div id="shopModal" class="modalWrap">
+  <div class="modal glass">
+    <button class="closeBtn" onclick="closeModals()">X</button>
+    <h2>🛒 CHICKEN SHOP</h2>
+    <div id="shopContent"></div>
+  </div>
+</div>
+
+
+<!-- TASKS -->
+
+<div id="taskModal" class="modalWrap">
+  <div class="modal glass">
+    <button class="closeBtn" onclick="closeModals()">X</button>
+    <h2>📋 MISSIONS</h2>
+    <div id="taskContent"></div>
+  </div>
+</div>
+
+
+<!-- MODES -->
+
+<div id="modeModal" class="modalWrap">
+  <div class="modal glass">
+    <button class="closeBtn" onclick="closeModals()">X</button>
+    <h2>🎮 GAME MODES</h2>
+
+    <div class="actionGrid">
+      <button onclick="startMode('survival')">
+        🐺 SURVIVAL
+      </button>
+
+      <button onclick="startMode('bot')">
+        🤖 BOT BRAWL
+      </button>
+
+      <button onclick="startMode('duel')">
+        ⚔️ LOCAL 1V1
+      </button>
+
+      <button onclick="startMode('local')">
+        🐔🐔 LOCAL BRAWL
+      </button>
+
+      <button onclick="alert('Online multiplayer needs a server. We add this later.')">
+        🌐 ONLINE BRAWL
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<script type="importmap">
+{
+  "imports":{
+    "three":"https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js"
+  }
+}
+</script>
+
+<script type="module">
+
+import * as THREE from "three";
+
+/* =====================================================
+   CHICKENS
+===================================================== */
+
+const chickens = [
+
+{id:"white",name:"White Chicken",stars:1,weapon:"Pistol",icon:"⚪🐔",color:0xf5f4ec,value:100,damage:22,rate:.40,speed:5.0,projectile:"normal"},
+{id:"black",name:"Black Chicken",stars:1,weapon:"Dual Pistols",icon:"⚫🐔",color:0x252729,value:100,damage:13,rate:.22,speed:5.3,projectile:"dual"},
+{id:"yellow",name:"Yellow Chicken",stars:1,weapon:"Slingshot",icon:"🟡🐔",color:0xf1d13e,value:100,damage:40,rate:.72,speed:5.0,projectile:"heavy"},
+
+{id:"brown",name:"Brown Chicken",stars:2,weapon:"Feather Shotgun",icon:"🟤🐔",color:0x8d5f3c,value:250,damage:12,rate:.72,speed:4.9,projectile:"shotgun"},
+{id:"green",name:"Green Chicken",stars:2,weapon:"Poison Gun",icon:"🟢🐔",color:0x58b553,value:250,damage:17,rate:.45,speed:5.0,projectile:"poison"},
+{id:"blue",name:"Blue Chicken",stars:2,weapon:"Mini SMG",icon:"🔵🐔",color:0x4c8fda,value:250,damage:10,rate:.13,speed:5.3,projectile:"normal"},
+
+{id:"cowboy",name:"Cowboy Chicken",stars:3,weapon:"Revolver",icon:"🤠🐔",color:0xc58a47,value:600,damage:55,rate:.68,speed:5.1,projectile:"crit"},
+{id:"ninja",name:"Ninja Chicken",stars:3,weapon:"Shuriken",icon:"🥷🐔",color:0x34383b,value:600,damage:27,rate:.36,speed:5.8,projectile:"pierce"},
+{id:"pirate",name:"Pirate Chicken",stars:3,weapon:"Flintlock",icon:"🏴‍☠️🐔",color:0x62422d,value:600,damage:68,rate:.9,speed:4.9,projectile:"heavy"},
+{id:"pink",name:"Pink Chicken",stars:3,weapon:"Heart Cannon",icon:"💗🐔",color:0xf083ad,value:600,damage:24,rate:.42,speed:5.0,projectile:"heal"},
+
+{id:"robot",name:"Robot Chicken",stars:4,weapon:"Laser Gun",icon:"🤖🐔",color:0x8a969d,value:1800,damage:33,rate:.30,speed:5.0,projectile:"laser"},
+{id:"fire",name:"Fire Chicken",stars:4,weapon:"Flamethrower",icon:"🔥🐔",color:0xe65b2f,value:1800,damage:10,rate:.10,speed:4.9,projectile:"fire"},
+{id:"ice",name:"Ice Chicken",stars:4,weapon:"Freeze Gun",icon:"❄️🐔",color:0x9eeaff,value:1800,damage:19,rate:.30,speed:5.0,projectile:"ice"},
+
+{id:"thunder",name:"Thunder Chicken",stars:5,weapon:"Lightning Cannon",icon:"⚡🐔",color:0xf4d84c,value:5000,damage:46,rate:.52,speed:5.2,projectile:"lightning"},
+{id:"gold",name:"Golden Chicken",stars:5,weapon:"Golden Gatling",icon:"👑🐔",color:0xffc629,value:5000,damage:15,rate:.08,speed:5.0,projectile:"gold"}
+
+];
+
+/* =====================================================
+   SAVE DATA
+===================================================== */
+
+const defaultSave = {
+  coins:700,
+  fragments:100,
+  owned:["white","black","yellow"],
+  selected:"white",
+  levels:{white:1,black:1,yellow:1},
+  skins:{},
+  stats:{
+    totalKills:0,
+    totalGames:0,
+    bosses:0
+  },
+  infiniteTask:0
+};
+
+let save;
+
+try{
+  save=JSON.parse(localStorage.getItem("chickenChaosSave")) || defaultSave;
+}catch{
+  save=structuredClone(defaultSave);
+}
+
+function persist(){
+  localStorage.setItem("chickenChaosSave",JSON.stringify(save));
+}
+
+function C(id){
+  return chickens.find(c=>c.id===id);
+}
+
+/* =====================================================
+   THREE
+===================================================== */
+
+const scene=new THREE.Scene();
+scene.background=new THREE.Color(0x8ed4f1);
+scene.fog=new THREE.Fog(0x8ed4f1,30,80);
+
+const camera=new THREE.PerspectiveCamera(50,innerWidth/innerHeight,.1,150);
+
+const renderer=new THREE.WebGLRenderer({
+  antialias:true,
+  powerPreference:"high-performance"
+});
+
+renderer.setSize(innerWidth,innerHeight);
+renderer.setPixelRatio(Math.min(devicePixelRatio,1.5));
+renderer.outputColorSpace=THREE.SRGBColorSpace;
+renderer.toneMapping=THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure=1.15;
+renderer.shadowMap.enabled=true;
+document.body.prepend(renderer.domElement);
+
+scene.add(new THREE.HemisphereLight(0xe9f8ff,0x527545,2.4));
+
+const sun=new THREE.DirectionalLight(0xffe0ad,4);
+sun.position.set(-20,35,25);
+sun.castShadow=true;
+scene.add(sun);
+
+/* =====================================================
+   WORLD
+===================================================== */
+
+function buildWorld(){
+
+  const island=new THREE.Mesh(
+    new THREE.CylinderGeometry(25,28,2.2,64),
+    new THREE.MeshStandardMaterial({color:0x78be64,roughness:.9})
+  );
+
+  island.position.y=-1.1;
+  island.receiveShadow=true;
+  scene.add(island);
+
+  const sand=new THREE.Mesh(
+    new THREE.CylinderGeometry(28,30,1,64),
+    new THREE.MeshStandardMaterial({color:0xe3c67d})
+  );
+
+  sand.position.y=-1.8;
+  scene.add(sand);
+
+  const sea=new THREE.Mesh(
+    new THREE.PlaneGeometry(150,150),
+    new THREE.MeshStandardMaterial({
+      color:0x4ca7d8,
+      roughness:.25,
+      metalness:.08
+    })
+  );
+
+  sea.rotation.x=-Math.PI/2;
+  sea.position.y=-2.3;
+  scene.add(sea);
+
+  for(let i=0;i<20;i++){
+    const a=Math.random()*Math.PI*2;
+    const r=16+Math.random()*7;
+    makeTree(Math.cos(a)*r,Math.sin(a)*r);
+  }
+}
+
+function makeTree(x,z){
+
+  const trunk=new THREE.Mesh(
+    new THREE.CylinderGeometry(.18,.25,1.8,7),
+    new THREE.MeshStandardMaterial({color:0x735033})
+  );
+
+  trunk.position.set(x,.9,z);
+  scene.add(trunk);
+
+  const crown=new THREE.Mesh(
+    new THREE.SphereGeometry(1,8,6),
+    new THREE.MeshStandardMaterial({color:0x3f9153})
+  );
+
+  crown.scale.set(1,1.35,1);
+  crown.position.set(x,2.2,z);
+  scene.add(crown);
+}
+
+buildWorld();
+
+/* =====================================================
+   PROCEDURAL CHICKEN
+===================================================== */
+
+function createChicken(data){
+
+  const g=new THREE.Group();
+
+  const mat=new THREE.MeshStandardMaterial({
+    color:data.color,
+    roughness:.72
+  });
+
+  const body=new THREE.Mesh(
+    new THREE.SphereGeometry(.6,14,11),
+    mat
+  );
+
+  body.scale.set(1,1.15,1);
+  body.position.y=.75;
+  g.add(body);
+
+  const head=new THREE.Mesh(
+    new THREE.SphereGeometry(.38,12,9),
+    mat
+  );
+
+  head.position.set(0,1.42,-.18);
+  g.add(head);
+
+  const beak=new THREE.Mesh(
+    new THREE.ConeGeometry(.13,.34,6),
+    new THREE.MeshStandardMaterial({color:0xf0a62d})
+  );
+
+  beak.rotation.x=-Math.PI/2;
+  beak.position.set(0,1.4,-.52);
+  g.add(beak);
+
+  const comb=new THREE.Mesh(
+    new THREE.SphereGeometry(.15,7,6),
+    new THREE.MeshStandardMaterial({color:0xdc3e36})
+  );
+
+  comb.scale.y=1.6;
+  comb.position.set(0,1.82,-.05);
+  g.add(comb);
+
+  for(const x of [-.16,.16]){
+    const eye=new THREE.Mesh(
+      new THREE.SphereGeometry(.055,7,5),
+      new THREE.MeshBasicMaterial({color:0x111111})
+    );
+
+    eye.position.set(x,1.51,-.47);
+    g.add(eye);
+  }
+
+  for(const x of [-.22,.22]){
+    const leg=new THREE.Mesh(
+      new THREE.CylinderGeometry(.04,.04,.36,6),
+      new THREE.MeshStandardMaterial({color:0xe3a12e})
+    );
+
+    leg.position.set(x,.18,0);
+    g.add(leg);
+  }
+
+  /* SPECIAL LOOKS */
+
+  if(data.id==="cowboy"){
+    const hat=new THREE.Mesh(
+      new THREE.CylinderGeometry(.38,.48,.18,12),
+      new THREE.MeshStandardMaterial({color:0x6e4528})
+    );
+    hat.position.set(0,1.95,-.05);
+    g.add(hat);
+  }
+
+  if(data.id==="robot"){
+    body.material=new THREE.MeshStandardMaterial({
+      color:0x7f8b91,
+      metalness:.75,
+      roughness:.28
+    });
+  }
+
+  if(data.id==="gold"){
+    const crown=new THREE.Mesh(
+      new THREE.ConeGeometry(.3,.35,5),
+      new THREE.MeshStandardMaterial({
+        color:0xffd12e,
+        metalness:.6
+      })
+    );
+    crown.position.set(0,2.05,-.05);
+    g.add(crown);
+  }
+
+  const weapon=createWeapon(data);
+  weapon.position.set(.43,.92,-.35);
+  g.add(weapon);
+  g.userData.weapon=weapon;
+
+  return g;
+}
+
+/* =====================================================
+   WEAPON ART
+===================================================== */
+
+function createWeapon(data){
+
+  const g=new THREE.Group();
+
+  let color=0x343a3e;
+
+  if(data.stars>=4)color=0x586b73;
+  if(data.id==="gold")color=0xffc72e;
+  if(data.id==="fire")color=0xe4522c;
+  if(data.id==="ice")color=0x67d9f3;
+
+  const mat=new THREE.MeshStandardMaterial({
+    color,
+    metalness:.55,
+    roughness:.4
+  });
+
+  const barrel=new THREE.Mesh(
+    new THREE.BoxGeometry(.16,.16,.75),
+    mat
+  );
+
+  barrel.position.z=-.28;
+  g.add(barrel);
+
+  const handle=new THREE.Mesh(
+    new THREE.BoxGeometry(.14,.34,.18),
+    mat
+  );
+
+  handle.position.set(0,-.18,.02);
+  g.add(handle);
+
+  if(["shotgun","heavy"].includes(data.projectile)){
+    barrel.scale.set(1.4,1.2,1.3);
+  }
+
+  if(data.projectile==="laser"){
+    barrel.material=new THREE.MeshStandardMaterial({
+      color:0x59d9ff,
+      emissive:0x125d73,
+      emissiveIntensity:1
+    });
+  }
+
+  return g;
+}
+
+/* =====================================================
+   GAME
+===================================================== */
+
+let gameActive=false;
+let mode="survival";
+let player;
+let secondPlayer;
+
+let enemies=[];
+let bullets=[];
+let coins=[];
+let particles=[];
+
+let hp=100;
+let kills=0;
+let runCoins=0;
+let wave=1;
+let fireTimer=0;
+let damageTimer=0;
+
+const keys={};
+
+addEventListener("keydown",e=>keys[e.code]=true);
+addEventListener("keyup",e=>keys[e.code]=false);
+
+/* =====================================================
+   ENEMY
+===================================================== */
+
+function createEnemy(bot=false){
+
+  const g=new THREE.Group();
+
+  const body=new THREE.Mesh(
+    new THREE.SphereGeometry(.54,10,8),
+    new THREE.MeshStandardMaterial({
+      color:bot?0x5666d9:0xb54c43
+    })
+  );
+
+  body.scale.y=1.15;
+  body.position.y=.6;
+  g.add(body);
+
+  for(const x of [-.3,.3]){
+    const ear=new THREE.Mesh(
+      new THREE.ConeGeometry(.13,.35,5),
+      new THREE.MeshStandardMaterial({color:0x7f302c})
+    );
+    ear.position.set(x,1.17,0);
+    g.add(ear);
+  }
+
+  const a=Math.random()*Math.PI*2;
+  const r=21+Math.random()*3;
+
+  g.position.set(
+    Math.cos(a)*r,
+    0,
+    Math.sin(a)*r
+  );
+
+  g.userData.hp=45+wave*7;
+  g.userData.speed=2+Math.min(wave*.1,1.5);
+  g.userData.knock=new THREE.Vector3();
+  g.userData.bot=bot;
+
+  scene.add(g);
+  enemies.push(g);
+}
+
+/* =====================================================
+   WAVES
+===================================================== */
+
+function spawnWave(){
+
+  let amount=18+(wave-1)*7;
+
+  if(mode==="bot"){
+    amount=10;
+  }
+
+  for(let i=0;i<amount;i++){
+    setTimeout(()=>{
+      if(gameActive)createEnemy(mode==="bot");
+    },i*100);
+  }
+
+  flashMessage("WAVE "+wave);
+}
+
+/* =====================================================
+   FIRE
+===================================================== */
+
+function autoFire(){
+
+  if(!player||enemies.length===0)return;
+
+  const data=C(save.selected);
+
+  let nearest=null;
+  let best=Infinity;
+
+  for(const e of enemies){
+
+    const d=player.position.distanceTo(e.position);
+
+    if(d<best){
+      best=d;
+      nearest=e;
+    }
+  }
+
+  if(!nearest||best>16)return;
+
+  const dir=new THREE.Vector3()
+    .subVectors(nearest.position,player.position);
+
+  dir.y=0;
+  dir.normalize();
+
+  player.rotation.y=Math.atan2(dir.x,dir.z)+Math.PI;
+
+  switch(data.projectile){
+
+    case "shotgun":
+      for(let i=-2;i<=2;i++){
+        const d=dir.clone().applyAxisAngle(
+          new THREE.Vector3(0,1,0),
+          i*.12
+        );
+        spawnBullet(d,data.damage);
+      }
+      break;
+
+    case "dual":
+      spawnBullet(dir.clone().applyAxisAngle(
+        new THREE.Vector3(0,1,0),-.05
+      ),data.damage);
+
+      spawnBullet(dir.clone().applyAxisAngle(
+        new THREE.Vector3(0,1,0),.05
+      ),data.damage);
+      break;
+
+    case "lightning":
+      lightningAttack(nearest,data.damage);
+      break;
+
+    default:
+      spawnBullet(dir,data.damage,data.projectile);
+  }
+
+  muzzleEffect(data);
+}
+
+/* =====================================================
+   BULLET
+===================================================== */
+
+function spawnBullet(dir,damage,type="normal"){
+
+  let color=0xffd34e;
+  let size=.09;
+  let speed=15;
+
+  if(type==="poison")color=0x62e55c;
+  if(type==="ice")color=0x74dfff;
+  if(type==="fire"){color=0xff7237;size=.13}
+  if(type==="gold")color=0xffd029;
+  if(type==="heavy"){size=.16;speed=11}
+  if(type==="laser"){color=0x55e8ff;size=.07;speed=22}
+
+  const b=new THREE.Mesh(
+    new THREE.SphereGeometry(size,7,5),
+    new THREE.MeshBasicMaterial({color})
+  );
+
+  b.position.copy(player.position);
+  b.position.y=1;
+  b.position.add(dir.clone().multiplyScalar(.8));
+
+  b.userData.velocity=dir.multiplyScalar(speed);
+  b.userData.damage=damage;
+  b.userData.type=type;
+  b.userData.life=2;
+
+  scene.add(b);
+  bullets.push(b);
+}
+
+function lightningAttack(first,damage){
+
+  let current=first;
+  const already=new Set();
+
+  for(let i=0;i<4&&current;i++){
+
+    already.add(current);
+    current.userData.hp-=damage;
+
+    spark(current.position,0x7ee9ff);
+
+    let next=null;
+    let best=4;
+
+    for(const e of enemies){
+
+      if(already.has(e))continue;
+
+      const d=current.position.distanceTo(e.position);
+
+      if(d<best){
+        best=d;
+        next=e;
+      }
+    }
+
+    current=next;
+  }
+}
+
+/* =====================================================
+   FX
+===================================================== */
+
+function muzzleEffect(data){
+
+  const flash=new THREE.Mesh(
+    new THREE.SphereGeometry(.14,7,5),
+    new THREE.MeshBasicMaterial({
+      color:data.stars>=4?0x6fe6ff:0xffc345
+    })
+  );
+
+  flash.position.copy(player.position);
+  flash.position.y=1;
+  scene.add(flash);
+
+  setTimeout(()=>scene.remove(flash),45);
+}
+
+function spark(pos,color=0xffd45b){
+
+  for(let i=0;i<5;i++){
+
+    const p=new THREE.Mesh(
+      new THREE.SphereGeometry(.04,5,4),
+      new THREE.MeshBasicMaterial({color})
+    );
+
+    p.position.copy(pos);
+
+    p.userData.vel=new THREE.Vector3(
+      (Math.random()-.5)*2,
+      Math.random()*1.8,
+      (Math.random()-.5)*2
+    );
+
+    p.userData.life=.3;
+
+    scene.add(p);
+    particles.push(p);
+  }
+}
+
+/* =====================================================
+   UPDATE BULLETS
+===================================================== */
+
+function updateBullets(dt){
+
+  for(let i=bullets.length-1;i>=0;i--){
+
+    const b=bullets[i];
+
+    b.position.addScaledVector(b.userData.velocity,dt);
+    b.userData.life-=dt;
+
+    let gone=false;
+
+    for(let j=enemies.length-1;j>=0;j--){
+
+      const e=enemies[j];
+
+      if(b.position.distanceTo(e.position)<.7){
+
+        e.userData.hp-=b.userData.damage;
+
+        const push=b.userData.velocity.clone()
+          .normalize()
+          .multiplyScalar(2.1);
+
+        e.userData.knock.add(push);
+
+        if(b.userData.type==="ice"){
+          e.userData.speed*=.88;
+        }
+
+        if(b.userData.type==="heal"){
+          hp=Math.min(100,hp+1);
+        }
+
+        spark(b.position);
+
+        scene.remove(b);
+        bullets.splice(i,1);
+        gone=true;
+
+        if(e.userData.hp<=0){
+
+          const pos=e.position.clone();
+
+          scene.remove(e);
+          enemies.splice(j,1);
+
+          kills++;
+          save.stats.totalKills++;
+
+          dropCoin(pos);
+        }
+
+        break;
+      }
+    }
+
+    if(gone)continue;
+
+    if(b.userData.life<=0){
+      scene.remove(b);
+      bullets.splice(i,1);
+    }
+  }
+}
+
+/* =====================================================
+   COINS
+===================================================== */
+
+function dropCoin(pos){
+
+  const c=new THREE.Mesh(
+    new THREE.CylinderGeometry(.15,.15,.05,10),
+    new THREE.MeshStandardMaterial({
+      color:0xffc72e,
+      metalness:.7
+    })
+  );
+
+  c.position.copy(pos);
+  c.position.y=.18;
+  c.rotation.x=Math.PI/2;
+
+  scene.add(c);
+  coins.push(c);
+}
+
+function updateCoins(dt){
+
+  if(!player)return;
+
+  for(let i=coins.length-1;i>=0;i--){
+
+    const c=coins[i];
+    c.rotation.z+=dt*5;
+
+    const d=c.position.distanceTo(player.position);
+
+    if(d<3){
+
+      const dir=new THREE.Vector3()
+        .subVectors(player.position,c.position)
+        .normalize();
+
+      c.position.addScaledVector(dir,dt*7);
+    }
+
+    if(d<.65){
+
+      runCoins+=5;
+
+      scene.remove(c);
+      coins.splice(i,1);
+    }
+  }
+}
+
+/* =====================================================
+   ENEMIES
+===================================================== */
+
+function updateEnemies(dt){
+
+  if(!player)return;
+
+  for(let i=enemies.length-1;i>=0;i--){
+
+    const e=enemies[i];
+
+    const dir=new THREE.Vector3()
+      .subVectors(player.position,e.position);
+
+    dir.y=0;
+
+    const d=dir.length();
+
+    if(d>.001)dir.normalize();
+
+    e.userData.knock.multiplyScalar(.88);
+
+    e.position.addScaledVector(dir,e.userData.speed*dt);
+    e.position.addScaledVector(e.userData.knock,dt);
+
+    /* separate enemies */
+    for(let j=i-1;j>=0;j--){
+
+      const o=enemies[j];
+
+      const dx=e.position.x-o.position.x;
+      const dz=e.position.z-o.position.z;
+      const ds=dx*dx+dz*dz;
+
+      if(ds>0&&ds<.8){
+
+        const len=Math.sqrt(ds);
+        const force=(.9-len)*.04;
+
+        e.position.x+=dx/len*force;
+        e.position.z+=dz/len*force;
+
+        o.position.x-=dx/len*force;
+        o.position.z-=dz/len*force;
+      }
+    }
+
+    if(d<1.05&&damageTimer<=0){
+
+      hp-=10;
+      damageTimer=.65;
+
+      e.userData.knock.add(
+        dir.clone().multiplyScalar(-5)
+      );
+
+      flashMessage("-10 HP");
+
+      if(hp<=0){
+        endGame();
+        return;
+      }
+    }
+  }
+}
+
+/* =====================================================
+   PLAYER
+===================================================== */
+
+let joyX=0;
+let joyY=0;
+
+function updatePlayer(dt){
+
+  if(!player)return;
+
+  let x=(keys.KeyD?1:0)-(keys.KeyA?1:0)+joyX;
+  let z=(keys.KeyS?1:0)-(keys.KeyW?1:0)+joyY;
+
+  const len=Math.hypot(x,z);
+
+  if(len>1){
+    x/=len;
+    z/=len;
+  }
+
+  const data=C(save.selected);
+
+  player.position.x+=x*data.speed*dt;
+  player.position.z+=z*data.speed*dt;
+
+  const r=Math.hypot(player.position.x,player.position.z);
+
+  if(r>21){
+    player.position.x*=21/r;
+    player.position.z*=21/r;
+  }
+
+  if(len>.1){
+    player.position.y=Math.abs(
+      Math.sin(performance.now()*.009)
+    )*.07;
+  }else{
+    player.position.y=0;
+  }
+}
+
+/* =====================================================
+   CAMERA
+===================================================== */
+
+function updateCamera(){
+
+  if(!player)return;
+
+  const target=player.position.clone();
+
+  const desired=target.clone().add(
+    new THREE.Vector3(0,13,12)
+  );
+
+  camera.position.lerp(desired,.09);
+  camera.lookAt(target.x,.6,target.z);
+}
+
+/* =====================================================
+   UI
+===================================================== */
+
+function updateLobby(){
+
+  document.getElementById("coinUI").textContent="🪙 "+save.coins;
+  document.getElementById("fragmentUI").textContent="🧩 "+save.fragments;
+
+  const chosen=C(save.selected);
+
+  document.getElementById("selectedChickenEmoji").textContent=chosen.icon;
+  document.getElementById("selectedChickenName").textContent=chosen.name.toUpperCase();
+  document.getElementById("selectedWeapon").textContent=chosen.weapon+" · Lv."+ (save.levels[chosen.id]||1);
+  document.getElementById("selectedStars").textContent="★".repeat(chosen.stars);
+
+  const list=document.getElementById("chickenList");
+  list.innerHTML="";
+
+  chickens.forEach(c=>{
+
+    const owned=save.owned.includes(c.id);
+
+    const tile=document.createElement("div");
+
+    tile.className=
+      "chickenTile"+
+      (owned?"":" locked")+
+      (save.selected===c.id?" selected":"");
+
+    tile.innerHTML=
+      `<div class="chickenIcon">${c.icon}</div>
+       <b>${c.name}</b>
+       <small>${"★".repeat(c.stars)} · ${c.weapon}</small>`;
+
+    if(owned){
+      tile.onclick=()=>{
+        save.selected=c.id;
+        persist();
+        updateLobby();
+      };
+    }
+
+    list.appendChild(tile);
+  });
+
+  persist();
+}
+
+/* =====================================================
+   EGGS
+===================================================== */
+
+window.openEggs=()=>{
+  closeModals();
+  document.getElementById("eggModal").classList.add("active");
+};
+
+window.rollEgg=(type)=>{
+
+  const configs={
+    common:{price:50,pool:[1,1,1,1,2]},
+    color:{price:500,pool:[2,2,2,3,3,3,4]},
+    royal:{price:5000,pool:[3,3,3,3,4,4,5]}
+  };
+
+  const cfg=configs[type];
+
+  if(save.coins<cfg.price){
+    document.getElementById("eggResult").textContent="NOT ENOUGH COINS";
+    return;
+  }
+
+  save.coins-=cfg.price;
+
+  const star=cfg.pool[Math.floor(Math.random()*cfg.pool.length)];
+
+  const pool=chickens.filter(c=>c.stars===star);
+
+  const won=pool[Math.floor(Math.random()*pool.length)];
+
+  let text;
+
+  if(save.owned.includes(won.id)){
+
+    const sell=Math.floor(won.value*.5);
+
+    save.coins+=sell;
+
+    text=
+      `DUPLICATE! ${won.icon} ${won.name}
+       → SOLD FOR 🪙${sell}`;
+
+  }else{
+
+    save.owned.push(won.id);
+    save.levels[won.id]=1;
+
+    text=
+      `NEW CHICKEN! ${won.icon} ${won.name} ${"★".repeat(won.stars)}`;
+  }
+
+  document.getElementById("eggResult").textContent=text;
+
+  persist();
+  updateLobby();
+};
+
+/* =====================================================
+   SHOP
+===================================================== */
+
+window.openShop=()=>{
+
+  closeModals();
+
+  const content=document.getElementById("shopContent");
+
+  content.innerHTML="";
+
+  chickens.forEach(c=>{
+
+    const row=document.createElement("div");
+    row.className="shopRow";
+
+    let right;
+
+    if(c.stars>=4){
+
+      right="<b>OUT OF STOCK</b>";
+
+    }else if(save.owned.includes(c.id)){
+
+      right="<b>OWNED</b>";
+
+    }else{
+
+      right=
+        `<button onclick="buyChicken('${c.id}')">
+          🧩 ${c.value}
+        </button>`;
+    }
+
+    row.innerHTML=
+      `<span>${c.icon} <b>${c.name}</b><br>
+      <small>${"★".repeat(c.stars)} · ${c.weapon}</small></span>
+      ${right}`;
+
+    content.appendChild(row);
+  });
+
+  document.getElementById("shopModal").classList.add("active");
+};
+
+window.buyChicken=id=>{
+
+  const c=C(id);
+
+  if(save.fragments<c.value){
+    alert("Not enough fragments");
+    return;
+  }
+
+  save.fragments-=c.value;
+  save.owned.push(c.id);
+  save.levels[c.id]=1;
+
+  persist();
+  openShop();
+  updateLobby();
+};
+
+/* =====================================================
+   TASKS
+===================================================== */
+
+function getTasks(){
+
+  const step=save.infiniteTask;
+
+  return[
+    {name:"Defeat 50 enemies",need:50,type:"kills",coin:100,frag:10},
+    {name:"Complete 3 games",need:3,type:"games",coin:150,frag:15},
+    {name:"Defeat 500 enemies this week",need:500,type:"kills",coin:700,frag:75},
+    {
+      name:`∞ Infinite Mission ${step+1}: Defeat ${100+step*75} enemies`,
+      need:100+step*75,
+      type:"kills",
+      coin:100+step*20,
+      frag:5+Math.min(step,20)
+    }
+  ];
+}
+
+window.openTasks=()=>{
+
+  closeModals();
+
+  const content=document.getElementById("taskContent");
+  content.innerHTML="";
+
+  getTasks().forEach((t,index)=>{
+
+    const progress=
+      t.type==="kills"
+      ?save.stats.totalKills
+      :save.stats.totalGames;
+
+    const complete=progress>=t.need;
+
+    const row=document.createElement("div");
+    row.className="taskRow";
+
+    row.innerHTML=
+      `<span>
+        <b>${t.name}</b><br>
+        <small>${Math.min(progress,t.need)} / ${t.need}</small>
+       </span>
+       <span>
+         <div class="taskReward">🪙${t.coin} + 🧩${t.frag}</div>
+         <button ${complete?"":"disabled"}
+          onclick="claimTask(${index})">
+          CLAIM
+         </button>
+       </span>`;
+
+    content.appendChild(row);
+  });
+
+  document.getElementById("taskModal").classList.add("active");
+};
+
+window.claimTask=index=>{
+
+  const tasks=getTasks();
+  const t=tasks[index];
+
+  const progress=
+    t.type==="kills"
+    ?save.stats.totalKills
+    :save.stats.totalGames;
+
+  if(progress<t.need)return;
+
+  save.coins+=t.coin;
+  save.fragments+=t.frag;
+
+  if(index===tasks.length-1){
+    save.infiniteTask++;
+  }
+
+  /*
+    Simple milestone reset is deliberately avoided.
+    Later we add proper daily/weekly reset timestamps.
+  */
+
+  persist();
+  updateLobby();
+  openTasks();
+};
+
+/* =====================================================
+   UPGRADE
+===================================================== */
+
+window.upgradeChicken=()=>{
+
+  const id=save.selected;
+  const level=save.levels[id]||1;
+
+  if(level>=10){
+    alert("MAX LEVEL");
+    return;
+  }
+
+  const cost=level*150;
+
+  if(save.coins<cost){
+    alert("Need 🪙"+cost);
+    return;
+  }
+
+  save.coins-=cost;
+  save.levels[id]=level+1;
+
+  persist();
+  updateLobby();
+};
+
+window.upgradeSkin=()=>{
+
+  const id=save.selected;
+  const level=save.skins[id]||0;
+
+  const cost=(level+1)*100;
+
+  if(save.fragments<cost){
+    alert("Need 🧩"+cost);
+    return;
+  }
+
+  save.fragments-=cost;
+  save.skins[id]=level+1;
+
+  persist();
+  updateLobby();
+
+  alert("Skin Effect Level "+(level+1));
+};
+
+/* =====================================================
+   MODES
+===================================================== */
+
+window.openModes=()=>{
+  closeModals();
+  document.getElementById("modeModal").classList.add("active");
+};
+
+window.closeModals=()=>{
+  document.querySelectorAll(".modalWrap")
+    .forEach(x=>x.classList.remove("active"));
+};
+
+window.startMode=selectedMode=>{
+
+  closeModals();
+
+  mode=selectedMode;
+
+  document.getElementById("lobby").classList.remove("show");
+  document.getElementById("gameHud").style.display="block";
+
+  scene.children
+    .filter(x=>x.userData.gameObject)
+    .forEach(x=>scene.remove(x));
+
+  enemies=[];
+  bullets=[];
+  coins=[];
+  particles=[];
+
+  hp=100;
+  kills=0;
+  runCoins=0;
+  wave=1;
+  fireTimer=0;
+
+  player=createChicken(C(save.selected));
+  player.userData.gameObject=true;
+
+  scene.add(player);
+
+  gameActive=true;
+
+  document.getElementById("hudChicken").textContent=C(save.selected).name.toUpperCase();
+  document.getElementById("modeUI").textContent=mode.toUpperCase();
+
+  spawnWave();
+};
+
+window.returnLobby=()=>{
+
+  if(gameActive){
+    save.coins+=runCoins;
+    save.stats.totalGames++;
+    persist();
+  }
+
+  gameActive=false;
+
+  if(player){
+    scene.remove(player);
+    player=null;
+  }
+
+  enemies.forEach(x=>scene.remove(x));
+  bullets.forEach(x=>scene.remove(x));
+  coins.forEach(x=>scene.remove(x));
+
+  enemies=[];
+  bullets=[];
+  coins=[];
+
+  document.getElementById("gameHud").style.display="none";
+  document.getElementById("lobby").classList.add("show");
+
+  updateLobby();
+};
+
+/* =====================================================
+   END
+===================================================== */
+
+function endGame(){
+
+  flashMessage("CHICKEN DOWN");
+
+  setTimeout(()=>{
+    returnLobby();
+  },1200);
+}
+
+function flashMessage(text){
+
+  const el=document.getElementById("gameMessage");
+  el.textContent=text;
+
+  clearTimeout(el.timer);
+
+  el.timer=setTimeout(()=>{
+    el.textContent="";
+  },1000);
+}
+
+/* =====================================================
+   MOBILE JOYSTICK
+===================================================== */
+
+const joystick=document.getElementById("joystick");
+const stick=document.getElementById("stick");
+
+let joyId=null;
+
+joystick.addEventListener("pointerdown",e=>{
+  joyId=e.pointerId;
+  joystick.setPointerCapture(joyId);
+});
+
+joystick.addEventListener("pointermove",e=>{
+
+  if(e.pointerId!==joyId)return;
+
+  const r=joystick.getBoundingClientRect();
+
+  let dx=e.clientX-(r.left+r.width/2);
+  let dy=e.clientY-(r.top+r.height/2);
+
+  const max=27;
+  const len=Math.hypot(dx,dy);
+
+  if(len>max){
+    dx*=max/len;
+    dy*=max/len;
+  }
+
+  joyX=dx/max;
+  joyY=dy/max;
+
+  stick.style.transform=`translate(${dx}px,${dy}px)`;
+});
+
+function resetJoy(){
+
+  joyId=null;
+  joyX=joyY=0;
+  stick.style.transform="translate(0,0)";
+}
+
+joystick.addEventListener("pointerup",resetJoy);
+joystick.addEventListener("pointercancel",resetJoy);
+
+/* =====================================================
+   LOOP
+===================================================== */
+
+const clock=new THREE.Clock();
+
+function loop(){
+
+  requestAnimationFrame(loop);
+
+  const dt=Math.min(clock.getDelta(),.04);
+
+  if(gameActive){
+
+    updatePlayer(dt);
+    updateEnemies(dt);
+    updateBullets(dt);
+    updateCoins(dt);
+    updateCamera();
+
+    damageTimer-=dt;
+    fireTimer-=dt;
+
+    if(fireTimer<=0){
+
+      autoFire();
+
+      const c=C(save.selected);
+      const level=save.levels[c.id]||1;
+
+      fireTimer=Math.max(
+        .04,
+        c.rate*(1-(level-1)*.025)
+      );
+    }
+
+    for(let i=particles.length-1;i>=0;i--){
+
+      const p=particles[i];
+
+      p.position.addScaledVector(p.userData.vel,dt);
+      p.userData.vel.y-=4*dt;
+      p.userData.life-=dt;
+
+      if(p.userData.life<=0){
+        scene.remove(p);
+        particles.splice(i,1);
+      }
+    }
+
+    if(enemies.length===0&&!window.waveLock){
+
+      window.waveLock=true;
+      wave++;
+
+      flashMessage("WAVE CLEARED");
+
+      setTimeout(()=>{
+        if(gameActive)spawnWave();
+        window.waveLock=false;
+      },1400);
+    }
+
+    document.getElementById("killUI").textContent=kills;
+    document.getElementById("runCoins").textContent="🪙 "+runCoins;
+    document.getElementById("enemyUI").textContent="ENEMIES "+enemies.length;
+    document.getElementById("waveUI").textContent="WAVE "+wave;
+    document.getElementById("hpText").textContent="HP "+Math.max(0,hp)+" / 100";
+    document.getElementById("hpFill").style.width=Math.max(0,hp)+"%";
+  }
+
+  renderer.render(scene,camera);
+}
+
+loop();
+
+updateLobby();
+
+addEventListener("resize",()=>{
+
+  camera.aspect=innerWidth/innerHeight;
+  camera.updateProjectionMatrix();
+
+  renderer.setSize(innerWidth,innerHeight);
+});
+
+</script>
+
+</body>
+</html>
