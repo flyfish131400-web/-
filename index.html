@@ -2,16 +2,11 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 
-<meta
-  name="viewport"
-  content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"
->
-
-<title>爆小鸡 BOOM CHICKEN — Combat V2</title>
+<title>爆小鸡 BOOM CHICKEN</title>
 
 <style>
-
 @import url('https://fonts.googleapis.com/css2?family=Bungee&family=Lilita+One&family=Orbitron:wght@600;700;800&display=swap');
 
 *{
@@ -19,22 +14,17 @@
   -webkit-tap-highlight-color:transparent;
 }
 
-html,
-body{
+html,body{
   margin:0;
   width:100%;
   height:100%;
   overflow:hidden;
   background:#0b121b;
-
   touch-action:none;
   overscroll-behavior:none;
-
   -webkit-user-select:none;
   user-select:none;
-
   -webkit-touch-callout:none;
-
   font-family:"Lilita One",sans-serif;
 }
 
@@ -56,1622 +46,745 @@ button{
   --yellow:#ffd354;
   --blue:#65d4ff;
   --red:#ff4e4e;
-  --panel:#172535;
-  --line:#5f7689;
 }
 
-
-/* ========================================
-   BLOCK UI
-======================================== */
-
 .blockPanel{
-
-  background:
-  linear-gradient(
-    180deg,
-    #26394b,
-    #172535
-  );
-
+  background:linear-gradient(180deg,#26394b,#172535);
   border:4px solid #60798f;
-
   box-shadow:
     inset 0 3px 0 rgba(255,255,255,.12),
     0 7px 0 #0b1219,
     0 14px 26px rgba(0,0,0,.28);
-
   border-radius:8px;
-
   color:#fff;
 }
 
-
 .blockButton{
-
   border:4px solid rgba(255,255,255,.25);
-
-  border-bottom-color:
-  rgba(0,0,0,.4);
-
-  background:
-  linear-gradient(
-    180deg,
-    #ffad4b,
-    #ed7423
-  );
-
+  border-bottom-color:rgba(0,0,0,.4);
+  background:linear-gradient(180deg,#ffad4b,#ed7423);
   box-shadow:
     inset 0 3px 0 rgba(255,255,255,.28),
     0 6px 0 #87390f;
-
   border-radius:7px;
-
   color:#fff;
-
   cursor:pointer;
-
-  text-shadow:
-  0 2px 0 rgba(0,0,0,.3);
+  text-shadow:0 2px 0 rgba(0,0,0,.3);
 }
-
 
 .blockButton:active{
-
-  transform:
-  translateY(4px);
-
-  box-shadow:
-  0 2px 0 #87390f;
+  transform:translateY(4px);
+  box-shadow:0 2px 0 #87390f;
 }
 
-
-/* ========================================
-   INTRO LOGO
-======================================== */
+/* INTRO */
 
 #intro{
-
   position:fixed;
-
   inset:0;
-
   z-index:2000;
-
   display:flex;
-
   align-items:center;
-
   justify-content:center;
-
   background:#081019;
-
   color:white;
-
-  transition:
-  opacity .7s;
+  transition:opacity .7s;
 }
 
-
 #intro.hide{
-
   opacity:0;
-
   pointer-events:none;
 }
 
-
 #intro h1{
-
   margin:0;
-
-  font:
-  clamp(42px,9vw,104px)
-  "Bungee";
-
+  font:clamp(42px,9vw,104px) "Bungee";
   line-height:.9;
-
   text-align:center;
 }
-
 
 #intro h1 span{
-
-  color:
-  var(--orange);
+  color:var(--orange);
 }
 
-
 #intro .sub{
-
   margin-top:16px;
-
   text-align:center;
-
   color:#a9c3d7;
-
-  font:
-  12px "Orbitron";
-
+  font:12px "Orbitron";
   letter-spacing:5px;
 }
 
-
-/* ========================================
-   LOBBY
-======================================== */
+/* LOBBY */
 
 #lobby{
-
   position:fixed;
-
   inset:0;
-
   z-index:50;
-
   padding:18px;
-
   pointer-events:none;
 }
 
-
-#lobby > *{
-
+#lobby>*{
   pointer-events:auto;
 }
 
-
 #logoBox{
-
   position:absolute;
-
   left:18px;
-
   top:18px;
-
-  padding:
-  14px 18px;
+  padding:14px 18px;
 }
 
-
 .gameTitle{
-
-  font:
-  clamp(26px,4vw,48px)
-  "Bungee";
-
+  font:clamp(26px,4vw,48px) "Bungee";
   line-height:.9;
 }
 
-
 .gameTitle span{
-
-  color:
-  var(--orange);
+  color:var(--orange);
 }
 
-
 .gameSub{
-
   margin-top:6px;
-
   color:#a8bed0;
-
-  font:
-  10px "Orbitron";
-
+  font:10px "Orbitron";
   letter-spacing:2px;
 }
 
-
-/* ========================================
-   RESOURCES
-======================================== */
-
 #resources{
-
   position:absolute;
-
   right:18px;
-
   top:18px;
-
-  padding:
-  10px 14px;
-
+  padding:10px 14px;
   display:flex;
-
   gap:20px;
 }
 
-
 .res{
-
   text-align:center;
 }
 
-
 .resName{
-
-  font:
-  9px "Orbitron";
-
+  font:9px "Orbitron";
   color:#9eb7ca;
 }
 
-
 .resValue{
-
   font-size:19px;
-
   margin-top:3px;
 }
 
-
-/* ========================================
-   LANGUAGE
-======================================== */
-
 #langToggle{
-
   position:absolute;
-
   right:18px;
-
   top:92px;
-
   height:38px;
-
-  padding:
-  0 12px;
-
-  font:
-  11px "Orbitron";
+  padding:0 12px;
+  font:11px "Orbitron";
 }
-
-
-/* ========================================
-   SELECTED CHARACTER
-======================================== */
 
 #selectedCard{
-
   position:absolute;
-
   left:18px;
-
   top:125px;
-
   width:230px;
-
-  padding:
-  13px 16px;
+  padding:13px 16px;
 }
 
-
 #selectedName{
-
   font-size:22px;
 }
 
-
 #selectedStars{
-
-  color:
-  var(--yellow);
-
+  color:var(--yellow);
   margin-top:3px;
 }
 
-
 #selectedInfo{
-
   margin-top:8px;
-
   color:#bfd0dd;
-
   font-size:12px;
-
   line-height:1.5;
 }
 
-
-/* ========================================
-   LOBBY BUTTONS
-======================================== */
-
 #machines{
-
   position:absolute;
-
   left:18px;
-
   bottom:22px;
-
   display:flex;
-
   gap:10px;
-
   flex-wrap:wrap;
-
   max-width:500px;
 }
 
-
 .machineBtn{
-
   width:110px;
-
   height:98px;
-
   padding:8px;
 }
 
-
 .machineBtn .icon{
-
   font-size:32px;
 }
 
-
 .machineBtn .name{
-
   font-size:14px;
-
   margin-top:4px;
 }
 
-
-/* ========================================
-   BATTLE PANEL
-======================================== */
-
 #battlePanel{
-
   position:absolute;
-
   right:22px;
-
   bottom:24px;
-
   width:292px;
-
   padding:13px;
 }
 
-
-#startBattle{
-
+#startBattleBtn{
   width:100%;
-
   height:68px;
-
-  font:
-  20px "Bungee";
+  font:20px "Bungee";
 }
 
-
 .selectorLabel{
-
   margin-top:12px;
-
   color:#94aec2;
-
-  font:
-  9px "Orbitron";
-
+  font:9px "Orbitron";
   letter-spacing:1px;
 }
 
-
 .selector{
-
   margin-top:5px;
-
   height:46px;
-
   display:grid;
-
-  grid-template-columns:
-  45px 1fr 45px;
-
+  grid-template-columns:45px 1fr 45px;
   align-items:center;
-
   background:#0e1923;
-
-  border:
-  3px solid #455f74;
+  border:3px solid #455f74;
 }
 
-
 .selector button{
-
   height:100%;
-
   border:0;
-
   background:#25394a;
-
   color:#fff;
-
   font-size:20px;
 }
 
-
 .selector div{
-
   text-align:center;
-
   font-size:16px;
 }
 
-
-/* ========================================
-   MODAL
-======================================== */
+/* MODALS */
 
 .modalWrap{
-
   position:fixed;
-
   inset:0;
-
   z-index:700;
-
   display:none;
-
   align-items:center;
-
   justify-content:center;
-
-  background:
-  rgba(3,8,13,.78);
-
+  background:rgba(3,8,13,.78);
   padding:18px;
 }
-
 
 .modalWrap.show{
-
   display:flex;
 }
 
-
 .modal{
-
-  width:
-  min(920px,96vw);
-
+  width:min(920px,96vw);
   max-height:90vh;
-
   overflow:auto;
-
   padding:18px;
 }
 
-
 .modalHeader{
-
   display:flex;
-
-  justify-content:
-  space-between;
-
+  justify-content:space-between;
   align-items:center;
 }
 
-
 .modalTitle{
-
-  font:
-  26px "Bungee";
+  font:26px "Bungee";
 }
 
-
 .close{
-
   width:40px;
-
   height:40px;
-
   border:0;
-
   background:#3b5061;
-
   color:white;
-
   font-size:18px;
 }
 
-
-/* ========================================
-   ROSTER
-======================================== */
+/* ROSTER */
 
 #rosterGrid{
-
   margin-top:15px;
-
   display:grid;
-
-  grid-template-columns:
-  repeat(5,1fr);
-
+  grid-template-columns:repeat(5,1fr);
   gap:10px;
 }
 
-
 .chickenCard{
-
   padding:12px;
-
   min-height:145px;
-
   background:#101b26;
-
-  border:
-  3px solid #334a5c;
-
+  border:3px solid #334a5c;
   color:#fff;
-
   cursor:pointer;
 }
 
-
 .chickenCard.locked{
-
-  filter:
-  grayscale(1);
-
+  filter:grayscale(1);
   opacity:.55;
 }
 
-
 .cardColor{
-
   width:45px;
-
   height:45px;
-
   margin:auto;
-
-  border:
-  4px solid
-  rgba(255,255,255,.35);
+  border:4px solid rgba(255,255,255,.35);
 }
 
-
 .cardName{
-
   text-align:center;
-
   margin-top:8px;
 }
 
-
 .cardStars{
-
   text-align:center;
-
-  color:
-  var(--yellow);
-
+  color:var(--yellow);
   font-size:11px;
 }
 
-
 .cardWeapon{
-
   text-align:center;
-
   color:#91b2c9;
-
   font-size:10px;
-
   margin-top:5px;
 }
 
-
-/* ========================================
-   GACHA
-======================================== */
+/* GACHA */
 
 #gachaLayout{
-
   margin-top:16px;
-
   display:grid;
-
-  grid-template-columns:
-  1.1fr .9fr;
-
+  grid-template-columns:1.1fr .9fr;
   gap:18px;
 }
 
-
 #gachaMachine,
 #gachaResult{
-
   min-height:360px;
-
   background:#0f1b26;
-
-  border:
-  4px solid #425c70;
-
+  border:4px solid #425c70;
   position:relative;
-
   text-align:center;
 }
 
-
 #machineBubble{
-
   position:absolute;
-
   left:50%;
-
   top:28px;
-
   width:240px;
-
   height:195px;
-
-  transform:
-  translateX(-50%);
-
+  transform:translateX(-50%);
   border-radius:50%;
-
-  background:
-  radial-gradient(
-    circle at 35% 25%,
-    #ecfaff,
-    #7bcdf4 55%,
-    #3e83aa
-  );
-
-  border:
-  9px solid #eaf7ff;
-
+  background:radial-gradient(circle at 35% 25%,#ecfaff,#7bcdf4 55%,#3e83aa);
+  border:9px solid #eaf7ff;
   overflow:hidden;
 }
 
-
 .smallEgg{
-
   position:absolute;
-
   width:32px;
-
   height:40px;
-
   border-radius:50%;
-
   background:#ffe3a1;
-
-  border:
-  3px solid #fff2cf;
+  border:3px solid #fff2cf;
 }
-
 
 #machineBody{
-
   position:absolute;
-
   left:50%;
-
   bottom:18px;
-
   width:182px;
-
   height:160px;
-
-  transform:
-  translateX(-50%);
-
+  transform:translateX(-50%);
   background:#ff8a30;
-
-  border:
-  8px solid #ffc07a;
+  border:8px solid #ffc07a;
 }
-
 
 #machineHandle{
-
   position:absolute;
-
   right:-40px;
-
   top:28px;
-
   width:24px;
-
   height:85px;
-
   background:#ffd56d;
-
-  transform-origin:
-  top center;
+  transform-origin:top center;
 }
-
 
 #machineHandle::after{
-
   content:"";
-
   position:absolute;
-
   left:-9px;
-
   bottom:-17px;
-
   width:42px;
-
   height:42px;
-
   border-radius:50%;
-
   background:#ff4b4b;
-
-  border:
-  5px solid #ffc2c2;
+  border:5px solid #ffc2c2;
 }
 
-
 #gachaEgg{
-
   display:none;
-
   position:absolute;
-
   left:50%;
-
   bottom:25px;
-
   width:108px;
-
   height:135px;
-
-  transform:
-  translateX(-50%);
-
+  transform:translateX(-50%);
   border-radius:50%;
-
   background:#ffe5a4;
-
-  border:
-  7px solid #fff3d1;
-
+  border:7px solid #fff3d1;
   z-index:4;
 }
 
-
 #gachaEgg.show{
-
   display:block;
 }
 
-
 #gachaEgg.shake{
-
-  animation:
-  shake .14s
-  infinite alternate;
+  animation:shake .14s infinite alternate;
 }
-
 
 @keyframes shake{
-
-  from{
-
-    transform:
-    translateX(-50%)
-    rotate(-6deg);
-  }
-
-  to{
-
-    transform:
-    translateX(-50%)
-    rotate(6deg);
-  }
+  from{transform:translateX(-50%) rotate(-6deg)}
+  to{transform:translateX(-50%) rotate(6deg)}
 }
 
-
 #resultChicken{
-
   font-size:68px;
-
   margin-top:70px;
 }
 
-
 #resultName{
-
   font-size:25px;
-
   margin-top:8px;
 }
 
-
 #resultStars{
-
-  color:
-  var(--yellow);
-
+  color:var(--yellow);
   margin-top:5px;
 }
 
-
 #gachaCost{
-
   color:#acc5d7;
-
-  margin:
-  14px 18px;
-
-  line-height:1.4;
+  margin:14px 18px;
 }
-
 
 #gachaRoll{
-
   width:90%;
-
   height:56px;
-
-  font:
-  16px "Bungee";
+  font:16px "Bungee";
 }
 
-
-/* ========================================
-   HUD
-======================================== */
+/* HUD */
 
 #hud{
-
   display:none;
-
   position:fixed;
-
   inset:0;
-
   z-index:100;
-
   pointer-events:none;
-
   color:white;
 }
 
-
 .hudPanel{
-
-  background:
-  rgba(10,19,28,.86);
-
-  border:
-  3px solid
-  rgba(120,150,175,.82);
-
-  box-shadow:
-  0 5px 0
-  rgba(0,0,0,.4);
+  background:rgba(10,19,28,.86);
+  border:3px solid rgba(120,150,175,.82);
+  box-shadow:0 5px 0 rgba(0,0,0,.4);
 }
-
 
 #hudTopLeft{
-
   position:absolute;
-
   left:14px;
-
   top:14px;
-
-  padding:
-  9px 12px;
+  padding:9px 12px;
 }
 
-
 #hudTopCenter{
-
   position:absolute;
-
   left:50%;
-
   top:14px;
-
-  transform:
-  translateX(-50%);
-
-  padding:
-  8px 18px;
-
+  transform:translateX(-50%);
+  padding:8px 18px;
   text-align:center;
 }
 
-
 #hudTopRight{
-
   position:absolute;
-
   right:14px;
-
   top:14px;
-
-  padding:
-  9px 12px;
-
+  padding:9px 12px;
   text-align:right;
 }
 
-
 .bigHud{
-
   font-size:20px;
 }
 
-
 .smallHud{
-
-  font:
-  9px "Orbitron";
-
+  font:9px "Orbitron";
   color:#9fb8cc;
 }
 
-
 #playerHP{
-
   position:absolute;
-
   left:14px;
-
   bottom:16px;
-
   width:220px;
 }
 
-
 #hpText{
-
   font-size:13px;
-
-  margin-bottom:4px;
 }
-
 
 .barBG{
-
   height:15px;
-
   background:#16212b;
-
-  border:
-  2px solid #53697b;
+  border:2px solid #53697b;
 }
 
-
 .barFill{
-
   height:100%;
 }
 
-
 #hpFill{
-
   width:100%;
-
   background:#60d46c;
 }
 
-
 #xpFill{
-
   width:0;
-
   background:#64ccff;
 }
 
-
 #skillHud{
-
   position:absolute;
-
   right:14px;
-
   bottom:16px;
-
   width:185px;
-
   padding:10px;
-
   text-align:center;
 }
 
-
 #skillName{
-
   font-size:17px;
 }
 
-
 #skillCD{
-
   margin-top:5px;
-
-  font:
-  10px "Orbitron";
-
+  font:10px "Orbitron";
   color:#aec3d2;
 }
 
-
 #message{
-
   position:absolute;
-
   left:50%;
-
   top:22%;
-
-  transform:
-  translateX(-50%);
-
-  font:
-  27px "Bungee";
-
-  text-shadow:
-  0 3px #000;
-
+  transform:translateX(-50%);
+  font:27px "Bungee";
+  text-shadow:0 3px #000;
   opacity:0;
-
-  transition:.15s;
 }
 
-
 #message.show{
-
   opacity:1;
 }
 
-
-/* ========================================
-   DAMAGE TEXT
-======================================== */
-
 .damage{
-
   position:fixed;
-
   z-index:250;
-
   pointer-events:none;
-
   color:#fff;
-
-  font:
-  22px "Bungee";
-
-  text-shadow:
-    -2px -2px #000,
-    2px -2px #000,
-    -2px 2px #000,
-    2px 2px #000;
-
-  animation:
-  dmg .7s forwards;
+  font:22px "Bungee";
+  text-shadow:-2px -2px #000,2px -2px #000,-2px 2px #000,2px 2px #000;
+  animation:dmg .7s forwards;
 }
-
-
-.damage.crit{
-
-  color:
-  var(--yellow);
-
-  font-size:29px;
-}
-
 
 @keyframes dmg{
-
-  from{
-
-    transform:
-    translate(-50%,-50%);
-
-    opacity:1;
-  }
-
-  to{
-
-    transform:
-    translate(-50%,-115%);
-
-    opacity:0;
-  }
+  from{transform:translate(-50%,-50%);opacity:1}
+  to{transform:translate(-50%,-115%);opacity:0}
 }
-
-
-/* ========================================
-   ENEMY MARKERS
-======================================== */
 
 .enemyMarker{
-
   position:fixed;
-
   z-index:180;
-
   pointer-events:none;
-
   width:15px;
-
   height:15px;
-
   border-radius:50%;
-
   background:#ff3535;
-
-  border:
-  3px solid white;
-
-  box-shadow:
-  0 0 10px #ff3535;
-
-  transform:
-  translate(-50%,-50%);
+  border:3px solid white;
+  box-shadow:0 0 10px #ff3535;
+  transform:translate(-50%,-50%);
 }
-
 
 #dangerIndicator{
-
   position:fixed;
-
   z-index:190;
-
   display:none;
-
   left:50%;
-
   top:58%;
-
-  transform:
-  translate(-50%,-50%);
-
-  font:
-  38px "Bungee";
-
+  transform:translate(-50%,-50%);
+  font:38px "Bungee";
   color:#ff3c3c;
-
-  text-shadow:
-    0 3px #000,
-    0 0 14px #ff3131;
-
-  pointer-events:none;
 }
 
-
-/* ========================================
-   MOBILE CONTROLS
-======================================== */
+/* MOBILE */
 
 #touchLayer{
-
   display:none;
-
   position:absolute;
-
   inset:0;
-
   pointer-events:auto;
 }
 
-
 #moveBase{
-
   display:none;
-
   position:absolute;
-
   width:138px;
-
   height:138px;
-
   border-radius:50%;
-
-  background:
-  rgba(10,20,30,.28);
-
-  border:
-  4px solid
-  rgba(255,255,255,.38);
-
-  transform:
-  translate(-50%,-50%);
-
+  background:rgba(10,20,30,.28);
+  border:4px solid rgba(255,255,255,.38);
+  transform:translate(-50%,-50%);
   z-index:5;
 }
 
-
 #moveKnob{
-
   position:absolute;
-
   width:54px;
-
   height:54px;
-
   left:38px;
-
   top:38px;
-
   border-radius:50%;
-
-  background:
-  rgba(255,255,255,.8);
-
-  box-shadow:
-  0 4px
-  rgba(0,0,0,.25);
+  background:rgba(255,255,255,.8);
 }
-
 
 #shootMobile{
-
   display:none;
-
   position:absolute;
-
   right:22px;
-
   bottom:22px;
-
   width:100px;
-
   height:100px;
-
   border-radius:50%;
-
   pointer-events:auto;
-
   z-index:10;
-
-  font:
-  15px "Bungee";
 }
-
 
 #skillMobile{
-
   display:none;
-
   position:absolute;
-
   right:124px;
-
   bottom:82px;
-
   width:84px;
-
   height:84px;
-
-  border-radius:18px;
-
   pointer-events:auto;
-
   z-index:10;
 }
 
-
-/* ========================================
-   LEVEL UP
-======================================== */
-
-#upgradeGrid{
-
-  margin-top:18px;
-
-  display:grid;
-
-  grid-template-columns:
-  repeat(3,1fr);
-
-  gap:14px;
-}
-
-
-.upgradeCard{
-
-  min-height:170px;
-
-  padding:16px;
-
-  background:#101c27;
-
-  border:
-  4px solid #3f586d;
-
-  color:white;
-
-  text-align:center;
-
-  cursor:pointer;
-}
-
-
-.upgradeIcon{
-
-  font-size:40px;
-}
-
-
-.upgradeName{
-
-  margin-top:9px;
-
-  font-size:20px;
-
-  color:
-  var(--yellow);
-}
-
-
-.upgradeDesc{
-
-  margin-top:7px;
-
-  color:#b7cad9;
-
-  font-size:12px;
-}
-
-
-/* ========================================
-   GAME OVER
-======================================== */
-
 #gameOver{
-
   display:none;
-
   position:fixed;
-
   inset:0;
-
   z-index:900;
-
   align-items:center;
-
   justify-content:center;
-
-  background:
-  rgba(4,8,12,.82);
+  background:rgba(4,8,12,.82);
 }
-
 
 #gameOverCard{
-
-  width:
-  min(440px,90vw);
-
+  width:min(440px,90vw);
   padding:24px;
-
   text-align:center;
 }
 
-
 #gameOverTitle{
-
-  font:
-  38px "Bungee";
-
+  font:38px "Bungee";
   color:#ff8241;
 }
 
-
 #gameOverStats{
-
   margin-top:14px;
-
   line-height:1.8;
-
-  font:
-  12px "Orbitron";
+  font:12px "Orbitron";
 }
 
-
 #returnLobby{
-
   width:100%;
-
   height:55px;
-
   margin-top:17px;
 }
 
-
-/* ========================================
-   TUTORIAL
-======================================== */
-
 #tutorialModal .modal{
-
-  width:
-  min(650px,94vw);
-
+  width:min(650px,94vw);
   text-align:center;
 }
 
-
 #tutorialIcon{
-
   font-size:58px;
 }
 
-
 #tutorialTitle{
-
-  font:
-  28px "Bungee";
-
-  color:
-  var(--yellow);
-
-  margin:
-  10px 0;
+  font:28px "Bungee";
+  color:var(--yellow);
+  margin:10px 0;
 }
-
 
 #tutorialText{
-
   font-size:18px;
-
-  line-height:1.5;
-
-  color:#d7e7f3;
 }
-
 
 #tutorialControls{
-
-  font:
-  11px "Orbitron";
-
-  line-height:1.7;
-
+  font:11px "Orbitron";
   color:#8fcdf1;
-
-  margin:
-  12px 0;
+  margin:12px 0;
 }
-
 
 #tutorialNext{
-
   width:100%;
-
   height:56px;
-
-  font:
-  16px "Bungee";
 }
-
-
-#noticeText{
-
-  font-size:18px;
-
-  color:#c9dceb;
-
-  margin:
-  16px 0;
-}
-
-
-/* ========================================
-   MOBILE RESPONSIVE
-======================================== */
 
 @media(pointer:coarse){
-
   #touchLayer,
   #skillMobile,
   #shootMobile{
-
     display:block;
   }
 
   #skillHud{
-
     display:none;
   }
 
   #playerHP{
-
     width:158px;
-
-    bottom:10px;
-  }
-
-  #hudTopLeft,
-  #hudTopRight{
-
-    transform:
-    scale(.82);
-
-    transform-origin:
-    top left;
-  }
-
-  #hudTopRight{
-
-    transform-origin:
-    top right;
-  }
-
-  #hudTopCenter{
-
-    transform:
-    translateX(-50%)
-    scale(.82);
-
-    transform-origin:
-    top center;
   }
 
   #rosterGrid{
-
-    grid-template-columns:
-    repeat(3,1fr);
+    grid-template-columns:repeat(3,1fr);
   }
 
   #gachaLayout{
-
     grid-template-columns:1fr;
-  }
-}
-
-
-@media(max-width:700px){
-
-  #machines{
-
-    gap:6px;
-
-    max-width:280px;
-  }
-
-  .machineBtn{
-
-    width:82px;
-
-    height:82px;
-  }
-
-  .machineBtn .icon{
-
-    font-size:25px;
-  }
-
-  .machineBtn .name{
-
-    font-size:11px;
-  }
-
-  #battlePanel{
-
-    width:245px;
-  }
-
-  #selectedCard{
-
-    width:185px;
-  }
-
-  #resources{
-
-    gap:10px;
   }
 }
 
@@ -1680,503 +793,162 @@ button{
 
 <body>
 
-
-<!-- ========================================
-     INTRO
-======================================== -->
-
 <div id="intro">
-
   <div>
-
-    <h1>
-      BOOM <span>CHICKEN</span>
-    </h1>
-
-    <div class="sub">
-      爆 小 鸡 · COMBAT V2
-    </div>
-
+    <h1>BOOM <span>CHICKEN</span></h1>
+    <div class="sub">爆 小 鸡</div>
   </div>
-
 </div>
-
-
-<!-- ========================================
-     LOBBY
-======================================== -->
 
 <div id="lobby">
 
-  <div
-    id="logoBox"
-    class="blockPanel"
-  >
-
-    <div class="gameTitle">
-
-      爆<span>小鸡</span>
-
-    </div>
-
-    <div class="gameSub">
-
-      BOOM CHICKEN
-
-    </div>
-
+  <div id="logoBox" class="blockPanel">
+    <div class="gameTitle">爆<span>小鸡</span></div>
+    <div class="gameSub">BOOM CHICKEN</div>
   </div>
 
+  <button id="langToggle" class="blockButton" onclick="toggleLanguage()">中文</button>
 
-  <button
-    id="langToggle"
-    class="blockButton"
-    onclick="toggleLanguage()"
-  >
-    中文
-  </button>
-
-
-  <div
-    id="resources"
-    class="blockPanel"
-  >
-
+  <div id="resources" class="blockPanel">
     <div class="res">
-
-      <div class="resName">
-        EGGS
-      </div>
-
-      <div class="resValue">
-
-        🥚
-        <span id="lobbyEggs">
-          1000
-        </span>
-
-      </div>
-
+      <div class="resName">EGGS</div>
+      <div class="resValue">🥚 <span id="lobbyEggs">1000</span></div>
     </div>
 
-
     <div class="res">
-
-      <div class="resName">
-        RANK
-      </div>
-
-      <div
-        class="resValue"
-        id="lobbyRank"
-      >
-        UNRANKED
-      </div>
-
+      <div class="resName">RANK</div>
+      <div class="resValue" id="lobbyRank">UNRANKED</div>
     </div>
-
   </div>
 
-
-  <div
-    id="selectedCard"
-    class="blockPanel"
-  >
-
+  <div id="selectedCard" class="blockPanel">
     <div id="selectedName"></div>
-
     <div id="selectedStars"></div>
-
     <div id="selectedInfo"></div>
-
   </div>
-
 
   <div id="machines">
 
-
-    <button
-      class="machineBtn blockButton"
-      onclick="openRoster()"
-    >
-
-      <div class="icon">
-        🐔
-      </div>
-
-      <div
-        class="name"
-        id="chickensLabel"
-      >
-        CHICKENS
-      </div>
-
+    <button class="machineBtn blockButton" onclick="openRoster()">
+      <div class="icon">🐔</div>
+      <div class="name" id="chickensLabel">CHICKENS</div>
     </button>
 
-
-    <button
-      class="machineBtn blockButton"
-      onclick="openGacha()"
-    >
-
-      <div class="icon">
-        🥚
-      </div>
-
-      <div class="name">
-        GACHA
-      </div>
-
+    <button class="machineBtn blockButton" onclick="openGacha()">
+      <div class="icon">🥚</div>
+      <div class="name">GACHA</div>
     </button>
 
-
-    <button
-      class="machineBtn blockButton"
-      onclick="showLobbyMessage()"
-    >
-
-      <div class="icon">
-        📋
-      </div>
-
-      <div
-        class="name"
-        id="missionsLabel"
-      >
-        MISSIONS
-      </div>
-
+    <button class="machineBtn blockButton" onclick="showLobbyMessage()">
+      <div class="icon">📋</div>
+      <div class="name" id="missionsLabel">MISSIONS</div>
     </button>
 
-
-    <button
-      class="machineBtn blockButton"
-      onclick="openTutorial()"
-    >
-
-      <div class="icon">
-        ❓
-      </div>
-
-      <div
-        class="name"
-        id="howToLabel"
-      >
-        HOW TO PLAY
-      </div>
-
+    <button class="machineBtn blockButton" onclick="openTutorial()">
+      <div class="icon">❓</div>
+      <div class="name" id="howToLabel">HOW TO PLAY</div>
     </button>
-
 
   </div>
 
+  <div id="battlePanel" class="blockPanel">
 
-  <div
-    id="battlePanel"
-    class="blockPanel"
-  >
-
-    <button
-      id="startBattle"
-      class="blockButton"
-      onclick="startBattle()"
-    >
+    <button id="startBattleBtn" class="blockButton" onclick="startBattle()">
       START BATTLE
     </button>
 
-
-    <div
-      class="selectorLabel"
-      id="modeLabel"
-    >
-      MODE
-    </div>
-
+    <div id="modeLabel" class="selectorLabel">MODE</div>
 
     <div class="selector">
-
-      <button onclick="changeMode(-1)">
-        ◀
-      </button>
-
-      <div id="modeName">
-        SURVIVAL
-      </div>
-
-      <button onclick="changeMode(1)">
-        ▶
-      </button>
-
+      <button onclick="changeMode(-1)">◀</button>
+      <div id="modeName">SURVIVAL</div>
+      <button onclick="changeMode(1)">▶</button>
     </div>
 
-
-    <div
-      class="selectorLabel"
-      id="mapLabel"
-    >
-      MAP
-    </div>
-
+    <div id="mapLabel" class="selectorLabel">MAP</div>
 
     <div class="selector">
-
-      <button>
-        ◀
-      </button>
-
-      <div>
-        NIGHT ARENA
-      </div>
-
-      <button>
-        ▶
-      </button>
-
+      <button>◀</button>
+      <div>NIGHT ARENA</div>
+      <button>▶</button>
     </div>
 
   </div>
 
 </div>
 
-
-<!-- ========================================
-     ROSTER
-======================================== -->
-
-<div
-  id="rosterModal"
-  class="modalWrap"
->
-
+<div id="rosterModal" class="modalWrap">
   <div class="modal blockPanel">
 
     <div class="modalHeader">
-
-      <div class="modalTitle">
-        CHICKENS
-      </div>
-
-      <button
-        class="close"
-        onclick="closeRoster()"
-      >
-        ✕
-      </button>
-
+      <div class="modalTitle">CHICKENS</div>
+      <button class="close" onclick="closeRoster()">✕</button>
     </div>
 
     <div id="rosterGrid"></div>
 
   </div>
-
 </div>
 
-
-<!-- ========================================
-     GACHA
-======================================== -->
-
-<div
-  id="gachaModal"
-  class="modalWrap"
->
-
+<div id="gachaModal" class="modalWrap">
   <div class="modal blockPanel">
 
     <div class="modalHeader">
-
-      <div class="modalTitle">
-        GACHA MACHINE
-      </div>
-
-      <button
-        class="close"
-        onclick="closeGacha()"
-      >
-        ✕
-      </button>
-
+      <div class="modalTitle">GACHA MACHINE</div>
+      <button class="close" onclick="closeGacha()">✕</button>
     </div>
-
 
     <div id="gachaLayout">
 
-
       <div id="gachaMachine">
 
-
         <div id="machineBubble">
-
-          <div
-            class="smallEgg"
-            style="
-              left:28px;
-              top:32px;
-            "
-          ></div>
-
-          <div
-            class="smallEgg"
-            style="
-              left:78px;
-              top:20px;
-              background:#ffd4ec;
-            "
-          ></div>
-
-          <div
-            class="smallEgg"
-            style="
-              left:128px;
-              top:40px;
-              background:#cbe7ff;
-            "
-          ></div>
-
-          <div
-            class="smallEgg"
-            style="
-              left:170px;
-              top:66px;
-            "
-          ></div>
-
-          <div
-            class="smallEgg"
-            style="
-              left:48px;
-              top:95px;
-              background:#d0ffd3;
-            "
-          ></div>
-
-          <div
-            class="smallEgg"
-            style="
-              left:112px;
-              top:106px;
-            "
-          ></div>
-
-          <div
-            class="smallEgg"
-            style="
-              left:160px;
-              top:123px;
-              background:#ebd8ff;
-            "
-          ></div>
-
+          <div class="smallEgg" style="left:28px;top:32px"></div>
+          <div class="smallEgg" style="left:78px;top:20px;background:#ffd4ec"></div>
+          <div class="smallEgg" style="left:128px;top:40px;background:#cbe7ff"></div>
+          <div class="smallEgg" style="left:170px;top:66px"></div>
+          <div class="smallEgg" style="left:48px;top:95px;background:#d0ffd3"></div>
         </div>
-
 
         <div id="machineBody">
-
           <div id="machineHandle"></div>
-
         </div>
-
 
         <div id="gachaEgg"></div>
 
-
       </div>
-
 
       <div id="gachaResult">
 
-        <div
-          style="
-            font:10px Orbitron;
-            color:#9ab2c5;
-            margin-top:20px;
-          "
-        >
-          1★ 55% ·
-          2★ 27% ·
-          3★ 12% ·
-          4★ 5% ·
-          5★ 1%
+        <div style="font:10px Orbitron;color:#9ab2c5;margin-top:20px">
+          1★ 55% · 2★ 27% · 3★ 12% · 4★ 5% · 5★ 1%
         </div>
 
+        <div id="resultChicken">🥚</div>
 
-        <div id="resultChicken">
-          🥚
-        </div>
+        <div id="resultName">READY</div>
 
-
-        <div id="resultName">
-          READY
-        </div>
-
-
-        <div id="resultStars">
-          500 EGGS PER ROLL
-        </div>
-
+        <div id="resultStars">500 EGGS PER ROLL</div>
 
         <div id="gachaCost">
-
-          Duplicates automatically
-          convert to fragments.
-
+          Duplicates automatically convert to fragments.
         </div>
 
-
-        <button
-          id="gachaRoll"
-          class="blockButton"
-          onclick="rollGacha()"
-        >
+        <button id="gachaRoll" class="blockButton" onclick="rollGacha()">
           ROLL · 🥚500
         </button>
 
       </div>
 
-
     </div>
 
   </div>
-
 </div>
 
-
-<!-- ========================================
-     UPGRADE
-======================================== -->
-
-<div
-  id="upgradeModal"
-  class="modalWrap"
->
-
+<div id="tutorialModal" class="modalWrap">
   <div class="modal blockPanel">
 
-    <div class="modalTitle">
-      LEVEL UP
-    </div>
-
-    <div id="upgradeGrid"></div>
-
-  </div>
-
-</div>
-
-
-<!-- ========================================
-     TUTORIAL
-======================================== -->
-
-<div
-  id="tutorialModal"
-  class="modalWrap"
->
-
-  <div class="modal blockPanel">
-
-    <div id="tutorialIcon">
-      🐔
-    </div>
+    <div id="tutorialIcon">🐔</div>
 
     <div id="tutorialTitle"></div>
 
@@ -2184,1776 +956,816 @@ button{
 
     <div id="tutorialControls"></div>
 
-    <button
-      id="tutorialNext"
-      class="blockButton"
-      onclick="nextTutorial()"
-    ></button>
+    <button id="tutorialNext" class="blockButton" onclick="nextTutorial()"></button>
 
   </div>
-
 </div>
 
+<div id="noticeModal" class="modalWrap">
+  <div class="modal blockPanel" style="width:min(430px,90vw);text-align:center">
 
-<!-- ========================================
-     CUSTOM MISSION MESSAGE
-======================================== -->
-
-<div
-  id="noticeModal"
-  class="modalWrap"
->
-
-  <div
-    class="modal blockPanel"
-    style="
-      width:min(430px,90vw);
-      text-align:center;
-    "
-  >
-
-    <div
-      class="modalTitle"
-      id="noticeTitle"
-    ></div>
+    <div class="modalTitle" id="noticeTitle"></div>
 
     <div id="noticeText"></div>
 
-    <button
-      class="blockButton"
-      style="
-        width:100%;
-        height:50px;
-      "
-      onclick="closeLobbyMessage()"
-    >
+    <button class="blockButton" style="width:100%;height:50px" onclick="closeLobbyMessage()">
       CLOSE / 关闭
     </button>
 
   </div>
-
 </div>
-
-
-<!-- ========================================
-     HUD
-======================================== -->
 
 <div id="hud">
 
-
-  <div
-    id="hudTopLeft"
-    class="hudPanel"
-  >
-
-    <div
-      class="bigHud"
-      id="hudChicken"
-    ></div>
-
+  <div id="hudTopLeft" class="hudPanel">
+    <div class="bigHud" id="hudChicken"></div>
     <div class="smallHud">
-
-      <span id="killsLabel">
-        KILLS
-      </span>
-
-      <span id="killCount">
-        0
-      </span>
-
+      <span id="killsLabel">KILLS</span>
+      <span id="killCount">0</span>
     </div>
-
   </div>
 
-
-  <div
-    id="hudTopCenter"
-    class="hudPanel"
-  >
-
-    <div
-      class="bigHud"
-      id="waveText"
-    >
-      WAVE 1
-    </div>
-
-    <div
-      class="smallHud"
-      id="enemyText"
-    >
-      ENEMIES 0
-    </div>
-
+  <div id="hudTopCenter" class="hudPanel">
+    <div class="bigHud" id="waveText">WAVE 1</div>
+    <div class="smallHud" id="enemyText">ENEMIES 0</div>
   </div>
 
-
-  <div
-    id="hudTopRight"
-    class="hudPanel"
-  >
-
-    <div class="bigHud">
-
-      🥚
-      <span id="battleEggs">
-        0
-      </span>
-
-    </div>
-
+  <div id="hudTopRight" class="hudPanel">
+    <div class="bigHud">🥚 <span id="battleEggCount">0</span></div>
     <div class="smallHud">
-
-      <span id="levelLabel">
-        LEVEL
-      </span>
-
-      <span id="levelText">
-        1
-      </span>
-
+      <span id="levelLabel">LEVEL</span>
+      <span id="levelText">1</span>
     </div>
-
   </div>
-
 
   <div id="playerHP">
-
     <div id="hpText"></div>
 
     <div class="barBG">
-
-      <div
-        id="hpFill"
-        class="barFill"
-      ></div>
-
+      <div id="hpFill" class="barFill"></div>
     </div>
 
-    <div
-      class="barBG"
-      style="margin-top:5px"
-    >
-
-      <div
-        id="xpFill"
-        class="barFill"
-      ></div>
-
+    <div class="barBG" style="margin-top:5px">
+      <div id="xpFill" class="barFill"></div>
     </div>
-
   </div>
 
-
-  <div
-    id="skillHud"
-    class="hudPanel"
-  >
-
+  <div id="skillHud" class="hudPanel">
     <div id="skillName"></div>
-
     <div id="skillCD"></div>
-
   </div>
-
 
   <div id="message"></div>
 
-
   <div id="touchLayer">
-
     <div id="moveBase">
-
       <div id="moveKnob"></div>
-
     </div>
-
   </div>
 
+  <button id="skillMobile" class="blockButton">SKILL</button>
+  <button id="shootMobile" class="blockButton">FIRE</button>
 
-  <button
-    id="skillMobile"
-    class="blockButton"
-  >
-    SKILL
-  </button>
-
-
-  <button
-    id="shootMobile"
-    class="blockButton"
-  >
-    FIRE
-  </button>
-
-
-  <div id="dangerIndicator">
-    ❗
-  </div>
-
+  <div id="dangerIndicator">❗</div>
 
 </div>
 
-
-<!-- ========================================
-     GAME OVER
-======================================== -->
-
 <div id="gameOver">
+  <div id="gameOverCard" class="blockPanel">
 
-  <div
-    id="gameOverCard"
-    class="blockPanel"
-  >
-
-    <div id="gameOverTitle">
-      GAME OVER
-    </div>
+    <div id="gameOverTitle">GAME OVER</div>
 
     <div id="gameOverStats"></div>
 
-    <button
-      id="returnLobby"
-      class="blockButton"
-      onclick="returnToLobby()"
-    >
+    <button id="returnLobby" class="blockButton" onclick="returnToLobby()">
       RETURN TO LOBBY
     </button>
 
   </div>
-
 </div>
-
 
 <script type="module">
 
-import * as THREE
-from
-"https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js";
+import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js";
 
+/* =========================
+   EXPLICIT DOM REFERENCES
+========================= */
 
-/* ========================================
-   CHARACTER DATA
-======================================== */
+const $ = id => document.getElementById(id);
 
-const CHICKENS = [
+const introEl = $("intro");
+const lobbyEl = $("lobby");
+const hudEl = $("hud");
+const gameOverEl = $("gameOver");
 
-{
-  id:"white",
-  name:"WHITE CHICKEN",
-  zh:"白鸡",
-  stars:1,
-  color:0xffffff,
-  weapon:"Pistol",
-  skill:"Power Shot",
-  damage:17,
-  fireRate:.38,
-  range:15,
-  speed:5.8,
-  skillCD:6
-},
+const startBattleBtn = $("startBattleBtn");
+const langToggle = $("langToggle");
 
-{
-  id:"black",
-  name:"BLACK CHICKEN",
-  zh:"黑鸡",
-  stars:1,
-  color:0x22252a,
-  weapon:"Dual Pistols",
-  skill:"Frenzy",
-  damage:11,
-  fireRate:.22,
-  range:14,
-  speed:6,
-  skillCD:8
-},
+const lobbyEggs = $("lobbyEggs");
+const lobbyRank = $("lobbyRank");
 
-{
-  id:"yellow",
-  name:"YELLOW CHICKEN",
-  zh:"黄鸡",
-  stars:1,
-  color:0xffd84e,
-  weapon:"Heavy Slingshot",
-  skill:"Giant Egg",
-  damage:24,
-  fireRate:.65,
-  range:16,
-  speed:5.4,
-  skillCD:7
-},
+const selectedName = $("selectedName");
+const selectedStars = $("selectedStars");
+const selectedInfo = $("selectedInfo");
 
-{
-  id:"brown",
-  name:"BROWN CHICKEN",
-  zh:"棕鸡",
-  stars:2,
-  color:0x8f542e,
-  weapon:"Shotgun",
-  skill:"360 Blast",
-  damage:10,
-  fireRate:.85,
-  range:9,
-  speed:5.4,
-  skillCD:8
-},
+const chickensLabel = $("chickensLabel");
+const missionsLabel = $("missionsLabel");
+const howToLabel = $("howToLabel");
+const modeLabel = $("modeLabel");
+const mapLabel = $("mapLabel");
+const modeName = $("modeName");
 
-{
-  id:"green",
-  name:"GREEN CHICKEN",
-  zh:"毒气鸡",
-  stars:2,
-  color:0x5aba63,
-  weapon:"Poison Gun",
-  skill:"Poison Gas",
-  damage:12,
-  fireRate:.34,
-  range:13,
-  speed:5.6,
-  skillCD:8
-},
+const rosterModal = $("rosterModal");
+const rosterGrid = $("rosterGrid");
 
-{
-  id:"blue",
-  name:"BLUE CHICKEN",
-  zh:"蓝鸡",
-  stars:2,
-  color:0x5ba9ff,
-  weapon:"SMG",
-  skill:"Speed Mode",
-  damage:8,
-  fireRate:.13,
-  range:12,
-  speed:6.2,
-  skillCD:8
-},
+const gachaModal = $("gachaModal");
+const machineHandle = $("machineHandle");
+const gachaEgg = $("gachaEgg");
+const resultChicken = $("resultChicken");
+const resultName = $("resultName");
+const resultStars = $("resultStars");
+const gachaCost = $("gachaCost");
 
-{
-  id:"cowboy",
-  name:"COWBOY CHICKEN",
-  zh:"牛仔鸡",
-  stars:3,
-  color:0xc28a4b,
-  weapon:"Revolver",
-  skill:"Quick Draw",
-  damage:23,
-  fireRate:.58,
-  range:16,
-  speed:5.8,
-  skillCD:8
-},
+const tutorialModal = $("tutorialModal");
+const tutorialIcon = $("tutorialIcon");
+const tutorialTitle = $("tutorialTitle");
+const tutorialText = $("tutorialText");
+const tutorialControls = $("tutorialControls");
+const tutorialNext = $("tutorialNext");
 
-{
-  id:"ninja",
-  name:"NINJA CHICKEN",
-  zh:"忍者鸡",
-  stars:3,
-  color:0x383844,
-  weapon:"Shuriken",
-  skill:"Shadow Clone",
-  damage:16,
-  fireRate:.32,
-  range:14,
-  speed:6.4,
-  skillCD:9
-},
+const noticeModal = $("noticeModal");
+const noticeTitle = $("noticeTitle");
+const noticeText = $("noticeText");
 
-{
-  id:"pirate",
-  name:"PIRATE CHICKEN",
-  zh:"海盗鸡",
-  stars:3,
-  color:0x653d2d,
-  weapon:"Musket",
-  skill:"Cannon Barrage",
-  damage:28,
-  fireRate:.8,
-  range:18,
-  speed:5.2,
-  skillCD:10
-},
+const hudChicken = $("hudChicken");
+const killsLabel = $("killsLabel");
+const killCount = $("killCount");
+const waveText = $("waveText");
+const enemyText = $("enemyText");
+const battleEggCountEl = $("battleEggCount");
+const levelLabel = $("levelLabel");
+const levelText = $("levelText");
 
-{
-  id:"doctor",
-  name:"DOCTOR CHICKEN",
-  zh:"医生鸡",
-  stars:3,
-  color:0xf3f4f4,
-  weapon:"Medical Gun",
-  skill:"Heal",
-  damage:13,
-  fireRate:.38,
-  range:13,
-  speed:5.5,
-  skillCD:10
-},
+const hpText = $("hpText");
+const hpFill = $("hpFill");
+const xpFill = $("xpFill");
 
-{
-  id:"wizard",
-  name:"WIZARD CHICKEN",
-  zh:"法师鸡",
-  stars:3,
-  color:0x8057d9,
-  weapon:"Magic Bolt",
-  skill:"Magic Storm",
-  damage:18,
-  fireRate:.42,
-  range:15,
-  speed:5.4,
-  skillCD:9
-},
+const skillName = $("skillName");
+const skillCD = $("skillCD");
 
-{
-  id:"robot",
-  name:"ROBOT CHICKEN",
-  zh:"机器人鸡",
-  stars:4,
-  color:0x9aa5ae,
-  weapon:"Laser Cannon",
-  skill:"Energy Shield",
-  damage:19,
-  fireRate:.31,
-  range:17,
-  speed:5.5,
-  skillCD:11
-},
+const messageEl = $("message");
+const dangerIndicator = $("dangerIndicator");
 
-{
-  id:"fire",
-  name:"FIRE CHICKEN",
-  zh:"火焰鸡",
-  stars:4,
-  color:0xf05b32,
-  weapon:"Flamethrower",
-  skill:"Flame Field",
-  damage:9,
-  fireRate:.12,
-  range:9,
-  speed:5.6,
-  skillCD:9
-},
+const touchLayer = $("touchLayer");
+const moveBase = $("moveBase");
+const moveKnob = $("moveKnob");
+const skillMobile = $("skillMobile");
+const shootMobile = $("shootMobile");
 
-{
-  id:"ice",
-  name:"FROST CHICKEN",
-  zh:"冰霜鸡",
-  stars:4,
-  color:0x8edcff,
-  weapon:"Freeze Cannon",
-  skill:"Freeze",
-  damage:16,
-  fireRate:.4,
-  range:14,
-  speed:5.4,
-  skillCD:10
-},
+const gameOverStats = $("gameOverStats");
 
-{
-  id:"thunder",
-  name:"THUNDER CHICKEN",
-  zh:"雷霆鸡",
-  stars:5,
-  color:0xffe04f,
-  weapon:"Lightning Cannon",
-  skill:"Thunderstorm",
-  damage:23,
-  fireRate:.45,
-  range:17,
-  speed:5.8,
-  skillCD:11
-}
+/* =========================
+   CHICKENS
+========================= */
+
+const CHICKENS=[
+
+{id:"white",name:"WHITE CHICKEN",zh:"白鸡",stars:1,color:0xffffff,weapon:"Pistol",skill:"Power Shot",damage:17,fireRate:.38,range:15,speed:5.8,skillCD:6},
+
+{id:"black",name:"BLACK CHICKEN",zh:"黑鸡",stars:1,color:0x22252a,weapon:"Dual Pistols",skill:"Frenzy",damage:11,fireRate:.22,range:14,speed:6,skillCD:8},
+
+{id:"yellow",name:"YELLOW CHICKEN",zh:"黄鸡",stars:1,color:0xffd84e,weapon:"Heavy Slingshot",skill:"Giant Egg",damage:24,fireRate:.65,range:16,speed:5.4,skillCD:7},
+
+{id:"brown",name:"BROWN CHICKEN",zh:"棕鸡",stars:2,color:0x8f542e,weapon:"Shotgun",skill:"360 Blast",damage:10,fireRate:.85,range:9,speed:5.4,skillCD:8},
+
+{id:"green",name:"GREEN CHICKEN",zh:"毒气鸡",stars:2,color:0x5aba63,weapon:"Poison Gun",skill:"Poison Gas",damage:12,fireRate:.34,range:13,speed:5.6,skillCD:8},
+
+{id:"blue",name:"BLUE CHICKEN",zh:"蓝鸡",stars:2,color:0x5ba9ff,weapon:"SMG",skill:"Speed Mode",damage:8,fireRate:.13,range:12,speed:6.2,skillCD:8},
+
+{id:"cowboy",name:"COWBOY CHICKEN",zh:"牛仔鸡",stars:3,color:0xc28a4b,weapon:"Revolver",skill:"Quick Draw",damage:23,fireRate:.58,range:16,speed:5.8,skillCD:8},
+
+{id:"ninja",name:"NINJA CHICKEN",zh:"忍者鸡",stars:3,color:0x383844,weapon:"Shuriken",skill:"Shadow Clone",damage:16,fireRate:.32,range:14,speed:6.4,skillCD:9},
+
+{id:"pirate",name:"PIRATE CHICKEN",zh:"海盗鸡",stars:3,color:0x653d2d,weapon:"Musket",skill:"Cannon Barrage",damage:28,fireRate:.8,range:18,speed:5.2,skillCD:10},
+
+{id:"doctor",name:"DOCTOR CHICKEN",zh:"医生鸡",stars:3,color:0xf3f4f4,weapon:"Medical Gun",skill:"Heal",damage:13,fireRate:.38,range:13,speed:5.5,skillCD:10},
+
+{id:"wizard",name:"WIZARD CHICKEN",zh:"法师鸡",stars:3,color:0x8057d9,weapon:"Magic Bolt",skill:"Magic Storm",damage:18,fireRate:.42,range:15,speed:5.4,skillCD:9},
+
+{id:"robot",name:"ROBOT CHICKEN",zh:"机器人鸡",stars:4,color:0x9aa5ae,weapon:"Laser Cannon",skill:"Energy Shield",damage:19,fireRate:.31,range:17,speed:5.5,skillCD:11},
+
+{id:"fire",name:"FIRE CHICKEN",zh:"火焰鸡",stars:4,color:0xf05b32,weapon:"Flamethrower",skill:"Flame Field",damage:9,fireRate:.12,range:9,speed:5.6,skillCD:9},
+
+{id:"ice",name:"FROST CHICKEN",zh:"冰霜鸡",stars:4,color:0x8edcff,weapon:"Freeze Cannon",skill:"Freeze",damage:16,fireRate:.4,range:14,speed:5.4,skillCD:10},
+
+{id:"thunder",name:"THUNDER CHICKEN",zh:"雷霆鸡",stars:5,color:0xffe04f,weapon:"Lightning Cannon",skill:"Thunderstorm",damage:23,fireRate:.45,range:17,speed:5.8,skillCD:11}
 
 ];
 
-
-const MODES = [
-
+const MODES=[
   "SURVIVAL",
-
   "AI BRAWL",
-
   "RANKED BRAWL"
-
 ];
 
-
-const RANKS = [
-
+const RANKS=[
   "UNRANKED",
-
   "BRONZE",
-
   "SILVER",
-
   "GOLD",
-
   "PLATINUM",
-
   "DIAMOND",
-
   "WORLD'S STRONGEST"
-
 ];
 
-
-const DEFAULT_SAVE = {
-
+const DEFAULT_SAVE={
   eggs:1000,
-
   selected:"white",
-
-  unlocked:[
-    "white",
-    "black",
-    "yellow"
-  ],
-
+  unlocked:["white","black","yellow"],
   fragments:{},
-
   rankPoints:0,
-
   language:"en",
-
   tutorialSeen:false
 };
 
-
-let save =
-
+let save=
 JSON.parse(
-
-  localStorage.getItem(
-    "boomChickenSave"
-  )
-
-  ||
-
-  "null"
-
+  localStorage.getItem("boomChickenSave") || "null"
 )
-
 ||
+structuredClone(DEFAULT_SAVE);
 
-structuredClone(
-  DEFAULT_SAVE
-);
-
-
-save.language =
-save.language
-||
-"en";
-
-
-save.tutorialSeen =
-!!save.tutorialSeen;
-
-
-const getChicken = id =>
-
-CHICKENS.find(
-  c => c.id === id
-)
-
-||
-
-CHICKENS[0];
-
-
-let selectedChicken =
-
-getChicken(
-  save.selected
-);
-
+save.language=save.language || "en";
+save.tutorialSeen=!!save.tutorialSeen;
 
 function saveGame(){
-
   localStorage.setItem(
-
     "boomChickenSave",
-
     JSON.stringify(save)
   );
 }
 
+function getChicken(id){
+  return CHICKENS.find(c=>c.id===id) || CHICKENS[0];
+}
 
 function getRank(){
-
   return Math.min(
-
     6,
-
-    Math.floor(
-      save.rankPoints / 250
-    )
-
+    Math.floor(save.rankPoints/250)
   );
 }
 
+let selectedChicken=getChicken(save.selected);
 
-/* ========================================
+/* =========================
    LANGUAGE
-======================================== */
+========================= */
 
-const I18N = {
+const I18N={
 
 en:{
-
-  start:
-  "START BATTLE",
-
-  missions:
-  "MISSIONS",
-
-  how:
-  "HOW TO PLAY",
-
-  chickens:
-  "CHICKENS",
-
-  mode:
-  "MODE",
-
-  map:
-  "MAP",
-
-  missionTitle:
-  "MISSION BOARD",
-
-  missionText:
-  "Missions are coming next. Keep fighting, levelling up and collecting eggs.",
-
-  next:
-  "NEXT",
-
-  go:
-  "LET'S GO!",
-
-  kills:
-  "KILLS",
-
-  level:
-  "LEVEL",
-
-  ready:
-  "READY"
-
+  start:"START BATTLE",
+  missions:"MISSIONS",
+  how:"HOW TO PLAY",
+  chickens:"CHICKENS",
+  mode:"MODE",
+  map:"MAP",
+  missionTitle:"MISSION BOARD",
+  missionText:"Missions are coming next.",
+  next:"NEXT",
+  go:"LET'S GO!",
+  kills:"KILLS",
+  level:"LEVEL"
 },
 
-
 zh:{
-
-  start:
-  "开始战斗",
-
-  missions:
-  "任务",
-
-  how:
-  "玩法介绍",
-
-  chickens:
-  "角色",
-
-  mode:
-  "模式",
-
-  map:
-  "地图",
-
-  missionTitle:
-  "任务板",
-
-  missionText:
-  "任务系统正在制作中。先继续战斗、升级和收集蛋币。",
-
-  next:
-  "下一步",
-
-  go:
-  "开始游戏",
-
-  kills:
-  "击杀",
-
-  level:
-  "等级",
-
-  ready:
-  "就绪"
-
+  start:"开始战斗",
+  missions:"任务",
+  how:"玩法介绍",
+  chickens:"角色",
+  mode:"模式",
+  map:"地图",
+  missionTitle:"任务板",
+  missionText:"任务系统正在制作中。",
+  next:"下一步",
+  go:"开始游戏",
+  kills:"击杀",
+  level:"等级"
 }
 
 };
 
-
-const TUTORIAL = [
+const TUTORIAL=[
 
 {
-  i:"🐔",
-
-  en:[
-    "WELCOME TO BOOM CHICKEN",
-    "Choose your chicken and enter the arena.",
-    ""
-  ],
-
-  zh:[
-    "欢迎来到《爆小鸡》",
-    "选择你的小鸡，进入竞技场战斗。",
-    ""
-  ]
+  icon:"🐔",
+  en:["WELCOME TO BOOM CHICKEN","Choose your chicken and enter the arena.",""],
+  zh:["欢迎来到《爆小鸡》","选择你的小鸡，进入竞技场战斗。",""]
 },
 
 {
-  i:"🎮",
-
-  en:[
-    "MOVE",
-    "Use WASD to move.",
-    "Mobile: use the large left joystick."
-  ],
-
-  zh:[
-    "移动",
-    "电脑使用 WASD 移动。",
-    "手机：使用左侧大摇杆。"
-  ]
+  icon:"🎮",
+  en:["MOVE","Use WASD to move.","Mobile: use the left joystick."],
+  zh:["移动","电脑使用 WASD 移动。","手机：使用左侧摇杆。"]
 },
 
 {
-  i:"🎯",
-
-  en:[
-    "AIM",
-    "Hold RIGHT MOUSE to aim.",
-    "Mobile: drag on the right side to aim."
-  ],
-
-  zh:[
-    "瞄准",
-    "电脑按住鼠标右键瞄准。",
-    "手机：在屏幕右侧拖动瞄准。"
-  ]
+  icon:"🎯",
+  en:["AIM","Hold RIGHT MOUSE to aim.","Mobile: drag on the right side."],
+  zh:["瞄准","按住鼠标右键瞄准。","手机：在屏幕右侧拖动瞄准。"]
 },
 
 {
-  i:"💥",
-
-  en:[
-    "SHOOT",
-    "While aiming, hold LEFT MOUSE to fire.",
-    "Mobile: hold the FIRE button."
-  ],
-
-  zh:[
-    "射击",
-    "瞄准时按住鼠标左键射击。",
-    "手机：按住 FIRE 射击按钮。"
-  ]
+  icon:"💥",
+  en:["SHOOT","Hold LEFT MOUSE while aiming.","Mobile: hold FIRE."],
+  zh:["射击","瞄准时按住鼠标左键射击。","手机：按住 FIRE。"]
 },
 
 {
-  i:"⚡",
-
-  en:[
-    "SKILL",
-    "Press E to use your chicken's unique skill.",
-    "Mobile: tap the SKILL button."
-  ],
-
-  zh:[
-    "技能",
-    "按 E 使用小鸡专属技能。",
-    "手机：点击 SKILL 技能按钮。"
-  ]
+  icon:"⚡",
+  en:["SKILL","Press E to use your skill.","Mobile: press SKILL."],
+  zh:["技能","按 E 使用技能。","手机：按 SKILL。"]
 },
 
 {
-  i:"🌿",
-
-  en:[
-    "GRASS",
-    "Grass can hide you from distant enemies.",
-    "Shooting, skills or taking damage reveals you."
-  ],
-
-  zh:[
-    "草丛",
-    "进入草丛可以躲避远处敌人。",
-    "开枪、放技能或受伤会暴露。"
-  ]
+  icon:"🌿",
+  en:["GRASS","Grass hides you until you attack or take damage.",""],
+  zh:["草丛","草丛可以隐藏你；攻击或受伤会暴露。",""]
 },
 
 {
-  i:"🥚",
-
-  en:[
-    "PICKUPS",
-    "Collect EXP to level up, eggs for gacha, and medkits to heal.",
-    ""
-  ],
-
-  zh:[
-    "掉落物",
-    "收集 EXP 升级、蛋币扭蛋、血包回血。",
-    ""
-  ]
+  icon:"🥚",
+  en:["PICKUPS","Collect EXP, eggs and medkits.",""],
+  zh:["掉落","收集 EXP、蛋币和血包。",""]
 },
 
 {
-  i:"🏆",
-
-  en:[
-    "SURVIVE & BRAWL",
-    "Survival: defeat waves and bosses. Brawl: be the last chicken alive.",
-    ""
-  ],
-
-  zh:[
-    "生存与乱斗",
-    "生存：击败一波波敌人和 Boss。乱斗：成为最后活着的小鸡。",
-    ""
-  ]
+  icon:"🏆",
+  en:["SURVIVE & BRAWL","Survival has waves. Brawl: be the last chicken alive.",""],
+  zh:["生存与乱斗","生存模式打波次；乱斗模式成为最后一只鸡。",""]
 }
 
 ];
 
-
-let tutorialIndex = 0;
-
+let tutorialIndex=0;
 
 function applyLanguage(){
 
-  const l =
-  save.language;
+  const lang=save.language;
+  const text=I18N[lang];
 
-  const t =
-  I18N[l];
+  startBattleBtn.textContent=text.start;
+  missionsLabel.textContent=text.missions;
+  howToLabel.textContent=text.how;
+  chickensLabel.textContent=text.chickens;
+  modeLabel.textContent=text.mode;
+  mapLabel.textContent=text.map;
+  killsLabel.textContent=text.kills;
+  levelLabel.textContent=text.level;
 
-
-  startBattle.textContent =
-  t.start;
-
-
-  missionsLabel.textContent =
-  t.missions;
-
-
-  howToLabel.textContent =
-  t.how;
-
-
-  chickensLabel.textContent =
-  t.chickens;
-
-
-  modeLabel.textContent =
-  t.mode;
-
-
-  mapLabel.textContent =
-  t.map;
-
-
-  killsLabel.textContent =
-  t.kills;
-
-
-  levelLabel.textContent =
-  t.level;
-
-
-  langToggle.textContent =
-
-  l === "en"
+  langToggle.textContent=
+  lang==="en"
   ?
   "中文"
   :
   "EN";
 
-
   updateLobbyUI();
-
   updateHUD();
 }
 
+window.toggleLanguage=function(){
 
-window.toggleLanguage = () => {
-
-  save.language =
-
-  save.language === "en"
+  save.language=
+  save.language==="en"
   ?
   "zh"
   :
   "en";
 
-
   saveGame();
 
   applyLanguage();
 
-
   if(
-
-    tutorialModal
-    .classList
-    .contains("show")
-
+    tutorialModal.classList.contains("show")
   ){
-
     renderTutorial();
   }
-
 };
 
+window.showLobbyMessage=function(){
 
-window.showLobbyMessage = () => {
+  const text=I18N[save.language];
 
-  const t =
-  I18N[save.language];
+  noticeTitle.textContent=text.missionTitle;
+  noticeText.textContent=text.missionText;
 
-
-  noticeTitle.textContent =
-  t.missionTitle;
-
-
-  noticeText.textContent =
-  t.missionText;
-
-
-  noticeModal
-  .classList
-  .add("show");
-
+  noticeModal.classList.add("show");
 };
 
-
-window.closeLobbyMessage = () => {
-
-  noticeModal
-  .classList
-  .remove("show");
-
+window.closeLobbyMessage=function(){
+  noticeModal.classList.remove("show");
 };
 
+window.openTutorial=function(){
 
-window.openTutorial = () => {
+  tutorialIndex=0;
 
-  tutorialIndex = 0;
-
-  tutorialModal
-  .classList
-  .add("show");
+  tutorialModal.classList.add("show");
 
   renderTutorial();
 };
 
-
 function renderTutorial(){
 
-  const l =
-  save.language;
+  const lang=save.language;
 
+  const step=TUTORIAL[tutorialIndex];
 
-  const t =
-  TUTORIAL[
-    tutorialIndex
-  ][l];
+  const data=step[lang];
 
+  tutorialIcon.textContent=step.icon;
+  tutorialTitle.textContent=data[0];
+  tutorialText.textContent=data[1];
+  tutorialControls.textContent=data[2];
 
-  tutorialIcon.textContent =
-
-  TUTORIAL[
-    tutorialIndex
-  ].i;
-
-
-  tutorialTitle.textContent =
-  t[0];
-
-
-  tutorialText.textContent =
-  t[1];
-
-
-  tutorialControls.textContent =
-  t[2];
-
-
-  tutorialNext.textContent =
-
-  tutorialIndex
-  ===
-  TUTORIAL.length - 1
-
+  tutorialNext.textContent=
+  tutorialIndex===TUTORIAL.length-1
   ?
-
-  I18N[l].go
-
+  I18N[lang].go
   :
-
-  I18N[l].next;
-
+  I18N[lang].next;
 }
 
-
-window.nextTutorial = () => {
+window.nextTutorial=function(){
 
   if(
-
-    tutorialIndex
-    <
-    TUTORIAL.length - 1
-
+    tutorialIndex<TUTORIAL.length-1
   ){
 
     tutorialIndex++;
 
     renderTutorial();
 
-  }
+  }else{
 
-  else{
+    tutorialModal.classList.remove("show");
 
-    tutorialModal
-    .classList
-    .remove("show");
-
-
-    save.tutorialSeen =
-    true;
-
+    save.tutorialSeen=true;
 
     saveGame();
-
   }
-
 };
 
-
-/* ========================================
+/* =========================
    AUDIO
-======================================== */
+========================= */
 
-let audioCtx = null;
-
-let aiSoundGate = 0;
-
+let audioCtx=null;
+let aiSoundGate=0;
 
 function ensureAudio(){
 
   if(!audioCtx){
 
-    audioCtx =
-
+    audioCtx=
     new(
-
       window.AudioContext
-
       ||
-
       window.webkitAudioContext
-
     )();
-
   }
 
-
-  if(
-
-    audioCtx.state
-    ===
-    "suspended"
-
-  ){
-
+  if(audioCtx.state==="suspended"){
     audioCtx.resume();
   }
-
 }
-
 
 function tone(
-
-  freq = 440,
-
-  dur = .07,
-
-  type = "square",
-
-  vol = .035,
-
-  end = 0
-
+  freq=440,
+  duration=.07,
+  type="square",
+  volume=.03,
+  endFreq=0
 ){
 
   ensureAudio();
 
-
-  const o =
+  const oscillator=
   audioCtx.createOscillator();
 
-
-  const g =
+  const gain=
   audioCtx.createGain();
 
+  oscillator.type=type;
 
-  o.type =
-  type;
-
-
-  o.frequency
-  .setValueAtTime(
-
+  oscillator.frequency.setValueAtTime(
     freq,
-
     audioCtx.currentTime
   );
 
+  if(endFreq){
 
-  if(end){
-
-    o.frequency
-    .exponentialRampToValueAtTime(
-
-      Math.max(
-        30,
-        end
-      ),
-
-      audioCtx.currentTime
-      +
-      dur
+    oscillator.frequency.exponentialRampToValueAtTime(
+      Math.max(30,endFreq),
+      audioCtx.currentTime+duration
     );
-
   }
 
-
-  g.gain
-  .setValueAtTime(
-
-    vol,
-
+  gain.gain.setValueAtTime(
+    volume,
     audioCtx.currentTime
   );
 
-
-  g.gain
-  .exponentialRampToValueAtTime(
-
+  gain.gain.exponentialRampToValueAtTime(
     .001,
-
-    audioCtx.currentTime
-    +
-    dur
+    audioCtx.currentTime+duration
   );
 
+  oscillator.connect(gain);
+  gain.connect(audioCtx.destination);
 
-  o.connect(g);
+  oscillator.start();
 
-  g.connect(
-    audioCtx.destination
+  oscillator.stop(
+    audioCtx.currentTime+duration
   );
-
-
-  o.start();
-
-
-  o.stop(
-
-    audioCtx.currentTime
-    +
-    dur
-  );
-
 }
 
-
 function noise(
-
-  dur = .05,
-
-  vol = .025
-
+  duration=.05,
+  volume=.02
 ){
 
   ensureAudio();
 
-
-  const n =
+  const count=
   Math.floor(
-
-    audioCtx.sampleRate
-    *
-    dur
+    audioCtx.sampleRate*duration
   );
 
-
-  const b =
-
+  const buffer=
   audioCtx.createBuffer(
-
     1,
-
-    n,
-
+    count,
     audioCtx.sampleRate
   );
 
-
-  const d =
-  b.getChannelData(0);
-
+  const data=
+  buffer.getChannelData(0);
 
   for(
-
-    let i = 0;
-
-    i < n;
-
+    let i=0;
+    i<count;
     i++
-
   ){
 
-    d[i] =
-
-    (
-      Math.random() * 2
-      -
-      1
-    )
-
+    data[i]=
+    (Math.random()*2-1)
     *
-
-    (
-      1
-      -
-      i / n
-    );
-
+    (1-i/count);
   }
 
+  const source=
+  audioCtx.createBufferSource();
 
-  const src =
+  const gain=
+  audioCtx.createGain();
 
-  audioCtx
-  .createBufferSource();
+  source.buffer=buffer;
+  gain.gain.value=volume;
 
+  source.connect(gain);
+  gain.connect(audioCtx.destination);
 
-  const g =
-
-  audioCtx
-  .createGain();
-
-
-  src.buffer =
-  b;
-
-
-  g.gain.value =
-  vol;
-
-
-  src.connect(g);
-
-  g.connect(
-    audioCtx.destination
-  );
-
-
-  src.start();
-
+  source.start();
 }
 
+function sfxGun(chicken,isAI=false){
 
-function sfxGun(
-
-  c,
-
-  ai = false
-
-){
-
-  const now =
-  performance.now();
-
+  const now=performance.now();
 
   if(
-
-    ai
-
+    isAI
     &&
-
-    now < aiSoundGate
-
+    now<aiSoundGate
   ){
-
     return;
   }
 
-
-  if(ai){
-
-    aiSoundGate =
-    now + 85;
+  if(isAI){
+    aiSoundGate=now+80;
   }
 
-
   if(
-
-    c.weapon
-    .includes("Shotgun")
-
+    chicken.weapon.includes("Shotgun")
   ){
 
     noise(
-      .10,
-      ai ? .022 : .055
+      .1,
+      isAI?.02:.05
     );
-
 
     tone(
       125,
       .12,
       "sawtooth",
-      ai ? .015 : .042,
+      isAI?.012:.04,
       70
     );
 
-  }
-
-  else if(
-
-    c.weapon
-    .includes("SMG")
-
+  }else if(
+    chicken.weapon.includes("SMG")
     ||
-
-    c.weapon
-    .includes("Dual")
-
+    chicken.weapon.includes("Dual")
   ){
 
     noise(
       .035,
-      ai ? .01 : .022
+      isAI?.008:.02
     );
-
 
     tone(
       260,
       .04,
       "square",
-      ai ? .012 : .023,
+      isAI?.01:.02,
       150
     );
 
-  }
-
-  else if(
-    c.id === "thunder"
-  ){
-
-    tone(
-      520,
-      .08,
-      "sawtooth",
-      ai ? .014 : .032,
-      170
-    );
-
-  }
-
-  else if(
-    c.id === "ice"
-  ){
-
-    tone(
-      700,
-      .07,
-      "sine",
-      ai ? .014 : .028,
-      380
-    );
-
-  }
-
-  else if(
-    c.id === "fire"
-  ){
-
-    noise(
-      .05,
-      ai ? .009 : .018
-    );
-
-
-    tone(
-      95,
-      .05,
-      "sawtooth",
-      ai ? .01 : .018,
-      65
-    );
-
-  }
-
-  else{
+  }else{
 
     noise(
       .045,
-      ai ? .012 : .028
+      isAI?.01:.025
     );
-
 
     tone(
       220,
       .06,
       "square",
-      ai ? .014 : .03,
+      isAI?.012:.028,
       120
     );
-
   }
-
 }
-
 
 function sfxHit(){
-
-  tone(
-    145,
-    .04,
-    "square",
-    .018,
-    85
-  );
+  tone(145,.04,"square",.017,85);
 }
-
 
 function sfxHurt(){
-
-  tone(
-    175,
-    .11,
-    "sawtooth",
-    .035,
-    70
-  );
+  tone(175,.11,"sawtooth",.03,70);
 }
-
 
 function sfxDeath(){
-
-  noise(
-    .11,
-    .035
-  );
-
-
-  tone(
-    115,
-    .18,
-    "sawtooth",
-    .028,
-    45
-  );
+  noise(.11,.03);
+  tone(115,.18,"sawtooth",.025,45);
 }
-
 
 function sfxPickup(){
-
-  tone(
-    650,
-    .06,
-    "sine",
-    .025,
-    930
-  );
+  tone(650,.06,"sine",.025,930);
 }
-
 
 function sfxSkill(){
-
-  tone(
-    330,
-    .12,
-    "triangle",
-    .03,
-    700
-  );
+  tone(330,.12,"triangle",.03,700);
 }
-
 
 function sfxChicken(){
-
-  tone(
-    520,
-    .06,
-    "square",
-    .02,
-    410
-  );
-
+  tone(520,.06,"square",.02,410);
 
   setTimeout(
-
-    () =>
-
-    tone(
-      610,
-      .08,
-      "square",
-      .018,
-      470
-    ),
-
+    ()=>tone(610,.08,"square",.018,470),
     75
   );
-
 }
-
 
 function sfxGacha(){
-
-  tone(
-    190,
-    .1,
-    "square",
-    .022,
-    280
-  );
-
+  tone(190,.1,"square",.022,280);
 
   setTimeout(
-
-    () =>
-
-    tone(
-      330,
-      .11,
-      "square",
-      .022,
-      440
-    ),
-
+    ()=>tone(330,.11,"square",.022,440),
     130
   );
-
 }
 
-
 addEventListener(
-
   "pointerdown",
-
   ensureAudio,
-
-  {
-    once:true
-  }
-
+  {once:true}
 );
-
 
 addEventListener(
-
   "keydown",
-
   ensureAudio,
-
-  {
-    once:true
-  }
-
+  {once:true}
 );
 
+/* =========================
+   THREE
+========================= */
 
-/* ========================================
-   THREE.JS SETUP
-======================================== */
-
-const scene =
-
+const scene=
 new THREE.Scene();
 
-
-scene.background =
-
+scene.background=
 new THREE.Color(
   0x0d1723
 );
 
-
-scene.fog =
-
+scene.fog=
 new THREE.Fog(
-
   0x0d1723,
-
   30,
-
   90
 );
 
-
-const camera =
-
-new THREE
-.PerspectiveCamera(
-
+const camera=
+new THREE.PerspectiveCamera(
   50,
-
-  innerWidth
-  /
-  innerHeight,
-
+  innerWidth/innerHeight,
   .1,
-
   150
 );
 
-
 camera.position.set(
-
   0,
-
   9,
-
   14
 );
 
-
-const renderer =
-
+const renderer=
 new THREE.WebGLRenderer({
-
   antialias:true
-
 });
 
-
 renderer.setPixelRatio(
-
-  Math.min(
-
-    devicePixelRatio,
-
-    2
-  )
-
+  Math.min(devicePixelRatio,2)
 );
 
-
 renderer.setSize(
-
   innerWidth,
-
   innerHeight
 );
 
-
-renderer.shadowMap.enabled =
-true;
-
+renderer.shadowMap.enabled=true;
 
 document.body.prepend(
-
   renderer.domElement
 );
 
-
 scene.add(
-
   new THREE.HemisphereLight(
-
     0x9fc9ff,
-
     0x18200e,
-
     1.7
-
   )
-
 );
 
-
-const moon =
-
+const moon=
 new THREE.DirectionalLight(
-
   0xb9dcff,
-
   2
 );
 
-
 moon.position.set(
-
   8,
-
   18,
-
   7
 );
 
+scene.add(moon);
 
-moon.castShadow =
-true;
-
-
-scene.add(
-  moon
-);
-
-
-const world =
+const world=
 new THREE.Group();
 
+scene.add(world);
 
-scene.add(
-  world
-);
-
-
-const box = (
-
+function box(
   sx,
-
   sy,
-
   sz,
-
   color
+){
 
-) =>
+  return new THREE.Mesh(
 
-new THREE.Mesh(
+    new THREE.BoxGeometry(
+      sx,
+      sy,
+      sz
+    ),
 
-  new THREE.BoxGeometry(
+    new THREE.MeshStandardMaterial({
+      color,
+      roughness:.78
+    })
 
-    sx,
-
-    sy,
-
-    sz
-
-  ),
-
-  new THREE.MeshStandardMaterial({
-
-    color,
-
-    roughness:.78
-
-  })
-
-);
-
+  );
+}
 
 function clearWorld(){
 
@@ -3965,136 +1777,78 @@ function clearWorld(){
       world.children[0]
     );
   }
-
 }
 
-
-/* ========================================
+/* =========================
    CHICKEN MODEL
-======================================== */
+========================= */
 
-function createChickenModel(c){
+function createChickenModel(chicken){
 
-  const g =
+  const group=
   new THREE.Group();
 
-
-  const body =
-
+  const body=
   box(
-
     1.25,
-
     1.1,
-
     1.25,
-
-    c.color
+    chicken.color
   );
 
+  body.position.y=.9;
 
-  body.position.y =
-  .9;
+  group.add(body);
 
-
-  body.castShadow =
-  true;
-
-
-  g.add(body);
-
-
-  const head =
-
+  const head=
   box(
-
-    1.0,
-
+    1,
     .9,
-
-    1.0,
-
-    c.color
+    1,
+    chicken.color
   );
-
 
   head.position.set(
-
     0,
-
     1.75,
-
     .05
   );
 
+  group.add(head);
 
-  head.castShadow =
-  true;
-
-
-  g.add(head);
-
-
-  const beak =
-
+  const beak=
   box(
-
     .48,
-
     .28,
-
     .42,
-
     0xf4a52f
   );
 
-
   beak.position.set(
-
     0,
-
     1.68,
-
     .67
   );
 
+  group.add(beak);
 
-  g.add(beak);
-
-
-  const comb =
-
+  const comb=
   box(
-
     .28,
-
     .35,
-
     .36,
-
-    c.id === "black"
-    ?
-    0x8d1010
-    :
     0xe9362b
   );
 
-
   comb.position.set(
-
     0,
-
     2.35,
-
     0
   );
 
+  group.add(comb);
 
-  g.add(comb);
-
-
-  const eye1 =
-
+  const eye1=
   box(
     .12,
     .12,
@@ -4102,686 +1856,246 @@ function createChickenModel(c){
     0x111111
   );
 
-
-  const eye2 =
+  const eye2=
   eye1.clone();
 
-
   eye1.position.set(
-
     -.25,
-
     1.92,
-
     .54
   );
-
 
   eye2.position.set(
-
     .25,
-
     1.92,
-
     .54
   );
 
-
-  g.add(
+  group.add(
     eye1,
     eye2
   );
 
-
-  const gun =
-
+  const gun=
   box(
-
     .28,
-
     .25,
-
     .95,
-
-    c.id === "robot"
-    ?
-    0x7ddcff
-    :
     0x4c4f55
   );
 
-
   gun.position.set(
-
     .72,
-
     1.05,
-
     .55
   );
 
+  group.add(gun);
 
-  g.add(gun);
-
-
-  if(
-    c.id === "cowboy"
-  ){
-
-    const hat =
-
-    box(
-      1.25,
-      .18,
-      1.0,
-      0x5f341b
-    );
-
-
-    hat.position.set(
-
-      0,
-
-      2.35,
-
-      0
-    );
-
-
-    g.add(hat);
-  }
-
-
-  if(
-    c.id === "wizard"
-  ){
-
-    const hat =
-
-    box(
-      .8,
-      .8,
-      .8,
-      0x4f2e85
-    );
-
-
-    hat.position.set(
-
-      0,
-
-      2.55,
-
-      0
-    );
-
-
-    hat.rotation.z =
-    .3;
-
-
-    g.add(hat);
-  }
-
-
-  if(
-    c.id === "pirate"
-  ){
-
-    const patch =
-
-    box(
-      .35,
-      .18,
-      .1,
-      0x111111
-    );
-
-
-    patch.position.set(
-
-      -.23,
-
-      1.92,
-
-      .58
-    );
-
-
-    g.add(patch);
-  }
-
-
-  if(
-    c.id === "doctor"
-  ){
-
-    const cap =
-
-    box(
-      .85,
-      .23,
-      .75,
-      0xffffff
-    );
-
-
-    cap.position.set(
-
-      0,
-
-      2.38,
-
-      0
-    );
-
-
-    g.add(cap);
-  }
-
-
-  if(
-    c.id === "robot"
-  ){
-
-    const plate =
-
-    box(
-      .4,
-      .4,
-      .1,
-      0x64d7ff
-    );
-
-
-    plate.position.set(
-
-      .23,
-
-      1.92,
-
-      .57
-    );
-
-
-    g.add(plate);
-  }
-
-
-  if(
-    c.id === "fire"
-  ){
-
-    const flame =
-
-    box(
-      .35,
-      .55,
-      .35,
-      0xff7a21
-    );
-
-
-    flame.position.set(
-
-      0,
-
-      2.55,
-
-      0
-    );
-
-
-    g.add(flame);
-  }
-
-
-  if(
-    c.id === "ice"
-  ){
-
-    const ice =
-
-    box(
-      .3,
-      .45,
-      .3,
-      0xc6f3ff
-    );
-
-
-    ice.position.set(
-
-      0,
-
-      2.5,
-
-      0
-    );
-
-
-    g.add(ice);
-  }
-
-
-  if(
-    c.id === "thunder"
-  ){
-
-    const bolt =
-
-    box(
-      .18,
-      .65,
-      .18,
-      0xffff66
-    );
-
-
-    bolt.position.set(
-
-      0,
-
-      2.55,
-
-      0
-    );
-
-
-    bolt.rotation.z =
-    .5;
-
-
-    g.add(bolt);
-  }
-
-
-  return g;
+  return group;
 }
 
+/* =========================
+   STATE
+========================= */
 
-/* ========================================
-   GAME STATE
-======================================== */
+let lobbyMode=true;
 
-let lobbyMode = true;
+let gameActive=false;
 
-let gameActive = false;
+let paused=false;
 
-let paused = false;
+let currentMode=0;
 
-let currentMode = 0;
+let lobbyChicken=null;
 
-let lobbyChicken = null;
+let player=null;
 
-let player = null;
+let actors=[];
 
+let enemies=[];
 
-let actors = [];
+let bullets=[];
 
-let enemies = [];
+let pickups=[];
 
-let bullets = [];
+let grassZones=[];
 
-let pickups = [];
+let fx=[];
 
-let fields = [];
+let playerHP=100;
 
-let grassZones = [];
+let maxHP=100;
 
-let fx = [];
+let kills=0;
 
+let battleEggTotal=0;
 
-let playerHP = 100;
+let level=1;
 
-let maxHP = 100;
+let xp=0;
 
-let kills = 0;
+let xpNeeded=30;
 
-let battleEggs = 0;
+let wave=1;
 
-let level = 1;
+let fireCooldown=0;
 
-let xp = 0;
+let skillCooldown=0;
 
-let xpNeeded = 30;
+let damageMultiplier=1;
 
-let wave = 1;
+let moveMultiplier=1;
 
-let fireCooldown = 0;
+let fireMultiplier=1;
 
-let skillCooldown = 0;
+let bulletPierce=0;
 
+let speedTimer=0;
 
-let damageMultiplier = 1;
+let shieldTimer=0;
 
-let moveMultiplier = 1;
+let frenzyTimer=0;
 
-let fireMultiplier = 1;
+let mouseDown=false;
 
-let bulletPierce = 0;
+let rightMouseDown=false;
 
-let speedTimer = 0;
+let mobileAiming=false;
 
-let shieldTimer = 0;
+let skillAiming=false;
 
-let frenzyTimer = 0;
+let playerHidden=false;
 
+let dangerCD=0;
 
-let mouseDown = false;
-
-let rightMouseDown = false;
-
-let mobileAiming = false;
-
-let skillAiming = false;
-
-let playerHidden = false;
-
-let dangerCD = 0;
-
-
-const mouse =
+const mouse=
 new THREE.Vector2();
 
-
-const raycaster =
+const raycaster=
 new THREE.Raycaster();
 
-
-const aimPlane =
+const aimPlane=
 new THREE.Plane(
-
-  new THREE.Vector3(
-    0,
-    1,
-    0
-  ),
-
+  new THREE.Vector3(0,1,0),
   0
 );
 
-
-const aimPoint =
+const aimPoint=
 new THREE.Vector3(
-
   0,
-
   0,
-
   5
 );
 
+const keys={};
 
-const keys = {};
-
-
-const moveVelocity =
+const moveVelocity=
 new THREE.Vector2();
 
+let joyX=0;
 
-let joyX = 0;
+let joyY=0;
 
-let joyY = 0;
-
-
-/* ========================================
-   LOBBY WORLD
-======================================== */
+/* =========================
+   LOBBY
+========================= */
 
 function buildLobbyScene(){
 
   clearWorld();
 
-  grassZones = [];
+  grassZones=[];
 
-
-  const platform =
-
+  const platform=
   box(
-
     14,
-
     .7,
-
     10,
-
     0x385d52
-
   );
 
+  platform.position.y=-.35;
 
-  platform.position.y =
-  -.35;
+  world.add(platform);
 
-
-  platform.receiveShadow =
-  true;
-
-
-  world.add(
-    platform
-  );
-
-
-  for(
-
-    let i = -6;
-
-    i <= 6;
-
-    i += 2
-
-  ){
-
-    const p =
-
-    box(
-
-      1.8,
-
-      .12,
-
-      1.8,
-
-      (i / 2) % 2
-      ?
-      0x456b5e
-      :
-      0x3c6256
-
-    );
-
-
-    p.position.set(
-
-      i,
-
-      0,
-
-      -3.5
-    );
-
-
-    world.add(p);
-
-  }
-
-
-  for(
-
-    const x
-    of
-    [-6,6]
-
-  ){
-
-    for(
-
-      let z = -4;
-
-      z <= 4;
-
-      z += 2
-
-    ){
-
-      const post =
-
-      box(
-
-        .45,
-
-        1.6,
-
-        .45,
-
-        0x7e5c3d
-
-      );
-
-
-      post.position.set(
-
-        x,
-
-        .8,
-
-        z
-
-      );
-
-
-      world.add(post);
-
-    }
-
-  }
-
-
-  lobbyChicken =
-
+  lobbyChicken=
   createChickenModel(
     selectedChicken
   );
 
-
   lobbyChicken.position.set(
-
     0,
-
     0,
-
     0
   );
-
 
   world.add(
     lobbyChicken
   );
 
-
-  const pedestal =
-
+  const pedestal=
   box(
-
     3,
-
     .45,
-
     3,
-
     0x596c7b
-
   );
 
+  pedestal.position.y=.2;
 
-  pedestal.position.y =
-  .2;
+  world.add(pedestal);
 
-
-  world.add(
-    pedestal
-  );
-
-
-  const lamp1 =
-
+  const orange=
   new THREE.PointLight(
-
     0xff8a36,
-
     8,
-
     12
-
   );
 
-
-  const lamp2 =
-
-  new THREE.PointLight(
-
-    0x6cc7ff,
-
-    6,
-
-    12
-
-  );
-
-
-  lamp1.position.set(
-
+  orange.position.set(
     -5,
-
     4,
-
     1
   );
 
+  world.add(orange);
 
-  lamp2.position.set(
+  const blue=
+  new THREE.PointLight(
+    0x6cc7ff,
+    6,
+    12
+  );
 
+  blue.position.set(
     5,
-
     4,
-
     -1
   );
 
-
-  world.add(
-    lamp1,
-    lamp2
-  );
-
+  world.add(blue);
 
   camera.position.set(
-
     0,
-
     9,
-
     14
   );
 
-
   camera.lookAt(
-
     0,
-
     1,
-
     0
   );
-
 }
-/* ---------- ARENA ---------- */
+
+/* =========================
+   ARENA
+========================= */
 
 function addTree(x,z){
 
-  const trunk =
+  const trunk=
   box(
     .65,
     2,
@@ -4797,73 +2111,35 @@ function addTree(x,z){
 
   world.add(trunk);
 
-
-  for(
-    const p of
-    [
-      [0,2,0],
-      [.7,1.6,0],
-      [-.7,1.6,0],
-      [0,1.6,.7],
-      [0,1.6,-.7]
-    ]
-  ){
-
-    const l =
-    box(
-      1.35,
-      1.35,
-      1.35,
-      0x2e6b43
-    );
-
-    l.position.set(
-      x + p[0],
-      1.5 + p[1],
-      z + p[2]
-    );
-
-    world.add(l);
-  }
-}
-
-
-function addRock(x,z){
-
-  const r =
+  const leaf=
   box(
-    1.35,
-    .9,
-    1.2,
-    0x667078
+    2,
+    2,
+    2,
+    0x2e6b43
   );
 
-  r.position.set(
+  leaf.position.set(
     x,
-    .45,
+    2.7,
     z
   );
 
-  r.rotation.y =
-  Math.random();
-
-  world.add(r);
+  world.add(leaf);
 }
-
 
 function addGrass(x,z){
 
-  const g =
+  const group=
   new THREE.Group();
 
-
   for(
-    let i = 0;
-    i < 8;
+    let i=0;
+    i<8;
     i++
   ){
 
-    const b =
+    const blade=
     box(
       .25,
       .65,
@@ -4871,222 +2147,122 @@ function addGrass(x,z){
       0xc8a94a
     );
 
+    const angle=
+    i/8*Math.PI*2;
 
-    const a =
-    i / 8 *
-    Math.PI * 2;
-
-
-    b.position.set(
-      Math.cos(a) * .75,
+    blade.position.set(
+      Math.cos(angle)*.75,
       .32,
-      Math.sin(a) * .75
+      Math.sin(angle)*.75
     );
 
-
-    b.rotation.z =
-    (
-      Math.random() - .5
-    ) * .25;
-
-
-    g.add(b);
+    group.add(blade);
   }
 
-
-  g.position.set(
+  group.position.set(
     x,
     0,
     z
   );
 
-
-  world.add(g);
-
+  world.add(group);
 
   grassZones.push({
-
     x,
-
     z,
-
     radius:1.7
-
   });
-
 }
-
 
 function buildArena(){
 
   clearWorld();
 
-  grassZones = [];
+  grassZones=[];
 
-
-  const limit =
-  currentMode === 0
+  const limit=
+  currentMode===0
   ?
   26
   :
   33;
 
-
-  const floor =
-
+  const floor=
   box(
-    limit * 2,
+    limit*2,
     .35,
-    limit * 2,
+    limit*2,
     0x3a5e47
   );
 
+  floor.position.y=-.2;
 
-  floor.position.y =
-  -.2;
+  world.add(floor);
 
+  const wallHeight=2.4;
 
-  floor.receiveShadow =
-  true;
+  const wallThickness=.8;
 
+  const walls=[
 
-  world.add(
-    floor
-  );
+    [0,-limit,limit*2,wallThickness],
 
+    [0,limit,limit*2,wallThickness],
 
-  for(
-    let x = -limit + 1;
-    x < limit;
-    x += 3
-  ){
+    [-limit,0,wallThickness,limit*2],
 
-    for(
-      let z = -limit + 1;
-      z < limit;
-      z += 3
-    ){
+    [limit,0,wallThickness,limit*2]
 
-      const t =
-
-      box(
-        2.8,
-        .04,
-        2.8,
-
-        (
-          Math.floor(
-            (x + z) / 3
-          ) % 2
-        )
-
-        ?
-
-        0x3d644a
-
-        :
-
-        0x355a43
-      );
-
-
-      t.position.set(
-        x,
-        .01,
-        z
-      );
-
-
-      world.add(t);
-    }
-  }
-
-
-  const wallH =
-  2.4;
-
-
-  const wallT =
-  .8;
-
+  ];
 
   for(
     const [
       x,
       z,
-      sx,
-      sz
+      width,
+      depth
     ]
-    of
-    [
-      [0,-limit,limit*2,wallT],
-      [0,limit,limit*2,wallT],
-      [-limit,0,wallT,limit*2],
-      [limit,0,wallT,limit*2]
-    ]
+    of walls
   ){
 
-    const w =
+    const wall=
     box(
-      sx,
-      wallH,
-      sz,
+      width,
+      wallHeight,
+      depth,
       0x59616b
     );
 
-
-    w.position.set(
+    wall.position.set(
       x,
-      wallH / 2,
+      wallHeight/2,
       z
     );
 
-
-    world.add(w);
+    world.add(wall);
   }
 
-
-  const trees = [
-
+  const trees=[
     [-6,-4],
     [7,4],
     [4,-8],
     [-9,8],
-    [0,7],
     [10,-3],
     [-17,12],
     [16,-12],
     [-14,-16],
-    [15,16],
-    [0,-17],
-    [18,3]
-
+    [15,16]
   ];
 
-
   trees.forEach(
-    p => addTree(...p)
+    position=>
+    addTree(
+      position[0],
+      position[1]
+    )
   );
 
-
-  [
-
-    [-3,5],
-    [6,-2],
-    [-7,-8],
-    [9,9],
-    [-16,4],
-    [14,-5],
-    [4,17],
-    [-12,15]
-
-  ].forEach(
-    p => addRock(...p)
-  );
-
-
-  [
-
+  const grass=[
     [-8,2],
     [7,-7],
     [2,9],
@@ -5094,26 +2270,28 @@ function buildArena(){
     [10,5],
     [-17,-5],
     [16,8],
-    [-5,17],
-    [17,-16]
+    [-5,17]
+  ];
 
-  ].forEach(
-    p => addGrass(...p)
+  grass.forEach(
+    position=>
+    addGrass(
+      position[0],
+      position[1]
+    )
   );
-
 }
 
-
-/* ---------- SPAWN ---------- */
+/* =========================
+   SPAWN
+========================= */
 
 function spawnPlayer(){
 
-  player =
-
+  player=
   createChickenModel(
     selectedChicken
   );
-
 
   player.position.set(
     0,
@@ -5121,11 +2299,7 @@ function spawnPlayer(){
     0
   );
 
-
-  world.add(
-    player
-  );
-
+  world.add(player);
 
   actors.push({
 
@@ -5150,123 +2324,85 @@ function spawnPlayer(){
     marker:null
 
   });
-
 }
-
 
 function spawnAIChickens(){
 
-  const pool =
-
+  const pool=
   CHICKENS.filter(
-    c =>
-    c.id !==
-    selectedChicken.id
+    chicken=>
+    chicken.id!==selectedChicken.id
   );
 
-
-  const rank =
-
-  currentMode === 2
-
+  const rank=
+  currentMode===2
   ?
-
-  Math.max(
-    1,
-    getRank()
-  )
-
+  Math.max(1,getRank())
   :
-
   2;
 
-
   for(
-    let i = 0;
-    i < 7;
+    let i=0;
+    i<7;
     i++
   ){
 
-    const c =
-
+    const chicken=
     pool[
       Math.floor(
-        Math.random() *
-        pool.length
+        Math.random()*pool.length
       )
     ];
 
-
-    const m =
-    createChickenModel(c);
-
-
-    const a =
-    i / 7 *
-    Math.PI * 2;
-
-
-    const r =
-    20 +
-    Math.random() * 6;
-
-
-    m.position.set(
-
-      Math.cos(a) * r,
-
-      0,
-
-      Math.sin(a) * r
-
+    const model=
+    createChickenModel(
+      chicken
     );
 
+    const angle=
+    i/7*Math.PI*2;
 
-    world.add(m);
+    const radius=
+    20+
+    Math.random()*6;
 
+    model.position.set(
+      Math.cos(angle)*radius,
+      0,
+      Math.sin(angle)*radius
+    );
 
-    const marker =
+    world.add(model);
 
-    document
-    .createElement(
+    const marker=
+    document.createElement(
       "div"
     );
 
-
-    marker.className =
+    marker.className=
     "enemyMarker";
 
-
-    document.body
-    .appendChild(
+    document.body.appendChild(
       marker
     );
 
-
     actors.push({
 
-      id:
-      "ai_" + i,
+      id:"ai_"+i,
 
       type:"ai",
 
-      mesh:m,
+      mesh:model,
 
       hp:100,
 
       maxHP:100,
 
-      chicken:c,
+      chicken,
 
       alive:true,
 
-      fire:
-      .5 +
-      Math.random(),
-
-      skill:
-      4 +
-      Math.random() * 5,
+      fire:.5+Math.random(),
 
       rank,
 
@@ -5281,131 +2417,85 @@ function spawnAIChickens(){
       marker
 
     });
-
   }
-
 }
 
-
-/* ---------- SURVIVAL ---------- */
+/* =========================
+   SURVIVAL
+========================= */
 
 function makeEnemy(
-  type = "normal"
+  type="normal"
 ){
 
-  const data = {
+  const types={
 
     normal:{
       hp:45,
-      speed:2.0,
+      speed:2,
       damage:8,
-      color:0x6d6d70,
-      size:1
+      color:0x6d6d70
     },
 
     fast:{
       hp:32,
-      speed:3.3,
+      speed:3.2,
       damage:6,
-      color:0x8f7272,
-      size:.85
+      color:0x8f7272
     },
 
     tank:{
       hp:100,
-      speed:1.35,
+      speed:1.3,
       damage:14,
-      color:0x4f5155,
-      size:1.25
-    },
-
-    bomber:{
-      hp:38,
-      speed:2.4,
-      damage:18,
-      color:0x8d4f4f,
-      size:.95
+      color:0x4f5155
     },
 
     boss:{
       hp:450,
-      speed:1.55,
+      speed:1.5,
       damage:20,
-      color:0x8b3232,
-      size:1.8
+      color:0x8b3232
     }
 
-  }[type];
+  };
 
+  const data=
+  types[type];
 
-  const m =
+  const model=
   new THREE.Group();
 
-
-  const body =
-
+  const body=
   box(
-    1.2 * data.size,
-    .8 * data.size,
-    1.4 * data.size,
+    1.3,
+    1,
+    1.5,
     data.color
   );
 
+  body.position.y=.7;
 
-  body.position.y =
-  .7 * data.size;
+  model.add(body);
 
+  const angle=
+  Math.random()*Math.PI*2;
 
-  m.add(body);
+  const radius=
+  18+
+  Math.random()*7;
 
-
-  const head =
-
-  box(
-    .9 * data.size,
-    .7 * data.size,
-    .9 * data.size,
-    data.color
-  );
-
-
-  head.position.set(
+  model.position.set(
+    Math.cos(angle)*radius,
     0,
-    1.3 * data.size,
-    .45 * data.size
+    Math.sin(angle)*radius
   );
 
-
-  m.add(head);
-
-
-  const a =
-  Math.random() *
-  Math.PI * 2;
-
-
-  const r =
-  18 +
-  Math.random() * 7;
-
-
-  m.position.set(
-
-    Math.cos(a) * r,
-
-    0,
-
-    Math.sin(a) * r
-
-  );
-
-
-  world.add(m);
-
+  world.add(model);
 
   enemies.push({
 
-    mesh:m,
+    mesh:model,
 
     type,
 
@@ -5422,176 +2512,91 @@ function makeEnemy(
     slow:0
 
   });
-
 }
-
 
 function startWave(){
 
-  const boss =
-  wave % 5 === 0;
+  const boss=
+  wave%5===0;
 
-
-  const count =
-
+  const count=
   boss
-
   ?
-
   1
-
   :
-
-  5 +
-  wave * 2;
-
+  5+wave*2;
 
   for(
-    let i = 0;
-    i < count;
+    let i=0;
+    i<count;
     i++
   ){
 
-    makeEnemy(
+    if(boss){
 
-      boss
+      makeEnemy("boss");
 
-      ?
+    }else{
 
-      "boss"
+      const random=
+      Math.random();
 
-      :
-
-      (
-        Math.random() < .18
-
+      makeEnemy(
+        random<.18
         ?
-
         "fast"
-
         :
-
-        Math.random() < .12
-
+        random<.30
         ?
-
         "tank"
-
         :
-
-        Math.random() < .08
-
-        ?
-
-        "bomber"
-
-        :
-
         "normal"
-      )
-
-    );
-
+      );
+    }
   }
 
-
   showMessage(
-
-    (
-      save.language
-      ===
-      "zh"
-
-      ?
-
-      "第 "
-
-      :
-
-      "WAVE "
-    )
-
-    +
-
-    wave
-
-    +
-
-    (
-      boss
-      ?
-      " · BOSS"
-      :
-      ""
-    )
-
+    save.language==="zh"
+    ?
+    "第 "+wave+" 波"
+    :
+    "WAVE "+wave
   );
-
 }
-
 
 function updateEnemies(dt){
 
   for(
-    let i =
-    enemies.length - 1;
-
-    i >= 0;
-
-    i--
+    const enemy
+    of enemies
   ){
 
-    const e =
-    enemies[i];
+    enemy.hitCD-=dt;
 
+    enemy.slow-=dt;
 
-    e.hitCD -= dt;
-
-    e.slow -= dt;
-
-
-    const d =
-
+    const direction=
     new THREE.Vector3()
     .subVectors(
       player.position,
-      e.mesh.position
+      enemy.mesh.position
     );
 
+    direction.y=0;
 
-    d.y = 0;
+    const distance=
+    direction.length();
 
-
-    const dist =
-    d.length();
-
-
-    if(
-      dist > .01
-    ){
-
-      d.normalize();
-
+    if(distance>.01){
+      direction.normalize();
     }
 
-
-    e.mesh.rotation.y =
-
-    Math.atan2(
-      d.x,
-      d.z
-    );
-
-
-    e.mesh.position
+    enemy.mesh.position
     .addScaledVector(
-
-      d,
-
-      e.speed
-      *
+      direction,
+      enemy.speed*
       (
-        e.slow > 0
+        enemy.slow>0
         ?
         .55
         :
@@ -5599,136 +2604,86 @@ function updateEnemies(dt){
       )
       *
       dt
-
     );
 
-
     if(
-
-      dist < 1.2
-
+      distance<1.2
       &&
-
-      e.hitCD <= 0
-
+      enemy.hitCD<=0
     ){
 
-      e.hitCD =
-      .65;
+      enemy.hitCD=.65;
 
+      if(shieldTimer<=0){
 
-      if(
-        shieldTimer <= 0
-      ){
+        playerHP-=enemy.damage;
 
-        playerHP -=
-        e.damage;
+        const playerActor=
+        actors.find(
+          actor=>
+          actor.type==="player"
+        );
 
+        if(playerActor){
+          playerActor.hp=playerHP;
+        }
 
         sfxHurt();
 
-
-        showMessage(
-          "-" +
-          e.damage +
-          " HP"
-        );
-
-      }
-
-      else{
+      }else{
 
         showMessage(
           "SHIELD"
         );
-
       }
-
     }
-
   }
 
-
   if(
-
-    enemies.length === 0
-
+    enemies.length===0
     &&
-
     gameActive
-
   ){
 
     wave++;
-
 
     setTimeout(
       startWave,
       700
     );
-
   }
-
 }
 
-
-/* ---------- BULLETS / DAMAGE ---------- */
+/* =========================
+   BULLETS
+========================= */
 
 function createBullet(
-
   origin,
-
-  dir,
-
-  c,
-
+  direction,
+  chicken,
   owner,
-
-  scale = 1,
-
-  sourceActor = null
-
+  scale=1,
+  sourceActor=null
 ){
 
-  const m =
-
+  const mesh=
   box(
-
     .18,
-
     .18,
-
     .55,
-
-    c.id === "thunder"
-
+    chicken.id==="ice"
     ?
-
-    0xffff55
-
-    :
-
-    c.id === "ice"
-
-    ?
-
     0xaeeeff
-
     :
-
-    c.id === "fire"
-
+    chicken.id==="fire"
     ?
-
     0xff6c21
-
     :
-
     0xffe6a4
   );
 
-
-  m.position
+  mesh.position
   .copy(origin)
   .add(
     new THREE.Vector3(
@@ -5738,32 +2693,32 @@ function createBullet(
     )
   )
   .addScaledVector(
-    dir,
+    direction,
     .85
   );
 
-
-  m.rotation.y =
-
-  Math.atan2(
-    dir.x,
-    dir.z
-  );
-
-
-  world.add(m);
-
+  world.add(mesh);
 
   bullets.push({
 
-    mesh:m,
+    mesh,
 
-    dir:dir.clone(),
+    dir:direction.clone(),
 
     speed:22,
 
     damage:
-    c.damage * scale,
+    chicken.damage
+    *
+    scale
+    *
+    (
+      owner==="player"
+      ?
+      damageMultiplier
+      :
+      1
+    ),
 
     life:1.4,
 
@@ -5771,908 +2726,482 @@ function createBullet(
 
     sourceActor,
 
-    chicken:c,
+    chicken,
 
     pierce:
+    owner==="player"
+    ?
     bulletPierce
+    :
+    0
 
   });
-
 }
 
-
 function showDamage(
-
-  pos,
-
-  val,
-
-  crit = false
-
+  position,
+  amount
 ){
 
-  const v =
-  pos.clone();
+  const screen=
+  position.clone();
 
+  screen.y+=2.5;
 
-  v.y +=
-  2.5;
+  screen.project(camera);
 
-
-  v.project(
-    camera
-  );
-
-
-  const el =
-
-  document
-  .createElement(
+  const element=
+  document.createElement(
     "div"
   );
 
+  element.className=
+  "damage";
 
-  el.className =
+  element.textContent=
+  "-"+
+  Math.round(amount);
 
-  "damage"
-
-  +
-
-  (
-    crit
-    ?
-    " crit"
-    :
-    ""
-  );
-
-
-  el.textContent =
-
-  (
-    crit
-    ?
-    "CRIT "
-    :
-    "-"
-  )
-
-  +
-
-  Math.round(val);
-
-
-  el.style.left =
-
+  element.style.left=
   (
     (
-      v.x * .5
-      +
-      .5
+      screen.x*.5+.5
     )
     *
     innerWidth
   )
-
   +
-
   "px";
 
-
-  el.style.top =
-
+  element.style.top=
   (
     (
-      -v.y * .5
-      +
-      .5
+      -screen.y*.5+.5
     )
     *
     innerHeight
   )
-
   +
-
   "px";
 
-
-  document.body
-  .appendChild(el);
-
-
-  setTimeout(
-    () => el.remove(),
-    750
+  document.body.appendChild(
+    element
   );
 
+  setTimeout(
+    ()=>element.remove(),
+    750
+  );
 }
 
-
 function damageActor(
-
   target,
-
   amount,
-
-  source = null
-
+  source
 ){
 
   if(
-
     !target
-
     ||
-
     !target.alive
-
     ||
-
-    target === source
-
+    target===source
   ){
-
-    return false;
+    return;
   }
 
+  target.hp-=amount;
 
-  target.hp -=
-  amount;
+  target.revealTimer=2.3;
 
-
-  target.revealTimer =
-  2.3;
-
-
-  target.hidden =
-  false;
-
+  target.hidden=false;
 
   sfxHit();
 
-
   showDamage(
-
     target.mesh.position,
-
     amount
-
   );
 
-
   if(
-    target.type
-    ===
-    "player"
+    target.type==="player"
   ){
 
-    playerHP =
-
+    playerHP=
     Math.max(
       0,
       target.hp
     );
 
-
     sfxHurt();
-
   }
 
-
   if(
-    target.hp <= 0
+    target.hp<=0
   ){
 
-    target.hp = 0;
+    target.hp=0;
 
-    target.alive =
-    false;
-
+    target.alive=false;
 
     sfxDeath();
 
-
-    createDeathBlocks(
-
-      target.mesh.position,
-
-      10
-
-    );
-
-
-    if(
-      target.marker
-    ){
+    if(target.marker){
 
       target.marker.remove();
 
-      target.marker = null;
-
+      target.marker=null;
     }
 
-
     if(
-      target.type
-      ===
-      "ai"
+      target.type==="ai"
     ){
 
       world.remove(
         target.mesh
       );
-
     }
 
-
     if(
-
       source
-
       &&
-
-      source.type
-      ===
-      "player"
-
+      source.type==="player"
     ){
 
       kills++;
-
     }
 
-
     if(
-      target.type
-      ===
-      "player"
+      target.type==="player"
     ){
 
       endGame();
-
     }
-
   }
-
-
-  return true;
 }
-
 
 function updateBullets(dt){
 
   for(
-
-    let i =
-    bullets.length - 1;
-
-    i >= 0;
-
+    let i=bullets.length-1;
+    i>=0;
     i--
-
   ){
 
-    const b =
+    const bullet=
     bullets[i];
 
-
-    b.mesh.position
+    bullet.mesh.position
     .addScaledVector(
-
-      b.dir,
-
-      b.speed * dt
-
+      bullet.dir,
+      bullet.speed*dt
     );
 
+    bullet.life-=dt;
 
-    b.life -= dt;
-
-
-    let remove =
-    false;
-
+    let remove=false;
 
     if(
-      currentMode === 0
+      currentMode===0
     ){
 
       for(
-
-        let j =
-        enemies.length - 1;
-
-        j >= 0;
-
+        let j=enemies.length-1;
+        j>=0;
         j--
-
       ){
 
-        const e =
+        const enemy=
         enemies[j];
 
-
         if(
-
-          b.mesh.position
+          bullet.mesh.position
           .distanceTo(
-            e.mesh.position
+            enemy.mesh.position
           )
-
           <
           .75
-
         ){
 
-          const crit =
-
-          Math.random()
-          <
-          .08;
-
-
-          const damage =
-
-          b.damage
-
-          *
-
-          (
-            crit
-            ?
-            1.7
-            :
-            1
-          );
-
-
-          e.hp -=
-          damage;
-
+          enemy.hp-=
+          bullet.damage;
 
           sfxHit();
 
-
           showDamage(
-
-            e.mesh.position,
-
-            damage,
-
-            crit
-
+            enemy.mesh.position,
+            bullet.damage
           );
 
-
           if(
-            b.chicken.id
-            ===
-            "ice"
+            bullet.chicken.id==="ice"
           ){
-
-            e.slow =
-            2.5;
-
+            enemy.slow=2.5;
           }
 
-
           if(
-            e.hp <= 0
+            enemy.hp<=0
           ){
 
             enemyDeath(
-              e,
+              enemy,
               j
             );
-
           }
-
 
           if(
-            b.pierce > 0
+            bullet.pierce>0
           ){
 
-            b.pierce--;
+            bullet.pierce--;
 
+          }else{
+
+            remove=true;
           }
-
-          else{
-
-            remove =
-            true;
-
-          }
-
 
           break;
-
         }
-
       }
 
-    }
-
-    else{
+    }else{
 
       for(
-        const a of actors
+        const actor
+        of actors
       ){
 
         if(
-
-          remove
-
+          !actor.alive
           ||
-
-          !a.alive
-
-          ||
-
-          a ===
-          b.sourceActor
-
+          actor===bullet.sourceActor
         ){
-
           continue;
         }
 
-
-        const dx =
-
-        b.mesh.position.x
+        const dx=
+        bullet.mesh.position.x
         -
-        a.mesh.position.x;
+        actor.mesh.position.x;
 
-
-        const dz =
-
-        b.mesh.position.z
+        const dz=
+        bullet.mesh.position.z
         -
-        a.mesh.position.z;
-
+        actor.mesh.position.z;
 
         if(
-
-          dx * dx
-          +
-          dz * dz
-
+          dx*dx+dz*dz
           <
-
-          .75 * .75
-
+          .75*.75
         ){
 
           damageActor(
-
-            a,
-
-            b.damage,
-
-            b.sourceActor
-
+            actor,
+            bullet.damage,
+            bullet.sourceActor
           );
 
-
-          remove =
-          true;
-
+          remove=true;
 
           break;
-
         }
-
       }
-
     }
-
 
     if(
-      b.life <= 0
+      bullet.life<=0
     ){
 
-      remove =
-      true;
-
+      remove=true;
     }
-
 
     if(remove){
 
       world.remove(
-        b.mesh
+        bullet.mesh
       );
-
 
       bullets.splice(
         i,
         1
       );
-
     }
-
   }
-
 }
 
-
 function enemyDeath(
-
-  e,
-
+  enemy,
   index
-
 ){
 
-  sfxDeath();
-
-
-  const p =
-  e.mesh.position.clone();
-
+  const position=
+  enemy.mesh.position.clone();
 
   world.remove(
-    e.mesh
+    enemy.mesh
   );
-
 
   enemies.splice(
     index,
     1
   );
 
-
   kills++;
 
+  sfxDeath();
 
   if(
-    Math.random() < .75
+    Math.random()<.75
   ){
-
     spawnPickup(
-      p,
+      position,
       "xp"
     );
-
   }
 
-
   if(
-    Math.random() < .2
+    Math.random()<.2
   ){
-
     spawnPickup(
-      p,
+      position,
       "egg"
     );
-
   }
-
-
-  if(
-    Math.random() < .08
-  ){
-
-    spawnPickup(
-      p,
-      "med"
-    );
-
-  }
-
-
-  createDeathBlocks(
-    p,
-    8
-  );
-
 }
 
-
-function createDeathBlocks(
-
-  pos,
-
-  n
-
-){
-
-  for(
-    let i = 0;
-    i < n;
-    i++
-  ){
-
-    const m =
-
-    box(
-      .18,
-      .18,
-      .18,
-      0xff8a35
-    );
-
-
-    m.position
-    .copy(pos)
-    .add(
-
-      new THREE.Vector3(
-
-        Math.random() - .5,
-
-        1 +
-        Math.random(),
-
-        Math.random() - .5
-
-      )
-
-    );
-
-
-    world.add(m);
-
-
-    fx.push({
-
-      mesh:m,
-
-      v:
-      new THREE.Vector3(
-
-        (
-          Math.random() - .5
-        ) * 3,
-
-        2 +
-        Math.random() * 2,
-
-        (
-          Math.random() - .5
-        ) * 3
-
-      ),
-
-      life:.65
-
-    });
-
-  }
-
-}
-
-
-function updateFX(dt){
-
-  for(
-
-    let i =
-    fx.length - 1;
-
-    i >= 0;
-
-    i--
-
-  ){
-
-    const f =
-    fx[i];
-
-
-    f.life -= dt;
-
-
-    f.v.y -=
-    6 * dt;
-
-
-    f.mesh.position
-    .addScaledVector(
-
-      f.v,
-
-      dt
-
-    );
-
-
-    if(
-      f.life <= 0
-    ){
-
-      world.remove(
-        f.mesh
-      );
-
-
-      fx.splice(
-        i,
-        1
-      );
-
-    }
-
-  }
-
-}
-
-
-/* ---------- SHOOT ---------- */
+/* =========================
+   SHOOT
+========================= */
 
 function currentAimDir(){
 
-  const d =
-
+  const direction=
   new THREE.Vector3()
   .subVectors(
-
     aimPoint,
-
     player.position
-
   );
 
-
-  d.y = 0;
-
+  direction.y=0;
 
   if(
-    d.lengthSq() < .01
+    direction.lengthSq()<.01
   ){
 
-    return
-
-    new THREE.Vector3(
+    return new THREE.Vector3(
       0,
       0,
       1
     )
     .applyAxisAngle(
-
       new THREE.Vector3(
         0,
         1,
         0
       ),
-
       player.rotation.y
     );
-
   }
 
-
-  return d.normalize();
-
+  return direction.normalize();
 }
 
+function exposePlayer(){
+
+  playerHidden=false;
+
+  const actor=
+  actors.find(
+    actor=>
+    actor.type==="player"
+  );
+
+  if(actor){
+
+    actor.revealTimer=2.3;
+
+    actor.hidden=false;
+  }
+}
 
 function shoot(){
 
   if(
-
     !gameActive
-
     ||
-
     paused
-
     ||
-
-    fireCooldown > 0
-
+    fireCooldown>0
     ||
-
     !player
-
   ){
-
     return;
   }
 
-
-  const c =
+  const chicken=
   selectedChicken;
 
-
-  const rate =
-
-  c.fireRate
-
+  fireCooldown=
+  chicken.fireRate
   *
-
   (
-    frenzyTimer > 0
+    frenzyTimer>0
     ?
     .55
     :
     1
   )
-
   *
-
   fireMultiplier;
 
-
-  fireCooldown =
-  rate;
-
-
-  const source =
-
+  const source=
   actors.find(
-    a =>
-    a.type
-    ===
-    "player"
+    actor=>
+    actor.type==="player"
   );
 
-
-  const base =
+  const base=
   currentAimDir();
-
 
   exposePlayer();
 
   sfxGun(
-    c,
+    chicken,
     false
   );
 
+  let shots=1;
 
-  const shots =
+  let spread=.02;
 
-  c.weapon === "Shotgun"
+  if(
+    chicken.weapon==="Shotgun"
+  ){
 
-  ?
+    shots=5;
 
-  5
+    spread=.28;
+  }
 
-  :
+  if(
+    chicken.weapon==="Dual Pistols"
+  ){
 
-  c.weapon === "Dual Pistols"
+    shots=2;
 
-  ?
-
-  2
-
-  :
-
-  1;
-
+    spread=.08;
+  }
 
   for(
-    let i = 0;
-    i < shots;
+    let i=0;
+    i<shots;
     i++
   ){
 
-    let d =
+    const direction=
     base.clone();
 
-
-    const spread =
-
-    c.weapon === "Shotgun"
-
-    ?
-
-    .28
-
-    :
-
-    c.weapon === "Dual Pistols"
-
-    ?
-
-    .08
-
-    :
-
-    .02;
-
-
-    d.applyAxisAngle(
+    direction.applyAxisAngle(
 
       new THREE.Vector3(
         0,
@@ -6681,97 +3210,45 @@ function shoot(){
       ),
 
       (
-        i -
+        i-
         (
-          shots - 1
-        ) / 2
+          shots-1
+        )/2
       )
-
       *
-
       spread
-
     );
-
 
     createBullet(
-
       player.position,
-
-      d,
-
-      c,
-
+      direction,
+      chicken,
       "player",
-
       1,
-
       source
-
     );
-
   }
-
 }
 
-
-function exposePlayer(){
-
-  playerHidden =
-  false;
-
-
-  const a =
-
-  actors.find(
-    x =>
-    x.type
-    ===
-    "player"
-  );
-
-
-  if(a){
-
-    a.revealTimer =
-    2.3;
-
-    a.hidden =
-    false;
-
-  }
-
-}
-
-
-/* ---------- SKILLS ---------- */
+/* =========================
+   SKILL
+========================= */
 
 function beginSkill(){
 
   if(
-
     !gameActive
-
     ||
-
     paused
-
     ||
-
-    skillCooldown > 0
-
+    skillCooldown>0
   ){
-
     return;
   }
 
-
-  skillAiming =
-  true;
-
+  skillAiming=true;
 
   if(
-
     [
       "doctor",
       "robot",
@@ -6781,597 +3258,127 @@ function beginSkill(){
     .includes(
       selectedChicken.id
     )
-
   ){
-
     castSkill();
-
   }
-
 }
-
 
 function castSkill(){
 
   if(
-
     !skillAiming
-
     ||
-
-    skillCooldown > 0
-
+    skillCooldown>0
   ){
-
     return;
   }
 
+  skillAiming=false;
 
-  const c =
-  selectedChicken;
-
-
-  skillAiming =
-  false;
-
-
-  skillCooldown =
-  c.skillCD;
-
+  skillCooldown=
+  selectedChicken.skillCD;
 
   sfxSkill();
 
   exposePlayer();
 
-
-  const dir =
-  currentAimDir();
-
-
   if(
-    c.id === "doctor"
+    selectedChicken.id==="doctor"
   ){
 
-    playerHP =
-
+    playerHP=
     Math.min(
       maxHP,
-      playerHP + 35
+      playerHP+35
     );
 
-
-    const a =
-
+    const actor=
     actors.find(
-      x =>
-      x.type
-      ===
-      "player"
+      actor=>
+      actor.type==="player"
     );
 
-
-    if(a){
-
-      a.hp =
-      playerHP;
-
+    if(actor){
+      actor.hp=playerHP;
     }
 
+    showMessage("+35 HP");
 
-    showMessage(
-      "+35 HP"
-    );
-
+    return;
   }
 
-
-  else if(
-    c.id === "robot"
+  if(
+    selectedChicken.id==="robot"
   ){
 
-    shieldTimer =
-    4;
-
+    shieldTimer=4;
 
     showMessage(
       "SHIELD"
     );
 
+    return;
   }
 
-
-  else if(
-    c.id === "black"
+  if(
+    selectedChicken.id==="black"
   ){
 
-    frenzyTimer =
-    5;
-
+    frenzyTimer=5;
 
     showMessage(
       "FRENZY"
     );
 
+    return;
   }
 
-
-  else if(
-    c.id === "blue"
+  if(
+    selectedChicken.id==="blue"
   ){
 
-    speedTimer =
-    5;
-
+    speedTimer=5;
 
     showMessage(
       "SPEED"
     );
 
+    return;
   }
 
-
-  else if(
-    c.id === "brown"
-  ){
-
-    for(
-      let i = 0;
-      i < 16;
-      i++
-    ){
-
-      const d =
-
-      new THREE.Vector3(
-
-        Math.sin(
-          i / 16 *
-          Math.PI * 2
-        ),
-
-        0,
-
-        Math.cos(
-          i / 16 *
-          Math.PI * 2
-        )
-
-      );
-
-
-      createBullet(
-
-        player.position,
-
-        d,
-
-        c,
-
-        "player",
-
-        1.15,
-
-        actors.find(
-          a =>
-          a.type
-          ===
-          "player"
-        )
-
-      );
-
-    }
-
-  }
-
-
-  else if(
-    c.id === "yellow"
-  ){
-
-    createBullet(
-
-      player.position,
-
-      dir,
-
-      c,
-
-      "player",
-
-      2.2,
-
-      actors.find(
-        a =>
-        a.type
-        ===
-        "player"
-      )
-
-    );
-
-  }
-
-
-  else if(
-    c.id === "cowboy"
-  ){
-
-    for(
-      let i = -2;
-      i <= 2;
-      i++
-    ){
-
-      const d =
-
-      dir.clone()
-      .applyAxisAngle(
-
-        new THREE.Vector3(
-          0,
-          1,
-          0
-        ),
-
-        i * .12
-
-      );
-
-
-      createBullet(
-
-        player.position,
-
-        d,
-
-        c,
-
-        "player",
-
-        1.25,
-
-        actors.find(
-          a =>
-          a.type
-          ===
-          "player"
-        )
-
-      );
-
-    }
-
-  }
-
-
-  else if(
-    c.id === "pirate"
-  ){
-
-    for(
-      let i = -2;
-      i <= 2;
-      i++
-    ){
-
-      const d =
-
-      dir.clone()
-      .applyAxisAngle(
-
-        new THREE.Vector3(
-          0,
-          1,
-          0
-        ),
-
-        i * .16
-
-      );
-
-
-      createBullet(
-
-        player.position,
-
-        d,
-
-        c,
-
-        "player",
-
-        1.5,
-
-        actors.find(
-          a =>
-          a.type
-          ===
-          "player"
-        )
-
-      );
-
-    }
-
-  }
-
-
-  else if(
-
-    c.id === "wizard"
-
-    ||
-
-    c.id === "thunder"
-
-  ){
-
-    for(
-      let i = 0;
-      i < 10;
-      i++
-    ){
-
-      const d =
-
-      new THREE.Vector3(
-
-        Math.sin(
-          i / 10 *
-          Math.PI * 2
-        ),
-
-        0,
-
-        Math.cos(
-          i / 10 *
-          Math.PI * 2
-        )
-
-      );
-
-
-      createBullet(
-
-        player.position,
-
-        d,
-
-        c,
-
-        "player",
-
-        1.1,
-
-        actors.find(
-          a =>
-          a.type
-          ===
-          "player"
-        )
-
-      );
-
-    }
-
-  }
-
-
-  else if(
-    c.id === "ice"
-  ){
-
-    if(
-      currentMode === 0
-    ){
-
-      enemies.forEach(
-        e => {
-
-          if(
-
-            e.mesh.position
-            .distanceTo(
-              player.position
-            )
-
-            <
-            8
-
-          ){
-
-            e.slow =
-            4;
-
-          }
-
-        }
-      );
-
-    }
-
-    else{
-
-      actors
-      .filter(
-        a =>
-        a.type === "ai"
-        &&
-        a.alive
-      )
-      .forEach(
-        a => {
-
-          if(
-
-            a.mesh.position
-            .distanceTo(
-              player.position
-            )
-
-            <
-            8
-
-          ){
-
-            a.slowTimer =
-            3;
-
-          }
-
-        }
-      );
-
-    }
-
-
-    showMessage(
-      "FREEZE"
-    );
-
-  }
-
-
-  else if(
-
-    c.id === "fire"
-
-    ||
-
-    c.id === "green"
-
-  ){
-
-    for(
-      let i = 0;
-      i < 9;
-      i++
-    ){
-
-      const d =
-
-      dir.clone()
-      .applyAxisAngle(
-
-        new THREE.Vector3(
-          0,
-          1,
-          0
-        ),
-
-        (
-          i - 4
-        ) * .1
-
-      );
-
-
-      createBullet(
-
-        player.position,
-
-        d,
-
-        c,
-
-        "player",
-
-        1.0,
-
-        actors.find(
-          a =>
-          a.type
-          ===
-          "player"
-        )
-
-      );
-
-    }
-
-  }
-
-
-  else if(
-    c.id === "white"
-  ){
-
-    createBullet(
-
-      player.position,
-
-      dir,
-
-      c,
-
-      "player",
-
-      2.0,
-
-      actors.find(
-        a =>
-        a.type
-        ===
-        "player"
-      )
-
-    );
-
-  }
-
-
-  else if(
-    c.id === "ninja"
-  ){
-
-    speedTimer =
-    3;
-
-
-    shieldTimer =
-    1.3;
-
-
-    showMessage(
-      "SHADOW"
-    );
-
-  }
-
+  const direction=
+  currentAimDir();
+
+  createBullet(
+    player.position,
+    direction,
+    selectedChicken,
+    "player",
+    2,
+    actors.find(
+      actor=>
+      actor.type==="player"
+    )
+  );
 }
 
-
-/* ---------- PICKUPS / LEVEL ---------- */
+/* =========================
+   PICKUPS
+========================= */
 
 function spawnPickup(
-  pos,
+  position,
   type
 ){
 
-  const color =
-
-  type === "xp"
-
+  const color=
+  type==="xp"
   ?
-
   0x53c8ff
-
   :
+  0xffd85b;
 
-  type === "egg"
-
-  ?
-
-  0xffd85b
-
-  :
-
-  0x65df75;
-
-
-  const m =
-
+  const mesh=
   box(
     .4,
     .4,
@@ -7379,2528 +3386,1249 @@ function spawnPickup(
     color
   );
 
-
-  m.position
-  .copy(pos)
+  mesh.position
+  .copy(position)
   .add(
-
     new THREE.Vector3(
       0,
       .35,
       0
     )
-
   );
 
-
-  world.add(m);
-
+  world.add(mesh);
 
   pickups.push({
-
-    mesh:m,
-
+    mesh,
     type
-
   });
-
 }
-
 
 function updatePickups(dt){
 
   for(
-
-    let i =
-    pickups.length - 1;
-
-    i >= 0;
-
+    let i=pickups.length-1;
+    i>=0;
     i--
-
   ){
 
-    const p =
+    const pickup=
     pickups[i];
 
-
-    p.mesh.rotation.y +=
-    dt * 2;
-
+    pickup.mesh.rotation.y+=
+    dt*2;
 
     if(
-
-      p.mesh.position
+      pickup.mesh.position
       .distanceTo(
         player.position
       )
-
       <
       1
-
     ){
 
       sfxPickup();
 
-
       if(
-        p.type === "xp"
+        pickup.type==="xp"
       ){
 
-        xp += 10;
-
+        xp+=10;
 
         if(
-          xp >= xpNeeded
+          xp>=xpNeeded
         ){
 
-          xp -=
-          xpNeeded;
+          xp-=xpNeeded;
 
-
-          xpNeeded =
-
+          xpNeeded=
           Math.round(
-            xpNeeded * 1.35
+            xpNeeded*1.35
           );
-
 
           level++;
 
-
-          openUpgrade();
-
+          damageMultiplier*=1.05;
         }
 
+      }else{
+
+        battleEggTotal+=10;
       }
-
-
-      else if(
-        p.type === "egg"
-      ){
-
-        battleEggs +=
-        10;
-
-      }
-
-
-      else{
-
-        playerHP =
-
-        Math.min(
-
-          maxHP,
-
-          playerHP + 25
-
-        );
-
-
-        const a =
-
-        actors.find(
-          a =>
-          a.type
-          ===
-          "player"
-        );
-
-
-        if(a){
-
-          a.hp =
-          playerHP;
-
-        }
-
-      }
-
 
       world.remove(
-        p.mesh
+        pickup.mesh
       );
-
 
       pickups.splice(
         i,
         1
       );
-
     }
-
   }
-
 }
 
+/* =========================
+   AI
+========================= */
 
-const UPGRADES = [
+function actorInGrass(actor){
 
-  [
-    "💥",
-    "MORE DAMAGE",
-    "+18% damage",
-    "damage"
-  ],
+  return grassZones.some(
 
-  [
-    "⚡",
-    "FASTER FIRE",
-    "15% faster fire",
-    "fire"
-  ],
+    zone=>{
 
-  [
-    "❤️",
-    "MORE HP",
-    "+25 max HP",
-    "hp"
-  ],
+      const dx=
+      actor.mesh.position.x-zone.x;
 
-  [
-    "👟",
-    "MOVE SPEED",
-    "+12% speed",
-    "speed"
-  ],
+      const dz=
+      actor.mesh.position.z-zone.z;
 
-  [
-    "🎯",
-    "PIERCE",
-    "Bullets pierce +1 enemy",
-    "pierce"
-  ],
-
-  [
-    "💊",
-    "HEAL",
-    "Restore 35 HP",
-    "heal"
-  ]
-
-];
-
-
-function openUpgrade(){
-
-  paused =
-  true;
-
-
-  upgradeGrid.innerHTML =
-  "";
-
-
-  [
-    ...UPGRADES
-  ]
-  .sort(
-    () =>
-    Math.random() - .5
-  )
-  .slice(
-    0,
-    3
-  )
-  .forEach(
-    u => {
-
-      const d =
-
-      document
-      .createElement(
-        "div"
+      return(
+        dx*dx+dz*dz
+        <
+        zone.radius*zone.radius
       );
-
-
-      d.className =
-      "upgradeCard";
-
-
-      d.innerHTML =
-
-      `
-      <div class="upgradeIcon">
-        ${u[0]}
-      </div>
-
-      <div class="upgradeName">
-        ${u[1]}
-      </div>
-
-      <div class="upgradeDesc">
-        ${u[2]}
-      </div>
-      `;
-
-
-      d.onclick =
-      () =>
-      applyUpgrade(
-        u[3]
-      );
-
-
-      upgradeGrid
-      .appendChild(d);
-
-    }
-  );
-
-
-  upgradeModal
-  .classList
-  .add("show");
-
-}
-
-
-function applyUpgrade(t){
-
-  if(
-    t === "damage"
-  ){
-
-    damageMultiplier *=
-    1.18;
-
-  }
-
-
-  if(
-    t === "fire"
-  ){
-
-    fireMultiplier *=
-    .85;
-
-  }
-
-
-  if(
-    t === "hp"
-  ){
-
-    maxHP +=
-    25;
-
-
-    playerHP +=
-    25;
-
-  }
-
-
-  if(
-    t === "speed"
-  ){
-
-    moveMultiplier *=
-    1.12;
-
-  }
-
-
-  if(
-    t === "pierce"
-  ){
-
-    bulletPierce++;
-
-  }
-
-
-  if(
-    t === "heal"
-  ){
-
-    playerHP =
-
-    Math.min(
-      maxHP,
-      playerHP + 35
-    );
-
-  }
-
-
-  const a =
-
-  actors.find(
-    a =>
-    a.type
-    ===
-    "player"
-  );
-
-
-  if(a){
-
-    a.hp =
-    playerHP;
-
-
-    a.maxHP =
-    maxHP;
-
-  }
-
-
-  upgradeModal
-  .classList
-  .remove("show");
-
-
-  paused =
-  false;
-
-}
-
-
-/* ---------- AI BRAWL ---------- */
-
-function actorInGrass(a){
-
-  return
-
-  grassZones.some(
-
-    g => {
-
-      const dx =
-
-      a.mesh.position.x
-      -
-      g.x;
-
-
-      const dz =
-
-      a.mesh.position.z
-      -
-      g.z;
-
-
-      return
-
-      dx * dx
-      +
-      dz * dz
-
-      <
-
-      g.radius
-      *
-      g.radius;
-
     }
 
   );
-
 }
-
 
 function chooseAITarget(ai){
 
-  const cand =
-
+  const possible=
   actors.filter(
 
-    o =>
-
-    o.alive
-
+    actor=>
+    actor.alive
     &&
-
-    o !== ai
-
+    actor!==ai
     &&
-
     !(
-      o.hidden
-
+      actor.hidden
       &&
-
-      o.revealTimer <= 0
-
+      actor.revealTimer<=0
       &&
-
-      o.mesh.position
+      actor.mesh.position
       .distanceTo(
         ai.mesh.position
       )
-
       >
       5
     )
 
   );
 
-
   if(
-    !cand.length
+    possible.length===0
   ){
-
     return null;
   }
 
+  possible.sort(
 
-  cand.sort(
+    (a,b)=>
 
-    (
-      a,
-      b
-    ) => {
+    a.mesh.position
+    .distanceTo(
+      ai.mesh.position
+    )
 
-      const da =
+    -
 
-      a.mesh.position
-      .distanceTo(
-        ai.mesh.position
-      )
-
-      -
-
-      (
-        1 -
-        a.hp /
-        a.maxHP
-      )
-
-      * 2;
-
-
-      const db =
-
-      b.mesh.position
-      .distanceTo(
-        ai.mesh.position
-      )
-
-      -
-
-      (
-        1 -
-        b.hp /
-        b.maxHP
-      )
-
-      * 2;
-
-
-      return da - db;
-
-    }
+    b.mesh.position
+    .distanceTo(
+      ai.mesh.position
+    )
 
   );
 
-
-  return
-
-  Math.random() < .82
-
-  ?
-
-  cand[0]
-
-  :
-
-  cand[
-    Math.min(
-      cand.length - 1,
-      1
-    )
-  ];
-
+  return possible[0];
 }
-
 
 function updateAI(dt){
 
-  const live =
-
+  const livingAI=
   actors.filter(
-
-    a =>
-    a.type === "ai"
+    actor=>
+    actor.type==="ai"
     &&
-    a.alive
-
+    actor.alive
   );
 
-
-  live.forEach(
-
-    ai => {
-
-      ai.fire -= dt;
-
-      ai.targetLock -= dt;
-
-
-      ai.revealTimer =
-
-      Math.max(
-        0,
-        ai.revealTimer - dt
-      );
-
-
-      ai.slowTimer =
-
-      Math.max(
-        0,
-        (
-          ai.slowTimer
-          ||
-          0
-        )
-        -
-        dt
-      );
-
-
-      ai.hidden =
-
-      actorInGrass(ai)
-
-      &&
-
-      ai.revealTimer <= 0;
-
-
-      if(
-
-        !ai.target
-
-        ||
-
-        !ai.target.alive
-
-        ||
-
-        ai.targetLock <= 0
-
-        ||
-
-        (
-          ai.target.hidden
-
-          &&
-
-          ai.target.revealTimer <= 0
-
-          &&
-
-          ai.mesh.position
-          .distanceTo(
-            ai.target.mesh.position
-          )
-
-          >
-          5
-        )
-
-      ){
-
-        ai.target =
-        chooseAITarget(ai);
-
-
-        ai.targetLock =
-
-        2.7
-
-        +
-
-        Math.random()
-        *
-        2.6;
-
-      }
-
-
-      const t =
-      ai.target;
-
-
-      if(!t){
-
-        return;
-      }
-
-
-      const d =
-
-      new THREE.Vector3()
-      .subVectors(
-
-        t.mesh.position,
-
-        ai.mesh.position
-
-      );
-
-
-      d.y = 0;
-
-
-      const dist =
-      d.length();
-
-
-      if(
-        dist < .001
-      ){
-
-        return;
-      }
-
-
-      d.normalize();
-
-
-      const rank =
-      ai.rank;
-
-
-      const keep =
-
-      Math.min(
-
-        ai.chicken.range
-        *
-        .72,
-
-        7.5
-        +
-        rank * .35
-
-      );
-
-
-      const strafe =
-
-      new THREE.Vector3(
-
-        -d.z,
-
-        0,
-
-        d.x
-
-      );
-
-
-      const side =
-
-      Math.sin(
-
-        performance.now()
-        *
-        .0013
-
-        +
-
-        ai.mesh.position.x
-
-      )
-
-      >
-      0
-
-      ?
-
-      1
-
-      :
-
-      -1;
-
-
-      const slow =
-
-      ai.slowTimer > 0
-
-      ?
-
-      .55
-
-      :
-
-      1;
-
-
-      if(
-        dist > keep + 1.1
-      ){
-
-        ai.mesh.position
-        .addScaledVector(
-
-          d,
-
-          (
-            2.05
-            +
-            rank * .1
-          )
-
-          *
-          slow
-          *
-          dt
-
-        );
-
-      }
-
-
-      else if(
-        dist < keep - 1.5
-      ){
-
-        ai.mesh.position
-        .addScaledVector(
-
-          d,
-
-          -(
-            1.15
-            +
-            rank * .06
-          )
-
-          *
-          slow
-          *
-          dt
-
-        );
-
-      }
-
+  for(
+    const ai
+    of livingAI
+  ){
+
+    ai.fire-=dt;
+
+    ai.targetLock-=dt;
+
+    ai.revealTimer=
+    Math.max(
+      0,
+      ai.revealTimer-dt
+    );
+
+    ai.hidden=
+    actorInGrass(ai)
+    &&
+    ai.revealTimer<=0;
+
+    if(
+      !ai.target
+      ||
+      !ai.target.alive
+      ||
+      ai.targetLock<=0
+    ){
+
+      ai.target=
+      chooseAITarget(ai);
+
+      ai.targetLock=
+      2.7+
+      Math.random()*2.6;
+    }
+
+    if(!ai.target){
+      continue;
+    }
+
+    const direction=
+    new THREE.Vector3()
+    .subVectors(
+      ai.target.mesh.position,
+      ai.mesh.position
+    );
+
+    direction.y=0;
+
+    const distance=
+    direction.length();
+
+    if(distance<.001){
+      continue;
+    }
+
+    direction.normalize();
+
+    const keepDistance=
+    Math.min(
+      ai.chicken.range*.72,
+      8
+    );
+
+    const strafe=
+    new THREE.Vector3(
+      -direction.z,
+      0,
+      direction.x
+    );
+
+    if(
+      distance>
+      keepDistance+1
+    ){
 
       ai.mesh.position
       .addScaledVector(
-
-        strafe,
-
-        side
-
-        *
-
-        (
-          .55
-          +
-          rank * .05
-        )
-
-        *
-
-        slow
-
-        *
-
-        dt
-
+        direction,
+        2.2*dt
       );
 
+    }else if(
+      distance<
+      keepDistance-1
+    ){
 
-      ai.mesh.position.x =
-
-      THREE.MathUtils.clamp(
-
-        ai.mesh.position.x,
-
-        -31.2,
-
-        31.2
-
+      ai.mesh.position
+      .addScaledVector(
+        direction,
+        -1.2*dt
       );
-
-
-      ai.mesh.position.z =
-
-      THREE.MathUtils.clamp(
-
-        ai.mesh.position.z,
-
-        -31.2,
-
-        31.2
-
-      );
-
-
-      ai.mesh.rotation.y =
-
-      Math.atan2(
-        d.x,
-        d.z
-      );
-
-
-      if(
-
-        ai.fire <= 0
-
-        &&
-
-        dist <
-        ai.chicken.range
-
-        &&
-
-        !t.hidden
-
-      ){
-
-        const rankSpeed =
-
-        Math.max(
-
-          .72,
-
-          1 -
-          rank * .035
-
-        );
-
-
-        const base =
-
-        Math.max(
-
-          .36,
-
-          ai.chicken.fireRate
-          *
-          2.05
-
-        );
-
-
-        ai.fire =
-
-        (
-          base
-          +
-          .12
-          +
-          Math.random() * .28
-        )
-
-        *
-
-        rankSpeed;
-
-
-        const err =
-
-        Math.max(
-
-          .025,
-
-          .28
-          -
-          rank * .032
-
-        );
-
-
-        const shot =
-
-        d.clone()
-        .applyAxisAngle(
-
-          new THREE.Vector3(
-            0,
-            1,
-            0
-          ),
-
-          (
-            Math.random() - .5
-          )
-
-          *
-
-          err
-
-        );
-
-
-        createBullet(
-
-          ai.mesh.position,
-
-          shot,
-
-          ai.chicken,
-
-          "ai",
-
-          .62
-          +
-          rank * .045,
-
-          ai
-
-        );
-
-
-        sfxGun(
-          ai.chicken,
-          true
-        );
-
-
-        ai.revealTimer =
-        2.3;
-
-
-        ai.hidden =
-        false;
-
-      }
-
     }
 
-  );
-
-
-  const p =
-
-  actors.find(
-    a =>
-    a.type
-    ===
-    "player"
-  );
-
-
-  if(p){
-
-    p.hp =
-    playerHP;
-
-
-    p.revealTimer =
-
-    Math.max(
-
-      0,
-
-      p.revealTimer
-      -
+    ai.mesh.position
+    .addScaledVector(
+      strafe,
+      Math.sin(
+        performance.now()*.001+
+        ai.mesh.position.x
+      )
+      *
+      .6
+      *
       dt
-
     );
 
+    ai.mesh.position.x=
+    THREE.MathUtils.clamp(
+      ai.mesh.position.x,
+      -31.2,
+      31.2
+    );
 
-    p.hidden =
+    ai.mesh.position.z=
+    THREE.MathUtils.clamp(
+      ai.mesh.position.z,
+      -31.2,
+      31.2
+    );
 
-    playerHidden
+    ai.mesh.rotation.y=
+    Math.atan2(
+      direction.x,
+      direction.z
+    );
 
-    &&
+    if(
+      ai.fire<=0
+      &&
+      distance<
+      ai.chicken.range
+      &&
+      !ai.target.hidden
+    ){
 
-    p.revealTimer <= 0;
+      ai.fire=
+      Math.max(
+        .38,
+        ai.chicken.fireRate*2
+      )
+      +
+      .15+
+      Math.random()*.25;
 
+      const error=
+      Math.max(
+        .03,
+        .24-ai.rank*.025
+      );
+
+      const shot=
+      direction.clone()
+      .applyAxisAngle(
+        new THREE.Vector3(
+          0,
+          1,
+          0
+        ),
+        (
+          Math.random()-.5
+        )
+        *
+        error
+      );
+
+      createBullet(
+        ai.mesh.position,
+        shot,
+        ai.chicken,
+        "ai",
+        .7,
+        ai
+      );
+
+      sfxGun(
+        ai.chicken,
+        true
+      );
+
+      ai.revealTimer=2.3;
+
+      ai.hidden=false;
+    }
   }
-
 
   updateAIMarkers();
 
-
   if(
-
-    actors.filter(
-      a =>
-      a.type === "ai"
-      &&
-      a.alive
-    ).length
-    ===
-    0
-
+    livingAI.length===0
     &&
-
     gameActive
-
   ){
-
-    if(
-      currentMode === 2
-    ){
-
-      save.rankPoints +=
-      70;
-
-
-      saveGame();
-
-    }
-
 
     showMessage(
       "YOU WIN!"
     );
 
-
     setTimeout(
       endGame,
       900
     );
-
   }
-
 }
-
 
 function updateAIMarkers(){
 
   actors
   .filter(
-    a =>
-    a.type === "ai"
+    actor=>
+    actor.type==="ai"
   )
   .forEach(
 
-    ai => {
+    ai=>{
 
-      if(
-        !ai.marker
-      ){
-
+      if(!ai.marker){
         return;
       }
 
-
       if(
-
         !ai.alive
-
         ||
-
         ai.hidden
-
       ){
 
-        ai.marker.style.display =
+        ai.marker.style.display=
         "none";
 
-
         return;
       }
 
-
-      const v =
+      const screen=
       ai.mesh.position.clone();
 
+      screen.y+=3;
 
-      v.y +=
-      3;
+      screen.project(camera);
 
-
-      v.project(
-        camera
-      );
-
-
-      const ons =
-
-      v.z < 1
-
+      const visible=
+      screen.z<1
       &&
-
-      v.x > -1.05
-
+      screen.x>-1.05
       &&
-
-      v.x < 1.05
-
+      screen.x<1.05
       &&
-
-      v.y > -1.05
-
+      screen.y>-1.05
       &&
+      screen.y<1.05;
 
-      v.y < 1.05;
-
-
-      ai.marker.style.display =
-
-      ons
+      ai.marker.style.display=
+      visible
       ?
       "block"
       :
       "none";
 
+      if(visible){
 
-      if(ons){
-
-        ai.marker.style.left =
-
+        ai.marker.style.left=
         (
           (
-            v.x * .5
-            +
-            .5
+            screen.x*.5+.5
           )
-
           *
-
           innerWidth
         )
-
         +
-
         "px";
 
-
-        ai.marker.style.top =
-
+        ai.marker.style.top=
         (
           (
-            -v.y * .5
-            +
-            .5
+            -screen.y*.5+.5
           )
-
           *
-
           innerHeight
         )
-
         +
-
         "px";
-
       }
-
     }
-
   );
-
 }
 
-
-/* ---------- GRASS ---------- */
+/* =========================
+   GRASS
+========================= */
 
 function updateGrass(){
 
-  playerHidden =
-  false;
-
+  playerHidden=false;
 
   for(
-    const g of grassZones
+    const zone
+    of grassZones
   ){
 
-    const dx =
+    const dx=
+    player.position.x-zone.x;
 
-    player.position.x
-    -
-    g.x;
-
-
-    const dz =
-
-    player.position.z
-    -
-    g.z;
-
+    const dz=
+    player.position.z-zone.z;
 
     if(
-
-      dx * dx
-      +
-      dz * dz
-
+      dx*dx+dz*dz
       <
-
-      g.radius
-      *
-      g.radius
-
+      zone.radius*zone.radius
     ){
 
-      playerHidden =
-      true;
-
+      playerHidden=true;
 
       break;
-
     }
-
   }
 
-
-  const p =
-
+  const playerActor=
   actors.find(
-    a =>
-    a.type
-    ===
-    "player"
+    actor=>
+    actor.type==="player"
   );
 
-
   if(
-
-    p
-
+    playerActor
     &&
-
-    p.revealTimer > 0
-
+    playerActor.revealTimer>0
   ){
 
-    playerHidden =
-    false;
-
+    playerHidden=false;
   }
-
 
   player.traverse(
 
-    ch => {
+    child=>{
 
       if(
-        ch.material
+        child.material
       ){
 
-        ch.material.transparent =
-        true;
+        child.material.transparent=true;
 
-
-        ch.material.opacity =
-
+        child.material.opacity=
         playerHidden
-
         ?
-
         .55
-
         :
-
         1;
-
       }
-
     }
 
   );
 
-
-  let danger =
-  false;
-
+  let danger=false;
 
   if(
-    currentMode > 0
+    currentMode>0
   ){
 
     for(
-
       const ai
-      of
-      actors.filter(
-        a =>
-        a.type === "ai"
+      of actors.filter(
+        actor=>
+        actor.type==="ai"
         &&
-        a.alive
+        actor.alive
       )
-
     ){
 
-      ai.hidden =
-
+      ai.hidden=
       actorInGrass(ai)
-
       &&
-
-      ai.revealTimer <= 0;
-
+      ai.revealTimer<=0;
 
       if(
-
         ai.hidden
-
         &&
-
         ai.mesh.position
         .distanceTo(
           player.position
         )
-
         <
         6.2
-
       ){
 
-        danger =
-        true;
-
+        danger=true;
       }
-
     }
-
   }
 
-
-  dangerIndicator.style.display =
-
+  dangerIndicator.style.display=
   danger
-
   ?
-
   "block"
-
   :
-
   "none";
 
-
   if(
-
     danger
-
     &&
-
-    dangerCD <= 0
-
+    dangerCD<=0
   ){
 
-    dangerCD =
-    2;
-
+    dangerCD=2;
 
     sfxChicken();
-
   }
-
 }
 
-
-/* ---------- INPUT ---------- */
+/* =========================
+   KEYBOARD
+========================= */
 
 addEventListener(
 
   "keydown",
 
-  e => {
+  event=>{
 
-    keys[e.code] =
-    true;
-
+    keys[event.code]=true;
 
     if(
-
-      e.code === "KeyE"
-
+      event.code==="KeyE"
       &&
-
-      !e.repeat
-
+      !event.repeat
     ){
 
       beginSkill();
-
     }
-
   }
 
 );
-
 
 addEventListener(
 
   "keyup",
 
-  e => {
+  event=>{
 
-    keys[e.code] =
-    false;
-
+    keys[event.code]=false;
 
     if(
-
-      e.code === "KeyE"
-
+      event.code==="KeyE"
       &&
-
       skillAiming
-
     ){
 
       castSkill();
-
     }
-
   }
 
 );
 
-
 function updatePlayer(dt){
 
   if(
-
     paused
-
     ||
-
     !player
-
   ){
-
     return;
   }
 
-
-  let x =
-
+  let x=
   (
-    keys.KeyD
-    ?
-    1
-    :
-    0
+    keys.KeyD?1:0
   )
-
   -
-
   (
-    keys.KeyA
-    ?
-    1
-    :
-    0
+    keys.KeyA?1:0
   )
-
   +
-
   joyX;
 
-
-  let z =
-
+  let z=
   (
-    keys.KeyS
-    ?
-    1
-    :
-    0
+    keys.KeyS?1:0
   )
-
   -
-
   (
-    keys.KeyW
-    ?
-    1
-    :
-    0
+    keys.KeyW?1:0
   )
-
   +
-
   joyY;
 
-
-  const len =
+  const length=
   Math.hypot(
     x,
     z
   );
 
+  if(length>1){
 
-  if(
-    len > 1
-  ){
+    x/=length;
 
-    x /= len;
-
-    z /= len;
-
+    z/=length;
   }
 
-
-  const speed =
-
+  const speed=
   selectedChicken.speed
-
   *
-
   moveMultiplier
-
   *
-
   (
-    speedTimer > 0
+    speedTimer>0
     ?
     1.55
     :
     1
   );
 
-
-  moveVelocity.x =
-
+  moveVelocity.x=
   THREE.MathUtils.lerp(
-
     moveVelocity.x,
-
-    x * speed,
-
+    x*speed,
     .18
-
   );
 
-
-  moveVelocity.y =
-
+  moveVelocity.y=
   THREE.MathUtils.lerp(
-
     moveVelocity.y,
-
-    z * speed,
-
+    z*speed,
     .18
-
   );
 
+  player.position.x+=
+  moveVelocity.x*dt;
 
-  player.position.x +=
+  player.position.z+=
+  moveVelocity.y*dt;
 
-  moveVelocity.x
-  *
-  dt;
-
-
-  player.position.z +=
-
-  moveVelocity.y
-  *
-  dt;
-
-
-  const lim =
-
-  currentMode === 0
-
+  const limit=
+  currentMode===0
   ?
-
   24.5
-
   :
-
   31.2;
 
-
-  player.position.x =
-
+  player.position.x=
   THREE.MathUtils.clamp(
-
     player.position.x,
-
-    -lim,
-
-    lim
-
+    -limit,
+    limit
   );
 
-
-  player.position.z =
-
+  player.position.z=
   THREE.MathUtils.clamp(
-
     player.position.z,
-
-    -lim,
-
-    lim
-
+    -limit,
+    limit
   );
-
 
   if(
-
     rightMouseDown
-
     ||
-
     mobileAiming
-
     ||
-
     skillAiming
-
   ){
 
-    const d =
+    const direction=
     currentAimDir();
 
-
-    player.rotation.y =
-
+    player.rotation.y=
     Math.atan2(
-      d.x,
-      d.z
+      direction.x,
+      direction.z
     );
-
   }
-
 }
 
+/* =========================
+   DESKTOP AIM
+========================= */
 
 function setAim(
-
   clientX,
-
   clientY
-
 ){
 
-  mouse.x =
+  mouse.x=
+  clientX/innerWidth*2-1;
 
-  clientX
-  /
-  innerWidth
-  *
-  2
-  -
-  1;
+  mouse.y=
+  -(clientY/innerHeight)*2+1;
 
-
-  mouse.y =
-
-  -(
-    clientY
-    /
-    innerHeight
-  )
-  *
-  2
-  +
-  1;
-
-
-  raycaster
-  .setFromCamera(
-
+  raycaster.setFromCamera(
     mouse,
-
     camera
-
   );
 
-
-  raycaster.ray
-  .intersectPlane(
-
+  raycaster.ray.intersectPlane(
     aimPlane,
-
     aimPoint
-
   );
-
 }
 
-
 addEventListener(
-
   "contextmenu",
-
-  e =>
-  e.preventDefault()
-
+  event=>
+  event.preventDefault()
 );
-
 
 addEventListener(
 
   "pointermove",
 
-  e => {
+  event=>{
 
     if(
-
       !gameActive
-
       ||
-
-      e.pointerType
-      ===
-      "touch"
-
+      event.pointerType==="touch"
     ){
-
       return;
     }
 
-
     if(
-
       rightMouseDown
-
       ||
-
       skillAiming
-
     ){
 
       setAim(
-
-        e.clientX,
-
-        e.clientY
-
+        event.clientX,
+        event.clientY
       );
-
     }
-
   }
 
 );
-
 
 addEventListener(
 
   "pointerdown",
 
-  e => {
+  event=>{
 
     if(
-
       !gameActive
-
       ||
-
       paused
-
       ||
-
-      e.pointerType
-      ===
-      "touch"
-
+      event.pointerType==="touch"
     ){
-
       return;
     }
 
-
     if(
-      e.button === 2
+      event.button===2
     ){
 
-      rightMouseDown =
-      true;
-
+      rightMouseDown=true;
 
       setAim(
-
-        e.clientX,
-
-        e.clientY
-
+        event.clientX,
+        event.clientY
       );
-
 
       return;
     }
 
-
     if(
-
-      e.button === 0
-
+      event.button===0
       &&
-
       rightMouseDown
-
     ){
 
-      mouseDown =
-      true;
-
+      mouseDown=true;
 
       shoot();
-
     }
-
   }
 
 );
-
 
 addEventListener(
 
   "pointerup",
 
-  e => {
+  event=>{
 
     if(
-      e.pointerType
-      ===
-      "touch"
+      event.pointerType==="touch"
     ){
-
       return;
     }
 
-
     if(
-      e.button === 2
+      event.button===2
     ){
-
-      rightMouseDown =
-      false;
-
+      rightMouseDown=false;
     }
 
-
     if(
-      e.button === 0
+      event.button===0
     ){
-
-      mouseDown =
-      false;
-
+      mouseDown=false;
     }
-
   }
 
 );
 
+/* =========================
+   MOBILE
+========================= */
 
-/* ---------- MOBILE ---------- */
+let moveID=null;
 
-const touchLayer =
+let aimID=null;
 
-document.getElementById(
-  "touchLayer"
-);
+let moveCX=0;
 
+let moveCY=0;
 
-const moveBase =
-
-document.getElementById(
-  "moveBase"
-);
-
-
-const moveKnob =
-
-document.getElementById(
-  "moveKnob"
-);
-
-
-let moveID =
-null;
-
-
-let aimID =
-null;
-
-
-let moveCX =
-0;
-
-
-let moveCY =
-0;
-
-
-touchLayer
-.addEventListener(
+touchLayer.addEventListener(
 
   "pointerdown",
 
-  e => {
+  event=>{
 
     if(
-
-      e.pointerType !== "touch"
-
+      event.pointerType!=="touch"
       &&
-
-      e.pointerType !== "pen"
-
+      event.pointerType!=="pen"
     ){
-
       return;
     }
 
-
-    e.preventDefault();
-
+    event.preventDefault();
 
     if(
-
-      e.clientX
-      <
-      innerWidth * .48
-
+      event.clientX<
+      innerWidth*.48
       &&
-
-      moveID === null
-
+      moveID===null
     ){
 
-      moveID =
-      e.pointerId;
+      moveID=
+      event.pointerId;
 
+      moveCX=
+      event.clientX;
 
-      moveCX =
-      e.clientX;
+      moveCY=
+      event.clientY;
 
+      moveBase.style.left=
+      moveCX+"px";
 
-      moveCY =
-      e.clientY;
+      moveBase.style.top=
+      moveCY+"px";
 
-
-      moveBase.style.left =
-      moveCX + "px";
-
-
-      moveBase.style.top =
-      moveCY + "px";
-
-
-      moveBase.style.display =
+      moveBase.style.display=
       "block";
 
-    }
-
-    else if(
-      aimID === null
+    }else if(
+      aimID===null
     ){
 
-      aimID =
-      e.pointerId;
+      aimID=
+      event.pointerId;
 
-
-      mobileAiming =
-      true;
-
+      mobileAiming=true;
 
       setAim(
-
-        e.clientX,
-
-        e.clientY
-
+        event.clientX,
+        event.clientY
       );
-
     }
-
   },
 
-  {
-    passive:false
-  }
+  {passive:false}
 
 );
 
-
-touchLayer
-.addEventListener(
+touchLayer.addEventListener(
 
   "pointermove",
 
-  e => {
+  event=>{
 
     if(
-      e.pointerId
-      ===
-      moveID
+      event.pointerId===moveID
     ){
 
-      e.preventDefault();
+      event.preventDefault();
 
+      let dx=
+      event.clientX-moveCX;
 
-      let dx =
-      e.clientX - moveCX;
+      let dy=
+      event.clientY-moveCY;
 
+      const max=42;
 
-      let dy =
-      e.clientY - moveCY;
-
-
-      const max =
-      42;
-
-
-      const len =
+      const length=
       Math.hypot(
         dx,
         dy
       );
 
-
       if(
-        len > max
+        length>max
       ){
 
-        dx *=
-        max / len;
+        dx*=max/length;
 
-
-        dy *=
-        max / len;
-
+        dy*=max/length;
       }
 
+      joyX=
+      dx/max;
 
-      joyX =
-      dx / max;
+      joyY=
+      dy/max;
 
-
-      joyY =
-      dy / max;
-
-
-      moveKnob.style.transform =
-
+      moveKnob.style.transform=
       `translate(${dx}px,${dy}px)`;
 
-    }
-
-    else if(
-      e.pointerId
-      ===
-      aimID
+    }else if(
+      event.pointerId===aimID
     ){
 
-      e.preventDefault();
+      event.preventDefault();
 
-
-      mobileAiming =
-      true;
-
+      mobileAiming=true;
 
       setAim(
-
-        e.clientX,
-
-        e.clientY
-
+        event.clientX,
+        event.clientY
       );
-
     }
-
   },
 
-  {
-    passive:false
-  }
+  {passive:false}
 
 );
 
-
-function endTouch(e){
+function endTouch(event){
 
   if(
-    e.pointerId
-    ===
-    moveID
+    event.pointerId===moveID
   ){
 
-    moveID =
-    null;
+    moveID=null;
 
+    joyX=0;
 
-    joyX =
-    0;
+    joyY=0;
 
-
-    joyY =
-    0;
-
-
-    moveBase.style.display =
+    moveBase.style.display=
     "none";
 
-
-    moveKnob.style.transform =
+    moveKnob.style.transform=
     "translate(0,0)";
-
   }
-
 
   if(
-    e.pointerId
-    ===
-    aimID
+    event.pointerId===aimID
   ){
 
-    aimID =
-    null;
+    aimID=null;
 
-
-    mobileAiming =
-    false;
-
+    mobileAiming=false;
   }
-
 }
 
-
-touchLayer
-.addEventListener(
-
+touchLayer.addEventListener(
   "pointerup",
-
   endTouch,
-
-  {
-    passive:false
-  }
-
+  {passive:false}
 );
 
-
-touchLayer
-.addEventListener(
-
+touchLayer.addEventListener(
   "pointercancel",
-
   endTouch,
-
-  {
-    passive:false
-  }
-
+  {passive:false}
 );
 
-
-shootMobile
-.addEventListener(
+shootMobile.addEventListener(
 
   "pointerdown",
 
-  e => {
+  event=>{
 
-    e.preventDefault();
+    event.preventDefault();
 
-    e.stopPropagation();
+    event.stopPropagation();
 
+    mouseDown=true;
 
-    mouseDown =
-    true;
-
-
-    mobileAiming =
-    true;
-
+    mobileAiming=true;
 
     if(
-
-      !aimID
-
+      aimID===null
       &&
-
       player
-
     ){
 
-      const f =
-
+      const forward=
       new THREE.Vector3(
         0,
         0,
         1
       )
       .applyAxisAngle(
-
         new THREE.Vector3(
           0,
           1,
           0
         ),
-
         player.rotation.y
-
       );
-
 
       aimPoint
       .copy(
         player.position
       )
       .addScaledVector(
-        f,
+        forward,
         10
       );
-
     }
 
-
     shoot();
-
   },
 
-  {
-    passive:false
-  }
+  {passive:false}
 
 );
 
-
-shootMobile
-.addEventListener(
+shootMobile.addEventListener(
 
   "pointerup",
 
-  e => {
+  event=>{
 
-    e.preventDefault();
+    event.preventDefault();
 
-    e.stopPropagation();
+    event.stopPropagation();
 
+    mouseDown=false;
 
-    mouseDown =
-    false;
+    if(
+      aimID===null
+    ){
 
+      mobileAiming=false;
+    }
   },
 
-  {
-    passive:false
-  }
+  {passive:false}
 
 );
 
-
-shootMobile
-.addEventListener(
-
-  "pointercancel",
-
-  () =>
-  mouseDown = false
-
-);
-
-
-skillMobile
-.addEventListener(
+skillMobile.addEventListener(
 
   "pointerdown",
 
-  e => {
+  event=>{
 
-    e.preventDefault();
+    event.preventDefault();
 
-    e.stopPropagation();
-
+    event.stopPropagation();
 
     beginSkill();
-
   },
 
-  {
-    passive:false
-  }
+  {passive:false}
 
 );
 
-
-skillMobile
-.addEventListener(
+skillMobile.addEventListener(
 
   "pointerup",
 
-  e => {
+  event=>{
 
-    e.preventDefault();
+    event.preventDefault();
 
-    e.stopPropagation();
+    event.stopPropagation();
 
-
-    if(
-      skillAiming
-    ){
-
+    if(skillAiming){
       castSkill();
-
     }
-
   },
 
-  {
-    passive:false
-  }
+  {passive:false}
 
 );
 
+/* ANTI ZOOM */
 
-let lastTouchEnd =
-0;
+let lastTouchEnd=0;
 
-
-document
-.addEventListener(
+document.addEventListener(
 
   "touchend",
 
-  e => {
+  event=>{
 
-    const now =
+    const now=
     Date.now();
 
-
     if(
-
-      now
-      -
-      lastTouchEnd
-
-      <=
-
-      320
-
+      now-lastTouchEnd<=320
     ){
 
-      e.preventDefault();
-
+      event.preventDefault();
     }
 
-
-    lastTouchEnd =
-    now;
-
+    lastTouchEnd=now;
   },
 
-  {
-    passive:false
-  }
+  {passive:false}
 
 );
 
-
-document
-.addEventListener(
-
+document.addEventListener(
   "gesturestart",
-
-  e =>
-  e.preventDefault(),
-
-  {
-    passive:false
-  }
-
+  event=>
+  event.preventDefault(),
+  {passive:false}
 );
 
-
-document
-.addEventListener(
-
+document.addEventListener(
   "gesturechange",
-
-  e =>
-  e.preventDefault(),
-
-  {
-    passive:false
-  }
-
+  event=>
+  event.preventDefault(),
+  {passive:false}
 );
 
+/* =========================
+   ROSTER
+========================= */
 
-document
-.addEventListener(
-
-  "gestureend",
-
-  e =>
-  e.preventDefault(),
-
-  {
-    passive:false
-  }
-
-);
-
-
-/* ---------- GACHA / ROSTER ---------- */
-
-window.openRoster = () => {
+window.openRoster=function(){
 
   renderRoster();
 
-  rosterModal
-  .classList
-  .add("show");
-
+  rosterModal.classList.add(
+    "show"
+  );
 };
 
+window.closeRoster=function(){
 
-window.closeRoster = () => {
-
-  rosterModal
-  .classList
-  .remove("show");
-
+  rosterModal.classList.remove(
+    "show"
+  );
 };
-
-
-window.openGacha = () => {
-
-  gachaModal
-  .classList
-  .add("show");
-
-};
-
-
-window.closeGacha = () => {
-
-  gachaModal
-  .classList
-  .remove("show");
-
-};
-
 
 function renderRoster(){
 
-  rosterGrid.innerHTML =
-  "";
-
+  rosterGrid.innerHTML="";
 
   CHICKENS.forEach(
 
-    c => {
+    chicken=>{
 
-      const unlocked =
-
-      save.unlocked
-      .includes(
-        c.id
+      const unlocked=
+      save.unlocked.includes(
+        chicken.id
       );
 
-
-      const d =
-
-      document
-      .createElement(
+      const card=
+      document.createElement(
         "div"
       );
 
-
-      d.className =
-
+      card.className=
       "chickenCard"
-
       +
-
       (
         unlocked
         ?
@@ -9909,111 +4637,92 @@ function renderRoster(){
         " locked"
       );
 
-
-      d.innerHTML =
-
+      card.innerHTML=
       `
       <div
         class="cardColor"
-        style="
-          background:#${c.color.toString(16).padStart(6,"0")}
-        "
+        style="background:#${chicken.color.toString(16).padStart(6,"0")}"
       ></div>
 
       <div class="cardName">
-        ${save.language==="zh"?c.zh:c.name}
+        ${
+          save.language==="zh"
+          ?
+          chicken.zh
+          :
+          chicken.name
+        }
       </div>
 
       <div class="cardStars">
-        ${"★".repeat(c.stars)}
+        ${"★".repeat(chicken.stars)}
       </div>
 
       <div class="cardWeapon">
-        ${c.weapon}
+        ${chicken.weapon}
       </div>
       `;
 
-
       if(unlocked){
 
-        d.onclick = () => {
+        card.onclick=
+        function(){
 
-          save.selected =
-          c.id;
+          save.selected=
+          chicken.id;
 
-
-          selectedChicken =
-          c;
-
+          selectedChicken=
+          chicken;
 
           saveGame();
 
-
-          closeRoster();
-
+          window.closeRoster();
 
           buildLobbyScene();
 
-
           updateLobbyUI();
-
         };
-
       }
 
-
-      rosterGrid
-      .appendChild(d);
-
+      rosterGrid.appendChild(
+        card
+      );
     }
 
   );
-
 }
 
+/* =========================
+   GACHA
+========================= */
 
-let rolling =
-false;
+window.openGacha=function(){
+  gachaModal.classList.add(
+    "show"
+  );
+};
 
+window.closeGacha=function(){
+  gachaModal.classList.remove(
+    "show"
+  );
+};
 
-window.rollGacha = () => {
+let rolling=false;
+
+window.rollGacha=function(){
 
   if(
-
     rolling
-
     ||
-
-    save.eggs < 500
-
+    save.eggs<500
   ){
-
-    showMessage(
-
-      save.eggs < 500
-
-      ?
-
-      "NOT ENOUGH EGGS"
-
-      :
-
-      "WAIT"
-
-    );
-
-
     return;
   }
 
+  rolling=true;
 
-  rolling =
-  true;
-
-
-  save.eggs -=
-  500;
-
+  save.eggs-=500;
 
   saveGame();
 
@@ -10021,493 +4730,299 @@ window.rollGacha = () => {
 
   sfxGacha();
 
-
-  const h =
-  machineHandle;
-
-
-  const e =
-  gachaEgg;
-
-
-  h.style.transform =
+  machineHandle.style.transform=
   "rotate(85deg)";
 
-
   setTimeout(
+    ()=>{
 
-    () => {
-
-      h.style.transform =
+      machineHandle.style.transform=
       "rotate(0deg)";
 
-
-      e.classList.add(
-        "show",
-        "shake"
+      gachaEgg.classList.add(
+        "show"
       );
-
     },
-
-    380
-
+    350
   );
 
-
   setTimeout(
+    ()=>{
 
-    () => {
-
-      const r =
+      const random=
       Math.random();
 
-
-      const stars =
-
-      r < .55
+      const stars=
+      random<.55
       ?
       1
-
       :
-
-      r < .82
+      random<.82
       ?
       2
-
       :
-
-      r < .94
+      random<.94
       ?
       3
-
       :
-
-      r < .99
+      random<.99
       ?
       4
-
       :
-
       5;
 
-
-      const pool =
-
+      const pool=
       CHICKENS.filter(
-        c =>
-        c.stars === stars
+        chicken=>
+        chicken.stars===stars
       );
 
-
-      const c =
-
+      const chicken=
       pool[
         Math.floor(
-          Math.random()
-          *
-          pool.length
+          Math.random()*pool.length
         )
       ];
 
-
-      const dupe =
-
-      save.unlocked
-      .includes(
-        c.id
+      const duplicate=
+      save.unlocked.includes(
+        chicken.id
       );
 
-
-      if(
-        !dupe
-      ){
+      if(!duplicate){
 
         save.unlocked.push(
-          c.id
+          chicken.id
         );
 
-      }
+      }else{
 
-      else{
-
-        save.fragments[c.id] =
-
-        (
-          save.fragments[c.id]
-          ||
-          0
-        )
-
-        +
-
-        ({
+        const amounts={
           1:10,
           2:25,
           3:60,
           4:150,
           5:400
-        })[stars];
+        };
 
+        save.fragments[chicken.id]=
+        (
+          save.fragments[chicken.id]
+          ||
+          0
+        )
+        +
+        amounts[stars];
       }
-
 
       saveGame();
 
-
-      e.classList.remove(
-        "shake"
-      );
-
-
-      e.classList.remove(
+      gachaEgg.classList.remove(
         "show"
       );
 
-
-      resultChicken.textContent =
+      resultChicken.textContent=
       "🐔";
 
+      resultName.textContent=
+      save.language==="zh"
+      ?
+      chicken.zh
+      :
+      chicken.name;
 
-      resultName.textContent =
-
-      (
-        save.language === "zh"
-        ?
-        c.zh
-        :
-        c.name
-      )
-
-      +
-
-      (
-        dupe
-        ?
-        " · FRAGMENTS"
-        :
-        ""
-      );
-
-
-      resultStars.textContent =
-
+      resultStars.textContent=
       "★".repeat(stars);
 
-
-      gachaCost.textContent =
-
-      dupe
-
+      gachaCost.textContent=
+      duplicate
       ?
-
-      `+${({
-        1:10,
-        2:25,
-        3:60,
-        4:150,
-        5:400
-      })[stars]} FRAGMENTS`
-
+      "DUPLICATE → FRAGMENTS"
       :
-
       "NEW CHICKEN!";
-
 
       sfxChicken();
 
-
-      rolling =
-      false;
+      rolling=false;
 
     },
-
-    1500
-
+    1300
   );
-
 };
 
-
-/* ---------- UI ---------- */
+/* =========================
+   UI
+========================= */
 
 function updateLobbyUI(){
 
-  lobbyEggs.textContent =
+  lobbyEggs.textContent=
   save.eggs;
 
-
-  lobbyRank.textContent =
-
+  lobbyRank.textContent=
   RANKS[
     getRank()
   ];
 
-
-  selectedName.textContent =
-
-  save.language === "zh"
-
+  selectedName.textContent=
+  save.language==="zh"
   ?
-
   selectedChicken.zh
-
   :
-
   selectedChicken.name;
 
-
-  selectedStars.textContent =
-
+  selectedStars.textContent=
   "★".repeat(
     selectedChicken.stars
   );
 
-
-  selectedInfo.innerHTML =
-
+  selectedInfo.innerHTML=
   `
   ${save.language==="zh"?"武器":"Weapon"}:
   ${selectedChicken.weapon}
-
   <br>
-
   ${save.language==="zh"?"技能":"Skill"}:
   ${selectedChicken.skill}
   `;
 
-
-  modeName.textContent =
-
-  MODES[
-    currentMode
-  ];
-
+  modeName.textContent=
+  MODES[currentMode];
 }
-
 
 function updateHUD(){
 
-  if(
-    !selectedChicken
-  ){
-
+  if(!selectedChicken){
     return;
   }
 
-
-  hudChicken.textContent =
-
-  save.language === "zh"
-
+  hudChicken.textContent=
+  save.language==="zh"
   ?
-
   selectedChicken.zh
-
   :
-
   selectedChicken.name;
 
-
-  killCount.textContent =
+  killCount.textContent=
   kills;
 
-
-  waveText.textContent =
-
-  currentMode === 0
-
+  waveText.textContent=
+  currentMode===0
   ?
-
   (
-    save.language === "zh"
-
+    save.language==="zh"
     ?
-
-    "第 " + wave + " 波"
-
+    "第 "+wave+" 波"
     :
-
-    "WAVE " + wave
+    "WAVE "+wave
   )
-
   :
-
   "BRAWL";
 
-
-  enemyText.textContent =
-
-  currentMode === 0
-
+  enemyText.textContent=
+  currentMode===0
   ?
-
   (
-    save.language === "zh"
+    save.language==="zh"
     ?
     "敌人 "
     :
     "ENEMIES "
   )
-
   +
-
   enemies.length
-
   :
-
   (
-    save.language === "zh"
+    save.language==="zh"
     ?
     "存活 "
     :
     "ALIVE "
   )
-
   +
-
   actors.filter(
-    a =>
-    a.alive
+    actor=>
+    actor.alive
   ).length;
 
+  battleEggCountEl.textContent=
+  battleEggTotal;
 
-  battleEggs.textContent =
-  battleEggs;
-
-
-  levelText.textContent =
+  levelText.textContent=
   level;
 
-
-  hpText.textContent =
-
+  hpText.textContent=
   `HP ${Math.max(0,Math.round(playerHP))} / ${maxHP}`;
 
-
-  hpFill.style.width =
-
+  hpFill.style.width=
   Math.max(
-
     0,
-
-    playerHP
-    /
-    maxHP
-    *
-    100
-
+    playerHP/maxHP*100
   )
-
   +
-
   "%";
 
-
-  xpFill.style.width =
-
+  xpFill.style.width=
   Math.min(
-
     100,
-
-    xp
-    /
-    xpNeeded
-    *
-    100
-
+    xp/xpNeeded*100
   )
-
   +
-
   "%";
 
+  skillName.textContent=
+  selectedChicken.skill.toUpperCase();
 
-  skillName.textContent =
-
-  selectedChicken.skill
-  .toUpperCase();
-
-
-  skillCD.textContent =
-
-  skillCooldown <= 0
-
+  skillCD.textContent=
+  skillCooldown<=0
   ?
-
-  (
-    save.language === "zh"
-    ?
-    "E · 就绪"
-    :
-    "E · READY"
-  )
-
+  "E · READY"
   :
-
-  "E · "
-  +
+  "E · "+
   skillCooldown.toFixed(1)
   +
   "s";
-
 }
 
+function showMessage(text){
 
-function showMessage(t){
+  messageEl.textContent=text;
 
-  message.textContent =
-  t;
-
-
-  message
-  .classList
-  .add("show");
-
+  messageEl.classList.add(
+    "show"
+  );
 
   clearTimeout(
-    message.timer
+    messageEl.timer
   );
 
-
-  message.timer =
-
+  messageEl.timer=
   setTimeout(
-
-    () =>
-    message
-    .classList
-    .remove("show"),
-
+    ()=>messageEl.classList.remove(
+      "show"
+    ),
     900
-
   );
-
 }
 
+window.changeMode=function(direction){
 
-window.changeMode = d => {
-
-  currentMode =
-
+  currentMode=
   (
     currentMode
     +
-    d
+    direction
     +
     MODES.length
   )
-
   %
-
   MODES.length;
 
-
   updateLobbyUI();
-
 };
 
-
-/* ---------- START / END ---------- */
+/* =========================
+   START MATCH
+========================= */
 
 function clearMarkers(){
 
@@ -10516,487 +5031,345 @@ function clearMarkers(){
     ".enemyMarker"
   )
   .forEach(
-    e => e.remove()
+    marker=>
+    marker.remove()
   );
-
 }
 
+window.startBattle=function(){
 
-window.startBattle = () => {
+  try{
 
-  ensureAudio();
+    ensureAudio();
 
-  clearMarkers();
+    clearMarkers();
 
+    /* reset state BEFORE building game */
 
-  lobby.style.display =
-  "none";
+    actors=[];
 
+    enemies=[];
 
-  hud.style.display =
-  "block";
+    bullets=[];
 
+    pickups=[];
 
-  gameOver.style.display =
-  "none";
+    fx=[];
 
+    player=null;
 
-  buildArena();
+    playerHP=100;
 
+    maxHP=100;
 
-  lobbyMode =
-  false;
+    kills=0;
 
+    battleEggTotal=0;
 
-  gameActive =
-  true;
+    level=1;
 
+    xp=0;
 
-  paused =
-  false;
+    xpNeeded=30;
 
+    wave=1;
 
-  actors = [];
+    damageMultiplier=1;
 
-  enemies = [];
+    moveMultiplier=1;
 
-  bullets = [];
+    fireMultiplier=1;
 
-  pickups = [];
+    bulletPierce=0;
 
-  fields = [];
+    fireCooldown=0;
 
-  fx = [];
+    skillCooldown=0;
 
+    speedTimer=0;
 
-  playerHP =
-  100;
+    shieldTimer=0;
 
+    frenzyTimer=0;
 
-  maxHP =
-  100;
+    mouseDown=false;
 
+    rightMouseDown=false;
 
-  kills =
-  0;
+    mobileAiming=false;
 
+    skillAiming=false;
 
-  battleEggs =
-  0;
+    moveVelocity.set(
+      0,
+      0
+    );
 
+    joyX=0;
 
-  level =
-  1;
+    joyY=0;
 
+    buildArena();
 
-  xp =
-  0;
+    lobbyMode=false;
 
+    gameActive=true;
 
-  xpNeeded =
-  30;
+    paused=false;
 
+    spawnPlayer();
 
-  wave =
-  1;
+    if(
+      currentMode===0
+    ){
 
+      startWave();
 
-  damageMultiplier =
-  1;
+    }else{
 
+      spawnAIChickens();
+    }
 
-  moveMultiplier =
-  1;
+    lobbyEl.style.display=
+    "none";
 
+    hudEl.style.display=
+    "block";
 
-  fireMultiplier =
-  1;
+    gameOverEl.style.display=
+    "none";
 
+    sfxChicken();
 
-  bulletPierce =
-  0;
+    showMessage(
+      MODES[currentMode]
+    );
 
+    updateHUD();
 
-  fireCooldown =
-  0;
+  }catch(error){
 
+    console.error(
+      "START BATTLE ERROR:",
+      error
+    );
 
-  skillCooldown =
-  0;
+    lobbyEl.style.display=
+    "block";
 
+    hudEl.style.display=
+    "none";
 
-  spawnPlayer();
-
-
-  if(
-    currentMode === 0
-  ){
-
-    startWave();
-
+    alert(
+      "Game start error: "+
+      error.message
+    );
   }
-
-  else{
-
-    spawnAIChickens();
-
-  }
-
-
-  sfxChicken();
-
-
-  showMessage(
-
-    MODES[
-      currentMode
-    ]
-
-  );
-
 };
 
+/* =========================
+   GAME OVER
+========================= */
 
 function endGame(){
 
-  if(
-    !gameActive
-  ){
-
+  if(!gameActive){
     return;
   }
 
+  gameActive=false;
 
-  gameActive =
-  false;
-
-
-  save.eggs +=
-  battleEggs;
-
-
-  if(
-
-    currentMode === 2
-
-    &&
-
-    playerHP <= 0
-
-  ){
-
-    save.rankPoints =
-
-    Math.max(
-
-      0,
-
-      save.rankPoints
-      -
-      20
-
-    );
-
-  }
-
+  save.eggs+=
+  battleEggTotal;
 
   saveGame();
 
-
-  gameOver.style.display =
+  gameOverEl.style.display=
   "flex";
 
-
-  gameOverStats.innerHTML =
-
+  gameOverStats.innerHTML=
   `
   MODE: ${MODES[currentMode]}
-
   <br>
-
   KILLS: ${kills}
-
   <br>
-
-  EGGS: +${battleEggs}
-
+  EGGS: +${battleEggTotal}
   <br>
-
   LEVEL: ${level}
-
   <br>
-
   RANK: ${RANKS[getRank()]}
   `;
-
 }
 
-
-window.returnToLobby = () => {
+window.returnToLobby=function(){
 
   clearMarkers();
 
-
-  gameOver.style.display =
+  gameOverEl.style.display=
   "none";
 
-
-  hud.style.display =
+  hudEl.style.display=
   "none";
 
-
-  lobby.style.display =
+  lobbyEl.style.display=
   "block";
 
+  gameActive=false;
 
-  gameActive =
-  false;
+  paused=false;
 
+  mouseDown=false;
 
-  lobbyMode =
-  true;
+  rightMouseDown=false;
 
+  mobileAiming=false;
+
+  skillAiming=false;
+
+  lobbyMode=true;
 
   buildLobbyScene();
 
-
   updateLobbyUI();
-
 };
 
-
-/* ---------- CAMERA / LOOP ---------- */
+/* =========================
+   CAMERA
+========================= */
 
 function updateCamera(){
 
-  if(
-    lobbyMode
-  ){
+  if(lobbyMode){
 
-    const t =
-
-    performance.now()
-    *
-    .0003;
-
+    const time=
+    performance.now()*.0003;
 
     camera.position.set(
-
-      Math.sin(t) * 2.2,
-
+      Math.sin(time)*2.2,
       9,
-
-      14
-      +
-      Math.cos(t) * 1.4
-
+      14+
+      Math.cos(time)*1.4
     );
-
 
     camera.lookAt(
-
       0,
-
       1,
-
       0
-
     );
 
-
-    if(
-      lobbyChicken
-    ){
-
-      lobbyChicken.rotation.y =
-
-      Math.sin(
-
-        performance.now()
-        *
-        .0007
-
-      )
-
-      *
-
-      .3;
-
-    }
-
-
     return;
   }
 
-
-  if(
-    !player
-  ){
-
+  if(!player){
     return;
   }
 
-
   if(
-    currentMode > 0
+    currentMode>0
   ){
 
-    const mobile =
-
+    const mobile=
     matchMedia(
       "(pointer:coarse)"
     ).matches;
 
-
-    const desired =
-
+    const desired=
     new THREE.Vector3(
-
       0,
-
-      mobile
-      ?
-      40
-      :
-      44,
-
-      mobile
-      ?
-      35
-      :
-      39
-
+      mobile?40:44,
+      mobile?35:39
     );
 
-
-    camera.position
-    .lerp(
-
+    camera.position.lerp(
       desired,
-
       .07
-
     );
-
 
     camera.lookAt(
-
       0,
-
       .4,
-
       0
-
     );
 
-  }
+  }else{
 
-  else{
-
-    const desired =
-
+    const desired=
     player.position
     .clone()
     .add(
-
       new THREE.Vector3(
-
         0,
-
         18,
-
         16
-
       )
-
     );
 
-
-    camera.position
-    .lerp(
-
+    camera.position.lerp(
       desired,
-
       .09
-
     );
-
 
     camera.lookAt(
-
       player.position.x,
-
       .6,
-
       player.position.z
-
     );
-
   }
-
 }
 
+/* =========================
+   LOOP
+========================= */
 
 function updateTimers(dt){
 
-  fireCooldown -=
-  dt;
+  fireCooldown-=dt;
 
+  skillCooldown-=dt;
 
-  skillCooldown -=
-  dt;
+  frenzyTimer-=dt;
 
+  speedTimer-=dt;
 
-  frenzyTimer -=
-  dt;
+  shieldTimer-=dt;
 
+  dangerCD-=dt;
 
-  speedTimer -=
-  dt;
+  const playerActor=
+  actors.find(
+    actor=>
+    actor.type==="player"
+  );
 
+  if(playerActor){
 
-  shieldTimer -=
-  dt;
-
-
-  dangerCD -=
-  dt;
-
+    playerActor.revealTimer=
+    Math.max(
+      0,
+      playerActor.revealTimer-dt
+    );
+  }
 
   if(
-
     mouseDown
-
     &&
-
     gameActive
-
     &&
-
     !paused
-
     &&
-
     (
       rightMouseDown
-
       ||
-
       mobileAiming
     )
-
   ){
 
     shoot();
-
   }
-
 }
 
-
-const clock =
+const clock=
 new THREE.Clock();
-
 
 function animate(){
 
@@ -11004,134 +5377,90 @@ function animate(){
     animate
   );
 
-
-  const dt =
-
+  const dt=
   Math.min(
-
     clock.getDelta(),
-
     .035
-
   );
-
 
   updateCamera();
 
-
   if(
-
     gameActive
-
     &&
-
     !paused
-
   ){
 
     updateTimers(dt);
 
-
     updatePlayer(dt);
-
 
     updateBullets(dt);
 
-
-    updateFX(dt);
-
-
     updateGrass();
 
-
     if(
-      currentMode === 0
+      currentMode===0
     ){
 
       updateEnemies(dt);
 
-
       updatePickups(dt);
 
-
       if(
-        playerHP <= 0
+        playerHP<=0
       ){
 
         endGame();
-
       }
 
-    }
-
-    else{
+    }else{
 
       updateAI(dt);
-
     }
 
-
     updateHUD();
-
   }
 
-
   renderer.render(
-
     scene,
-
     camera
-
   );
-
 }
-
 
 animate();
 
+/* =========================
+   RESIZE
+========================= */
 
 addEventListener(
 
   "resize",
 
-  () => {
+  ()=>{
 
-    camera.aspect =
+    camera.aspect=
+    innerWidth/innerHeight;
 
-    innerWidth
-    /
-    innerHeight;
-
-
-    camera
-    .updateProjectionMatrix();
-
+    camera.updateProjectionMatrix();
 
     renderer.setSize(
-
       innerWidth,
-
       innerHeight
-
     );
-
   }
 
 );
 
+/* =========================
+   INITIAL
+========================= */
 
 setTimeout(
-
-  () =>
-
-  intro
-  .classList
-  .add("hide"),
-
+  ()=>introEl.classList.add("hide"),
   1300
-
 );
-
 
 buildLobbyScene();
 
@@ -11139,27 +5468,18 @@ updateLobbyUI();
 
 applyLanguage();
 
-
 setTimeout(
-
-  () => {
-
+  ()=>{
     if(
       !save.tutorialSeen
     ){
-
-      openTutorial();
-
+      window.openTutorial();
     }
-
   },
-
   2200
-
 );
 
 </script>
 
 </body>
-
 </html>
