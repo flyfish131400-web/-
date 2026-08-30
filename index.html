@@ -4,1463 +4,406 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <title>爆小鸡 BOOM CHICKEN</title>
-
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Bungee&family=Lilita+One&family=Orbitron:wght@600;700;800&display=swap');
-
-*{
-  box-sizing:border-box;
-  -webkit-tap-highlight-color:transparent;
-}
-
-html,body{
-  margin:0;
-  width:100%;
-  height:100%;
-  overflow:hidden;
-  background:#081019;
-  touch-action:none;
-  overscroll-behavior:none;
-  -webkit-user-select:none;
-  user-select:none;
-  -webkit-touch-callout:none;
-  font-family:"Lilita One",sans-serif;
-}
-
-canvas{
-  position:fixed;
-  inset:0;
-  z-index:0;
-  touch-action:none;
-}
-
-button{
-  font-family:"Lilita One",sans-serif;
-  touch-action:none;
-}
-
-:root{
-  --orange:#ff8a30;
-  --yellow:#ffd65a;
-  --blue:#65d6ff;
-  --red:#ff4f4f;
-  --green:#63df76;
-  --dark:#101a25;
-  --panel:#1b2a39;
-  --line:#607a90;
-}
-
-.panel{
-  background:linear-gradient(#2a4054,#172534);
-  border:4px solid #607a90;
-  border-radius:8px;
-  color:white;
-  box-shadow:
-    inset 0 3px rgba(255,255,255,.11),
-    0 7px #09121a,
-    0 14px 30px rgba(0,0,0,.3);
-}
-
-.btn{
-  border:4px solid rgba(255,255,255,.24);
-  border-bottom-color:rgba(0,0,0,.42);
-  border-radius:8px;
-  color:white;
-  background:linear-gradient(#ffad4c,#ee7625);
-  box-shadow:
-    inset 0 3px rgba(255,255,255,.25),
-    0 6px #87390f;
-  cursor:pointer;
-  text-shadow:0 2px rgba(0,0,0,.35);
-}
-
-.btn:active{
-  transform:translateY(4px);
-  box-shadow:0 2px #87390f;
-}
-
-.blueBtn{
-  background:linear-gradient(#6bd8ff,#318ccc);
-  box-shadow:
-    inset 0 3px rgba(255,255,255,.25),
-    0 6px #174d75;
-}
-
-.greenBtn{
-  background:linear-gradient(#74e885,#32a84c);
-  box-shadow:
-    inset 0 3px rgba(255,255,255,.25),
-    0 6px #17642a;
-}
-
-.grayBtn{
-  background:linear-gradient(#778b9a,#495c6b);
-  box-shadow:
-    inset 0 3px rgba(255,255,255,.2),
-    0 6px #26343e;
-}
-
-/* ---------- INTRO ---------- */
-
-#intro{
-  position:fixed;
-  inset:0;
-  z-index:3000;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:#07101a;
-  transition:.7s;
-  color:white;
-}
-
-#intro.hide{
-  opacity:0;
-  pointer-events:none;
-}
-
-#introTitle{
-  font:clamp(42px,9vw,110px) "Bungee";
-  line-height:.9;
-  text-align:center;
-}
-
-#introTitle span{
-  color:var(--orange);
-}
-
-#introSub{
-  margin-top:16px;
-  text-align:center;
-  font:12px "Orbitron";
-  letter-spacing:5px;
-  color:#a9c8df;
-}
-
-/* ---------- LOBBY ---------- */
-
-#lobby{
-  position:fixed;
-  inset:0;
-  z-index:100;
-  pointer-events:none;
-}
-
-#lobby>*{
-  pointer-events:auto;
-}
-
-#logo{
-  position:absolute;
-  left:18px;
-  top:18px;
-  padding:14px 18px;
-}
-
-.logoMain{
-  font:clamp(27px,4vw,48px) "Bungee";
-  line-height:.9;
-}
-
-.logoMain span{
-  color:var(--orange);
-}
-
-.logoSub{
-  margin-top:6px;
-  font:10px "Orbitron";
-  color:#a9c4d8;
-  letter-spacing:2px;
-}
-
-#currency{
-  position:absolute;
-  right:18px;
-  top:18px;
-  padding:10px 15px;
-  display:flex;
-  gap:20px;
-  text-align:center;
-}
-
-.currencyLabel{
-  font:9px "Orbitron";
-  color:#9db4c7;
-}
-
-.currencyValue{
-  margin-top:4px;
-  font-size:19px;
-}
-
-#languageBtn{
-  position:absolute;
-  right:18px;
-  top:94px;
-  height:38px;
-  min-width:70px;
-}
-
-#selectedPanel{
-  position:absolute;
-  left:18px;
-  top:128px;
-  width:235px;
-  padding:14px;
-}
-
-#selectedName{
-  font-size:23px;
-}
-
-#selectedStars{
-  color:var(--yellow);
-  margin-top:4px;
-}
-
-#selectedDetails{
-  margin-top:8px;
-  color:#bfd3e1;
-  font-size:12px;
-  line-height:1.6;
-}
-
-#leftButtons{
-  position:absolute;
-  left:18px;
-  bottom:22px;
-  display:grid;
-  grid-template-columns:repeat(4,105px);
-  gap:9px;
-}
-
-.menuBtn{
-  height:92px;
-}
-
-.menuIcon{
-  font-size:30px;
-}
-
-.menuText{
-  margin-top:4px;
-  font-size:13px;
-}
-
-#battlePanel{
-  position:absolute;
-  right:22px;
-  bottom:22px;
-  width:300px;
-  padding:13px;
-}
-
-#startBtn{
-  width:100%;
-  height:70px;
-  font:20px "Bungee";
-}
-
-.selectorTitle{
-  margin-top:11px;
-  font:9px "Orbitron";
-  color:#9ab2c6;
-  letter-spacing:1px;
-}
-
-.selector{
-  margin-top:5px;
-  height:46px;
-  display:grid;
-  grid-template-columns:44px 1fr 44px;
-  background:#101c27;
-  border:3px solid #466076;
-}
-
-.selector button{
-  border:0;
-  background:#263a4b;
-  color:white;
-  font-size:19px;
-}
-
-.selector div{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  font-size:15px;
-}
-
-/* ---------- MODALS ---------- */
-
-.modalWrap{
-  position:fixed;
-  inset:0;
-  z-index:900;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  background:rgba(3,8,13,.82);
-  padding:18px;
-}
-
-.modalWrap.show{
-  display:flex;
-}
-
-.modal{
-  width:min(920px,96vw);
-  max-height:90vh;
-  overflow:auto;
-  padding:18px;
-}
-
-.modalHead{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-}
-
-.modalTitle{
-  font:25px "Bungee";
-}
-
-.closeBtn{
-  width:42px;
-  height:42px;
-  border:0;
-  background:#405569;
-  color:white;
-  font-size:18px;
-}
-
-/* ---------- CHICKENS ---------- */
-
-#chickenGrid{
-  margin-top:15px;
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  gap:10px;
-}
-
-.chickenCard{
-  min-height:164px;
-  padding:11px;
-  border:3px solid #3a5265;
-  background:#101c27;
-  color:white;
-  cursor:pointer;
-}
-
-.chickenCard.selected{
-  outline:4px solid var(--yellow);
-}
-
-.chickenCard.locked{
-  opacity:.55;
-  filter:grayscale(.9);
-}
-
-.chickenPreview{
-  width:48px;
-  height:48px;
-  margin:auto;
-  border:4px solid rgba(255,255,255,.35);
-}
-
-.chickenCardName{
-  margin-top:8px;
-  text-align:center;
-  font-size:14px;
-}
-
-.chickenStars{
-  margin-top:4px;
-  text-align:center;
-  color:var(--yellow);
-  font-size:12px;
-}
-
-.chickenWeapon,
-.chickenSkill{
-  margin-top:4px;
-  text-align:center;
-  color:#9ebbd0;
-  font-size:10px;
-}
-
-/* ---------- GACHA ---------- */
-
-#gachaArea{
-  margin-top:16px;
-  display:grid;
-  grid-template-columns:1.1fr .9fr;
-  gap:16px;
-}
-
-#gachaMachine{
-  min-height:385px;
-  position:relative;
-  background:#101c27;
-  border:4px solid #435e73;
-}
-
-#gachaBubble{
-  position:absolute;
-  left:50%;
-  top:25px;
-  transform:translateX(-50%);
-  width:235px;
-  height:190px;
-  border-radius:50%;
-  border:9px solid #e6f5ff;
-  background:radial-gradient(circle at 35% 25%,#effbff,#7bd3fc 60%,#347ba4);
-  overflow:hidden;
-}
-
-.eggDot{
-  position:absolute;
-  width:33px;
-  height:41px;
-  border-radius:50%;
-  border:3px solid #fff1d1;
-  background:#ffe3a3;
-}
-
-#gachaBody{
-  position:absolute;
-  left:50%;
-  bottom:20px;
-  transform:translateX(-50%);
-  width:180px;
-  height:160px;
-  background:#f78932;
-  border:8px solid #ffc37f;
-}
-
-#gachaHandle{
-  position:absolute;
-  right:-42px;
-  top:30px;
-  width:25px;
-  height:82px;
-  background:#ffda6b;
-  transform-origin:top;
-  transition:.3s;
-}
-
-#gachaHandle::after{
-  content:"";
-  position:absolute;
-  left:-8px;
-  bottom:-17px;
-  width:41px;
-  height:41px;
-  border-radius:50%;
-  background:#ff5353;
-  border:5px solid #ffb8b8;
-}
-
-#fallEgg{
-  display:none;
-  position:absolute;
-  left:50%;
-  bottom:18px;
-  transform:translateX(-50%);
-  width:100px;
-  height:130px;
-  border-radius:50%;
-  border:7px solid #fff3d0;
-  background:#ffe3a3;
-  z-index:5;
-}
-
-#fallEgg.show{
-  display:block;
-}
-
-#fallEgg.shake{
-  animation:eggshake .12s infinite alternate;
-}
-
-@keyframes eggshake{
-  from{transform:translateX(-50%) rotate(-7deg)}
-  to{transform:translateX(-50%) rotate(7deg)}
-}
-
-#gachaResult{
-  min-height:385px;
-  text-align:center;
-  background:#101c27;
-  border:4px solid #435e73;
-  padding:18px;
-}
-
-#gachaChance{
-  font:9px "Orbitron";
-  line-height:1.8;
-  color:#a9bed0;
-}
-
-#gachaResultIcon{
-  margin-top:45px;
-  font-size:74px;
-}
-
-#gachaResultName{
-  margin-top:10px;
-  font-size:25px;
-}
-
-#gachaResultStars{
-  color:var(--yellow);
-  margin-top:6px;
-}
-
-#gachaInfo{
-  min-height:46px;
-  margin-top:12px;
-  color:#b9cedd;
-}
-
-#gachaRoll{
-  width:100%;
-  height:58px;
-  margin-top:15px;
-  font:16px "Bungee";
-}
-
-/* ---------- SHOP ---------- */
-
-#shopGrid{
-  margin-top:15px;
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:10px;
-}
-
-.shopCard{
-  padding:12px;
-  min-height:160px;
-  text-align:center;
-  background:#101c27;
-  border:3px solid #40576a;
-}
-
-.shopCard.sold{
-  opacity:.55;
-}
-
-.shopName{
-  margin-top:7px;
-}
-
-.shopStars{
-  color:var(--yellow);
-}
-
-.shopPrice{
-  margin-top:7px;
-  color:#68d8ff;
-}
-
-/* ---------- MISSIONS ---------- */
-
-#missionList{
-  margin-top:15px;
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-}
-
-.mission{
-  display:grid;
-  grid-template-columns:1fr auto;
-  gap:10px;
-  align-items:center;
-  padding:12px;
-  background:#101c27;
-  border:3px solid #40576a;
-}
-
-.missionName{
-  font-size:17px;
-}
-
-.missionDesc{
-  color:#a9bfd0;
-  font-size:11px;
-  margin-top:3px;
-}
-
-.missionReward{
-  text-align:right;
-  color:var(--yellow);
-}
-
-/* ---------- TUTORIAL ---------- */
-
-#tutorialBox{
-  width:min(620px,94vw);
-  text-align:center;
-}
-
-#tutorialIcon{
-  font-size:62px;
-}
-
-#tutorialTitle{
-  margin-top:8px;
-  font:27px "Bungee";
-  color:var(--yellow);
-}
-
-#tutorialText{
-  margin-top:9px;
-  font-size:18px;
-  color:#dceaf4;
-}
-
-#tutorialControls{
-  margin:12px 0;
-  font:10px "Orbitron";
-  line-height:1.7;
-  color:#7fd1ff;
-}
-
-#tutorialNext{
-  width:100%;
-  height:55px;
-}
-
-/* ---------- HUD ---------- */
-
-#hud{
-  position:fixed;
-  inset:0;
-  z-index:200;
-  display:none;
-  pointer-events:none;
-  color:white;
-}
-
-.hudPanel{
-  background:rgba(10,20,29,.86);
-  border:3px solid rgba(110,142,166,.85);
-  box-shadow:0 5px rgba(0,0,0,.4);
-}
-
-#hudLeft{
-  position:absolute;
-  left:14px;
-  top:14px;
-  padding:8px 12px;
-}
-
-#hudCenter{
-  position:absolute;
-  left:50%;
-  top:14px;
-  transform:translateX(-50%);
-  padding:8px 18px;
-  text-align:center;
-}
-
-#hudRight{
-  position:absolute;
-  right:14px;
-  top:14px;
-  padding:8px 12px;
-  text-align:right;
-}
-
-.hudBig{
-  font-size:19px;
-}
-
-.hudSmall{
-  font:9px "Orbitron";
-  color:#a5bdd0;
-}
-
-#healthBox{
-  position:absolute;
-  left:14px;
-  bottom:15px;
-  width:230px;
-}
-
-#hpText{
-  margin-bottom:4px;
-  font-size:13px;
-}
-
-.bar{
-  width:100%;
-  height:16px;
-  border:2px solid #536b7c;
-  background:#15212b;
-}
-
-.fill{
-  height:100%;
-}
-
-#hpFill{
-  background:#60d675;
-}
-
-#xpFill{
-  background:#60cfff;
-}
-
-#skillHUD{
-  position:absolute;
-  right:14px;
-  bottom:15px;
-  width:190px;
-  padding:10px;
-  text-align:center;
-}
-
-#skillHUDName{
-  font-size:16px;
-}
-
-#skillHUDCD{
-  margin-top:5px;
-  font:9px "Orbitron";
-  color:#abc1d2;
-}
-
-#centerMessage{
-  position:absolute;
-  left:50%;
-  top:20%;
-  transform:translateX(-50%);
-  font:28px "Bungee";
-  text-shadow:0 3px #000;
-  opacity:0;
-}
-
-#centerMessage.show{
-  opacity:1;
-}
-
-.damageText{
-  position:fixed;
-  z-index:500;
-  pointer-events:none;
-  color:white;
-  font:22px "Bungee";
-  text-shadow:-2px -2px #000,2px -2px #000,-2px 2px #000,2px 2px #000;
-  animation:damageFly .75s forwards;
-}
-
-.damageText.crit{
-  color:var(--yellow);
-  font-size:28px;
-}
-
-@keyframes damageFly{
-  from{
-    transform:translate(-50%,-50%);
-    opacity:1;
-  }
-  to{
-    transform:translate(-50%,-120%);
-    opacity:0;
-  }
-}
-
-.enemyMarker{
-  position:fixed;
-  z-index:450;
-  width:18px;
-  height:18px;
-  border-radius:50%;
-  border:3px solid white;
-  background:#ff3131;
-  box-shadow:0 0 12px #ff3131;
-  transform:translate(-50%,-50%);
-  pointer-events:none;
-}
-
-#danger{
-  display:none;
-  position:absolute;
-  left:50%;
-  top:55%;
-  transform:translate(-50%,-50%);
-  font:44px "Bungee";
-  color:#ff4242;
-  text-shadow:0 0 18px #ff2222,0 3px #000;
-}
-
-/* ---------- MOBILE ---------- */
-
-#touchLayer{
-  position:absolute;
-  inset:0;
-  display:none;
-  pointer-events:auto;
-}
-
-#joystick{
-  display:none;
-  position:absolute;
-  width:145px;
-  height:145px;
-  border-radius:50%;
-  border:4px solid rgba(255,255,255,.4);
-  background:rgba(12,25,36,.32);
-  transform:translate(-50%,-50%);
-}
-
-#joyKnob{
-  position:absolute;
-  width:56px;
-  height:56px;
-  left:40px;
-  top:40px;
-  border-radius:50%;
-  background:rgba(255,255,255,.82);
-}
-
-#fireBtn{
-  display:none;
-  position:absolute;
-  right:20px;
-  bottom:20px;
-  width:105px;
-  height:105px;
-  border-radius:50%;
-  pointer-events:auto;
-  font:16px "Bungee";
-}
-
-#mobileSkill{
-  display:none;
-  position:absolute;
-  right:132px;
-  bottom:90px;
-  width:88px;
-  height:88px;
-  pointer-events:auto;
-  font-size:14px;
-}
-
-/* ---------- UPGRADE ---------- */
-
-#upgradeGrid{
-  margin-top:15px;
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:12px;
-}
-
-.upgrade{
-  min-height:165px;
-  padding:15px;
-  text-align:center;
-  background:#101c27;
-  border:4px solid #405a70;
-  cursor:pointer;
-}
-
-.upIcon{
-  font-size:40px;
-}
-
-.upName{
-  margin-top:8px;
-  color:var(--yellow);
-  font-size:19px;
-}
-
-.upDesc{
-  margin-top:7px;
-  color:#b6cad9;
-  font-size:12px;
-}
-
-/* ---------- GAME OVER ---------- */
-
-#gameOver{
-  position:fixed;
-  inset:0;
-  z-index:1500;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  background:rgba(4,9,14,.84);
-}
-
-#gameOverCard{
-  width:min(430px,90vw);
-  text-align:center;
-  padding:22px;
-}
-
-#gameOverTitle{
-  font:37px "Bungee";
-  color:#ff8344;
-}
-
-#gameOverStats{
-  margin-top:15px;
-  font:11px "Orbitron";
-  line-height:2;
-}
-
-#lobbyReturn{
-  width:100%;
-  height:55px;
-  margin-top:15px;
-}
-
-/* ---------- ERROR ---------- */
-
-#errorScreen{
-  position:fixed;
-  inset:0;
-  z-index:5000;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  padding:18px;
-  background:rgba(3,7,11,.95);
-}
-
-#errorScreen.show{
-  display:flex;
-}
-
-#errorCard{
-  width:min(650px,96vw);
-  padding:20px;
-}
-
-#errorTitle{
-  font:25px "Bungee";
-  color:#ff6565;
-}
-
-#errorText{
-  margin-top:12px;
-  white-space:pre-wrap;
-  word-break:break-word;
-  font:11px "Orbitron";
-  color:#c9dbe8;
-  line-height:1.6;
-}
-
-@media(pointer:coarse){
-  #touchLayer,
-  #fireBtn,
-  #mobileSkill{
-    display:block;
-  }
-
-  #skillHUD{
-    display:none;
-  }
-
-  #healthBox{
-    width:165px;
-    bottom:8px;
-  }
-
-  #hudLeft,
-  #hudRight{
-    transform:scale(.82);
-  }
-
-  #hudCenter{
-    transform:translateX(-50%) scale(.82);
-  }
-
-  #chickenGrid{
-    grid-template-columns:repeat(3,1fr);
-  }
-
-  #shopGrid{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  #gachaArea{
-    grid-template-columns:1fr;
-  }
-}
-
-@media(max-width:700px){
-  #leftButtons{
-    grid-template-columns:repeat(2,85px);
-    gap:6px;
-  }
-
-  .menuBtn{
-    height:78px;
-  }
-
-  .menuIcon{
-    font-size:23px;
-  }
-
-  .menuText{
-    font-size:11px;
-  }
-
-  #battlePanel{
-    width:245px;
-  }
-
-  #selectedPanel{
-    width:185px;
-  }
-
-  #currency{
-    gap:9px;
-  }
-}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#0b1119;color:#fff;touch-action:none;overscroll-behavior:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;font-family:"Lilita One",sans-serif}
+canvas{position:fixed;inset:0;z-index:0;touch-action:none}
+button{font-family:"Lilita One",sans-serif;touch-action:none}
+:root{--orange:#ff8a30;--yellow:#ffd75a;--blue:#67d5ff;--green:#63db7a;--red:#ff4d4d;--dark:#111b25;--panel:#1c2c3a;--line:#60798e}
+.panel{background:linear-gradient(180deg,#2b4154,#172533);border:4px solid #60798e;border-radius:10px;box-shadow:inset 0 3px rgba(255,255,255,.1),0 7px #091118,0 16px 32px rgba(0,0,0,.28)}
+.btn{border:4px solid rgba(255,255,255,.25);border-bottom-color:rgba(0,0,0,.42);border-radius:9px;background:linear-gradient(#ffad4c,#ed7624);box-shadow:inset 0 3px rgba(255,255,255,.25),0 6px #87390f;color:#fff;cursor:pointer;text-shadow:0 2px rgba(0,0,0,.3)}
+.btn:active{transform:translateY(4px);box-shadow:0 2px #87390f}
+.blue{background:linear-gradient(#6fd9ff,#328fd0);box-shadow:inset 0 3px rgba(255,255,255,.25),0 6px #174f79}
+.green{background:linear-gradient(#78e98a,#34ad51);box-shadow:inset 0 3px rgba(255,255,255,.25),0 6px #18692c}
+.gray{background:linear-gradient(#7b8f9d,#4b5e6d);box-shadow:inset 0 3px rgba(255,255,255,.2),0 6px #273640}
+#intro{position:fixed;inset:0;z-index:5000;display:flex;align-items:center;justify-content:center;background:#071019;transition:.7s}
+.hide{opacity:0!important;pointer-events:none!important}
+.introTitle{font:clamp(42px,9vw,108px) "Bungee";line-height:.9;text-align:center}
+.introTitle span{color:var(--orange)}
+.introSub{margin-top:15px;text-align:center;font:12px "Orbitron";letter-spacing:5px;color:#a8c6d9}
+#lobby{position:fixed;inset:0;z-index:100;pointer-events:none}
+#lobby>*{pointer-events:auto}
+#logo{position:absolute;left:18px;top:18px;padding:14px 18px}
+.logoMain{font:clamp(26px,4vw,48px) "Bungee";line-height:.9}
+.logoMain span{color:var(--orange)}
+.logoSub{margin-top:5px;font:10px "Orbitron";letter-spacing:2px;color:#a7bfd1}
+#resources{position:absolute;right:18px;top:18px;padding:10px 14px;display:flex;gap:18px;text-align:center}
+.resLabel{font:9px "Orbitron";color:#9db4c7}
+.resValue{margin-top:3px;font-size:18px}
+#lang{position:absolute;right:18px;top:94px;height:38px;min-width:68px}
+#selected{position:absolute;left:18px;top:127px;width:238px;padding:14px}
+.selName{font-size:22px}
+.selStars{margin-top:3px;color:var(--yellow)}
+.selInfo{margin-top:8px;color:#bfd1df;font-size:12px;line-height:1.55}
+.statLine{display:flex;justify-content:space-between;gap:10px}
+.statBar{height:7px;background:#101922;border:1px solid #4f6678;margin:2px 0 6px}
+.statFill{height:100%;background:#63d1ff}
+#menu{position:absolute;left:18px;bottom:22px;display:grid;grid-template-columns:repeat(5,96px);gap:8px}
+.menuBtn{height:88px}
+.menuIcon{font-size:28px}
+.menuText{font-size:12px;margin-top:3px}
+#battlePanel{position:absolute;right:22px;bottom:22px;width:305px;padding:13px}
+#start{width:100%;height:70px;font:20px "Bungee"}
+.selectorLabel{margin-top:11px;font:9px "Orbitron";letter-spacing:1px;color:#9cb3c6}
+.selector{margin-top:5px;height:46px;display:grid;grid-template-columns:44px 1fr 44px;background:#101a24;border:3px solid #455f73}
+.selector button{border:0;background:#273b4c;color:#fff;font-size:19px}
+.selector div{display:flex;align-items:center;justify-content:center;text-align:center}
+.modalWrap{position:fixed;inset:0;z-index:1000;display:none;align-items:center;justify-content:center;background:rgba(3,8,13,.83);padding:18px}
+.modalWrap.show{display:flex}
+.modal{width:min(980px,96vw);max-height:92vh;overflow:auto;padding:18px}
+.modalHead{display:flex;justify-content:space-between;align-items:center}
+.modalTitle{font:25px "Bungee"}
+.close{width:42px;height:42px;border:0;background:#3f5668;color:#fff;font-size:18px}
+#chickenGrid{margin-top:15px;display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.chickenCard{min-height:190px;padding:11px;background:#101b25;border:3px solid #3d5568;cursor:pointer;position:relative}
+.chickenCard.locked{opacity:.52;filter:grayscale(.75)}
+.chickenCard.selected{outline:4px solid var(--yellow)}
+.cardPortrait{height:70px;border:3px solid rgba(255,255,255,.22);display:flex;align-items:center;justify-content:center;font-size:44px;background:radial-gradient(circle at 50% 35%,rgba(255,255,255,.16),rgba(0,0,0,.18))}
+.cardName{text-align:center;margin-top:7px}
+.cardStars{text-align:center;color:var(--yellow);font-size:11px}
+.cardInfo{text-align:center;color:#9fb9cd;font-size:10px;margin-top:4px}
+.powerBox{margin-top:8px;font:10px "Orbitron";color:#bcd1df}
+.powerRow{display:flex;justify-content:space-between;margin-top:3px}
+#gachaLayout{margin-top:15px;display:grid;grid-template-columns:1.05fr .95fr;gap:16px}
+#gachaStage,#gachaResult{min-height:420px;background:#101b25;border:4px solid #405c72;position:relative;text-align:center;overflow:hidden}
+#gachaMachine{position:absolute;left:50%;bottom:20px;transform:translateX(-50%);width:210px;height:270px}
+.bubble{position:absolute;left:50%;top:0;transform:translateX(-50%);width:210px;height:160px;border-radius:50%;border:9px solid #edf8ff;background:radial-gradient(circle at 35% 25%,#f1fcff,#7bd5ff 60%,#357da7);overflow:hidden}
+.eggDot{position:absolute;width:30px;height:38px;border-radius:50%;background:#ffe3a1;border:3px solid #fff2d1}
+.machineBody{position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:165px;height:145px;background:#f78931;border:8px solid #ffc27c}
+.handle{position:absolute;right:-40px;top:25px;width:24px;height:78px;background:#ffda6b;transform-origin:top;transition:.28s}
+.handle:after{content:"";position:absolute;left:-9px;bottom:-18px;width:42px;height:42px;border-radius:50%;background:#ff4f4f;border:5px solid #ffbbbb}
+.dropEgg{display:none;position:absolute;left:50%;top:175px;transform:translateX(-50%);width:92px;height:118px;border-radius:50%;background:#ffe3a1;border:7px solid #fff2cf;z-index:5}
+.dropEgg.show{display:block}
+.dropEgg.bounce{animation:dropbounce .75s ease-out}
+.dropEgg.shake{animation:eggshake .12s infinite alternate}
+@keyframes dropbounce{0%{top:90px}65%{top:195px}80%{top:170px}100%{top:175px}}
+@keyframes eggshake{from{transform:translateX(-50%) rotate(-7deg)}to{transform:translateX(-50%) rotate(7deg)}}
+.rarityFlash{position:absolute;inset:0;opacity:0;pointer-events:none}
+.rarityFlash.on{animation:flash .65s ease-out}
+@keyframes flash{0%{opacity:0}35%{opacity:.85}100%{opacity:0}}
+#gachaResult{padding:20px}
+.gachaChance{font:9px "Orbitron";line-height:1.75;color:#a6bdcf}
+.resultCard{margin:28px auto 0;width:min(330px,90%);padding:14px;border:4px solid #4a6072;background:linear-gradient(160deg,#172839,#0f1923);min-height:220px;position:relative;overflow:hidden}
+.resultCard.legendary{box-shadow:0 0 30px #ffd85b}
+.resultCard.epic{box-shadow:0 0 24px #ad70ff}
+.resultPortrait{font-size:72px}
+.resultName{font-size:24px}
+.resultStars{color:var(--yellow);margin-top:4px}
+.resultPower{font:10px "Orbitron";margin-top:8px;color:#b9ccda}
+#gachaInfo{margin-top:12px;color:#bad0df;min-height:40px}
+#roll{width:100%;height:58px;margin-top:14px;font:16px "Bungee"}
+#rankRoute{margin-top:15px;display:flex;gap:12px;overflow-x:auto;padding:6px 4px 14px}
+.rankCard{min-width:170px;padding:12px;background:#101b25;border:3px solid #405a6d;text-align:center;position:relative}
+.rankCard.current{outline:4px solid var(--yellow)}
+.rankBadge{width:82px;height:82px;margin:0 auto 8px;clip-path:polygon(50% 0,90% 20%,100% 65%,50% 100%,0 65%,10% 20%);display:flex;align-items:center;justify-content:center;font:32px "Bungee";border:4px solid rgba(255,255,255,.25)}
+.rankName{font-size:18px}
+.rankSub{font:10px "Orbitron";color:#9db4c7;margin-top:4px}
+.rewardBox{margin-top:10px;padding-top:8px;border-top:2px solid #344b5d;color:#ffd85b}
+.claimRank{margin-top:8px;width:100%;height:40px}
+.rankProgress{margin-top:14px}
+.progressTrack{height:16px;background:#111b25;border:3px solid #4d6578}
+.progressFill{height:100%;background:linear-gradient(90deg,#52c8ff,#ffd65a)}
+#missionList{margin-top:15px;display:flex;flex-direction:column;gap:10px}
+.mission{display:grid;grid-template-columns:1fr auto;gap:10px;padding:12px;background:#101b25;border:3px solid #405a6d}
+.missionName{font-size:17px}
+.missionDesc{font-size:11px;color:#9fb9cc;margin-top:3px}
+.missionReward{text-align:right;color:#ffd65a}
+#tutorialBox{width:min(640px,95vw);text-align:center}
+.tutorialIcon{font-size:60px}
+.tutorialTitle{font:28px "Bungee";color:#ffd65a;margin-top:8px}
+.tutorialText{font-size:18px;color:#d7e6f0;margin-top:8px}
+.tutorialControl{font:10px "Orbitron";color:#75ceff;line-height:1.7;margin:12px 0}
+#tutorialNext{width:100%;height:55px}
+#hud{position:fixed;inset:0;z-index:200;display:none;pointer-events:none}
+.hudPanel{background:rgba(10,20,29,.87);border:3px solid rgba(110,143,168,.86);box-shadow:0 5px rgba(0,0,0,.4)}
+#hudLeft{position:absolute;left:14px;top:14px;padding:8px 12px}
+#hudCenter{position:absolute;left:50%;top:14px;transform:translateX(-50%);padding:8px 18px;text-align:center}
+#hudRight{position:absolute;right:14px;top:14px;padding:8px 12px;text-align:right}
+.hudBig{font-size:19px}
+.hudSmall{font:9px "Orbitron";color:#a5bdd0}
+#health{position:absolute;left:14px;bottom:14px;width:235px}
+#hpText{font-size:13px;margin-bottom:4px}
+.bar{height:16px;background:#14202a;border:2px solid #536b7c}
+.fill{height:100%}
+#hpFill{background:#60d675}
+#xpFill{background:#61cfff}
+#skillHUD{position:absolute;right:14px;bottom:14px;width:195px;padding:10px;text-align:center}
+#skillHUDName{font-size:16px}
+#skillHUDCD{font:9px "Orbitron";color:#abc1d1;margin-top:4px}
+#message{position:absolute;left:50%;top:21%;transform:translateX(-50%);font:28px "Bungee";text-shadow:0 3px #000;opacity:0}
+#message.show{opacity:1}
+.damageText{position:fixed;z-index:450;pointer-events:none;font:22px "Bungee";text-shadow:-2px -2px #000,2px -2px #000,-2px 2px #000,2px 2px #000;animation:dmg .7s forwards}
+.damageText.crit{color:#ffd65a;font-size:28px}
+@keyframes dmg{from{transform:translate(-50%,-50%);opacity:1}to{transform:translate(-50%,-120%);opacity:0}}
+.enemyMarker{position:fixed;z-index:440;width:17px;height:17px;border-radius:50%;background:#ff3535;border:3px solid white;box-shadow:0 0 12px #ff3535;transform:translate(-50%,-50%);pointer-events:none}
+#danger{position:absolute;display:none;left:50%;top:56%;transform:translate(-50%,-50%);font:44px "Bungee";color:#ff4242;text-shadow:0 0 18px #ff2222,0 3px #000}
+#touchLayer{position:absolute;inset:0;display:none;pointer-events:auto}
+#joystick{display:none;position:absolute;width:145px;height:145px;border-radius:50%;border:4px solid rgba(255,255,255,.4);background:rgba(12,25,36,.32);transform:translate(-50%,-50%)}
+#joyKnob{position:absolute;width:56px;height:56px;left:40px;top:40px;border-radius:50%;background:rgba(255,255,255,.82)}
+#fire{display:none;position:absolute;right:20px;bottom:20px;width:106px;height:106px;border-radius:50%;pointer-events:auto;font:16px "Bungee"}
+#mobileSkill{display:none;position:absolute;right:135px;bottom:92px;width:88px;height:88px;pointer-events:auto}
+#upgradeGrid{margin-top:15px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.upgrade{min-height:165px;padding:15px;text-align:center;background:#101b25;border:4px solid #405a6d;cursor:pointer}
+.upIcon{font-size:40px}
+.upName{margin-top:8px;color:#ffd65a;font-size:19px}
+.upDesc{margin-top:6px;color:#b6cad8;font-size:12px}
+#gameOver{position:fixed;inset:0;z-index:1500;display:none;align-items:center;justify-content:center;background:rgba(4,9,14,.85)}
+#gameOverCard{width:min(430px,90vw);padding:22px;text-align:center}
+.gameOverTitle{font:37px "Bungee";color:#ff8344}
+#gameOverStats{margin-top:14px;font:11px "Orbitron";line-height:2}
+#returnLobby{width:100%;height:55px;margin-top:15px}
+#errorScreen{position:fixed;inset:0;z-index:6000;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(3,7,11,.95)}
+#errorScreen.show{display:flex}
+#errorCard{width:min(650px,96vw);padding:20px}
+#errorTitle{font:25px "Bungee";color:#ff6565}
+#errorText{margin-top:12px;white-space:pre-wrap;word-break:break-word;font:11px "Orbitron";line-height:1.6;color:#c9dbe8}
+@media(pointer:coarse){#touchLayer,#fire,#mobileSkill{display:block}#skillHUD{display:none}#health{width:165px;bottom:8px}#hudLeft,#hudRight{transform:scale(.82)}#hudCenter{transform:translateX(-50%) scale(.82)}#chickenGrid{grid-template-columns:repeat(3,1fr)}#gachaLayout{grid-template-columns:1fr}}
+@media(max-width:760px){#menu{grid-template-columns:repeat(2,84px);gap:6px}.menuBtn{height:76px}.menuIcon{font-size:22px}.menuText{font-size:10px}#battlePanel{width:245px}#selected{width:185px}#resources{gap:8px}}
 </style>
 </head>
-
 <body>
 
 <div id="intro">
   <div>
-    <div id="introTitle">BOOM <span>CHICKEN</span></div>
-    <div id="introSub">爆 小 鸡</div>
+    <div class="introTitle">BOOM <span>CHICKEN</span></div>
+    <div class="introSub">爆 小 鸡</div>
   </div>
 </div>
 
 <div id="lobby">
-
   <div id="logo" class="panel">
     <div class="logoMain">爆<span>小鸡</span></div>
     <div class="logoSub">BOOM CHICKEN</div>
   </div>
 
-  <div id="currency" class="panel">
-
+  <div id="resources" class="panel">
     <div>
-      <div class="currencyLabel">EGGS</div>
-      <div class="currencyValue">
-        🥚 <span id="eggTotal">1000</span>
-      </div>
+      <div class="resLabel">EGGS</div>
+      <div class="resValue">🥚 <span id="eggTotal">1500</span></div>
     </div>
-
     <div>
-      <div class="currencyLabel">FRAGMENTS</div>
-      <div class="currencyValue">
-        💠 <span id="fragmentTotal">0</span>
-      </div>
+      <div class="resLabel">FRAGMENTS</div>
+      <div class="resValue">💠 <span id="fragmentTotal">0</span></div>
     </div>
-
     <div>
-      <div class="currencyLabel">RANK</div>
-      <div class="currencyValue" id="rankName">UNRANKED</div>
+      <div class="resLabel">RANK</div>
+      <div class="resValue"><span id="rankBadgeMini">⬡</span> <span id="rankName">业余 III</span></div>
     </div>
-
   </div>
 
-  <button
-    id="languageBtn"
-    class="btn blueBtn"
-  >
-    中文
-  </button>
+  <button id="lang" class="btn blue">中文</button>
 
-  <div id="selectedPanel" class="panel">
-    <div id="selectedName"></div>
-    <div id="selectedStars"></div>
-    <div id="selectedDetails"></div>
+  <div id="selected" class="panel">
+    <div id="selectedName" class="selName"></div>
+    <div id="selectedStars" class="selStars"></div>
+    <div id="selectedInfo" class="selInfo"></div>
   </div>
 
-  <div id="leftButtons">
-
-    <button
-      id="chickensBtn"
-      class="menuBtn btn"
-    >
+  <div id="menu">
+    <button id="chickensBtn" class="menuBtn btn">
       <div class="menuIcon">🐔</div>
       <div class="menuText">CHICKENS</div>
     </button>
 
-    <button
-      id="gachaBtn"
-      class="menuBtn btn"
-    >
+    <button id="gachaBtn" class="menuBtn btn">
       <div class="menuIcon">🥚</div>
       <div class="menuText">GACHA</div>
     </button>
 
-    <button
-      id="shopBtn"
-      class="menuBtn btn"
-    >
-      <div class="menuIcon">🛒</div>
-      <div class="menuText">SHOP</div>
+    <button id="rankBtn" class="menuBtn btn blue">
+      <div class="menuIcon">🏆</div>
+      <div class="menuText">RANK</div>
     </button>
 
-    <button
-      id="missionsBtn"
-      class="menuBtn btn"
-    >
+    <button id="missionsBtn" class="menuBtn btn">
       <div class="menuIcon">📋</div>
       <div class="menuText">MISSIONS</div>
     </button>
 
-    <button
-      id="helpBtn"
-      class="menuBtn btn blueBtn"
-    >
+    <button id="helpBtn" class="menuBtn btn blue">
       <div class="menuIcon">❓</div>
       <div class="menuText">HOW TO PLAY</div>
     </button>
-
   </div>
 
   <div id="battlePanel" class="panel">
-
-    <button id="startBtn" class="btn">
-      START BATTLE
-    </button>
-
-    <div class="selectorTitle">MODE</div>
-
+    <button id="start" class="btn">START BATTLE</button>
+    <div class="selectorLabel">MODE</div>
     <div class="selector">
       <button id="modeLeft">◀</button>
       <div id="modeName">SURVIVAL</div>
       <button id="modeRight">▶</button>
     </div>
-
-    <div class="selectorTitle">MAP</div>
-
+    <div class="selectorLabel">MAP</div>
     <div class="selector">
       <button>◀</button>
-      <div>NIGHT BLOCK ARENA</div>
+      <div>VOXEL NIGHT ARENA</div>
       <button>▶</button>
     </div>
-
   </div>
-
 </div>
-
-<!-- CHICKEN MODAL -->
 
 <div id="chickenModal" class="modalWrap">
   <div class="modal panel">
-
     <div class="modalHead">
-      <div class="modalTitle">CHICKENS</div>
-      <button class="closeBtn" data-close="chickenModal">✕</button>
+      <div class="modalTitle">CHICKEN CONTRACTS</div>
+      <button class="close" data-close="chickenModal">✕</button>
     </div>
-
     <div id="chickenGrid"></div>
-
   </div>
 </div>
 
-<!-- GACHA MODAL -->
-
 <div id="gachaModal" class="modalWrap">
   <div class="modal panel">
-
     <div class="modalHead">
-      <div class="modalTitle">GACHA MACHINE</div>
-      <button class="closeBtn" data-close="gachaModal">✕</button>
+      <div class="modalTitle">EGG SIGNING</div>
+      <button class="close" data-close="gachaModal">✕</button>
     </div>
 
-    <div id="gachaArea">
-
-      <div id="gachaMachine">
-
-        <div id="gachaBubble">
-
-          <div class="eggDot" style="left:24px;top:35px"></div>
-          <div class="eggDot" style="left:75px;top:18px;background:#ffd1eb"></div>
-          <div class="eggDot" style="left:126px;top:42px;background:#cce8ff"></div>
-          <div class="eggDot" style="left:170px;top:72px"></div>
-          <div class="eggDot" style="left:45px;top:102px;background:#d3ffd6"></div>
-          <div class="eggDot" style="left:110px;top:110px"></div>
-          <div class="eggDot" style="left:160px;top:125px;background:#e9d5ff"></div>
-
+    <div id="gachaLayout">
+      <div id="gachaStage">
+        <div id="gachaMachine">
+          <div class="bubble">
+            <div class="eggDot" style="left:24px;top:35px"></div>
+            <div class="eggDot" style="left:68px;top:17px;background:#ffd1eb"></div>
+            <div class="eggDot" style="left:118px;top:37px;background:#cce8ff"></div>
+            <div class="eggDot" style="left:160px;top:72px"></div>
+            <div class="eggDot" style="left:40px;top:98px;background:#d3ffd6"></div>
+            <div class="eggDot" style="left:102px;top:105px"></div>
+            <div class="eggDot" style="left:150px;top:116px;background:#e9d5ff"></div>
+          </div>
+          <div class="machineBody">
+            <div id="gachaHandle" class="handle"></div>
+          </div>
         </div>
 
-        <div id="gachaBody">
-          <div id="gachaHandle"></div>
-        </div>
-
-        <div id="fallEgg"></div>
-
+        <div id="dropEgg" class="dropEgg"></div>
+        <div id="rarityFlash" class="rarityFlash"></div>
       </div>
 
       <div id="gachaResult">
-
-        <div id="gachaChance">
-          1★ 50%<br>
-          2★ 27%<br>
-          3★ 14%<br>
-          4★ 7%<br>
-          5★ 2%
+        <div class="gachaChance">
+          1★ 50% · 2★ 27% · 3★ 14% · 4★ 7% · 5★ 2%
         </div>
 
-        <div id="gachaResultIcon">🥚</div>
-
-        <div id="gachaResultName">
-          READY
-        </div>
-
-        <div id="gachaResultStars">
-          500 EGGS PER ROLL
+        <div id="resultCard" class="resultCard">
+          <div id="resultPortrait" class="resultPortrait">🥚</div>
+          <div id="resultName" class="resultName">READY</div>
+          <div id="resultStars" class="resultStars">500 EGGS</div>
+          <div id="resultPower" class="resultPower">
+            Pull the handle to sign a chicken.
+          </div>
         </div>
 
         <div id="gachaInfo">
           Duplicate chickens become fragments.
         </div>
 
-        <button
-          id="gachaRoll"
-          class="btn"
-        >
+        <button id="roll" class="btn">
           ROLL · 🥚500
         </button>
-
       </div>
-
     </div>
-
   </div>
 </div>
 
-<!-- SHOP -->
-
-<div id="shopModal" class="modalWrap">
+<div id="rankModal" class="modalWrap">
   <div class="modal panel">
-
     <div class="modalHead">
-      <div class="modalTitle">FRAGMENT SHOP</div>
-      <button class="closeBtn" data-close="shopModal">✕</button>
+      <div class="modalTitle">RANK JOURNEY</div>
+      <button class="close" data-close="rankModal">✕</button>
     </div>
-
-    <div id="shopGrid"></div>
-
+    <div id="rankSummary"></div>
+    <div id="rankRoute"></div>
   </div>
 </div>
-
-<!-- MISSIONS -->
 
 <div id="missionModal" class="modalWrap">
   <div class="modal panel">
-
     <div class="modalHead">
       <div class="modalTitle">MISSIONS</div>
-      <button class="closeBtn" data-close="missionModal">✕</button>
+      <button class="close" data-close="missionModal">✕</button>
     </div>
-
     <div id="missionList"></div>
-
   </div>
 </div>
-
-<!-- TUTORIAL -->
 
 <div id="tutorialModal" class="modalWrap">
-
   <div id="tutorialBox" class="modal panel">
-
-    <div id="tutorialIcon">🐔</div>
-
-    <div id="tutorialTitle"></div>
-
-    <div id="tutorialText"></div>
-
-    <div id="tutorialControls"></div>
-
-    <button
-      id="tutorialNext"
-      class="btn"
-    >
-      NEXT
-    </button>
-
+    <div id="tutorialIcon" class="tutorialIcon">🐔</div>
+    <div id="tutorialTitle" class="tutorialTitle"></div>
+    <div id="tutorialText" class="tutorialText"></div>
+    <div id="tutorialControls" class="tutorialControl"></div>
+    <button id="tutorialNext" class="btn">NEXT</button>
   </div>
-
 </div>
-
-<!-- UPGRADE -->
 
 <div id="upgradeModal" class="modalWrap">
-
   <div class="modal panel">
-
-    <div class="modalTitle">
-      LEVEL UP
-    </div>
-
+    <div class="modalTitle">LEVEL UP</div>
     <div id="upgradeGrid"></div>
-
   </div>
-
 </div>
 
-<!-- HUD -->
-
 <div id="hud">
-
   <div id="hudLeft" class="hudPanel">
-
-    <div
-      id="hudChicken"
-      class="hudBig"
-    ></div>
-
-    <div class="hudSmall">
-      KILLS
-      <span id="hudKills">0</span>
-    </div>
-
+    <div id="hudChicken" class="hudBig"></div>
+    <div class="hudSmall">KILLS <span id="hudKills">0</span></div>
   </div>
 
   <div id="hudCenter" class="hudPanel">
-
-    <div
-      id="hudWave"
-      class="hudBig"
-    >
-      WAVE 1
-    </div>
-
-    <div
-      id="hudEnemies"
-      class="hudSmall"
-    >
-      ENEMIES 0
-    </div>
-
+    <div id="hudWave" class="hudBig">WAVE 1</div>
+    <div id="hudEnemies" class="hudSmall">ENEMIES 0</div>
   </div>
 
   <div id="hudRight" class="hudPanel">
-
-    <div class="hudBig">
-      🥚
-      <span id="hudEggs">0</span>
-    </div>
-
-    <div class="hudSmall">
-      LEVEL
-      <span id="hudLevel">1</span>
-    </div>
-
+    <div class="hudBig">🥚 <span id="hudEggs">0</span></div>
+    <div class="hudSmall">LEVEL <span id="hudLevel">1</span></div>
   </div>
 
-  <div id="healthBox">
-
-    <div id="hpText">
-      HP 100 / 100
-    </div>
+  <div id="health">
+    <div id="hpText">HP 100 / 100</div>
 
     <div class="bar">
-      <div
-        id="hpFill"
-        class="fill"
-        style="width:100%"
-      ></div>
+      <div id="hpFill" class="fill" style="width:100%"></div>
     </div>
 
-    <div
-      class="bar"
-      style="margin-top:5px"
-    >
-      <div
-        id="xpFill"
-        class="fill"
-        style="width:0%"
-      ></div>
+    <div class="bar" style="margin-top:5px">
+      <div id="xpFill" class="fill" style="width:0%"></div>
     </div>
-
   </div>
 
   <div id="skillHUD" class="hudPanel">
-
     <div id="skillHUDName"></div>
-
     <div id="skillHUDCD"></div>
-
   </div>
 
-  <div id="centerMessage"></div>
-
+  <div id="message"></div>
   <div id="danger">❗</div>
 
   <div id="touchLayer">
-
     <div id="joystick">
       <div id="joyKnob"></div>
     </div>
-
   </div>
 
-  <button
-    id="mobileSkill"
-    class="btn blueBtn"
-  >
-    SKILL
-  </button>
-
-  <button
-    id="fireBtn"
-    class="btn"
-  >
-    FIRE
-  </button>
-
+  <button id="mobileSkill" class="btn blue">SKILL</button>
+  <button id="fire" class="btn">FIRE</button>
 </div>
-
-<!-- GAME OVER -->
 
 <div id="gameOver">
-
-  <div
-    id="gameOverCard"
-    class="panel"
-  >
-
-    <div id="gameOverTitle">
-      GAME OVER
-    </div>
-
+  <div id="gameOverCard" class="panel">
+    <div class="gameOverTitle">GAME OVER</div>
     <div id="gameOverStats"></div>
-
-    <button
-      id="lobbyReturn"
-      class="btn"
-    >
-      RETURN TO LOBBY
-    </button>
-
+    <button id="returnLobby" class="btn">RETURN TO LOBBY</button>
   </div>
-
 </div>
 
-<!-- ERROR -->
-
 <div id="errorScreen">
-
-  <div
-    id="errorCard"
-    class="panel"
-  >
-
-    <div id="errorTitle">
-      GAME ERROR
-    </div>
-
+  <div id="errorCard" class="panel">
+    <div id="errorTitle">GAME ERROR</div>
     <div id="errorText"></div>
-
     <button
       class="btn"
       style="width:100%;height:52px;margin-top:14px"
@@ -1468,9 +411,7 @@ button{
     >
       RELOAD
     </button>
-
   </div>
-
 </div>
 
 <script type="module">
@@ -1478,161 +419,87 @@ button{
 import * as THREE
 from "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js";
 
-/* =========================================================
-   DOM
-========================================================= */
-
 const $=
 id=>
 document.getElementById(id);
 
 const intro=$("intro");
-
 const lobby=$("lobby");
-
 const hud=$("hud");
-
 const gameOver=$("gameOver");
-
 const errorScreen=$("errorScreen");
-
 const errorText=$("errorText");
 
-const eggTotalEl=$("eggTotal");
-
-const fragmentTotalEl=$("fragmentTotal");
-
+const eggTotal=$("eggTotal");
+const fragmentTotal=$("fragmentTotal");
 const rankNameEl=$("rankName");
+const rankBadgeMini=$("rankBadgeMini");
+const lang=$("lang");
 
-const languageBtn=$("languageBtn");
+const selectedName=$("selectedName");
+const selectedStars=$("selectedStars");
+const selectedInfo=$("selectedInfo");
 
-const selectedNameEl=$("selectedName");
-
-const selectedStarsEl=$("selectedStars");
-
-const selectedDetailsEl=$("selectedDetails");
-
-const chickensBtn=$("chickensBtn");
-
-const gachaBtn=$("gachaBtn");
-
-const shopBtn=$("shopBtn");
-
-const missionsBtn=$("missionsBtn");
-
-const helpBtn=$("helpBtn");
-
-const startBtn=$("startBtn");
-
-const modeLeft=$("modeLeft");
-
-const modeRight=$("modeRight");
-
-const modeNameEl=$("modeName");
+const start=$("start");
+const modeName=$("modeName");
 
 const chickenModal=$("chickenModal");
-
 const chickenGrid=$("chickenGrid");
 
 const gachaModal=$("gachaModal");
-
 const gachaHandle=$("gachaHandle");
-
-const fallEgg=$("fallEgg");
-
-const gachaRoll=$("gachaRoll");
-
-const gachaResultIcon=$("gachaResultIcon");
-
-const gachaResultName=$("gachaResultName");
-
-const gachaResultStars=$("gachaResultStars");
-
+const dropEgg=$("dropEgg");
+const rarityFlash=$("rarityFlash");
+const resultCard=$("resultCard");
+const resultPortrait=$("resultPortrait");
+const resultName=$("resultName");
+const resultStars=$("resultStars");
+const resultPower=$("resultPower");
 const gachaInfo=$("gachaInfo");
+const roll=$("roll");
 
-const shopModal=$("shopModal");
-
-const shopGrid=$("shopGrid");
+const rankModal=$("rankModal");
+const rankSummary=$("rankSummary");
+const rankRoute=$("rankRoute");
 
 const missionModal=$("missionModal");
-
 const missionList=$("missionList");
 
 const tutorialModal=$("tutorialModal");
-
 const tutorialIcon=$("tutorialIcon");
-
 const tutorialTitle=$("tutorialTitle");
-
 const tutorialText=$("tutorialText");
-
 const tutorialControls=$("tutorialControls");
-
 const tutorialNext=$("tutorialNext");
 
 const upgradeModal=$("upgradeModal");
-
 const upgradeGrid=$("upgradeGrid");
 
 const hudChicken=$("hudChicken");
-
 const hudKills=$("hudKills");
-
 const hudWave=$("hudWave");
-
 const hudEnemies=$("hudEnemies");
-
 const hudEggs=$("hudEggs");
-
 const hudLevel=$("hudLevel");
 
 const hpText=$("hpText");
-
 const hpFill=$("hpFill");
-
 const xpFill=$("xpFill");
 
 const skillHUDName=$("skillHUDName");
-
 const skillHUDCD=$("skillHUDCD");
 
-const centerMessage=$("centerMessage");
-
+const messageEl=$("message");
 const danger=$("danger");
 
 const touchLayer=$("touchLayer");
-
 const joystick=$("joystick");
-
 const joyKnob=$("joyKnob");
-
 const mobileSkill=$("mobileSkill");
-
-const fireBtn=$("fireBtn");
+const fireBtn=$("fire");
 
 const gameOverStats=$("gameOverStats");
-
-const lobbyReturn=$("lobbyReturn");
-
-
-document
-.querySelectorAll("[data-close]")
-.forEach(
-button=>{
-
-  button.onclick=
-  ()=>{
-
-    const modal=
-    $(
-      button.dataset.close
-    );
-
-    modal
-    .classList
-    .remove("show");
-  };
-});
+const returnLobby=$("returnLobby");
 
 
 function fatal(error){
@@ -1660,7 +527,9 @@ window.addEventListener(
 "error",
 event=>{
 
-  if(event.error){
+  if(
+    event.error
+  ){
 
     fatal(
       event.error
@@ -1677,15 +546,30 @@ event=>{
     event.reason
     ||
     new Error(
-      "Unhandled Promise Error"
+      "Unhandled promise rejection"
     )
   );
 });
 
 
-/* =========================================================
-   CHICKENS
-========================================================= */
+document
+.querySelectorAll(
+  "[data-close]"
+)
+.forEach(
+button=>{
+
+  button.onclick=
+  ()=>{
+
+    $(
+      button.dataset.close
+    )
+    .classList
+    .remove("show");
+  };
+});
+
 
 const CHICKENS=[
 
@@ -1709,7 +593,7 @@ id:"black",
 name:"BLACK CHICKEN",
 zh:"黑鸡",
 stars:1,
-color:0x22252a,
+color:0x26292e,
 weapon:"Dual Pistols",
 skill:"Frenzy",
 damage:11,
@@ -1925,35 +809,117 @@ const MODES=[
 
 
 const RANKS=[
-"UNRANKED",
-"BRONZE",
-"SILVER",
-"GOLD",
-"PLATINUM",
-"DIAMOND",
-"WORLD'S STRONGEST"
+
+{
+name:"业余 III",
+en:"AMATEUR III",
+score:0,
+color:"#77838f",
+icon:"A",
+reward:[100,10]
+},
+
+{
+name:"业余 II",
+en:"AMATEUR II",
+score:100,
+color:"#8795a3",
+icon:"A",
+reward:[120,12]
+},
+
+{
+name:"业余 I",
+en:"AMATEUR I",
+score:200,
+color:"#9aa8b4",
+icon:"A",
+reward:[150,15]
+},
+
+{
+name:"半职业 III",
+en:"SEMI-PRO III",
+score:350,
+color:"#56a9ff",
+icon:"S",
+reward:[180,20]
+},
+
+{
+name:"半职业 II",
+en:"SEMI-PRO II",
+score:500,
+color:"#62b7ff",
+icon:"S",
+reward:[220,25]
+},
+
+{
+name:"半职业 I",
+en:"SEMI-PRO I",
+score:650,
+color:"#6cc4ff",
+icon:"S",
+reward:[260,30]
+},
+
+{
+name:"职业 III",
+en:"PRO III",
+score:850,
+color:"#8e6cff",
+icon:"P",
+reward:[320,35]
+},
+
+{
+name:"职业 II",
+en:"PRO II",
+score:1050,
+color:"#a071ff",
+icon:"P",
+reward:[380,40]
+},
+
+{
+name:"职业 I",
+en:"PRO I",
+score:1250,
+color:"#b875ff",
+icon:"P",
+reward:[450,50]
+},
+
+{
+name:"精英",
+en:"ELITE",
+score:1500,
+color:"#ff9b4d",
+icon:"E",
+reward:[600,70]
+},
+
+{
+name:"世界级",
+en:"WORLD CLASS",
+score:1800,
+color:"#ffd65a",
+icon:"W",
+reward:[800,90]
+},
+
+{
+name:"传奇",
+en:"LEGEND",
+score:2200,
+color:"#ff5f70",
+icon:"L",
+reward:[1200,140]
+}
+
 ];
 
-
-const SHOP_PRICE={
-1:80,
-2:180,
-3:420
-};
-
-
-const DUPLICATE_FRAGMENTS={
-1:15,
-2:35,
-3:80,
-4:180,
-5:450
-};
-
-
-/* =========================================================
-   SAVE
-========================================================= */
 
 const DEFAULT_SAVE={
 
@@ -1971,7 +937,9 @@ unlocked:[
 
 rankPoints:0,
 
-language:"en",
+claimedRanks:[],
+
+language:"zh",
 
 tutorialSeen:false,
 
@@ -1980,16 +948,13 @@ kills:0,
 matches:0,
 waves:0,
 gacha:0
-},
-
-missions:{
-cycle:0
 }
 
 };
 
 
 let save;
+
 
 try{
 
@@ -2013,46 +978,47 @@ try{
 }
 
 
-save.eggs=
-Number(
-  save.eggs
-  ??
-  DEFAULT_SAVE.eggs
-);
+save={
 
+...DEFAULT_SAVE,
 
-save.fragments=
-Number(
-  save.fragments
-  ??
-  0
-);
+...save,
 
-
-save.unlocked=
-Array.isArray(
-  save.unlocked
-)
-?
-save.unlocked
-:
-[
-"white",
-"black",
-"yellow"
-];
-
-
-save.stats={
+stats:{
 ...DEFAULT_SAVE.stats,
 ...(save.stats||{})
+},
+
+claimedRanks:
+Array.isArray(
+  save.claimedRanks
+)
+?
+save.claimedRanks
+:
+[]
+
 };
 
 
-save.language=
-save.language
+const getChicken=
+id=>
+CHICKENS.find(
+  chicken=>
+  chicken.id===id
+)
 ||
-"en";
+CHICKENS[0];
+
+
+let selectedChicken=
+getChicken(
+  save.selected
+);
+
+
+const chinese=
+()=>save.language==="zh";
 
 
 function saveGame(){
@@ -2064,129 +1030,61 @@ function saveGame(){
 }
 
 
-function getChicken(id){
-
-  return(
-    CHICKENS.find(
-      chicken=>
-      chicken.id===id
-    )
-    ||
-    CHICKENS[0]
-  );
-}
-
-
-let selectedChicken=
-getChicken(
-  save.selected
-);
-
-
 function rankIndex(){
 
-  return Math.min(
-    6,
-    Math.floor(
-      save.rankPoints/250
+  let index=0;
+
+  for(
+    let i=0;
+    i<RANKS.length;
+    i++
+  ){
+
+    if(
+      save.rankPoints
+      >=
+      RANKS[i].score
+    ){
+
+      index=i;
+    }
+  }
+
+  return index;
+}
+
+
+function overall(
+chicken
+){
+
+  return Math.round(
+
+    chicken.damage*2
+
+    +
+
+    (
+      1/chicken.fireRate
     )
+    *
+    18
+
+    +
+
+    chicken.speed*8
+
+    +
+
+    chicken.range*2
+
+    +
+
+    chicken.stars*30
+
   );
 }
 
-
-/* =========================================================
-   LANGUAGE
-========================================================= */
-
-function chinese(){
-
-  return(
-    save.language==="zh"
-  );
-}
-
-
-function updateLanguage(){
-
-  languageBtn.textContent=
-  chinese()
-  ?
-  "EN"
-  :
-  "中文";
-
-
-  chickensBtn
-  .querySelector(".menuText")
-  .textContent=
-  chinese()
-  ?
-  "小鸡"
-  :
-  "CHICKENS";
-
-
-  shopBtn
-  .querySelector(".menuText")
-  .textContent=
-  chinese()
-  ?
-  "商店"
-  :
-  "SHOP";
-
-
-  missionsBtn
-  .querySelector(".menuText")
-  .textContent=
-  chinese()
-  ?
-  "任务"
-  :
-  "MISSIONS";
-
-
-  helpBtn
-  .querySelector(".menuText")
-  .textContent=
-  chinese()
-  ?
-  "怎么玩"
-  :
-  "HOW TO PLAY";
-
-
-  startBtn.textContent=
-  chinese()
-  ?
-  "开始战斗"
-  :
-  "START BATTLE";
-
-
-  updateLobby();
-}
-
-
-languageBtn.onclick=
-()=>{
-
-  save.language=
-  chinese()
-  ?
-  "en"
-  :
-  "zh";
-
-  saveGame();
-
-  updateLanguage();
-};
-
-
-/* =========================================================
-   AUDIO
-========================================================= */
 
 let audioCtx=null;
 
@@ -2195,7 +1093,9 @@ let aiAudioGate=0;
 
 function ensureAudio(){
 
-  if(!audioCtx){
+  if(
+    !audioCtx
+  ){
 
     audioCtx=
     new(
@@ -2225,18 +1125,14 @@ end=0
 
   ensureAudio();
 
-
   const oscillator=
   audioCtx.createOscillator();
-
 
   const gain=
   audioCtx.createGain();
 
-
   oscillator.type=
   type;
-
 
   oscillator.frequency
   .setValueAtTime(
@@ -2244,16 +1140,17 @@ end=0
     audioCtx.currentTime
   );
 
-
   if(end){
 
     oscillator.frequency
     .exponentialRampToValueAtTime(
-      Math.max(30,end),
+      Math.max(
+        30,
+        end
+      ),
       audioCtx.currentTime+duration
     );
   }
-
 
   gain.gain
   .setValueAtTime(
@@ -2261,26 +1158,21 @@ end=0
     audioCtx.currentTime
   );
 
-
   gain.gain
   .exponentialRampToValueAtTime(
     .001,
     audioCtx.currentTime+duration
   );
 
-
   oscillator.connect(
     gain
   );
-
 
   gain.connect(
     audioCtx.destination
   );
 
-
   oscillator.start();
-
 
   oscillator.stop(
     audioCtx.currentTime+duration
@@ -2295,12 +1187,10 @@ volume=.02
 
   ensureAudio();
 
-
   const count=
   Math.floor(
     audioCtx.sampleRate*duration
   );
-
 
   const buffer=
   audioCtx.createBuffer(
@@ -2309,12 +1199,10 @@ volume=.02
     audioCtx.sampleRate
   );
 
-
   const data=
   buffer.getChannelData(
     0
   );
-
 
   for(
     let i=0;
@@ -2332,32 +1220,25 @@ volume=.02
     );
   }
 
-
   const source=
   audioCtx.createBufferSource();
-
 
   const gain=
   audioCtx.createGain();
 
-
   source.buffer=
   buffer;
 
-
   gain.gain.value=
   volume;
-
 
   source.connect(
     gain
   );
 
-
   gain.connect(
     audioCtx.destination
   );
-
 
   source.start();
 }
@@ -2371,7 +1252,6 @@ ai=false
   const now=
   performance.now();
 
-
   if(
     ai
     &&
@@ -2381,61 +1261,55 @@ ai=false
     return;
   }
 
-
   if(ai){
 
     aiAudioGate=
     now+75;
   }
 
-
-  const v=
+  const volume=
   ai
   ?
   .012
   :
-  .034;
-
+  .035;
 
   if(
-    chicken.weapon.includes(
-      "Shotgun"
-    )
+    chicken.weapon
+    .includes("Shotgun")
   ){
 
     noise(
-      .11,
-      v*1.7
+      .1,
+      volume*1.7
     );
 
     tone(
       120,
       .11,
       "sawtooth",
-      v,
+      volume,
       65
     );
 
   }else if(
-    chicken.weapon.includes(
-      "SMG"
-    )
+    chicken.weapon
+    .includes("SMG")
     ||
-    chicken.weapon.includes(
-      "Dual"
-    )
+    chicken.weapon
+    .includes("Dual")
   ){
 
     noise(
       .03,
-      v*.8
+      volume*.8
     );
 
     tone(
       270,
       .035,
       "square",
-      v,
+      volume,
       150
     );
 
@@ -2447,7 +1321,7 @@ ai=false
       650,
       .09,
       "sawtooth",
-      v,
+      volume,
       180
     );
 
@@ -2459,7 +1333,7 @@ ai=false
       760,
       .07,
       "sine",
-      v,
+      volume,
       400
     );
 
@@ -2469,14 +1343,14 @@ ai=false
 
     noise(
       .05,
-      v
+      volume
     );
 
     tone(
       95,
       .05,
       "sawtooth",
-      v,
+      volume,
       60
     );
 
@@ -2484,74 +1358,46 @@ ai=false
 
     noise(
       .045,
-      v
+      volume
     );
 
     tone(
       220,
       .06,
       "square",
-      v,
+      volume,
       115
     );
   }
 }
 
 
-function hitSound(){
-
-  tone(
-    150,
-    .035,
-    "square",
-    .017,
-    80
-  );
-}
+const hitSound=
+()=>tone(
+150,.035,"square",.017,80
+);
 
 
-function hurtSound(){
-
-  tone(
-    180,
-    .11,
-    "sawtooth",
-    .03,
-    70
-  );
-}
+const hurtSound=
+()=>tone(
+180,.11,"sawtooth",.03,70
+);
 
 
-function deathSound(){
-
-  noise(
-    .1,
-    .025
-  );
-
-  tone(
-    115,
-    .18,
-    "sawtooth",
-    .025,
-    45
-  );
-}
+const pickupSound=
+()=>tone(
+650,.06,"sine",.025,950
+);
 
 
-function pickupSound(){
-
-  tone(
-    650,
-    .06,
-    "sine",
-    .025,
-    950
-  );
-}
+const skillSound=
+()=>tone(
+320,.12,"triangle",.03,700
+);
 
 
-function chickenSound(){
+const chickenSound=
+()=>{
 
   tone(
     520,
@@ -2571,22 +1417,11 @@ function chickenSound(){
     ),
     65
   );
-}
+};
 
 
-function skillSound(){
-
-  tone(
-    320,
-    .12,
-    "triangle",
-    .03,
-    700
-  );
-}
-
-
-function gachaSound(){
+const gachaSound=
+()=>{
 
   tone(
     180,
@@ -2606,7 +1441,7 @@ function gachaSound(){
     ),
     130
   );
-}
+};
 
 
 document.addEventListener(
@@ -2617,10 +1452,6 @@ once:true
 }
 );
 
-
-/* =========================================================
-   THREE SETUP
-========================================================= */
 
 const scene=
 new THREE.Scene();
@@ -2635,8 +1466,8 @@ new THREE.Color(
 scene.fog=
 new THREE.Fog(
 0x101a27,
-35,
-100
+36,
+110
 );
 
 
@@ -2645,7 +1476,7 @@ new THREE.PerspectiveCamera(
 50,
 innerWidth/innerHeight,
 .1,
-160
+170
 );
 
 
@@ -2727,9 +1558,9 @@ world
 
 
 function cube(
-x,
-y,
-z,
+sx,
+sy,
+sz,
 color
 ){
 
@@ -2737,26 +1568,54 @@ color
   new THREE.Mesh(
 
     new THREE.BoxGeometry(
-      x,
-      y,
-      z
+      sx,
+      sy,
+      sz
     ),
 
     new THREE.MeshStandardMaterial({
       color,
-      roughness:.78
+      roughness:.8
     })
 
   );
 
-
   mesh.castShadow=
   true;
-
 
   mesh.receiveShadow=
   true;
 
+  return mesh;
+}
+
+
+function voxel(
+parent,
+x,
+y,
+z,
+size,
+color
+){
+
+  const mesh=
+  cube(
+    size,
+    size,
+    size,
+    color
+  );
+
+  mesh.position.set(
+    x,
+    y,
+    z
+  );
+
+  parent.add(
+    mesh
+  );
 
   return mesh;
 }
@@ -2775,180 +1634,207 @@ function clearWorld(){
 }
 
 
-/* =========================================================
-   CHICKEN MODEL
-========================================================= */
-
-function chickenModel(chicken){
+function voxelChicken(
+chicken
+){
 
   const group=
   new THREE.Group();
 
+  const size=
+  .28;
 
-  const body=
-  cube(
-    1.3,
-    1.1,
-    1.25,
-    chicken.color
-  );
+  const color=
+  chicken.color;
 
 
-  body.position.y=
-  .9;
+  for(
+    let x=-2;
+    x<=2;
+    x++
+  ){
+
+    for(
+      let y=1;
+      y<=3;
+      y++
+    ){
+
+      for(
+        let z=-1;
+        z<=1;
+        z++
+      ){
+
+        if(
+          Math.abs(x)
+          +
+          Math.abs(z)
+          <
+          4
+        ){
+
+          voxel(
+            group,
+            x*size,
+            y*size,
+            z*size,
+            size,
+            color
+          );
+        }
+      }
+    }
+  }
 
 
-  group.add(
-    body
-  );
+  for(
+    let x=-1;
+    x<=1;
+    x++
+  ){
+
+    for(
+      let y=4;
+      y<=5;
+      y++
+    ){
+
+      for(
+        let z=-1;
+        z<=1;
+        z++
+      ){
+
+        voxel(
+          group,
+          x*size,
+          y*size,
+          z*size,
+          size,
+          color
+        );
+      }
+    }
+  }
 
 
-  const head=
-  cube(
-    1,
-    .9,
-    1,
-    chicken.color
-  );
-
-
-  head.position.set(
+  voxel(
+    group,
     0,
-    1.75,
-    .05
-  );
-
-
-  group.add(
-    head
-  );
-
-
-  const beak=
-  cube(
-    .5,
-    .28,
-    .42,
-    0xf6a52c
-  );
-
-
-  beak.position.set(
+    6*size,
     0,
-    1.68,
-    .67
-  );
-
-
-  group.add(
-    beak
-  );
-
-
-  const comb=
-  cube(
-    .27,
-    .36,
-    .35,
+    size,
     0xe63c31
   );
 
 
-  comb.position.set(
+  voxel(
+    group,
     0,
-    2.35,
-    0
+    4.6*size,
+    1.5*size,
+    size,
+    0xf6a52c
   );
 
 
-  group.add(
-    comb
+  voxel(
+    group,
+    -.65*size,
+    5*size,
+    1.55*size,
+    size*.55,
+    0x111111
   );
 
 
-  const eye1=
-  cube(
-    .12,
-    .12,
-    .08,
-    0x101010
+  voxel(
+    group,
+    .65*size,
+    5*size,
+    1.55*size,
+    size*.55,
+    0x111111
   );
 
 
-  const eye2=
-  eye1.clone();
-
-
-  eye1.position.set(
-    -.25,
-    1.92,
-    .54
+  voxel(
+    group,
+    -2.5*size,
+    2.7*size,
+    0,
+    size,
+    color
   );
 
 
-  eye2.position.set(
-    .25,
-    1.92,
-    .54
+  voxel(
+    group,
+    2.5*size,
+    2.7*size,
+    0,
+    size,
+    color
   );
 
 
-  group.add(
-    eye1,
-    eye2
+  voxel(
+    group,
+    -.8*size,
+    .3*size,
+    0,
+    size,
+    0xf6a52c
   );
 
 
-  const gunColor=
-  chicken.id==="robot"
-  ?
-  0x69dfff
-  :
-  0x474c52;
-
-
-  const gun=
-  cube(
-    .3,
-    .25,
-    1,
-    gunColor
+  voxel(
+    group,
+    .8*size,
+    .3*size,
+    0,
+    size,
+    0xf6a52c
   );
 
 
-  gun.position.set(
-    .72,
-    1.05,
-    .58
-  );
+  for(
+    let i=0;
+    i<3;
+    i++
+  ){
 
-
-  group.add(
-    gun
-  );
+    voxel(
+      group,
+      2.3*size,
+      2.8*size,
+      (1.4+i)*size,
+      size*.75,
+      0x4b5057
+    );
+  }
 
 
   if(
     chicken.id==="cowboy"
   ){
 
-    const hat=
-    cube(
-      1.3,
-      .18,
-      1,
-      0x60351c
-    );
+    for(
+      let x=-2;
+      x<=2;
+      x++
+    ){
 
-    hat.position.set(
-      0,
-      2.35,
-      0
-    );
-
-    group.add(
-      hat
-    );
+      voxel(
+        group,
+        x*size,
+        6.5*size,
+        0,
+        size,
+        0x60351c
+      );
+    }
   }
 
 
@@ -2956,49 +1842,22 @@ function chickenModel(chicken){
     chicken.id==="wizard"
   ){
 
-    const hat=
-    cube(
-      .75,
-      .78,
-      .75,
+    voxel(
+      group,
+      0,
+      6.8*size,
+      0,
+      size,
       0x512e87
     );
 
-    hat.position.set(
+    voxel(
+      group,
       0,
-      2.6,
-      0
-    );
-
-    hat.rotation.z=
-    .25;
-
-    group.add(
-      hat
-    );
-  }
-
-
-  if(
-    chicken.id==="doctor"
-  ){
-
-    const cap=
-    cube(
-      .85,
-      .23,
-      .75,
-      0xffffff
-    );
-
-    cap.position.set(
+      7.8*size,
       0,
-      2.38,
-      0
-    );
-
-    group.add(
-      cap
+      size,
+      0x512e87
     );
   }
 
@@ -3007,22 +1866,44 @@ function chickenModel(chicken){
     chicken.id==="pirate"
   ){
 
-    const patch=
-    cube(
-      .35,
-      .18,
-      .09,
+    voxel(
+      group,
+      -.7*size,
+      5*size,
+      1.6*size,
+      size*.65,
       0x111111
     );
+  }
 
-    patch.position.set(
-      -.23,
-      1.92,
-      .58
-    );
 
-    group.add(
-      patch
+  if(
+    chicken.id==="doctor"
+  ){
+
+    for(
+      let x=-1;
+      x<=1;
+      x++
+    ){
+
+      voxel(
+        group,
+        x*size,
+        6.5*size,
+        0,
+        size,
+        0xffffff
+      );
+    }
+
+    voxel(
+      group,
+      0,
+      6.8*size,
+      .1,
+      size*.65,
+      0xe73b3b
     );
   }
 
@@ -3031,22 +1912,13 @@ function chickenModel(chicken){
     chicken.id==="robot"
   ){
 
-    const eye=
-    cube(
-      .4,
-      .35,
-      .1,
+    voxel(
+      group,
+      .65*size,
+      5*size,
+      1.6*size,
+      size*.7,
       0x69dfff
-    );
-
-    eye.position.set(
-      .2,
-      1.92,
-      .57
-    );
-
-    group.add(
-      eye
     );
   }
 
@@ -3055,22 +1927,13 @@ function chickenModel(chicken){
     chicken.id==="fire"
   ){
 
-    const flame=
-    cube(
-      .35,
-      .55,
-      .35,
-      0xff8125
-    );
-
-    flame.position.set(
+    voxel(
+      group,
       0,
-      2.58,
-      0
-    );
-
-    group.add(
-      flame
+      7*size,
+      0,
+      size,
+      0xff8125
     );
   }
 
@@ -3079,22 +1942,13 @@ function chickenModel(chicken){
     chicken.id==="ice"
   ){
 
-    const crystal=
-    cube(
-      .3,
-      .45,
-      .3,
-      0xd2f7ff
-    );
-
-    crystal.position.set(
+    voxel(
+      group,
       0,
-      2.52,
-      0
-    );
-
-    group.add(
-      crystal
+      7*size,
+      0,
+      size,
+      0xd2f7ff
     );
   }
 
@@ -3103,25 +1957,256 @@ function chickenModel(chicken){
     chicken.id==="thunder"
   ){
 
-    const bolt=
-    cube(
-      .18,
-      .65,
-      .18,
+    voxel(
+      group,
+      0,
+      7*size,
+      0,
+      size,
       0xffff62
     );
 
-    bolt.position.set(
+    voxel(
+      group,
+      .4*size,
+      7.8*size,
       0,
-      2.56,
-      0
+      size*.7,
+      0xffff62
+    );
+  }
+
+
+  group.scale.setScalar(
+    1.45
+  );
+
+  return group;
+}
+
+
+function voxelWolf(
+type="normal"
+){
+
+  const colors={
+
+    normal:0x74777b,
+
+    fast:0x8f7070,
+
+    tank:0x55585d,
+
+    bomber:0x914949,
+
+    boss:0x8e3030
+
+  };
+
+
+  const color=
+  colors[type]
+  ||
+  colors.normal;
+
+
+  const group=
+  new THREE.Group();
+
+
+  const size=
+  .27;
+
+
+  for(
+    let x=-2;
+    x<=2;
+    x++
+  ){
+
+    for(
+      let z=-2;
+      z<=1;
+      z++
+    ){
+
+      for(
+        let y=1;
+        y<=2;
+        y++
+      ){
+
+        if(
+          Math.abs(x)<2
+          ||
+          z<1
+        ){
+
+          voxel(
+            group,
+            x*size,
+            y*size,
+            z*size,
+            size,
+            color
+          );
+        }
+      }
+    }
+  }
+
+
+  for(
+    let x=-1;
+    x<=1;
+    x++
+  ){
+
+    for(
+      let y=2;
+      y<=3;
+      y++
+    ){
+
+      for(
+        let z=2;
+        z<=4;
+        z++
+      ){
+
+        voxel(
+          group,
+          x*size,
+          y*size,
+          z*size,
+          size,
+          color
+        );
+      }
+    }
+  }
+
+
+  voxel(
+    group,
+    -1*size,
+    4*size,
+    2.5*size,
+    size,
+    color
+  );
+
+
+  voxel(
+    group,
+    1*size,
+    4*size,
+    2.5*size,
+    size,
+    color
+  );
+
+
+  voxel(
+    group,
+    -.8*size,
+    3*size,
+    4.7*size,
+    size*.5,
+    0xff3333
+  );
+
+
+  voxel(
+    group,
+    .8*size,
+    3*size,
+    4.7*size,
+    size*.5,
+    0xff3333
+  );
+
+
+  voxel(
+    group,
+    0,
+    2.3*size,
+    5*size,
+    size*.7,
+    0x2d2d2d
+  );
+
+
+  [
+    -1.4,
+    1.4
+  ]
+  .forEach(
+  x=>{
+
+    [
+      -1.3,
+      .8
+    ]
+    .forEach(
+    z=>{
+
+      for(
+        let y=-1;
+        y<=0;
+        y++
+      ){
+
+        voxel(
+          group,
+          x*size,
+          y*size,
+          z*size,
+          size,
+          color
+        );
+      }
+    });
+  });
+
+
+  for(
+    let i=0;
+    i<3;
+    i++
+  ){
+
+    voxel(
+      group,
+      0,
+      2*size,
+      (-3-i)*size,
+      size,
+      color
+    );
+  }
+
+
+  if(
+    type==="boss"
+  ){
+
+    group.scale.setScalar(
+      1.9
     );
 
-    bolt.rotation.z=
-    .5;
+  }else if(
+    type==="tank"
+  ){
 
-    group.add(
-      bolt
+    group.scale.setScalar(
+      1.35
+    );
+
+  }else{
+
+    group.scale.setScalar(
+      1.15
     );
   }
 
@@ -3130,9 +2215,614 @@ function chickenModel(chicken){
 }
 
 
-/* =========================================================
-   STATE
-========================================================= */
+const colliders=[];
+
+
+function addCollider(
+x,
+z,
+radius
+){
+
+  colliders.push({
+    x,
+    z,
+    radius
+  });
+}
+
+
+function resolveCollisions(
+position,
+radius,
+limit
+){
+
+  position.x=
+  THREE.MathUtils.clamp(
+    position.x,
+    -limit,
+    limit
+  );
+
+
+  position.z=
+  THREE.MathUtils.clamp(
+    position.z,
+    -limit,
+    limit
+  );
+
+
+  for(
+    const obstacle
+    of colliders
+  ){
+
+    let dx=
+    position.x
+    -
+    obstacle.x;
+
+
+    let dz=
+    position.z
+    -
+    obstacle.z;
+
+
+    const distance=
+    Math.hypot(
+      dx,
+      dz
+    );
+
+
+    const minimum=
+    radius
+    +
+    obstacle.radius;
+
+
+    if(
+      distance<minimum
+      &&
+      distance>.0001
+    ){
+
+      const push=
+      minimum-distance;
+
+
+      position.x+=
+      dx/distance*push;
+
+
+      position.z+=
+      dz/distance*push;
+
+    }else if(
+      distance<=.0001
+    ){
+
+      position.x+=
+      minimum;
+    }
+  }
+}
+
+
+function addTree(
+x,
+z
+){
+
+  const group=
+  new THREE.Group();
+
+
+  for(
+    let y=0;
+    y<6;
+    y++
+  ){
+
+    voxel(
+      group,
+      0,
+      y*.35,
+      0,
+      .36,
+      0x704827
+    );
+  }
+
+
+  for(
+    let x1=-2;
+    x1<=2;
+    x1++
+  ){
+
+    for(
+      let y=4;
+      y<=8;
+      y++
+    ){
+
+      for(
+        let z1=-2;
+        z1<=2;
+        z1++
+      ){
+
+        if(
+          Math.abs(x1)
+          +
+          Math.abs(z1)
+          +
+          (
+            8-y
+          )
+          <
+          6
+        ){
+
+          voxel(
+            group,
+            x1*.35,
+            y*.35,
+            z1*.35,
+            .36,
+            0x306d44
+          );
+        }
+      }
+    }
+  }
+
+
+  group.position.set(
+    x,
+    0,
+    z
+  );
+
+
+  world.add(
+    group
+  );
+
+
+  addCollider(
+    x,
+    z,
+    1.25
+  );
+}
+
+
+function addRock(
+x,
+z
+){
+
+  const group=
+  new THREE.Group();
+
+
+  [
+    [0,0,0],
+    [.4,0,0],
+    [-.4,0,0],
+    [0,.35,0],
+    [0,0,.4]
+  ]
+  .forEach(
+  point=>{
+
+    voxel(
+      group,
+      point[0],
+      point[1]+.18,
+      point[2],
+      .38,
+      0x69737b
+    );
+  });
+
+
+  group.position.set(
+    x,
+    0,
+    z
+  );
+
+
+  world.add(
+    group
+  );
+
+
+  addCollider(
+    x,
+    z,
+    .9
+  );
+}
+
+
+function addGrass(
+x,
+z
+){
+
+  const group=
+  new THREE.Group();
+
+
+  for(
+    let i=0;
+    i<12;
+    i++
+  ){
+
+    const angle=
+    i/12*Math.PI*2;
+
+
+    const radius=
+    .8
+    +
+    (
+      i%3
+    )
+    *
+    .12;
+
+
+    voxel(
+      group,
+      Math.cos(angle)*radius,
+      .25,
+      Math.sin(angle)*radius,
+      .22,
+      0xc5aa46
+    );
+  }
+
+
+  group.position.set(
+    x,
+    0,
+    z
+  );
+
+
+  world.add(
+    group
+  );
+
+
+  grassZones.push({
+    x,
+    z,
+    radius:1.95
+  });
+}
+
+
+function buildLobby(){
+
+  clearWorld();
+
+
+  colliders.length=
+  0;
+
+
+  grassZones.length=
+  0;
+
+
+  const floor=
+  cube(
+    15,
+    .7,
+    10,
+    0x3d6657
+  );
+
+
+  floor.position.y=
+  -.35;
+
+
+  world.add(
+    floor
+  );
+
+
+  for(
+    let x=-6;
+    x<=6;
+    x+=2
+  ){
+
+    const tile=
+    cube(
+      1.8,
+      .12,
+      1.8,
+      x%4===0
+      ?
+      0x4b7365
+      :
+      0x3c6255
+    );
+
+
+    tile.position.set(
+      x,
+      .02,
+      -3.7
+    );
+
+
+    world.add(
+      tile
+    );
+  }
+
+
+  lobbyChicken=
+  voxelChicken(
+    selectedChicken
+  );
+
+
+  lobbyChicken.position.set(
+    0,
+    0,
+    0
+  );
+
+
+  world.add(
+    lobbyChicken
+  );
+
+
+  const stand=
+  cube(
+    3.4,
+    .42,
+    3.4,
+    0x617889
+  );
+
+
+  stand.position.y=
+  .2;
+
+
+  world.add(
+    stand
+  );
+
+
+  const warm=
+  new THREE.PointLight(
+    0xff8737,
+    8,
+    13
+  );
+
+
+  const cold=
+  new THREE.PointLight(
+    0x65cfff,
+    7,
+    13
+  );
+
+
+  warm.position.set(
+    -5,
+    4,
+    2
+  );
+
+
+  cold.position.set(
+    5,
+    4,
+    -2
+  );
+
+
+  world.add(
+    warm,
+    cold
+  );
+}
+
+
+function buildArena(){
+
+  clearWorld();
+
+
+  colliders.length=
+  0;
+
+
+  grassZones.length=
+  0;
+
+
+  const limit=
+  currentMode===0
+  ?
+  28
+  :
+  34;
+
+
+  const floor=
+  cube(
+    limit*2,
+    .35,
+    limit*2,
+    0x3b6048
+  );
+
+
+  floor.position.y=
+  -.2;
+
+
+  world.add(
+    floor
+  );
+
+
+  for(
+    let x=-limit+1;
+    x<limit;
+    x+=3
+  ){
+
+    for(
+      let z=-limit+1;
+      z<limit;
+      z+=3
+    ){
+
+      const tile=
+      cube(
+        2.82,
+        .04,
+        2.82,
+        Math.floor(
+          (x+z)/3
+        )%2
+        ?
+        0x40694d
+        :
+        0x365b43
+      );
+
+
+      tile.position.set(
+        x,
+        .01,
+        z
+      );
+
+
+      world.add(
+        tile
+      );
+    }
+  }
+
+
+  const wallHeight=
+  2.8;
+
+
+  const wallThickness=
+  .9;
+
+
+  [
+    [0,-limit,limit*2,wallThickness],
+    [0,limit,limit*2,wallThickness],
+    [-limit,0,wallThickness,limit*2],
+    [limit,0,wallThickness,limit*2]
+  ]
+  .forEach(
+  data=>{
+
+    const wall=
+    cube(
+      data[2],
+      wallHeight,
+      data[3],
+      0x5d6670
+    );
+
+
+    wall.position.set(
+      data[0],
+      wallHeight/2,
+      data[1]
+    );
+
+
+    world.add(
+      wall
+    );
+  });
+
+
+  [
+    [-7,-4],
+    [8,5],
+    [5,-9],
+    [-10,9],
+    [0,8],
+    [11,-4],
+    [-18,13],
+    [17,-13],
+    [-15,-16],
+    [16,17],
+    [0,-18],
+    [19,3]
+  ]
+  .forEach(
+  point=>addTree(
+    point[0],
+    point[1]
+  ));
+
+
+  [
+    [-4,6],
+    [7,-2],
+    [-8,-9],
+    [10,10],
+    [-17,5],
+    [15,-6],
+    [5,18],
+    [-13,16]
+  ]
+  .forEach(
+  point=>addRock(
+    point[0],
+    point[1]
+  ));
+
+
+  [
+    [-9,2],
+    [8,-8],
+    [2,10],
+    [-11,-10],
+    [11,6],
+    [-18,-6],
+    [17,9],
+    [-6,18],
+    [18,-17]
+  ]
+  .forEach(
+  point=>addGrass(
+    point[0],
+    point[1]
+  ));
+}
+
 
 let lobbyMode=true;
 
@@ -3144,9 +2834,9 @@ let ending=false;
 
 let currentMode=0;
 
-let player=null;
-
 let lobbyChicken=null;
+
+let player=null;
 
 let actors=[];
 
@@ -3206,15 +2896,17 @@ let rightAim=false;
 
 let mobileAim=false;
 
-let skillAim=false;
 
 const keys={};
+
 
 const mouse=
 new THREE.Vector2();
 
+
 const ray=
 new THREE.Raycaster();
+
 
 const aimPlane=
 new THREE.Plane(
@@ -3226,6 +2918,7 @@ new THREE.Vector3(
 0
 );
 
+
 const aimPoint=
 new THREE.Vector3(
 0,
@@ -3233,504 +2926,20 @@ new THREE.Vector3(
 6
 );
 
+
 const moveVelocity=
 new THREE.Vector2();
+
 
 let joystickX=0;
 
 let joystickY=0;
 
 
-/* =========================================================
-   LOBBY WORLD
-========================================================= */
-
-function buildLobby(){
-
-  clearWorld();
-
-
-  grassZones=[];
-
-
-  const platform=
-  cube(
-    15,
-    .7,
-    10,
-    0x3d6657
-  );
-
-
-  platform.position.y=
-  -.35;
-
-
-  world.add(
-    platform
-  );
-
-
-  for(
-    let x=-6;
-    x<=6;
-    x+=2
-  ){
-
-    const brick=
-    cube(
-      1.8,
-      .12,
-      1.8,
-      x%4===0
-      ?
-      0x4b7365
-      :
-      0x3c6255
-    );
-
-
-    brick.position.set(
-      x,
-      .02,
-      -3.7
-    );
-
-
-    world.add(
-      brick
-    );
-  }
-
-
-  lobbyChicken=
-  chickenModel(
-    selectedChicken
-  );
-
-
-  lobbyChicken.position.set(
-    0,
-    0,
-    0
-  );
-
-
-  lobbyChicken.scale.setScalar(
-    1.15
-  );
-
-
-  world.add(
-    lobbyChicken
-  );
-
-
-  const stand=
-  cube(
-    3.4,
-    .42,
-    3.4,
-    0x617889
-  );
-
-
-  stand.position.y=
-  .2;
-
-
-  world.add(
-    stand
-  );
-
-
-  const warm=
-  new THREE.PointLight(
-    0xff8737,
-    8,
-    13
-  );
-
-
-  warm.position.set(
-    -5,
-    4,
-    2
-  );
-
-
-  world.add(
-    warm
-  );
-
-
-  const cold=
-  new THREE.PointLight(
-    0x65cfff,
-    7,
-    13
-  );
-
-
-  cold.position.set(
-    5,
-    4,
-    -2
-  );
-
-
-  world.add(
-    cold
-  );
-}
-
-
-/* =========================================================
-   ARENA
-========================================================= */
-
-function addTree(
-x,
-z
-){
-
-  const trunk=
-  cube(
-    .7,
-    2.2,
-    .7,
-    0x704827
-  );
-
-
-  trunk.position.set(
-    x,
-    1.1,
-    z
-  );
-
-
-  world.add(
-    trunk
-  );
-
-
-  const offsets=[
-  [0,3,0],
-  [.8,2.5,0],
-  [-.8,2.5,0],
-  [0,2.5,.8],
-  [0,2.5,-.8]
-  ];
-
-
-  offsets.forEach(
-  o=>{
-
-    const leaf=
-    cube(
-      1.45,
-      1.45,
-      1.45,
-      0x306d44
-    );
-
-
-    leaf.position.set(
-      x+o[0],
-      o[1],
-      z+o[2]
-    );
-
-
-    world.add(
-      leaf
-    );
-  });
-}
-
-
-function addRock(
-x,
-z
-){
-
-  const rock=
-  cube(
-    1.4,
-    .9,
-    1.2,
-    0x69737b
-  );
-
-
-  rock.position.set(
-    x,
-    .45,
-    z
-  );
-
-
-  rock.rotation.y=
-  Math.random();
-
-
-  world.add(
-    rock
-  );
-}
-
-
-function addGrass(
-x,
-z
-){
-
-  const group=
-  new THREE.Group();
-
-
-  for(
-    let i=0;
-    i<10;
-    i++
-  ){
-
-    const blade=
-    cube(
-      .22,
-      .7,
-      .22,
-      0xc3aa47
-    );
-
-
-    const angle=
-    i/10*Math.PI*2;
-
-
-    blade.position.set(
-      Math.cos(angle)*.8,
-      .35,
-      Math.sin(angle)*.8
-    );
-
-
-    blade.rotation.z=
-    (
-      Math.random()-.5
-    )
-    *
-    .3;
-
-
-    group.add(
-      blade
-    );
-  }
-
-
-  group.position.set(
-    x,
-    0,
-    z
-  );
-
-
-  world.add(
-    group
-  );
-
-
-  grassZones.push({
-    x,
-    z,
-    radius:1.9
-  });
-}
-
-
-function buildArena(){
-
-  clearWorld();
-
-
-  grassZones=[];
-
-
-  const limit=
-  currentMode===0
-  ?
-  28
-  :
-  34;
-
-
-  const floor=
-  cube(
-    limit*2,
-    .35,
-    limit*2,
-    0x3b6048
-  );
-
-
-  floor.position.y=
-  -.2;
-
-
-  world.add(
-    floor
-  );
-
-
-  for(
-    let x=-limit+1;
-    x<limit;
-    x+=3
-  ){
-
-    for(
-      let z=-limit+1;
-      z<limit;
-      z+=3
-    ){
-
-      const tile=
-      cube(
-        2.82,
-        .04,
-        2.82,
-        (
-          Math.floor(
-            (x+z)/3
-          )%2
-        )
-        ?
-        0x40694d
-        :
-        0x365b43
-      );
-
-
-      tile.position.set(
-        x,
-        .01,
-        z
-      );
-
-
-      world.add(
-        tile
-      );
-    }
-  }
-
-
-  const wallHeight=
-  2.6;
-
-
-  const wallThickness=
-  .9;
-
-
-  [
-  [0,-limit,limit*2,wallThickness],
-  [0,limit,limit*2,wallThickness],
-  [-limit,0,wallThickness,limit*2],
-  [limit,0,wallThickness,limit*2]
-  ]
-  .forEach(
-  data=>{
-
-    const wall=
-    cube(
-      data[2],
-      wallHeight,
-      data[3],
-      0x5d6670
-    );
-
-
-    wall.position.set(
-      data[0],
-      wallHeight/2,
-      data[1]
-    );
-
-
-    world.add(
-      wall
-    );
-  });
-
-
-  [
-  [-7,-4],
-  [8,5],
-  [5,-9],
-  [-10,9],
-  [0,8],
-  [11,-4],
-  [-18,13],
-  [17,-13],
-  [-15,-16],
-  [16,17],
-  [0,-18],
-  [19,3]
-  ]
-  .forEach(
-  p=>addTree(
-    p[0],
-    p[1]
-  ));
-
-
-  [
-  [-4,6],
-  [7,-2],
-  [-8,-9],
-  [10,10],
-  [-17,5],
-  [15,-6],
-  [5,18],
-  [-13,16]
-  ]
-  .forEach(
-  p=>addRock(
-    p[0],
-    p[1]
-  ));
-
-
-  [
-  [-9,2],
-  [8,-8],
-  [2,10],
-  [-11,-10],
-  [11,6],
-  [-18,-6],
-  [17,9],
-  [-6,18],
-  [18,-17]
-  ]
-  .forEach(
-  p=>addGrass(
-    p[0],
-    p[1]
-  ));
-}
-
-
-/* =========================================================
-   PLAYER
-========================================================= */
-
 function spawnPlayer(){
 
   player=
-  chickenModel(
+  voxelChicken(
     selectedChicken
   );
 
@@ -3767,22 +2976,20 @@ function spawnPlayer(){
 
     revealTimer:0,
 
-    marker:null
+    marker:null,
+
+    radius:.8
 
   });
 }
 
 
-/* =========================================================
-   AI CHICKENS
-========================================================= */
-
 function spawnAI(){
 
   const pool=
   CHICKENS.filter(
-  chicken=>
-  chicken.id!==selectedChicken.id
+    chicken=>
+    chicken.id!==selectedChicken.id
   );
 
 
@@ -3791,10 +2998,10 @@ function spawnAI(){
   ?
   Math.max(
     1,
-    rankIndex()
+    rankIndex()+1
   )
   :
-  2;
+  3;
 
 
   for(
@@ -3812,7 +3019,7 @@ function spawnAI(){
 
 
     const model=
-    chickenModel(
+    voxelChicken(
       chicken
     );
 
@@ -3885,143 +3092,64 @@ function spawnAI(){
 
       slowTimer:0,
 
-      marker
+      marker,
+
+      radius:.8,
+
+      orbit:
+      i%2
+      ?
+      1
+      :
+      -1
 
     });
   }
 }
 
 
-/* =========================================================
-   MONSTERS
-========================================================= */
-
 function spawnMonster(
 type="normal"
 ){
 
-  const types={
+  const data={
 
     normal:{
       hp:48,
       speed:2,
-      damage:8,
-      color:0x74767a,
-      size:1
+      damage:8
     },
 
     fast:{
       hp:32,
       speed:3.4,
-      damage:6,
-      color:0x956b6b,
-      size:.85
+      damage:6
     },
 
     tank:{
       hp:110,
       speed:1.35,
-      damage:15,
-      color:0x51545a,
-      size:1.25
+      damage:15
     },
 
     bomber:{
       hp:42,
       speed:2.45,
-      damage:20,
-      color:0x9b4949,
-      size:.95
+      damage:20
     },
 
     boss:{
-      hp:500,
+      hp:520,
       speed:1.55,
-      damage:22,
-      color:0x922e2e,
-      size:1.8
+      damage:22
     }
 
-  };
-
-
-  const data=
-  types[type];
+  }[type];
 
 
   const model=
-  new THREE.Group();
-
-
-  const body=
-  cube(
-    1.25*data.size,
-    .9*data.size,
-    1.45*data.size,
-    data.color
-  );
-
-
-  body.position.y=
-  .7*data.size;
-
-
-  model.add(
-    body
-  );
-
-
-  const head=
-  cube(
-    .95*data.size,
-    .75*data.size,
-    .9*data.size,
-    data.color
-  );
-
-
-  head.position.set(
-    0,
-    1.35*data.size,
-    .4*data.size
-  );
-
-
-  model.add(
-    head
-  );
-
-
-  const eye1=
-  cube(
-    .12*data.size,
-    .12*data.size,
-    .08,
-    0xff3333
-  );
-
-
-  const eye2=
-  eye1.clone();
-
-
-  eye1.position.set(
-    -.22*data.size,
-    1.45*data.size,
-    .87*data.size
-  );
-
-
-  eye2.position.set(
-    .22*data.size,
-    1.45*data.size,
-    .87*data.size
-  );
-
-
-  model.add(
-    eye1,
-    eye2
+  voxelWolf(
+    type
   );
 
 
@@ -4030,8 +3158,8 @@ type="normal"
 
 
   const radius=
-  19+
-  Math.random()*8;
+  20+
+  Math.random()*7;
 
 
   model.position.set(
@@ -4062,7 +3190,25 @@ type="normal"
 
     hitCooldown:0,
 
-    slowTimer:0
+    slowTimer:0,
+
+    radius:
+    type==="boss"
+    ?
+    1.45
+    :
+    type==="tank"
+    ?
+    1.1
+    :
+    .85,
+
+    orbit:
+    Math.random()<.5
+    ?
+    -1
+    :
+    1
 
   });
 }
@@ -4094,8 +3240,8 @@ function startWave(){
   1
   :
   Math.min(
-    18,
-    5+wave*2
+    20,
+    6+wave*2
   );
 
 
@@ -4105,30 +3251,41 @@ function startWave(){
     i++
   ){
 
-    let type="normal";
+    let type=
+    "normal";
 
 
     if(boss){
 
-      type="boss";
+      type=
+      "boss";
 
     }else{
 
-      const r=
+      const random=
       Math.random();
 
 
-      if(r<.18){
+      if(
+        random<.18
+      ){
 
-        type="fast";
+        type=
+        "fast";
 
-      }else if(r<.30){
+      }else if(
+        random<.30
+      ){
 
-        type="tank";
+        type=
+        "tank";
 
-      }else if(r<.38){
+      }else if(
+        random<.38
+      ){
 
-        type="bomber";
+        type=
+        "bomber";
       }
     }
 
@@ -4139,19 +3296,32 @@ function startWave(){
   }
 
 
-  message(
-    chinese()
-    ?
-    "第 "+wave+" 波"
-    :
-    "WAVE "+wave
+  showMessage(
+
+    (
+      chinese()
+      ?
+      "第 "
+      :
+      "WAVE "
+    )
+
+    +
+
+    wave
+
+    +
+
+    (
+      boss
+      ?
+      " · BOSS"
+      :
+      ""
+    )
   );
 }
 
-
-/* =========================================================
-   DAMAGE TEXT
-========================================================= */
 
 function damageText(
 position,
@@ -4240,50 +3410,53 @@ crit=false
 }
 
 
-/* =========================================================
-   BULLETS
-========================================================= */
-
-function bulletColor(
-chicken
+function muzzleFlash(
+origin,
+direction,
+color=0xffd36a
 ){
 
-  if(
-    chicken.id==="fire"
-  ){
-    return 0xff6e25;
-  }
+  const mesh=
+  cube(
+    .18,
+    .18,
+    .18,
+    color
+  );
 
 
-  if(
-    chicken.id==="ice"
-  ){
-    return 0xb8efff;
-  }
+  mesh.position
+  .copy(
+    origin
+  )
+  .add(
+    new THREE.Vector3(
+      0,
+      1.05,
+      0
+    )
+  )
+  .addScaledVector(
+    direction,
+    1.05
+  );
 
 
-  if(
-    chicken.id==="thunder"
-  ){
-    return 0xffff5b;
-  }
+  world.add(
+    mesh
+  );
 
 
-  if(
-    chicken.id==="wizard"
-  ){
-    return 0xbb7dff;
-  }
+  effects.push({
 
+    mesh,
 
-  if(
-    chicken.id==="green"
-  ){
-    return 0x6dff79;
-  }
+    life:.08,
 
+    velocity:
+    new THREE.Vector3()
 
-  return 0xffe3a0;
+  });
 }
 
 
@@ -4292,18 +3465,40 @@ origin,
 direction,
 chicken,
 owner,
-scale,
-source
+scale=1,
+source=null
 ){
+
+  const color=
+  chicken.id==="fire"
+  ?
+  0xff6e25
+  :
+  chicken.id==="ice"
+  ?
+  0xb8efff
+  :
+  chicken.id==="thunder"
+  ?
+  0xffff5b
+  :
+  chicken.id==="wizard"
+  ?
+  0xbb7dff
+  :
+  chicken.id==="green"
+  ?
+  0x6dff79
+  :
+  0xffe3a0;
+
 
   const mesh=
   cube(
     .18,
     .18,
     .55,
-    bulletColor(
-      chicken
-    )
+    color
   );
 
 
@@ -4336,6 +3531,13 @@ source
   );
 
 
+  muzzleFlash(
+    origin,
+    direction,
+    color
+  );
+
+
   bullets.push({
 
     mesh,
@@ -4343,11 +3545,9 @@ source
     dir:
     direction.clone(),
 
-    speed:
-    23,
+    speed:23,
 
-    life:
-    1.55,
+    life:1.55,
 
     chicken,
 
@@ -4379,9 +3579,36 @@ source
 }
 
 
-/* =========================================================
-   ACTOR DAMAGE
-========================================================= */
+function knockback(
+mesh,
+from,
+amount=.22
+){
+
+  const direction=
+  mesh.position
+  .clone()
+  .sub(
+    from
+  );
+
+
+  direction.y=
+  0;
+
+
+  if(
+    direction.lengthSq()>.001
+  ){
+
+    mesh.position
+    .addScaledVector(
+      direction.normalize(),
+      amount
+    );
+  }
+}
+
 
 function damageActor(
 target,
@@ -4422,6 +3649,16 @@ source
   );
 
 
+  if(source){
+
+    knockback(
+      target.mesh,
+      source.mesh.position,
+      .18
+    );
+  }
+
+
   if(
     target.type==="player"
   ){
@@ -4449,9 +3686,6 @@ source
     false;
 
 
-    deathSound();
-
-
     blockExplosion(
       target.mesh.position,
       target.chicken.color
@@ -4464,7 +3698,8 @@ source
 
       target.marker.remove();
 
-      target.marker=null;
+      target.marker=
+      null;
     }
 
 
@@ -4486,7 +3721,6 @@ source
 
       kills++;
 
-
       save.stats.kills++;
     }
 
@@ -4502,10 +3736,6 @@ source
   }
 }
 
-
-/* =========================================================
-   BULLET UPDATE
-========================================================= */
 
 function updateBullets(dt){
 
@@ -4554,7 +3784,7 @@ function updateBullets(dt){
             monster.mesh.position
           )
           <
-          .8
+          monster.radius+.35
         ){
 
           const crit=
@@ -4584,6 +3814,15 @@ function updateBullets(dt){
             monster.mesh.position,
             amount,
             crit
+          );
+
+
+          knockback(
+            monster.mesh,
+            bullet.source?.mesh.position
+            ||
+            bullet.mesh.position,
+            .16
           );
 
 
@@ -4656,7 +3895,11 @@ function updateBullets(dt){
         if(
           dx*dx+dz*dz
           <
-          .78*.78
+          (
+            actor.radius+.25
+          )
+          **
+          2
         ){
 
           damageActor(
@@ -4701,16 +3944,11 @@ function updateBullets(dt){
 }
 
 
-/* =========================================================
-   PLAYER SHOOT
-========================================================= */
-
 function aimDirection(){
 
   const direction=
-  new THREE.Vector3()
-  .subVectors(
-    aimPoint,
+  aimPoint.clone()
+  .sub(
     player.position
   );
 
@@ -4743,24 +3981,42 @@ function aimDirection(){
 }
 
 
+function currentForward(){
+
+  return new THREE.Vector3(
+    0,
+    0,
+    1
+  )
+  .applyAxisAngle(
+    new THREE.Vector3(
+      0,
+      1,
+      0
+    ),
+    player.rotation.y
+  )
+  .normalize();
+}
+
+
 function exposePlayer(){
-
-  playerHidden=
-  false;
-
 
   const actor=
   actors.find(
-  actor=>
-  actor.type==="player"
+    actor=>
+    actor.type==="player"
   );
+
+
+  playerHidden=
+  false;
 
 
   if(actor){
 
     actor.revealTimer=
     2.2;
-
 
     actor.hidden=
     false;
@@ -4804,13 +4060,19 @@ function playerShoot(){
 
   const actor=
   actors.find(
-  actor=>
-  actor.type==="player"
+    actor=>
+    actor.type==="player"
   );
 
 
-  const base=
-  aimDirection();
+  const baseDirection=
+  rightAim
+  ||
+  mobileAim
+  ?
+  aimDirection()
+  :
+  currentForward();
 
 
   gunSound(
@@ -4822,18 +4084,23 @@ function playerShoot(){
   exposePlayer();
 
 
-  let shots=1;
+  let shots=
+  1;
 
-  let spread=.018;
+
+  let spread=
+  .018;
 
 
   if(
     chicken.weapon==="Shotgun"
   ){
 
-    shots=5;
+    shots=
+    5;
 
-    spread=.14;
+    spread=
+    .14;
   }
 
 
@@ -4841,9 +4108,11 @@ function playerShoot(){
     chicken.weapon==="Dual Pistols"
   ){
 
-    shots=2;
+    shots=
+    2;
 
-    spread=.05;
+    spread=
+    .05;
   }
 
 
@@ -4854,15 +4123,15 @@ function playerShoot(){
   ){
 
     const direction=
-    base.clone();
+    baseDirection.clone()
+    .applyAxisAngle(
 
-
-    direction.applyAxisAngle(
       new THREE.Vector3(
         0,
         1,
         0
       ),
+
       (
         i-
         (
@@ -4886,9 +4155,48 @@ function playerShoot(){
 }
 
 
-/* =========================================================
-   SKILLS
-========================================================= */
+function radial(
+chicken,
+count,
+scale
+){
+
+  const actor=
+  actors.find(
+    actor=>
+    actor.type==="player"
+  );
+
+
+  for(
+    let i=0;
+    i<count;
+    i++
+  ){
+
+    const direction=
+    new THREE.Vector3(
+      Math.sin(
+        i/count*Math.PI*2
+      ),
+      0,
+      Math.cos(
+        i/count*Math.PI*2
+      )
+    );
+
+
+    createBullet(
+      player.position,
+      direction,
+      chicken,
+      "player",
+      scale,
+      actor
+    );
+  }
+}
+
 
 function useSkill(){
 
@@ -4908,6 +4216,23 @@ function useSkill(){
   selectedChicken;
 
 
+  const actor=
+  actors.find(
+    actor=>
+    actor.type==="player"
+  );
+
+
+  const direction=
+  rightAim
+  ||
+  mobileAim
+  ?
+  aimDirection()
+  :
+  currentForward();
+
+
   skillCooldown=
   chicken.skillCD;
 
@@ -4916,17 +4241,6 @@ function useSkill(){
 
 
   exposePlayer();
-
-
-  const actor=
-  actors.find(
-  actor=>
-  actor.type==="player"
-  );
-
-
-  const direction=
-  aimDirection();
 
 
   if(
@@ -4942,22 +4256,12 @@ function useSkill(){
       actor
     );
 
-
-    message(
-      "POWER SHOT"
-    );
-
   }else if(
     chicken.id==="black"
   ){
 
     frenzyTimer=
     5;
-
-
-    message(
-      "FRENZY"
-    );
 
   }else if(
     chicken.id==="yellow"
@@ -4972,84 +4276,53 @@ function useSkill(){
       actor
     );
 
-
-    message(
-      "GIANT EGG"
-    );
-
   }else if(
     chicken.id==="brown"
   ){
 
-    for(
-      let i=0;
-      i<16;
-      i++
-    ){
-
-      const d=
-      new THREE.Vector3(
-        Math.sin(
-          i/16*Math.PI*2
-        ),
-        0,
-        Math.cos(
-          i/16*Math.PI*2
-        )
-      );
-
-
-      createBullet(
-        player.position,
-        d,
-        chicken,
-        "player",
-        1.15,
-        actor
-      );
-    }
-
-
-    message(
-      "360 BLAST"
+    radial(
+      chicken,
+      16,
+      1.15
     );
 
   }else if(
     chicken.id==="green"
+    ||
+    chicken.id==="fire"
   ){
 
     for(
-      let i=-4;
-      i<=4;
+      let i=-5;
+      i<=5;
       i++
     ){
 
-      const d=
-      direction.clone()
-      .applyAxisAngle(
-        new THREE.Vector3(
-          0,
-          1,
-          0
-        ),
-        i*.1
-      );
-
-
       createBullet(
+
         player.position,
-        d,
+
+        direction.clone()
+        .applyAxisAngle(
+
+          new THREE.Vector3(
+            0,
+            1,
+            0
+          ),
+
+          i*.075
+        ),
+
         chicken,
+
         "player",
-        1.1,
+
+        1,
+
         actor
       );
     }
-
-
-    message(
-      "POISON BURST"
-    );
 
   }else if(
     chicken.id==="blue"
@@ -5058,13 +4331,10 @@ function useSkill(){
     speedTimer=
     5;
 
-
-    message(
-      "SPEED MODE"
-    );
-
   }else if(
     chicken.id==="cowboy"
+    ||
+    chicken.id==="pirate"
   ){
 
     for(
@@ -5073,32 +4343,35 @@ function useSkill(){
       i++
     ){
 
-      const d=
-      direction.clone()
-      .applyAxisAngle(
-        new THREE.Vector3(
-          0,
-          1,
-          0
-        ),
-        i*.09
-      );
-
-
       createBullet(
+
         player.position,
-        d,
+
+        direction.clone()
+        .applyAxisAngle(
+
+          new THREE.Vector3(
+            0,
+            1,
+            0
+          ),
+
+          i*.1
+        ),
+
         chicken,
+
         "player",
+
+        chicken.id==="pirate"
+        ?
+        1.55
+        :
         1.35,
+
         actor
       );
     }
-
-
-    message(
-      "QUICK DRAW"
-    );
 
   }else if(
     chicken.id==="ninja"
@@ -5110,48 +4383,6 @@ function useSkill(){
 
     shieldTimer=
     1.4;
-
-
-    message(
-      "SHADOW DASH"
-    );
-
-  }else if(
-    chicken.id==="pirate"
-  ){
-
-    for(
-      let i=-2;
-      i<=2;
-      i++
-    ){
-
-      const d=
-      direction.clone()
-      .applyAxisAngle(
-        new THREE.Vector3(
-          0,
-          1,
-          0
-        ),
-        i*.15
-      );
-
-
-      createBullet(
-        player.position,
-        d,
-        chicken,
-        "player",
-        1.55,
-        actor
-      );
-    }
-
-
-    message(
-      "CANNON SPREAD"
-    );
 
   }else if(
     chicken.id==="doctor"
@@ -5167,24 +4398,14 @@ function useSkill(){
     actor.hp=
     playerHP;
 
-
-    message(
-      "+40 HP"
-    );
-
   }else if(
     chicken.id==="wizard"
   ){
 
-    radialBullets(
+    radial(
       chicken,
       12,
       1.2
-    );
-
-
-    message(
-      "MAGIC STORM"
     );
 
   }else if(
@@ -5194,426 +4415,71 @@ function useSkill(){
     shieldTimer=
     4.5;
 
-
-    message(
-      "ENERGY SHIELD"
-    );
-
-  }else if(
-    chicken.id==="fire"
-  ){
-
-    for(
-      let i=-5;
-      i<=5;
-      i++
-    ){
-
-      const d=
-      direction.clone()
-      .applyAxisAngle(
-        new THREE.Vector3(
-          0,
-          1,
-          0
-        ),
-        i*.075
-      );
-
-
-      createBullet(
-        player.position,
-        d,
-        chicken,
-        "player",
-        1,
-        actor
-      );
-    }
-
-
-    message(
-      "FLAME FAN"
-    );
-
   }else if(
     chicken.id==="ice"
   ){
 
-    if(
-      currentMode===0
-    ){
+    monsters
+    .forEach(
+    monster=>{
 
-      monsters.forEach(
-      monster=>{
+      if(
+        monster.mesh.position
+        .distanceTo(
+          player.position
+        )
+        <
+        9
+      ){
 
-        if(
-          monster.mesh.position
-          .distanceTo(
-            player.position
-          )
-          <
-          9
-        ){
+        monster.slowTimer=
+        4;
+      }
+    });
 
-          monster.slowTimer=
-          4;
-        }
-      });
 
-    }else{
-
-      actors
-      .filter(
-      a=>
-      a.type==="ai"
+    actors
+    .filter(
+      actor=>
+      actor.type==="ai"
       &&
-      a.alive
-      )
-      .forEach(
-      a=>{
+      actor.alive
+    )
+    .forEach(
+    actor=>{
 
-        if(
-          a.mesh.position
-          .distanceTo(
-            player.position
-          )
-          <
-          9
-        ){
+      if(
+        actor.mesh.position
+        .distanceTo(
+          player.position
+        )
+        <
+        9
+      ){
 
-          a.slowTimer=
-          4;
-        }
-      });
-    }
-
-
-    message(
-      "FREEZE FIELD"
-    );
+        actor.slowTimer=
+        4;
+      }
+    });
 
   }else if(
     chicken.id==="thunder"
   ){
 
-    radialBullets(
+    radial(
       chicken,
       16,
       1.4
     );
-
-
-    message(
-      "THUNDERSTORM"
-    );
   }
+
+
+  showMessage(
+    chicken.skill
+    .toUpperCase()
+  );
 }
 
-
-function radialBullets(
-chicken,
-count,
-scale
-){
-
-  const actor=
-  actors.find(
-  actor=>
-  actor.type==="player"
-  );
-
-
-  for(
-    let i=0;
-    i<count;
-    i++
-  ){
-
-    const d=
-    new THREE.Vector3(
-      Math.sin(
-        i/count*Math.PI*2
-      ),
-      0,
-      Math.cos(
-        i/count*Math.PI*2
-      )
-    );
-
-
-    createBullet(
-      player.position,
-      d,
-      chicken,
-      "player",
-      scale,
-      actor
-    );
-  }
-}
-
-
-/* =========================================================
-   MONSTER UPDATE
-========================================================= */
-
-function updateMonsters(dt){
-
-  for(
-    let i=monsters.length-1;
-    i>=0;
-    i--
-  ){
-
-    const monster=
-    monsters[i];
-
-
-    monster.hitCooldown-=
-    dt;
-
-
-    monster.slowTimer-=
-    dt;
-
-
-    const direction=
-    new THREE.Vector3()
-    .subVectors(
-      player.position,
-      monster.mesh.position
-    );
-
-
-    direction.y=
-    0;
-
-
-    const distance=
-    direction.length();
-
-
-    if(
-      distance>.01
-    ){
-
-      direction.normalize();
-    }
-
-
-    monster.mesh.rotation.y=
-    Math.atan2(
-      direction.x,
-      direction.z
-    );
-
-
-    const slow=
-    monster.slowTimer>0
-    ?
-    .5
-    :
-    1;
-
-
-    monster.mesh.position
-    .addScaledVector(
-      direction,
-      monster.speed*slow*dt
-    );
-
-
-    if(
-      distance<1.25
-      &&
-      monster.hitCooldown<=0
-    ){
-
-      monster.hitCooldown=
-      .65;
-
-
-      if(
-        shieldTimer<=0
-      ){
-
-        playerHP-=
-        monster.damage;
-
-
-        const playerActor=
-        actors.find(
-        actor=>
-        actor.type==="player"
-        );
-
-
-        playerActor.hp=
-        playerHP;
-
-
-        hurtSound();
-
-
-        message(
-          "-"+
-          monster.damage+
-          " HP"
-        );
-
-      }else{
-
-        message(
-          "SHIELD"
-        );
-      }
-
-
-      if(
-        monster.type==="bomber"
-      ){
-
-        killMonster(
-          monster,
-          i,
-          false
-        );
-      }
-    }
-  }
-
-
-  if(
-    playerHP<=0
-  ){
-
-    finishMatch(
-      false
-    );
-  }
-
-
-  if(
-    monsters.length===0
-    &&
-    !waveWaiting
-    &&
-    gameActive
-  ){
-
-    waveWaiting=
-    true;
-
-
-    wave++;
-
-
-    save.stats.waves++;
-
-
-    setTimeout(
-      ()=>{
-
-        if(
-          gameActive
-          &&
-          currentMode===0
-        ){
-
-          startWave();
-        }
-      },
-      850
-    );
-  }
-}
-
-
-/* =========================================================
-   MONSTER DEATH
-========================================================= */
-
-function killMonster(
-monster,
-index,
-reward=true
-){
-
-  const position=
-  monster.mesh.position.clone();
-
-
-  world.remove(
-    monster.mesh
-  );
-
-
-  monsters.splice(
-    index,
-    1
-  );
-
-
-  deathSound();
-
-
-  blockExplosion(
-    position,
-    monster.type==="boss"
-    ?
-    0xff4b4b
-    :
-    0xff8b39
-  );
-
-
-  if(reward){
-
-    kills++;
-
-
-    save.stats.kills++;
-
-
-    if(
-      Math.random()<.78
-    ){
-
-      spawnPickup(
-        position,
-        "xp"
-      );
-    }
-
-
-    if(
-      Math.random()<.24
-    ){
-
-      spawnPickup(
-        position,
-        "egg"
-      );
-    }
-
-
-    if(
-      Math.random()<.1
-    ){
-
-      spawnPickup(
-        position,
-        "med"
-      );
-    }
-  }
-}
-
-
-/* =========================================================
-   FX
-========================================================= */
 
 function blockExplosion(
 position,
@@ -5716,35 +4582,21 @@ function updateEffects(dt){
 }
 
 
-/* =========================================================
-   PICKUPS
-========================================================= */
-
 function spawnPickup(
 position,
 type
 ){
 
-  let color=
-  0x60d7ff;
-
-
-  if(
-    type==="egg"
-  ){
-
-    color=
-    0xffd85b;
-  }
-
-
-  if(
-    type==="med"
-  ){
-
-    color=
-    0x62df76;
-  }
+  const color=
+  type==="xp"
+  ?
+  0x60d7ff
+  :
+  type==="egg"
+  ?
+  0xffd85b
+  :
+  0x62df76;
 
 
   const mesh=
@@ -5781,6 +4633,1199 @@ type
     type
 
   });
+}
+
+
+function killMonster(
+monster,
+index,
+reward=true
+){
+
+  const position=
+  monster.mesh.position
+  .clone();
+
+
+  world.remove(
+    monster.mesh
+  );
+
+
+  monsters.splice(
+    index,
+    1
+  );
+
+
+  blockExplosion(
+
+    position,
+
+    monster.type==="boss"
+    ?
+    0xff4b4b
+    :
+    0xff8b39
+
+  );
+
+
+  if(reward){
+
+    kills++;
+
+    save.stats.kills++;
+
+
+    if(
+      Math.random()<.78
+    ){
+
+      spawnPickup(
+        position,
+        "xp"
+      );
+    }
+
+
+    if(
+      Math.random()<.24
+    ){
+
+      spawnPickup(
+        position,
+        "egg"
+      );
+    }
+
+
+    if(
+      Math.random()<.1
+    ){
+
+      spawnPickup(
+        position,
+        "med"
+      );
+    }
+  }
+}
+
+
+function separationFor(
+entity,
+list,
+radius=2.1,
+strength=2.3
+){
+
+  const separation=
+  new THREE.Vector3();
+
+
+  for(
+    const other
+    of list
+  ){
+
+    if(
+      other===entity
+    ){
+
+      continue;
+    }
+
+
+    const direction=
+    entity.mesh.position
+    .clone()
+    .sub(
+      other.mesh.position
+    );
+
+
+    direction.y=
+    0;
+
+
+    const distance=
+    direction.length();
+
+
+    if(
+      distance>0
+      &&
+      distance<radius
+    ){
+
+      separation
+      .addScaledVector(
+
+        direction.normalize(),
+
+        (
+          radius-distance
+        )
+        /
+        radius
+      );
+    }
+  }
+
+
+  return separation
+  .multiplyScalar(
+    strength
+  );
+}
+
+
+function updateMonsters(dt){
+
+  for(
+    let i=monsters.length-1;
+    i>=0;
+    i--
+  ){
+
+    const monster=
+    monsters[i];
+
+
+    monster.hitCooldown-=
+    dt;
+
+
+    monster.slowTimer-=
+    dt;
+
+
+    const direction=
+    player.position
+    .clone()
+    .sub(
+      monster.mesh.position
+    );
+
+
+    direction.y=
+    0;
+
+
+    const distance=
+    direction.length();
+
+
+    if(
+      distance>.01
+    ){
+
+      direction.normalize();
+    }
+
+
+    const separation=
+    separationFor(
+
+      monster,
+
+      monsters,
+
+      monster.type==="boss"
+      ?
+      2.8
+      :
+      2.15,
+
+      2.8
+    );
+
+
+    const side=
+    new THREE.Vector3(
+      -direction.z,
+      0,
+      direction.x
+    )
+    .multiplyScalar(
+      monster.orbit*.35
+    );
+
+
+    const move=
+    direction.clone()
+    .add(
+      separation
+    )
+    .add(
+      side
+    );
+
+
+    if(
+      move.lengthSq()>.01
+    ){
+
+      move.normalize();
+    }
+
+
+    monster.mesh.rotation.y=
+    Math.atan2(
+      direction.x,
+      direction.z
+    );
+
+
+    const slow=
+    monster.slowTimer>0
+    ?
+    .5
+    :
+    1;
+
+
+    monster.mesh.position
+    .addScaledVector(
+      move,
+      monster.speed*slow*dt
+    );
+
+
+    resolveCollisions(
+      monster.mesh.position,
+      monster.radius,
+      27
+    );
+
+
+    if(
+      distance<1.35
+      &&
+      monster.hitCooldown<=0
+    ){
+
+      monster.hitCooldown=
+      .65;
+
+
+      if(
+        shieldTimer<=0
+      ){
+
+        playerHP-=
+        monster.damage;
+
+
+        const actor=
+        actors.find(
+          actor=>
+          actor.type==="player"
+        );
+
+
+        actor.hp=
+        playerHP;
+
+
+        hurtSound();
+
+
+        knockback(
+          player,
+          monster.mesh.position,
+          .35
+        );
+      }
+
+
+      if(
+        monster.type==="bomber"
+      ){
+
+        killMonster(
+          monster,
+          i,
+          false
+        );
+      }
+    }
+  }
+
+
+  if(
+    playerHP<=0
+  ){
+
+    finishMatch(
+      false
+    );
+  }
+
+
+  if(
+    monsters.length===0
+    &&
+    !waveWaiting
+    &&
+    gameActive
+  ){
+
+    waveWaiting=
+    true;
+
+
+    wave++;
+
+
+    save.stats.waves++;
+
+
+    setTimeout(
+      ()=>{
+
+        if(
+          gameActive
+          &&
+          currentMode===0
+        ){
+
+          startWave();
+        }
+      },
+      850
+    );
+  }
+}
+
+
+function inGrass(
+actor
+){
+
+  return grassZones.some(
+  zone=>{
+
+    const dx=
+    actor.mesh.position.x
+    -
+    zone.x;
+
+
+    const dz=
+    actor.mesh.position.z
+    -
+    zone.z;
+
+
+    return(
+      dx*dx+dz*dz
+      <
+      zone.radius*zone.radius
+    );
+  });
+}
+
+
+function updateGrass(dt){
+
+  const playerActor=
+  actors.find(
+    actor=>
+    actor.type==="player"
+  );
+
+
+  if(
+    playerActor
+  ){
+
+    playerActor.revealTimer=
+    Math.max(
+      0,
+      playerActor.revealTimer-dt
+    );
+
+
+    playerHidden=
+    inGrass(
+      playerActor
+    )
+    &&
+    playerActor.revealTimer<=0;
+
+
+    playerActor.hidden=
+    playerHidden;
+
+
+    player.traverse(
+    child=>{
+
+      if(
+        child.material
+      ){
+
+        child.material.transparent=
+        true;
+
+
+        child.material.opacity=
+        playerHidden
+        ?
+        .5
+        :
+        1;
+      }
+    });
+  }
+
+
+  let nearby=
+  false;
+
+
+  if(
+    currentMode>0
+  ){
+
+    actors
+    .filter(
+      actor=>
+      actor.type==="ai"
+      &&
+      actor.alive
+    )
+    .forEach(
+    ai=>{
+
+      ai.revealTimer=
+      Math.max(
+        0,
+        ai.revealTimer-dt
+      );
+
+
+      ai.hidden=
+      inGrass(
+        ai
+      )
+      &&
+      ai.revealTimer<=0;
+
+
+      if(
+        ai.hidden
+        &&
+        ai.mesh.position
+        .distanceTo(
+          player.position
+        )
+        <
+        6.5
+      ){
+
+        nearby=
+        true;
+      }
+    });
+  }
+
+
+  danger.style.display=
+  nearby
+  ?
+  "block"
+  :
+  "none";
+
+
+  dangerCooldown-=
+  dt;
+
+
+  if(
+    nearby
+    &&
+    dangerCooldown<=0
+  ){
+
+    dangerCooldown=
+    2;
+
+
+    chickenSound();
+  }
+}
+
+
+function chooseTarget(ai){
+
+  const candidates=
+  actors.filter(
+  target=>
+
+    target.alive
+
+    &&
+
+    target!==ai
+
+    &&
+
+    !(
+      target.hidden
+      &&
+      target.revealTimer<=0
+      &&
+      target.mesh.position
+      .distanceTo(
+        ai.mesh.position
+      )
+      >
+      5.5
+    )
+
+  );
+
+
+  if(
+    candidates.length===0
+  ){
+
+    return null;
+  }
+
+
+  candidates.sort(
+  (
+    a,
+    b
+  )=>
+
+    a.mesh.position
+    .distanceTo(
+      ai.mesh.position
+    )
+
+    -
+
+    b.mesh.position
+    .distanceTo(
+      ai.mesh.position
+    )
+
+  );
+
+
+  return(
+    Math.random()<.84
+    ?
+    candidates[0]
+    :
+    candidates[
+      Math.min(
+        1,
+        candidates.length-1
+      )
+    ]
+  );
+}
+
+
+function updateAI(dt){
+
+  const live=
+  actors.filter(
+    actor=>
+    actor.type==="ai"
+    &&
+    actor.alive
+  );
+
+
+  for(
+    const ai
+    of live
+  ){
+
+    ai.fireCooldown-=
+    dt;
+
+
+    ai.targetLock-=
+    dt;
+
+
+    ai.slowTimer-=
+    dt;
+
+
+    if(
+      !ai.target
+      ||
+      !ai.target.alive
+      ||
+      ai.targetLock<=0
+      ||
+      (
+        ai.target.hidden
+        &&
+        ai.target.mesh.position
+        .distanceTo(
+          ai.mesh.position
+        )
+        >
+        5.5
+      )
+    ){
+
+      ai.target=
+      chooseTarget(
+        ai
+      );
+
+
+      ai.targetLock=
+      2.8+
+      Math.random()*2.8;
+    }
+
+
+    if(
+      !ai.target
+    ){
+
+      continue;
+    }
+
+
+    const direction=
+    ai.target.mesh.position
+    .clone()
+    .sub(
+      ai.mesh.position
+    );
+
+
+    direction.y=
+    0;
+
+
+    const distance=
+    direction.length();
+
+
+    if(
+      distance<.01
+    ){
+
+      continue;
+    }
+
+
+    direction.normalize();
+
+
+    const difficulty=
+    ai.difficulty;
+
+
+    const keepDistance=
+    Math.min(
+      ai.chicken.range*.7,
+      8+difficulty*.35
+    );
+
+
+    const slow=
+    ai.slowTimer>0
+    ?
+    .5
+    :
+    1;
+
+
+    const separation=
+    separationFor(
+      ai,
+      live,
+      2.3,
+      2.6
+    );
+
+
+    const strafe=
+    new THREE.Vector3(
+      -direction.z,
+      0,
+      direction.x
+    )
+    .multiplyScalar(
+      ai.orbit*.6
+    );
+
+
+    const move=
+    new THREE.Vector3();
+
+
+    if(
+      distance>
+      keepDistance+1.2
+    ){
+
+      move.add(
+        direction
+      );
+
+    }else if(
+      distance<
+      keepDistance-1.5
+    ){
+
+      move.addScaledVector(
+        direction,
+        -.7
+      );
+    }
+
+
+    move
+    .add(
+      separation
+    )
+    .add(
+      strafe
+      .multiplyScalar(.35)
+    );
+
+
+    if(
+      move.lengthSq()>.01
+    ){
+
+      move.normalize();
+    }
+
+
+    ai.mesh.position
+    .addScaledVector(
+      move,
+      (
+        2+
+        difficulty*.1
+      )
+      *
+      slow
+      *
+      dt
+    );
+
+
+    resolveCollisions(
+      ai.mesh.position,
+      ai.radius,
+      33
+    );
+
+
+    ai.mesh.rotation.y=
+    Math.atan2(
+      direction.x,
+      direction.z
+    );
+
+
+    if(
+      ai.fireCooldown<=0
+      &&
+      distance<
+      ai.chicken.range
+      &&
+      !ai.target.hidden
+    ){
+
+      const base=
+      Math.max(
+        .44,
+        ai.chicken.fireRate*2.15
+      );
+
+
+      ai.fireCooldown=
+      (
+        base+
+        .15+
+        Math.random()*.3
+      )
+      *
+      Math.max(
+        .7,
+        1-difficulty*.03
+      );
+
+
+      const error=
+      Math.max(
+        .03,
+        .30-difficulty*.025
+      );
+
+
+      const shot=
+      direction.clone()
+      .applyAxisAngle(
+
+        new THREE.Vector3(
+          0,
+          1,
+          0
+        ),
+
+        (
+          Math.random()-.5
+        )
+        *
+        error
+      );
+
+
+      createBullet(
+        ai.mesh.position,
+        shot,
+        ai.chicken,
+        "ai",
+        .60+difficulty*.04,
+        ai
+      );
+
+
+      gunSound(
+        ai.chicken,
+        true
+      );
+
+
+      ai.revealTimer=
+      2.2;
+
+
+      ai.hidden=
+      false;
+    }
+  }
+
+
+  updateMarkers();
+
+
+  const aliveAI=
+  actors.filter(
+    actor=>
+    actor.type==="ai"
+    &&
+    actor.alive
+  ).length;
+
+
+  const playerActor=
+  actors.find(
+    actor=>
+    actor.type==="player"
+  );
+
+
+  if(
+    playerActor?.alive
+    &&
+    aliveAI===0
+    &&
+    !ending
+  ){
+
+    ending=
+    true;
+
+
+    if(
+      currentMode===2
+    ){
+
+      save.rankPoints+=
+      70;
+    }
+
+
+    showMessage(
+      chinese()
+      ?
+      "你赢了！"
+      :
+      "YOU WIN!"
+    );
+
+
+    setTimeout(
+      ()=>finishMatch(
+        true
+      ),
+      900
+    );
+  }
+}
+
+
+function updateMarkers(){
+
+  actors
+  .filter(
+    actor=>
+    actor.type==="ai"
+  )
+  .forEach(
+  ai=>{
+
+    if(
+      !ai.marker
+    ){
+
+      return;
+    }
+
+
+    if(
+      !ai.alive
+      ||
+      ai.hidden
+    ){
+
+      ai.marker.style.display=
+      "none";
+
+
+      return;
+    }
+
+
+    const screen=
+    ai.mesh.position
+    .clone();
+
+
+    screen.y+=
+    3;
+
+
+    screen.project(
+      camera
+    );
+
+
+    const visible=
+    screen.z<1
+    &&
+    screen.x>-1.05
+    &&
+    screen.x<1.05
+    &&
+    screen.y>-1.05
+    &&
+    screen.y<1.05;
+
+
+    ai.marker.style.display=
+    visible
+    ?
+    "block"
+    :
+    "none";
+
+
+    if(
+      visible
+    ){
+
+      ai.marker.style.left=
+      (
+        (
+          screen.x*.5+.5
+        )
+        *
+        innerWidth
+      )
+      +
+      "px";
+
+
+      ai.marker.style.top=
+      (
+        (
+          -screen.y*.5+.5
+        )
+        *
+        innerHeight
+      )
+      +
+      "px";
+    }
+  });
+}
+
+
+function updatePlayer(dt){
+
+  if(
+    !player
+    ||
+    paused
+  ){
+
+    return;
+  }
+
+
+  let x=
+  (
+    keys.KeyD
+    ?
+    1
+    :
+    0
+  )
+  -
+  (
+    keys.KeyA
+    ?
+    1
+    :
+    0
+  )
+  +
+  joystickX;
+
+
+  let z=
+  (
+    keys.KeyS
+    ?
+    1
+    :
+    0
+  )
+  -
+  (
+    keys.KeyW
+    ?
+    1
+    :
+    0
+  )
+  +
+  joystickY;
+
+
+  const length=
+  Math.hypot(
+    x,
+    z
+  );
+
+
+  if(
+    length>1
+  ){
+
+    x/=
+    length;
+
+
+    z/=
+    length;
+  }
+
+
+  const speed=
+  selectedChicken.speed
+  *
+  speedMultiplier
+  *
+  (
+    speedTimer>0
+    ?
+    1.55
+    :
+    1
+  );
+
+
+  moveVelocity.x=
+  THREE.MathUtils.lerp(
+    moveVelocity.x,
+    x*speed,
+    .2
+  );
+
+
+  moveVelocity.y=
+  THREE.MathUtils.lerp(
+    moveVelocity.y,
+    z*speed,
+    .2
+  );
+
+
+  player.position.x+=
+  moveVelocity.x*dt;
+
+
+  player.position.z+=
+  moveVelocity.y*dt;
+
+
+  resolveCollisions(
+    player.position,
+    .8,
+    currentMode===0
+    ?
+    27
+    :
+    33
+  );
+
+
+  if(
+    rightAim
+    ||
+    mobileAim
+  ){
+
+    const direction=
+    aimDirection();
+
+
+    player.rotation.y=
+    Math.atan2(
+      direction.x,
+      direction.z
+    );
+
+  }else if(
+    Math.hypot(
+      x,
+      z
+    )
+    >
+    .15
+  ){
+
+    player.rotation.y=
+    Math.atan2(
+      x,
+      z
+    );
+  }
 }
 
 
@@ -5856,14 +5901,10 @@ function updatePickups(dt){
         );
 
 
-        const actor=
         actors.find(
-        actor=>
-        actor.type==="player"
-        );
-
-
-        actor.hp=
+          actor=>
+          actor.type==="player"
+        ).hp=
         playerHP;
       }
 
@@ -5882,44 +5923,40 @@ function updatePickups(dt){
 }
 
 
-/* =========================================================
-   UPGRADE
-========================================================= */
-
 const UPGRADES=[
 
 {
 icon:"💥",
 name:"DAMAGE",
-desc:"+18% weapon damage",
+desc:"+18% damage",
 type:"damage"
 },
 
 {
 icon:"⚡",
 name:"FIRE RATE",
-desc:"15% faster firing",
+desc:"15% faster fire",
 type:"fire"
 },
 
 {
 icon:"❤️",
 name:"MAX HP",
-desc:"+25 maximum HP",
+desc:"+25 max HP",
 type:"hp"
 },
 
 {
 icon:"👟",
 name:"SPEED",
-desc:"+12% movement speed",
+desc:"+12% speed",
 type:"speed"
 },
 
 {
 icon:"🎯",
 name:"PIERCE",
-desc:"+1 bullet penetration",
+desc:"+1 penetration",
 type:"pierce"
 },
 
@@ -5943,18 +5980,17 @@ function openUpgrade(){
   "";
 
 
-  const choices=
-  [...UPGRADES]
+  [
+    ...UPGRADES
+  ]
   .sort(
     ()=>Math.random()-.5
   )
   .slice(
     0,
     3
-  );
-
-
-  choices.forEach(
+  )
+  .forEach(
   upgrade=>{
 
     const card=
@@ -6048,8 +6084,8 @@ function openUpgrade(){
 
       const actor=
       actors.find(
-      actor=>
-      actor.type==="player"
+        actor=>
+        actor.type==="player"
       );
 
 
@@ -6083,893 +6119,17 @@ function openUpgrade(){
 }
 
 
-/* =========================================================
-   GRASS
-========================================================= */
-
-function inGrass(actor){
-
-  return grassZones.some(
-  zone=>{
-
-    const dx=
-    actor.mesh.position.x-zone.x;
-
-
-    const dz=
-    actor.mesh.position.z-zone.z;
-
-
-    return(
-      dx*dx+dz*dz
-      <
-      zone.radius*zone.radius
-    );
-  });
-}
-
-
-function updateGrass(dt){
-
-  playerHidden=
-  false;
-
-
-  const playerActor=
-  actors.find(
-  actor=>
-  actor.type==="player"
-  );
-
-
-  if(
-    playerActor
-  ){
-
-    playerActor.revealTimer=
-    Math.max(
-      0,
-      playerActor.revealTimer-dt
-    );
-
-
-    playerHidden=
-    inGrass(
-      playerActor
-    )
-    &&
-    playerActor.revealTimer<=0;
-
-
-    playerActor.hidden=
-    playerHidden;
-
-
-    player.traverse(
-    child=>{
-
-      if(
-        child.material
-      ){
-
-        child.material.transparent=
-        true;
-
-
-        child.material.opacity=
-        playerHidden
-        ?
-        .5
-        :
-        1;
-      }
-    });
-  }
-
-
-  let dangerNear=
-  false;
-
-
-  if(
-    currentMode>0
-  ){
-
-    actors
-    .filter(
-    actor=>
-    actor.type==="ai"
-    &&
-    actor.alive
-    )
-    .forEach(
-    ai=>{
-
-      ai.revealTimer=
-      Math.max(
-        0,
-        ai.revealTimer-dt
-      );
-
-
-      ai.hidden=
-      inGrass(
-        ai
-      )
-      &&
-      ai.revealTimer<=0;
-
-
-      if(
-        ai.hidden
-        &&
-        ai.mesh.position
-        .distanceTo(
-          player.position
-        )
-        <
-        6.5
-      ){
-
-        dangerNear=
-        true;
-      }
-    });
-  }
-
-
-  danger.style.display=
-  dangerNear
-  ?
-  "block"
-  :
-  "none";
-
-
-  dangerCooldown-=
-  dt;
-
-
-  if(
-    dangerNear
-    &&
-    dangerCooldown<=0
-  ){
-
-    dangerCooldown=
-    2;
-
-
-    chickenSound();
-  }
-}
-
-
-/* =========================================================
-   AI TARGETING
-========================================================= */
-
-function chooseTarget(ai){
-
-  const candidates=
-  actors.filter(
-  target=>
-
-  target.alive
-
-  &&
-
-  target!==ai
-
-  &&
-
-  !(
-    target.hidden
-    &&
-    target.revealTimer<=0
-    &&
-    target.mesh.position
-    .distanceTo(
-      ai.mesh.position
-    )
-    >
-    5.5
-  )
-  );
-
-
-  if(
-    candidates.length===0
-  ){
-
-    return null;
-  }
-
-
-  candidates.sort(
-  (
-    a,
-    b
-  )=>{
-
-    const ad=
-    a.mesh.position
-    .distanceTo(
-      ai.mesh.position
-    );
-
-
-    const bd=
-    b.mesh.position
-    .distanceTo(
-      ai.mesh.position
-    );
-
-
-    const weakA=
-    1-
-    a.hp/a.maxHP;
-
-
-    const weakB=
-    1-
-    b.hp/b.maxHP;
-
-
-    return(
-      (
-        ad-
-        weakA*2
-      )
-      -
-      (
-        bd-
-        weakB*2
-      )
-    );
-  });
-
-
-  if(
-    Math.random()<.84
-  ){
-
-    return candidates[0];
-  }
-
-
-  return candidates[
-    Math.min(
-      1,
-      candidates.length-1
-    )
-  ];
-}
-
-
-/* =========================================================
-   AI UPDATE
-========================================================= */
-
-function updateAI(dt){
-
-  const live=
-  actors.filter(
-  actor=>
-  actor.type==="ai"
-  &&
-  actor.alive
-  );
-
-
-  for(
-    const ai
-    of live
-  ){
-
-    ai.fireCooldown-=
-    dt;
-
-
-    ai.targetLock-=
-    dt;
-
-
-    ai.slowTimer-=
-    dt;
-
-
-    if(
-      !ai.target
-      ||
-      !ai.target.alive
-      ||
-      ai.targetLock<=0
-      ||
-      (
-        ai.target.hidden
-        &&
-        ai.target.mesh.position
-        .distanceTo(
-          ai.mesh.position
-        )
-        >
-        5.5
-      )
-    ){
-
-      ai.target=
-      chooseTarget(
-        ai
-      );
-
-
-      ai.targetLock=
-      2.8+
-      Math.random()*2.8;
-    }
-
-
-    if(
-      !ai.target
-    ){
-
-      continue;
-    }
-
-
-    const direction=
-    new THREE.Vector3()
-    .subVectors(
-      ai.target.mesh.position,
-      ai.mesh.position
-    );
-
-
-    direction.y=
-    0;
-
-
-    const distance=
-    direction.length();
-
-
-    if(
-      distance<.01
-    ){
-
-      continue;
-    }
-
-
-    direction.normalize();
-
-
-    const difficulty=
-    ai.difficulty;
-
-
-    const keep=
-    Math.min(
-      ai.chicken.range*.7,
-      8+
-      difficulty*.35
-    );
-
-
-    const slow=
-    ai.slowTimer>0
-    ?
-    .5
-    :
-    1;
-
-
-    if(
-      distance>keep+1.3
-    ){
-
-      ai.mesh.position
-      .addScaledVector(
-        direction,
-        (
-          2+
-          difficulty*.12
-        )
-        *
-        slow
-        *
-        dt
-      );
-
-    }else if(
-      distance<keep-1.5
-    ){
-
-      ai.mesh.position
-      .addScaledVector(
-        direction,
-        -(
-          1.15+
-          difficulty*.07
-        )
-        *
-        slow
-        *
-        dt
-      );
-    }
-
-
-    const strafe=
-    new THREE.Vector3(
-      -direction.z,
-      0,
-      direction.x
-    );
-
-
-    const side=
-    Math.sin(
-      performance.now()*.0012
-      +
-      ai.mesh.position.x
-      +
-      ai.mesh.position.z
-    );
-
-
-    ai.mesh.position
-    .addScaledVector(
-      strafe,
-      side
-      *
-      (
-        .55+
-        difficulty*.04
-      )
-      *
-      slow
-      *
-      dt
-    );
-
-
-    ai.mesh.position.x=
-    THREE.MathUtils.clamp(
-      ai.mesh.position.x,
-      -32.4,
-      32.4
-    );
-
-
-    ai.mesh.position.z=
-    THREE.MathUtils.clamp(
-      ai.mesh.position.z,
-      -32.4,
-      32.4
-    );
-
-
-    ai.mesh.rotation.y=
-    Math.atan2(
-      direction.x,
-      direction.z
-    );
-
-
-    if(
-      ai.fireCooldown<=0
-      &&
-      distance<
-      ai.chicken.range
-      &&
-      !ai.target.hidden
-    ){
-
-      const minimum=
-      Math.max(
-        .42,
-        ai.chicken.fireRate*2.15
-      );
-
-
-      ai.fireCooldown=
-      (
-        minimum+
-        .15+
-        Math.random()*.28
-      )
-      *
-      Math.max(
-        .7,
-        1-
-        difficulty*.035
-      );
-
-
-      const error=
-      Math.max(
-        .025,
-        .30-
-        difficulty*.032
-      );
-
-
-      const shot=
-      direction.clone()
-      .applyAxisAngle(
-        new THREE.Vector3(
-          0,
-          1,
-          0
-        ),
-        (
-          Math.random()-.5
-        )
-        *
-        error
-      );
-
-
-      createBullet(
-        ai.mesh.position,
-        shot,
-        ai.chicken,
-        "ai",
-        .60+
-        difficulty*.045,
-        ai
-      );
-
-
-      gunSound(
-        ai.chicken,
-        true
-      );
-
-
-      ai.revealTimer=
-      2.2;
-
-
-      ai.hidden=
-      false;
-    }
-  }
-
-
-  updateMarkers();
-
-
-  const aliveAI=
-  actors.filter(
-  actor=>
-  actor.type==="ai"
-  &&
-  actor.alive
-  ).length;
-
-
-  const playerActor=
-  actors.find(
-  actor=>
-  actor.type==="player"
-  );
-
-
-  if(
-    playerActor
-    &&
-    playerActor.alive
-    &&
-    aliveAI===0
-    &&
-    !ending
-  ){
-
-    ending=
-    true;
-
-
-    if(
-      currentMode===2
-    ){
-
-      save.rankPoints+=
-      70;
-    }
-
-
-    message(
-      chinese()
-      ?
-      "你赢了！"
-      :
-      "YOU WIN!"
-    );
-
-
-    setTimeout(
-      ()=>finishMatch(
-        true
-      ),
-      900
-    );
-  }
-}
-
-
-/* =========================================================
-   MARKERS
-========================================================= */
-
-function updateMarkers(){
-
-  actors
-  .filter(
-  actor=>
-  actor.type==="ai"
-  )
-  .forEach(
-  ai=>{
-
-    if(
-      !ai.marker
-    ){
-
-      return;
-    }
-
-
-    if(
-      !ai.alive
-      ||
-      ai.hidden
-    ){
-
-      ai.marker.style.display=
-      "none";
-
-      return;
-    }
-
-
-    const screen=
-    ai.mesh.position.clone();
-
-
-    screen.y+=
-    3;
-
-
-    screen.project(
-      camera
-    );
-
-
-    const visible=
-    screen.z<1
-    &&
-    screen.x>-1.05
-    &&
-    screen.x<1.05
-    &&
-    screen.y>-1.05
-    &&
-    screen.y<1.05;
-
-
-    ai.marker.style.display=
-    visible
-    ?
-    "block"
-    :
-    "none";
-
-
-    if(visible){
-
-      ai.marker.style.left=
-      (
-        (
-          screen.x*.5+.5
-        )
-        *
-        innerWidth
-      )
-      +
-      "px";
-
-
-      ai.marker.style.top=
-      (
-        (
-          -screen.y*.5+.5
-        )
-        *
-        innerHeight
-      )
-      +
-      "px";
-    }
-  });
-}
-
-
-/* =========================================================
-   PLAYER MOVEMENT
-========================================================= */
-
-function updatePlayer(dt){
-
-  if(
-    !player
-    ||
-    paused
-  ){
-
-    return;
-  }
-
-
-  let x=
-  (
-    keys.KeyD
-    ?
-    1
-    :
-    0
-  )
-  -
-  (
-    keys.KeyA
-    ?
-    1
-    :
-    0
-  )
-  +
-  joystickX;
-
-
-  let z=
-  (
-    keys.KeyS
-    ?
-    1
-    :
-    0
-  )
-  -
-  (
-    keys.KeyW
-    ?
-    1
-    :
-    0
-  )
-  +
-  joystickY;
-
-
-  const length=
-  Math.hypot(
-    x,
-    z
-  );
-
-
-  if(
-    length>1
-  ){
-
-    x/=
-    length;
-
-    z/=
-    length;
-  }
-
-
-  const speed=
-  selectedChicken.speed
-  *
-  speedMultiplier
-  *
-  (
-    speedTimer>0
-    ?
-    1.55
-    :
-    1
-  );
-
-
-  moveVelocity.x=
-  THREE.MathUtils.lerp(
-    moveVelocity.x,
-    x*speed,
-    .2
-  );
-
-
-  moveVelocity.y=
-  THREE.MathUtils.lerp(
-    moveVelocity.y,
-    z*speed,
-    .2
-  );
-
-
-  player.position.x+=
-  moveVelocity.x*dt;
-
-
-  player.position.z+=
-  moveVelocity.y*dt;
-
-
-  const limit=
-  currentMode===0
-  ?
-  27
-  :
-  33;
-
-
-  player.position.x=
-  THREE.MathUtils.clamp(
-    player.position.x,
-    -limit,
-    limit
-  );
-
-
-  player.position.z=
-  THREE.MathUtils.clamp(
-    player.position.z,
-    -limit,
-    limit
-  );
-
-
-  if(
-    rightAim
-    ||
-    mobileAim
-    ||
-    skillAim
-  ){
-
-    const direction=
-    aimDirection();
-
-
-    player.rotation.y=
-    Math.atan2(
-      direction.x,
-      direction.z
-    );
-  }
-}
-
-
-/* =========================================================
-   AIM
-========================================================= */
-
 function setAim(
-clientX,
-clientY
+x,
+y
 ){
 
   mouse.x=
-  clientX/innerWidth*2-1;
+  x/innerWidth*2-1;
 
 
   mouse.y=
-  -(clientY/innerHeight)*2+1;
+  -(y/innerHeight)*2+1;
 
 
   ray.setFromCamera(
@@ -6978,22 +6138,21 @@ clientY
   );
 
 
-  ray.ray.intersectPlane(
+  ray.ray
+  .intersectPlane(
     aimPlane,
     aimPoint
   );
 }
 
 
-/* =========================================================
-   DESKTOP INPUT
-========================================================= */
-
 document.addEventListener(
 "keydown",
 event=>{
 
-  keys[event.code]=
+  keys[
+    event.code
+  ]=
   true;
 
 
@@ -7012,14 +6171,17 @@ document.addEventListener(
 "keyup",
 event=>{
 
-  keys[event.code]=
+  keys[
+    event.code
+  ]=
   false;
 });
 
 
 document.addEventListener(
 "contextmenu",
-event=>event.preventDefault()
+event=>
+event.preventDefault()
 );
 
 
@@ -7028,19 +6190,11 @@ document.addEventListener(
 event=>{
 
   if(
-    !gameActive
-    ||
-    event.pointerType==="touch"
-  ){
-
-    return;
-  }
-
-
-  if(
+    gameActive
+    &&
+    event.pointerType!=="touch"
+    &&
     rightAim
-    ||
-    skillAim
   ){
 
     setAim(
@@ -7087,8 +6241,6 @@ event=>{
 
   if(
     event.button===0
-    &&
-    rightAim
   ){
 
     mouseFire=
@@ -7130,10 +6282,6 @@ event=>{
   }
 });
 
-
-/* =========================================================
-   MOBILE
-========================================================= */
 
 let movePointer=null;
 
@@ -7372,34 +6520,19 @@ event=>{
     player
   ){
 
-    const forward=
-    new THREE.Vector3(
-      0,
-      0,
-      1
-    )
-    .applyAxisAngle(
-      new THREE.Vector3(
-        0,
-        1,
-        0
-      ),
-      player.rotation.y
-    );
-
-
     aimPoint
     .copy(
       player.position
     )
     .addScaledVector(
-      forward,
+      currentForward(),
       10
     );
   }
 
 
   playerShoot();
+
 },
 {
 passive:false
@@ -7412,6 +6545,7 @@ event=>{
 
   event.preventDefault();
 
+
   mouseFire=
   false;
 
@@ -7423,18 +6557,10 @@ event=>{
     mobileAim=
     false;
   }
+
 },
 {
 passive:false
-});
-
-
-fireBtn.addEventListener(
-"pointercancel",
-()=>{
-
-  mouseFire=
-  false;
 });
 
 
@@ -7446,18 +6572,17 @@ event=>{
 
   event.stopPropagation();
 
+
   useSkill();
+
 },
 {
 passive:false
 });
 
 
-/* =========================================================
-   ANTI ZOOM
-========================================================= */
-
-let lastTouchEnd=0;
+let lastTouchEnd=
+0;
 
 
 document.addEventListener(
@@ -7478,56 +6603,485 @@ event=>{
 
   lastTouchEnd=
   now;
+
 },
 {
 passive:false
 });
 
 
-document.addEventListener(
+[
 "gesturestart",
-event=>event.preventDefault(),
-{
-passive:false
-});
-
-
-document.addEventListener(
 "gesturechange",
-event=>event.preventDefault(),
-{
-passive:false
+"gestureend"
+]
+.forEach(
+eventName=>{
+
+  document.addEventListener(
+
+    eventName,
+
+    event=>
+    event.preventDefault(),
+
+    {
+      passive:false
+    }
+
+  );
 });
 
 
-document.addEventListener(
-"gestureend",
-event=>event.preventDefault(),
-{
-passive:false
-});
+function renderChickenGrid(){
+
+  chickenGrid.innerHTML=
+  "";
 
 
-/* =========================================================
-   GACHA
-========================================================= */
+  CHICKENS.forEach(
+  chicken=>{
 
-let rolling=false;
+    const unlocked=
+    save.unlocked
+    .includes(
+      chicken.id
+    );
 
 
-function openGacha(){
+    const card=
+    document.createElement(
+      "div"
+    );
+
+
+    card.className=
+    "chickenCard"
+
+    +
+
+    (
+      unlocked
+      ?
+      ""
+      :
+      " locked"
+    )
+
+    +
+
+    (
+      selectedChicken.id===chicken.id
+      ?
+      " selected"
+      :
+      ""
+    );
+
+
+    card.innerHTML=
+    `
+    <div
+      class="cardPortrait"
+      style="
+        box-shadow:
+        inset 0 0 45px
+        #${chicken.color.toString(16).padStart(6,"0")}
+      "
+    >
+      🐔
+    </div>
+
+    <div class="cardName">
+      ${
+        chinese()
+        ?
+        chicken.zh
+        :
+        chicken.name
+      }
+    </div>
+
+    <div class="cardStars">
+      ${"★".repeat(chicken.stars)}
+    </div>
+
+    <div class="cardInfo">
+      ${chicken.weapon}
+      <br>
+      ${chicken.skill}
+    </div>
+
+    <div class="powerBox">
+
+      <div class="powerRow">
+        <span>OVR</span>
+        <b>${overall(chicken)}</b>
+      </div>
+
+      <div class="powerRow">
+        <span>DMG</span>
+        <span>${chicken.damage}</span>
+      </div>
+
+      <div class="powerRow">
+        <span>SPD</span>
+        <span>${chicken.speed.toFixed(1)}</span>
+      </div>
+
+      <div class="powerRow">
+        <span>RNG</span>
+        <span>${chicken.range}</span>
+      </div>
+
+    </div>
+    `;
+
+
+    if(
+      unlocked
+    ){
+
+      card.onclick=
+      ()=>{
+
+        selectedChicken=
+        chicken;
+
+
+        save.selected=
+        chicken.id;
+
+
+        saveGame();
+
+
+        renderChickenGrid();
+
+
+        updateLobby();
+
+
+        buildLobby();
+      };
+    }
+
+
+    chickenGrid.appendChild(
+      card
+    );
+  });
+}
+
+
+$("chickensBtn").onclick=
+()=>{
+
+  renderChickenGrid();
+
+
+  chickenModal
+  .classList
+  .add("show");
+};
+
+
+function renderRank(){
+
+  const index=
+  rankIndex();
+
+
+  const rank=
+  RANKS[index];
+
+
+  const next=
+  RANKS[
+    Math.min(
+      index+1,
+      RANKS.length-1
+    )
+  ];
+
+
+  const startScore=
+  rank.score;
+
+
+  const endScore=
+  index===RANKS.length-1
+  ?
+  rank.score
+  :
+  next.score;
+
+
+  const percent=
+  index===RANKS.length-1
+  ?
+  100
+  :
+  Math.max(
+    0,
+    Math.min(
+      100,
+      (
+        save.rankPoints-startScore
+      )
+      /
+      (
+        endScore-startScore
+      )
+      *
+      100
+    )
+  );
+
+
+  rankSummary.innerHTML=
+  `
+  <div class="rankProgress">
+
+    <div
+      style="
+        display:flex;
+        justify-content:space-between
+      "
+    >
+
+      <b>
+        ${
+          chinese()
+          ?
+          rank.name
+          :
+          rank.en
+        }
+      </b>
+
+      <span>
+        ${save.rankPoints} pts
+      </span>
+
+    </div>
+
+    <div class="progressTrack">
+
+      <div
+        class="progressFill"
+        style="width:${percent}%"
+      ></div>
+
+    </div>
+
+  </div>
+  `;
+
+
+  rankRoute.innerHTML=
+  "";
+
+
+  RANKS.forEach(
+  (
+    item,
+    i
+  )=>{
+
+    const card=
+    document.createElement(
+      "div"
+    );
+
+
+    const claimed=
+    save.claimedRanks
+    .includes(i);
+
+
+    const reached=
+    save.rankPoints
+    >=
+    item.score;
+
+
+    card.className=
+    "rankCard"
+    +
+    (
+      i===index
+      ?
+      " current"
+      :
+      ""
+    );
+
+
+    card.innerHTML=
+    `
+    <div
+      class="rankBadge"
+      style="
+        background:${item.color}
+      "
+    >
+      ${item.icon}
+    </div>
+
+    <div class="rankName">
+      ${
+        chinese()
+        ?
+        item.name
+        :
+        item.en
+      }
+    </div>
+
+    <div class="rankSub">
+      ${item.score} PTS
+    </div>
+
+    <div class="rewardBox">
+      🥚 ${item.reward[0]}
+      ·
+      💠 ${item.reward[1]}
+    </div>
+    `;
+
+
+    if(
+      reached
+      &&
+      !claimed
+    ){
+
+      const button=
+      document.createElement(
+        "button"
+      );
+
+
+      button.className=
+      "claimRank btn green";
+
+
+      button.textContent=
+      chinese()
+      ?
+      "领取奖励"
+      :
+      "CLAIM";
+
+
+      button.onclick=
+      ()=>{
+
+        save.eggs+=
+        item.reward[0];
+
+
+        save.fragments+=
+        item.reward[1];
+
+
+        save.claimedRanks
+        .push(i);
+
+
+        saveGame();
+
+
+        renderRank();
+
+
+        updateLobby();
+
+
+        pickupSound();
+      };
+
+
+      card.appendChild(
+        button
+      );
+
+    }else{
+
+      const state=
+      document.createElement(
+        "div"
+      );
+
+
+      state.className=
+      "rankSub";
+
+
+      state.style.marginTop=
+      "9px";
+
+
+      state.textContent=
+      claimed
+      ?
+      (
+        chinese()
+        ?
+        "已领取"
+        :
+        "CLAIMED"
+      )
+      :
+      (
+        chinese()
+        ?
+        "未解锁"
+        :
+        "LOCKED"
+      );
+
+
+      card.appendChild(
+        state
+      );
+    }
+
+
+    rankRoute.appendChild(
+      card
+    );
+  });
+}
+
+
+$("rankBtn").onclick=
+()=>{
+
+  renderRank();
+
+
+  rankModal
+  .classList
+  .add("show");
+};
+
+
+let rolling=
+false;
+
+
+$("gachaBtn").onclick=
+()=>{
 
   gachaModal
   .classList
   .add("show");
-}
+};
 
 
-gachaBtn.onclick=
-openGacha;
-
-
-gachaRoll.onclick=
+roll.onclick=
 ()=>{
 
   if(
@@ -7536,17 +7090,13 @@ gachaRoll.onclick=
     save.eggs<500
   ){
 
-    if(
-      save.eggs<500
-    ){
+    gachaInfo.textContent=
+    chinese()
+    ?
+    "蛋币不足"
+    :
+    "NOT ENOUGH EGGS";
 
-      gachaInfo.textContent=
-      chinese()
-      ?
-      "蛋币不足"
-      :
-      "NOT ENOUGH EGGS";
-    }
 
     return;
   }
@@ -7576,6 +7126,26 @@ gachaRoll.onclick=
   "rotate(85deg)";
 
 
+  resultCard.className=
+  "resultCard";
+
+
+  resultPortrait.textContent=
+  "🥚";
+
+
+  resultName.textContent=
+  "...";
+
+
+  resultStars.textContent=
+  "";
+
+
+  resultPower.textContent=
+  "";
+
+
   setTimeout(
     ()=>{
 
@@ -7583,61 +7153,70 @@ gachaRoll.onclick=
       "rotate(0deg)";
 
 
-      fallEgg
+      dropEgg
       .classList
       .add(
         "show",
-        "shake"
+        "bounce"
       );
+
     },
-    350
+    300
   );
 
 
   setTimeout(
     ()=>{
 
-      const roll=
+      dropEgg
+      .classList
+      .remove(
+        "bounce"
+      );
+
+
+      dropEgg
+      .classList
+      .add(
+        "shake"
+      );
+
+    },
+    950
+  );
+
+
+  setTimeout(
+    ()=>{
+
+      const random=
       Math.random();
 
 
-      let stars=1;
-
-
-      if(
-        roll<.50
-      ){
-
-        stars=1;
-
-      }else if(
-        roll<.77
-      ){
-
-        stars=2;
-
-      }else if(
-        roll<.91
-      ){
-
-        stars=3;
-
-      }else if(
-        roll<.98
-      ){
-
-        stars=4;
-
-      }else{
-
-        stars=5;
-      }
+      const stars=
+      random<.50
+      ?
+      1
+      :
+      random<.77
+      ?
+      2
+      :
+      random<.91
+      ?
+      3
+      :
+      random<.98
+      ?
+      4
+      :
+      5;
 
 
       const pool=
       CHICKENS.filter(
-      chicken=>
-      chicken.stars===stars
+        chicken=>
+        chicken.stars===stars
       );
 
 
@@ -7650,68 +7229,99 @@ gachaRoll.onclick=
 
 
       const duplicate=
-      save.unlocked.includes(
+      save.unlocked
+      .includes(
         chicken.id
       );
+
+
+      const fragmentReward=
+      {
+        1:15,
+        2:35,
+        3:80,
+        4:180,
+        5:450
+      }[stars];
 
 
       if(
         duplicate
       ){
 
-        const reward=
-        DUPLICATE_FRAGMENTS[
-          stars
-        ];
-
-
         save.fragments+=
-        reward;
-
-
-        gachaInfo.textContent=
-        chinese()
-        ?
-        "重复角色 → +"+
-        reward+
-        " 碎片"
-        :
-        "DUPLICATE → +"+
-        reward+
-        " FRAGMENTS";
+        fragmentReward;
 
       }else{
 
-        save.unlocked.push(
+        save.unlocked
+        .push(
           chicken.id
         );
-
-
-        gachaInfo.textContent=
-        chinese()
-        ?
-        "获得新小鸡！"
-        :
-        "NEW CHICKEN!";
       }
 
 
       saveGame();
 
 
-      fallEgg
+      dropEgg
       .classList
       .remove(
-        "shake",
-        "show"
+        "show",
+        "shake"
       );
 
 
-      gachaResultIcon.textContent=
+      rarityFlash.style.background=
+      stars===5
+      ?
+      "radial-gradient(circle,#fff7aa,#ffcf35,transparent 70%)"
+      :
+      stars===4
+      ?
+      "radial-gradient(circle,#ead8ff,#9b62ff,transparent 70%)"
+      :
+      "radial-gradient(circle,#d8f3ff,#55bfff,transparent 70%)";
+
+
+      rarityFlash
+      .classList
+      .add("on");
+
+
+      setTimeout(
+        ()=>{
+
+          rarityFlash
+          .classList
+          .remove("on");
+
+        },
+        650
+      );
+
+
+      resultCard.className=
+      "resultCard"
+      +
+      (
+        stars===5
+        ?
+        " legendary"
+        :
+        stars===4
+        ?
+        " epic"
+        :
+        ""
+      );
+
+
+      resultPortrait.textContent=
       "🐔";
 
 
-      gachaResultName.textContent=
+      resultName.textContent=
       chinese()
       ?
       chicken.zh
@@ -7719,9 +7329,33 @@ gachaRoll.onclick=
       chicken.name;
 
 
-      gachaResultStars.textContent=
+      resultStars.textContent=
       "★".repeat(
         stars
+      );
+
+
+      resultPower.textContent=
+      `OVR ${overall(chicken)} · DMG ${chicken.damage} · SPD ${chicken.speed.toFixed(1)} · RNG ${chicken.range}`;
+
+
+      gachaInfo.textContent=
+      duplicate
+      ?
+      (
+        chinese()
+        ?
+        `重复角色 → +${fragmentReward} 碎片`
+        :
+        `DUPLICATE → +${fragmentReward} FRAGMENTS`
+      )
+      :
+      (
+        chinese()
+        ?
+        "签约成功！获得新小鸡"
+        :
+        "SIGNED! NEW CHICKEN"
       );
 
 
@@ -7736,379 +7370,52 @@ gachaRoll.onclick=
 
       rolling=
       false;
+
     },
-    1450
+    1650
   );
 };
 
 
-/* =========================================================
-   SHOP
-========================================================= */
-
-shopBtn.onclick=
-()=>{
-
-  renderShop();
-
-  shopModal
-  .classList
-  .add("show");
-};
-
-
-function renderShop(){
-
-  shopGrid.innerHTML=
-  "";
-
-
-  CHICKENS.forEach(
-  chicken=>{
-
-    const unlocked=
-    save.unlocked.includes(
-      chicken.id
-    );
-
-
-    const buyable=
-    chicken.stars<=3;
-
-
-    const card=
-    document.createElement(
-      "div"
-    );
-
-
-    card.className=
-    "shopCard"
-    +
-    (
-      buyable
-      ?
-      ""
-      :
-      " sold"
-    );
-
-
-    let bottom;
-
-
-    if(unlocked){
-
-      bottom=
-      chinese()
-      ?
-      "已拥有"
-      :
-      "OWNED";
-
-    }else if(!buyable){
-
-      bottom=
-      chinese()
-      ?
-      "缺货"
-      :
-      "SOLD OUT";
-
-    }else{
-
-      bottom=
-      "💠 "+
-      SHOP_PRICE[
-        chicken.stars
-      ];
-    }
-
-
-    card.innerHTML=
-    `
-    <div
-      class="chickenPreview"
-      style="
-        background:#${chicken.color.toString(16).padStart(6,"0")}
-      "
-    ></div>
-
-    <div class="shopName">
-      ${
-        chinese()
-        ?
-        chicken.zh
-        :
-        chicken.name
-      }
-    </div>
-
-    <div class="shopStars">
-      ${"★".repeat(chicken.stars)}
-    </div>
-
-    <div class="shopPrice">
-      ${bottom}
-    </div>
-    `;
-
-
-    if(
-      buyable
-      &&
-      !unlocked
-    ){
-
-      card.onclick=
-      ()=>{
-
-        const price=
-        SHOP_PRICE[
-          chicken.stars
-        ];
-
-
-        if(
-          save.fragments<price
-        ){
-
-          return;
-        }
-
-
-        save.fragments-=
-        price;
-
-
-        save.unlocked.push(
-          chicken.id
-        );
-
-
-        saveGame();
-
-
-        renderShop();
-
-
-        renderChickenGrid();
-
-
-        updateLobby();
-
-
-        chickenSound();
-      };
-    }
-
-
-    shopGrid.appendChild(
-      card
-    );
-  });
-}
-
-
-/* =========================================================
-   CHICKEN SELECT
-========================================================= */
-
-chickensBtn.onclick=
-()=>{
-
-  renderChickenGrid();
-
-  chickenModal
-  .classList
-  .add("show");
-};
-
-
-function renderChickenGrid(){
-
-  chickenGrid.innerHTML=
-  "";
-
-
-  CHICKENS.forEach(
-  chicken=>{
-
-    const unlocked=
-    save.unlocked.includes(
-      chicken.id
-    );
-
-
-    const card=
-    document.createElement(
-      "div"
-    );
-
-
-    card.className=
-    "chickenCard"
-    +
-    (
-      unlocked
-      ?
-      ""
-      :
-      " locked"
-    )
-    +
-    (
-      selectedChicken.id===chicken.id
-      ?
-      " selected"
-      :
-      ""
-    );
-
-
-    card.innerHTML=
-    `
-    <div
-      class="chickenPreview"
-      style="
-        background:#${chicken.color.toString(16).padStart(6,"0")}
-      "
-    ></div>
-
-    <div class="chickenCardName">
-      ${
-        chinese()
-        ?
-        chicken.zh
-        :
-        chicken.name
-      }
-    </div>
-
-    <div class="chickenStars">
-      ${"★".repeat(chicken.stars)}
-    </div>
-
-    <div class="chickenWeapon">
-      ${chicken.weapon}
-    </div>
-
-    <div class="chickenSkill">
-      ${chicken.skill}
-    </div>
-    `;
-
-
-    if(unlocked){
-
-      card.onclick=
-      ()=>{
-
-        selectedChicken=
-        chicken;
-
-
-        save.selected=
-        chicken.id;
-
-
-        saveGame();
-
-
-        updateLobby();
-
-
-        renderChickenGrid();
-
-
-        buildLobby();
-      };
-    }
-
-
-    chickenGrid.appendChild(
-      card
-    );
-  });
-}
-
-
-/* =========================================================
-   MISSIONS
-========================================================= */
-
-const MISSION_TEMPLATES=[
+const MISSIONS=[
 
 {
 name:"CHICKEN HUNTER",
 zh:"小鸡猎人",
-desc:"Defeat 10 enemies",
-zhDesc:"击败10个敌人",
 type:"kills",
 target:10,
 eggs:100,
-fragments:15
+frags:15
 },
 
 {
 name:"SURVIVOR",
 zh:"生存高手",
-desc:"Reach 3 waves",
-zhDesc:"完成3个波次",
 type:"waves",
 target:3,
 eggs:120,
-fragments:20
+frags:20
 },
 
 {
 name:"GACHA FAN",
 zh:"扭蛋达人",
-desc:"Use gacha 3 times",
-zhDesc:"抽扭蛋3次",
 type:"gacha",
 target:3,
 eggs:80,
-fragments:18
+frags:18
 },
 
 {
 name:"BATTLE ADDICT",
 zh:"战斗达人",
-desc:"Play 3 matches",
-zhDesc:"进行3场战斗",
 type:"matches",
 target:3,
 eggs:100,
-fragments:15
+frags:15
 }
 
 ];
-
-
-missionsBtn.onclick=
-()=>{
-
-  renderMissions();
-
-  missionModal
-  .classList
-  .add("show");
-};
-
-
-function missionProgress(
-mission
-){
-
-  return(
-    save.stats[
-      mission.type
-    ]
-    ||
-    0
-  );
-}
 
 
 function renderMissions(){
@@ -8117,19 +7424,15 @@ function renderMissions(){
   "";
 
 
-  MISSION_TEMPLATES
-  .forEach(
+  MISSIONS.forEach(
   mission=>{
 
     const progress=
-    missionProgress(
-      mission
-    );
-
-
-    const completed=
-    progress>=
-    mission.target;
+    save.stats[
+      mission.type
+    ]
+    ||
+    0;
 
 
     const row=
@@ -8157,14 +7460,6 @@ function renderMissions(){
       </div>
 
       <div class="missionDesc">
-        ${
-          chinese()
-          ?
-          mission.zhDesc
-          :
-          mission.desc
-        }
-        ·
         ${Math.min(progress,mission.target)}
         /
         ${mission.target}
@@ -8173,16 +7468,17 @@ function renderMissions(){
     </div>
 
     <div class="missionReward">
-
       🥚 ${mission.eggs}
       <br>
-      💠 ${mission.fragments}
-
+      💠 ${mission.frags}
     </div>
     `;
 
 
-    if(completed){
+    if(
+      progress>=
+      mission.target
+    ){
 
       const button=
       document.createElement(
@@ -8191,7 +7487,7 @@ function renderMissions(){
 
 
       button.className=
-      "btn greenBtn";
+      "btn green";
 
 
       button.textContent=
@@ -8210,7 +7506,7 @@ function renderMissions(){
 
 
         save.fragments+=
-        mission.fragments;
+        mission.frags;
 
 
         save.stats[
@@ -8222,10 +7518,10 @@ function renderMissions(){
         saveGame();
 
 
-        updateLobby();
-
-
         renderMissions();
+
+
+        updateLobby();
 
 
         pickupSound();
@@ -8245,73 +7541,72 @@ function renderMissions(){
 }
 
 
-/* =========================================================
-   TUTORIAL
-========================================================= */
+$("missionsBtn").onclick=
+()=>{
+
+  renderMissions();
+
+
+  missionModal
+  .classList
+  .add("show");
+};
+
 
 const TUTORIAL=[
 
 {
-icon:"🐔",
-title:"WELCOME",
-zhTitle:"欢迎",
-text:"Choose one of 15 chickens. Every chicken has its own weapon and skill.",
-zhText:"15只小鸡，每只都有自己的武器和技能。",
-controls:""
+i:"🐔",
+t:"WELCOME",
+z:"欢迎",
+e:"Choose one of 15 voxel chickens.",
+c:"15只方块小鸡，每只都有自己的武器和技能。",
+k:""
 },
 
 {
-icon:"🎮",
-title:"MOVE",
-zhTitle:"移动",
-text:"WASD to move.",
-zhText:"电脑使用 WASD 移动。",
-controls:"MOBILE: LEFT JOYSTICK"
+i:"🎮",
+t:"MOVE",
+z:"移动",
+e:"WASD to move.",
+c:"电脑使用 WASD 移动。",
+k:"MOBILE: LEFT JOYSTICK"
 },
 
 {
-icon:"🎯",
-title:"AIM",
-zhTitle:"瞄准",
-text:"Hold RIGHT MOUSE to aim. Your chicken only follows the mouse while aiming.",
-zhText:"按住鼠标右键瞄准，平时移动鼠标不会让小鸡乱转。",
-controls:"RIGHT MOUSE = AIM"
+i:"🎯",
+t:"AIM",
+z:"瞄准",
+e:"Hold RIGHT MOUSE for precision aim.",
+c:"按住右键进入精准瞄准。",
+k:"RIGHT MOUSE = AIM"
 },
 
 {
-icon:"💥",
-title:"SHOOT",
-zhTitle:"射击",
-text:"While holding RIGHT MOUSE, hold LEFT MOUSE to fire.",
-zhText:"按住右键瞄准时，再按住左键射击。",
-controls:"RIGHT MOUSE + LEFT MOUSE"
+i:"💥",
+t:"SHOOT",
+z:"射击",
+e:"LEFT MOUSE always fires. No right-click required.",
+c:"左键永远可以射击；不按右键就朝当前方向开火。",
+k:"LEFT MOUSE = FIRE"
 },
 
 {
-icon:"⚡",
-title:"SKILL",
-zhTitle:"技能",
-text:"Press E to use the chicken's unique skill.",
-zhText:"按 E 使用小鸡的专属技能。",
-controls:"E = SKILL"
+i:"🐺",
+t:"WOLF PACK",
+z:"狼群",
+e:"Voxel wolves separate, surround and collide.",
+c:"方块狼会分散追击、包围，而且不能穿模。",
+k:"KEEP MOVING"
 },
 
 {
-icon:"🌿",
-title:"GRASS",
-zhTitle:"草丛",
-text:"Grass hides chickens. Shooting or taking damage reveals them.",
-zhText:"进入草丛可以隐藏。开枪或受伤会暴露。",
-controls:"RED ! = ENEMY HIDING NEARBY"
-},
-
-{
-icon:"🥚",
-title:"REWARDS",
-zhTitle:"奖励",
-text:"Collect EXP, eggs and medkits. Use eggs for gacha and fragments in the shop.",
-zhText:"收集经验、蛋币和血包。蛋币抽扭蛋，碎片在商店买小鸡。",
-controls:""
+i:"🏆",
+t:"RANK",
+z:"段位",
+e:"Start from Amateur III and climb to Legend.",
+c:"从业余 III 开始，一路升到传奇，每段都有奖励。",
+k:"RANKED BRAWL"
 }
 
 ];
@@ -8319,17 +7614,6 @@ controls:""
 
 let tutorialIndex=
 0;
-
-
-helpBtn.onclick=
-()=>{
-
-  tutorialIndex=
-  0;
-
-
-  showTutorial();
-};
 
 
 function showTutorial(){
@@ -8341,27 +7625,27 @@ function showTutorial(){
 
 
   tutorialIcon.textContent=
-  step.icon;
+  step.i;
 
 
   tutorialTitle.textContent=
   chinese()
   ?
-  step.zhTitle
+  step.z
   :
-  step.title;
+  step.t;
 
 
   tutorialText.textContent=
   chinese()
   ?
-  step.zhText
+  step.c
   :
-  step.text;
+  step.e;
 
 
   tutorialControls.textContent=
-  step.controls;
+  step.k;
 
 
   tutorialNext.textContent=
@@ -8389,6 +7673,17 @@ function showTutorial(){
   .classList
   .add("show");
 }
+
+
+$("helpBtn").onclick=
+()=>{
+
+  tutorialIndex=
+  0;
+
+
+  showTutorial();
+};
 
 
 tutorialNext.onclick=
@@ -8420,44 +7715,226 @@ tutorialNext.onclick=
 };
 
 
-/* =========================================================
-   MODE
-========================================================= */
+function updateLobby(){
 
-function changeMode(
-direction
-){
+  eggTotal.textContent=
+  save.eggs;
+
+
+  fragmentTotal.textContent=
+  save.fragments;
+
+
+  const rank=
+  RANKS[
+    rankIndex()
+  ];
+
+
+  rankNameEl.textContent=
+  chinese()
+  ?
+  rank.name
+  :
+  rank.en;
+
+
+  rankBadgeMini.textContent=
+  rank.icon;
+
+
+  rankBadgeMini.style.color=
+  rank.color;
+
+
+  selectedName.textContent=
+  chinese()
+  ?
+  selectedChicken.zh
+  :
+  selectedChicken.name;
+
+
+  selectedStars.textContent=
+  "★".repeat(
+    selectedChicken.stars
+  );
+
+
+  const damage=
+  Math.min(
+    100,
+    selectedChicken.damage*3
+  );
+
+
+  const speed=
+  Math.min(
+    100,
+    selectedChicken.speed*13
+  );
+
+
+  const range=
+  Math.min(
+    100,
+    selectedChicken.range*5
+  );
+
+
+  selectedInfo.innerHTML=
+  `
+  <div>
+    ${
+      chinese()
+      ?
+      "武器"
+      :
+      "Weapon"
+    }:
+    ${selectedChicken.weapon}
+  </div>
+
+  <div>
+    ${
+      chinese()
+      ?
+      "技能"
+      :
+      "Skill"
+    }:
+    ${selectedChicken.skill}
+  </div>
+
+  <div class="statLine">
+    <span>OVR</span>
+    <b>${overall(selectedChicken)}</b>
+  </div>
+
+  <div class="statLine">
+    <span>DMG</span>
+    <span>${selectedChicken.damage}</span>
+  </div>
+
+  <div class="statBar">
+    <div
+      class="statFill"
+      style="width:${damage}%"
+    ></div>
+  </div>
+
+  <div class="statLine">
+    <span>SPD</span>
+    <span>${selectedChicken.speed.toFixed(1)}</span>
+  </div>
+
+  <div class="statBar">
+    <div
+      class="statFill"
+      style="width:${speed}%"
+    ></div>
+  </div>
+
+  <div class="statLine">
+    <span>RNG</span>
+    <span>${selectedChicken.range}</span>
+  </div>
+
+  <div class="statBar">
+    <div
+      class="statFill"
+      style="width:${range}%"
+    ></div>
+  </div>
+  `;
+
+
+  modeName.textContent=
+  MODES[
+    currentMode
+  ];
+
+
+  start.textContent=
+  chinese()
+  ?
+  "开始战斗"
+  :
+  "START BATTLE";
+
+
+  lang.textContent=
+  chinese()
+  ?
+  "EN"
+  :
+  "中文";
+}
+
+
+lang.onclick=
+()=>{
+
+  save.language=
+  chinese()
+  ?
+  "en"
+  :
+  "zh";
+
+
+  saveGame();
+
+
+  updateLobby();
+};
+
+
+$("modeLeft").onclick=
+()=>{
 
   currentMode=
   (
-    currentMode+
-    direction+
+    currentMode-1+
     MODES.length
   )
   %
   MODES.length;
 
 
-  modeNameEl.textContent=
-  MODES[
-    currentMode
-  ];
+  updateLobby();
+};
+
+
+$("modeRight").onclick=
+()=>{
+
+  currentMode=
+  (
+    currentMode+1
+  )
+  %
+  MODES.length;
+
+
+  updateLobby();
+};
+
+
+function clearMarkers(){
+
+  document
+  .querySelectorAll(
+    ".enemyMarker"
+  )
+  .forEach(
+    marker=>
+    marker.remove()
+  );
 }
 
 
-modeLeft.onclick=
-()=>changeMode(-1);
-
-
-modeRight.onclick=
-()=>changeMode(1);
-
-
-/* =========================================================
-   START MATCH
-========================================================= */
-
-startBtn.onclick=
+start.onclick=
 ()=>{
 
   try{
@@ -8479,7 +7956,8 @@ startBtn.onclick=
     effects=[];
 
 
-    player=null;
+    player=
+    null;
 
 
     playerHP=
@@ -8502,16 +7980,16 @@ startBtn.onclick=
     1;
 
 
+    wave=
+    1;
+
+
     xp=
     0;
 
 
     xpNeeded=
     30;
-
-
-    wave=
-    1;
 
 
     waveWaiting=
@@ -8563,10 +8041,6 @@ startBtn.onclick=
 
 
     mobileAim=
-    false;
-
-
-    skillAim=
     false;
 
 
@@ -8639,7 +8113,7 @@ startBtn.onclick=
     chickenSound();
 
 
-    message(
+    showMessage(
       MODES[
         currentMode
       ]
@@ -8656,10 +8130,6 @@ startBtn.onclick=
   }
 };
 
-
-/* =========================================================
-   FINISH
-========================================================= */
 
 function finishMatch(
 win
@@ -8748,12 +8218,18 @@ win
   <br>
 
   RANK:
-  ${RANKS[rankIndex()]}
+  ${
+    chinese()
+    ?
+    RANKS[rankIndex()].name
+    :
+    RANKS[rankIndex()].en
+  }
   `;
 }
 
 
-lobbyReturn.onclick=
+returnLobby.onclick=
 ()=>{
 
   clearMarkers();
@@ -8794,27 +8270,6 @@ lobbyReturn.onclick=
 };
 
 
-/* =========================================================
-   MARKER CLEAN
-========================================================= */
-
-function clearMarkers(){
-
-  document
-  .querySelectorAll(
-    ".enemyMarker"
-  )
-  .forEach(
-    marker=>
-    marker.remove()
-  );
-}
-
-
-/* =========================================================
-   HUD
-========================================================= */
-
 function updateHUD(){
 
   hudChicken.textContent=
@@ -8842,11 +8297,15 @@ function updateHUD(){
   ){
 
     hudWave.textContent=
-    chinese()
-    ?
-    "第 "+wave+" 波"
-    :
-    "WAVE "+wave;
+    (
+      chinese()
+      ?
+      "第 "
+      :
+      "WAVE "
+    )
+    +
+    wave;
 
 
     hudEnemies.textContent=
@@ -8880,8 +8339,8 @@ function updateHUD(){
     )
     +
     actors.filter(
-    actor=>
-    actor.alive
+      actor=>
+      actor.alive
     ).length;
   }
 
@@ -8924,116 +8383,33 @@ function updateHUD(){
     "E · READY"
   )
   :
-  "E · "+
-  skillCooldown.toFixed(1)
-  +
-  "s";
+  `E · ${skillCooldown.toFixed(1)}s`;
 }
 
 
-/* =========================================================
-   LOBBY UI
-========================================================= */
-
-function updateLobby(){
-
-  eggTotalEl.textContent=
-  save.eggs;
-
-
-  fragmentTotalEl.textContent=
-  save.fragments;
-
-
-  rankNameEl.textContent=
-  RANKS[
-    rankIndex()
-  ];
-
-
-  selectedNameEl.textContent=
-  chinese()
-  ?
-  selectedChicken.zh
-  :
-  selectedChicken.name;
-
-
-  selectedStarsEl.textContent=
-  "★".repeat(
-    selectedChicken.stars
-  );
-
-
-  selectedDetailsEl.innerHTML=
-  `
-  ${
-    chinese()
-    ?
-    "武器"
-    :
-    "Weapon"
-  }:
-  ${selectedChicken.weapon}
-
-  <br>
-
-  ${
-    chinese()
-    ?
-    "技能"
-    :
-    "Skill"
-  }:
-  ${selectedChicken.skill}
-
-  <br>
-
-  ${
-    chinese()
-    ?
-    "伤害"
-    :
-    "Damage"
-  }:
-  ${selectedChicken.damage}
-  `;
-
-
-  modeNameEl.textContent=
-  MODES[
-    currentMode
-  ];
-}
-
-
-/* =========================================================
-   MESSAGE
-========================================================= */
-
-function message(
+function showMessage(
 text
 ){
 
-  centerMessage.textContent=
+  messageEl.textContent=
   text;
 
 
-  centerMessage
+  messageEl
   .classList
   .add("show");
 
 
   clearTimeout(
-    centerMessage.timer
+    messageEl.timer
   );
 
 
-  centerMessage.timer=
+  messageEl.timer=
   setTimeout(
     ()=>{
 
-      centerMessage
+      messageEl
       .classList
       .remove("show");
 
@@ -9042,10 +8418,6 @@ text
   );
 }
 
-
-/* =========================================================
-   CAMERA
-========================================================= */
 
 function updateCamera(){
 
@@ -9059,8 +8431,8 @@ function updateCamera(){
 
     camera.position.set(
       Math.sin(time)*2.1,
-      8.3,
-      12.7+
+      8.5,
+      12.8+
       Math.cos(time)*1.1
     );
 
@@ -9101,48 +8473,16 @@ function updateCamera(){
     currentMode>0
   ){
 
-    const alive=
-    actors.filter(
-    actor=>
-    actor.alive
-    );
-
-
-    let maxDistance=
-    0;
-
-
-    for(
-      const actor
-      of alive
-    ){
-
-      maxDistance=
-      Math.max(
-        maxDistance,
-        actor.mesh.position.length()
-      );
-    }
-
-
-    const height=
-    THREE.MathUtils.clamp(
-      34+
-      maxDistance*.25,
-      38,
-      47
-    );
-
-
     const desired=
     new THREE.Vector3(
       0,
-      height,
-      height*.86
+      44,
+      39
     );
 
 
-    camera.position.lerp(
+    camera.position
+    .lerp(
       desired,
       .06
     );
@@ -9168,7 +8508,8 @@ function updateCamera(){
     );
 
 
-    camera.position.lerp(
+    camera.position
+    .lerp(
       desired,
       .09
     );
@@ -9182,10 +8523,6 @@ function updateCamera(){
   }
 }
 
-
-/* =========================================================
-   TIMERS
-========================================================= */
 
 function updateTimers(dt){
 
@@ -9215,22 +8552,12 @@ function updateTimers(dt){
     gameActive
     &&
     !paused
-    &&
-    (
-      rightAim
-      ||
-      mobileAim
-    )
   ){
 
     playerShoot();
   }
 }
 
-
-/* =========================================================
-   MAIN LOOP
-========================================================= */
 
 const clock=
 new THREE.Clock();
@@ -9328,10 +8655,6 @@ function animate(){
 animate();
 
 
-/* =========================================================
-   RESIZE
-========================================================= */
-
 window.addEventListener(
 "resize",
 ()=>{
@@ -9350,17 +8673,10 @@ window.addEventListener(
 });
 
 
-/* =========================================================
-   INIT
-========================================================= */
-
 buildLobby();
 
 
 updateLobby();
-
-
-updateLanguage();
 
 
 setTimeout(
@@ -9371,7 +8687,7 @@ setTimeout(
   .add("hide");
 
 },
-1300
+1200
 );
 
 
@@ -9390,7 +8706,7 @@ setTimeout(
   }
 
 },
-2100
+1900
 );
 
 </script>
