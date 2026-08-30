@@ -3,7 +3,6 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
-
 <title>爆小鸡 BOOM CHICKEN</title>
 
 <style>
@@ -11,7 +10,7 @@
 
 *{
   box-sizing:border-box;
-  -webkit-tap-highlight-color:transparent;
+  -webkit-tap-highlight-color:transparent
 }
 
 html,body{
@@ -25,20 +24,18 @@ html,body{
   -webkit-user-select:none;
   user-select:none;
   -webkit-touch-callout:none;
-  font-family:"Lilita One",sans-serif;
+  font-family:"Lilita One",sans-serif
 }
 
-canvas,
-button,
-#touchLayer{
+canvas,button,#touchLayer{
   touch-action:none;
   -webkit-user-select:none;
   user-select:none;
-  -webkit-touch-callout:none;
+  -webkit-touch-callout:none
 }
 
 button{
-  font-family:"Lilita One",sans-serif;
+  font-family:"Lilita One",sans-serif
 }
 
 :root{
@@ -46,6 +43,8 @@ button{
   --yellow:#ffd354;
   --blue:#65d4ff;
   --red:#ff4e4e;
+  --panel:#172535;
+  --line:#5f7689
 }
 
 .blockPanel{
@@ -56,7 +55,7 @@ button{
     0 7px 0 #0b1219,
     0 14px 26px rgba(0,0,0,.28);
   border-radius:8px;
-  color:#fff;
+  color:#fff
 }
 
 .blockButton{
@@ -69,15 +68,13 @@ button{
   border-radius:7px;
   color:#fff;
   cursor:pointer;
-  text-shadow:0 2px 0 rgba(0,0,0,.3);
+  text-shadow:0 2px 0 rgba(0,0,0,.3)
 }
 
 .blockButton:active{
   transform:translateY(4px);
-  box-shadow:0 2px 0 #87390f;
+  box-shadow:0 2px 0 #87390f
 }
-
-/* INTRO */
 
 #intro{
   position:fixed;
@@ -88,23 +85,23 @@ button{
   justify-content:center;
   background:#081019;
   color:white;
-  transition:opacity .7s;
+  transition:opacity .7s
 }
 
 #intro.hide{
   opacity:0;
-  pointer-events:none;
+  pointer-events:none
 }
 
 #intro h1{
   margin:0;
   font:clamp(42px,9vw,104px) "Bungee";
   line-height:.9;
-  text-align:center;
+  text-align:center
 }
 
 #intro h1 span{
-  color:var(--orange);
+  color:var(--orange)
 }
 
 #intro .sub{
@@ -112,44 +109,42 @@ button{
   text-align:center;
   color:#a9c3d7;
   font:12px "Orbitron";
-  letter-spacing:5px;
+  letter-spacing:5px
 }
-
-/* LOBBY */
 
 #lobby{
   position:fixed;
   inset:0;
   z-index:50;
   padding:18px;
-  pointer-events:none;
+  pointer-events:none
 }
 
 #lobby>*{
-  pointer-events:auto;
+  pointer-events:auto
 }
 
 #logoBox{
   position:absolute;
   left:18px;
   top:18px;
-  padding:14px 18px;
+  padding:14px 18px
 }
 
 .gameTitle{
   font:clamp(26px,4vw,48px) "Bungee";
-  line-height:.9;
+  line-height:.9
 }
 
 .gameTitle span{
-  color:var(--orange);
+  color:var(--orange)
 }
 
 .gameSub{
   margin-top:6px;
   color:#a8bed0;
   font:10px "Orbitron";
-  letter-spacing:2px;
+  letter-spacing:2px
 }
 
 #resources{
@@ -158,21 +153,21 @@ button{
   top:18px;
   padding:10px 14px;
   display:flex;
-  gap:20px;
+  gap:20px
 }
 
 .res{
-  text-align:center;
+  text-align:center
 }
 
 .resName{
   font:9px "Orbitron";
-  color:#9eb7ca;
+  color:#9eb7ca
 }
 
 .resValue{
   font-size:19px;
-  margin-top:3px;
+  margin-top:3px
 }
 
 #langToggle{
@@ -181,7 +176,7 @@ button{
   top:92px;
   height:38px;
   padding:0 12px;
-  font:11px "Orbitron";
+  font:11px "Orbitron"
 }
 
 #selectedCard{
@@ -189,23 +184,23 @@ button{
   left:18px;
   top:125px;
   width:230px;
-  padding:13px 16px;
+  padding:13px 16px
 }
 
 #selectedName{
-  font-size:22px;
+  font-size:22px
 }
 
 #selectedStars{
   color:var(--yellow);
-  margin-top:3px;
+  margin-top:3px
 }
 
 #selectedInfo{
   margin-top:8px;
   color:#bfd0dd;
   font-size:12px;
-  line-height:1.5;
+  line-height:1.5
 }
 
 #machines{
@@ -215,22 +210,22 @@ button{
   display:flex;
   gap:10px;
   flex-wrap:wrap;
-  max-width:500px;
+  max-width:500px
 }
 
 .machineBtn{
   width:110px;
   height:98px;
-  padding:8px;
+  padding:8px
 }
 
 .machineBtn .icon{
-  font-size:32px;
+  font-size:32px
 }
 
 .machineBtn .name{
   font-size:14px;
-  margin-top:4px;
+  margin-top:4px
 }
 
 #battlePanel{
@@ -238,20 +233,20 @@ button{
   right:22px;
   bottom:24px;
   width:292px;
-  padding:13px;
+  padding:13px
 }
 
-#startBattleBtn{
+#startBattle{
   width:100%;
   height:68px;
-  font:20px "Bungee";
+  font:20px "Bungee"
 }
 
 .selectorLabel{
   margin-top:12px;
   color:#94aec2;
   font:9px "Orbitron";
-  letter-spacing:1px;
+  letter-spacing:1px
 }
 
 .selector{
@@ -261,7 +256,7 @@ button{
   grid-template-columns:45px 1fr 45px;
   align-items:center;
   background:#0e1923;
-  border:3px solid #455f74;
+  border:3px solid #455f74
 }
 
 .selector button{
@@ -269,15 +264,13 @@ button{
   border:0;
   background:#25394a;
   color:#fff;
-  font-size:20px;
+  font-size:20px
 }
 
 .selector div{
   text-align:center;
-  font-size:16px;
+  font-size:16px
 }
-
-/* MODALS */
 
 .modalWrap{
   position:fixed;
@@ -287,28 +280,28 @@ button{
   align-items:center;
   justify-content:center;
   background:rgba(3,8,13,.78);
-  padding:18px;
+  padding:18px
 }
 
 .modalWrap.show{
-  display:flex;
+  display:flex
 }
 
 .modal{
   width:min(920px,96vw);
   max-height:90vh;
   overflow:auto;
-  padding:18px;
+  padding:18px
 }
 
 .modalHeader{
   display:flex;
   justify-content:space-between;
-  align-items:center;
+  align-items:center
 }
 
 .modalTitle{
-  font:26px "Bungee";
+  font:26px "Bungee"
 }
 
 .close{
@@ -317,16 +310,14 @@ button{
   border:0;
   background:#3b5061;
   color:white;
-  font-size:18px;
+  font-size:18px
 }
-
-/* ROSTER */
 
 #rosterGrid{
   margin-top:15px;
   display:grid;
   grid-template-columns:repeat(5,1fr);
-  gap:10px;
+  gap:10px
 }
 
 .chickenCard{
@@ -335,46 +326,44 @@ button{
   background:#101b26;
   border:3px solid #334a5c;
   color:#fff;
-  cursor:pointer;
+  cursor:pointer
 }
 
 .chickenCard.locked{
   filter:grayscale(1);
-  opacity:.55;
+  opacity:.55
 }
 
 .cardColor{
   width:45px;
   height:45px;
   margin:auto;
-  border:4px solid rgba(255,255,255,.35);
+  border:4px solid rgba(255,255,255,.35)
 }
 
 .cardName{
   text-align:center;
-  margin-top:8px;
+  margin-top:8px
 }
 
 .cardStars{
   text-align:center;
   color:var(--yellow);
-  font-size:11px;
+  font-size:11px
 }
 
 .cardWeapon{
   text-align:center;
   color:#91b2c9;
   font-size:10px;
-  margin-top:5px;
+  margin-top:5px
 }
-
-/* GACHA */
 
 #gachaLayout{
   margin-top:16px;
   display:grid;
   grid-template-columns:1.1fr .9fr;
-  gap:18px;
+  gap:18px
 }
 
 #gachaMachine,
@@ -383,7 +372,7 @@ button{
   background:#0f1b26;
   border:4px solid #425c70;
   position:relative;
-  text-align:center;
+  text-align:center
 }
 
 #machineBubble{
@@ -396,7 +385,7 @@ button{
   border-radius:50%;
   background:radial-gradient(circle at 35% 25%,#ecfaff,#7bcdf4 55%,#3e83aa);
   border:9px solid #eaf7ff;
-  overflow:hidden;
+  overflow:hidden
 }
 
 .smallEgg{
@@ -405,7 +394,7 @@ button{
   height:40px;
   border-radius:50%;
   background:#ffe3a1;
-  border:3px solid #fff2cf;
+  border:3px solid #fff2cf
 }
 
 #machineBody{
@@ -416,7 +405,7 @@ button{
   height:160px;
   transform:translateX(-50%);
   background:#ff8a30;
-  border:8px solid #ffc07a;
+  border:8px solid #ffc07a
 }
 
 #machineHandle{
@@ -426,7 +415,7 @@ button{
   width:24px;
   height:85px;
   background:#ffd56d;
-  transform-origin:top center;
+  transform-origin:top center
 }
 
 #machineHandle::after{
@@ -438,7 +427,7 @@ button{
   height:42px;
   border-radius:50%;
   background:#ff4b4b;
-  border:5px solid #ffc2c2;
+  border:5px solid #ffc2c2
 }
 
 #gachaEgg{
@@ -452,15 +441,15 @@ button{
   border-radius:50%;
   background:#ffe5a4;
   border:7px solid #fff3d1;
-  z-index:4;
+  z-index:4
 }
 
 #gachaEgg.show{
-  display:block;
+  display:block
 }
 
 #gachaEgg.shake{
-  animation:shake .14s infinite alternate;
+  animation:shake .14s infinite alternate
 }
 
 @keyframes shake{
@@ -470,31 +459,30 @@ button{
 
 #resultChicken{
   font-size:68px;
-  margin-top:70px;
+  margin-top:70px
 }
 
 #resultName{
   font-size:25px;
-  margin-top:8px;
+  margin-top:8px
 }
 
 #resultStars{
   color:var(--yellow);
-  margin-top:5px;
+  margin-top:5px
 }
 
 #gachaCost{
   color:#acc5d7;
   margin:14px 18px;
+  line-height:1.4
 }
 
 #gachaRoll{
   width:90%;
   height:56px;
-  font:16px "Bungee";
+  font:16px "Bungee"
 }
-
-/* HUD */
 
 #hud{
   display:none;
@@ -502,20 +490,20 @@ button{
   inset:0;
   z-index:100;
   pointer-events:none;
-  color:white;
+  color:white
 }
 
 .hudPanel{
   background:rgba(10,19,28,.86);
   border:3px solid rgba(120,150,175,.82);
-  box-shadow:0 5px 0 rgba(0,0,0,.4);
+  box-shadow:0 5px 0 rgba(0,0,0,.4)
 }
 
 #hudTopLeft{
   position:absolute;
   left:14px;
   top:14px;
-  padding:9px 12px;
+  padding:9px 12px
 }
 
 #hudTopCenter{
@@ -524,7 +512,7 @@ button{
   top:14px;
   transform:translateX(-50%);
   padding:8px 18px;
-  text-align:center;
+  text-align:center
 }
 
 #hudTopRight{
@@ -532,47 +520,48 @@ button{
   right:14px;
   top:14px;
   padding:9px 12px;
-  text-align:right;
+  text-align:right
 }
 
 .bigHud{
-  font-size:20px;
+  font-size:20px
 }
 
 .smallHud{
   font:9px "Orbitron";
-  color:#9fb8cc;
+  color:#9fb8cc
 }
 
 #playerHP{
   position:absolute;
   left:14px;
   bottom:16px;
-  width:220px;
+  width:220px
 }
 
 #hpText{
   font-size:13px;
+  margin-bottom:4px
 }
 
 .barBG{
   height:15px;
   background:#16212b;
-  border:2px solid #53697b;
+  border:2px solid #53697b
 }
 
 .barFill{
-  height:100%;
+  height:100%
 }
 
 #hpFill{
   width:100%;
-  background:#60d46c;
+  background:#60d46c
 }
 
 #xpFill{
   width:0;
-  background:#64ccff;
+  background:#64ccff
 }
 
 #skillHud{
@@ -581,17 +570,17 @@ button{
   bottom:16px;
   width:185px;
   padding:10px;
-  text-align:center;
+  text-align:center
 }
 
 #skillName{
-  font-size:17px;
+  font-size:17px
 }
 
 #skillCD{
   margin-top:5px;
   font:10px "Orbitron";
-  color:#aec3d2;
+  color:#aec3d2
 }
 
 #message{
@@ -602,10 +591,11 @@ button{
   font:27px "Bungee";
   text-shadow:0 3px #000;
   opacity:0;
+  transition:.15s
 }
 
 #message.show{
-  opacity:1;
+  opacity:1
 }
 
 .damage{
@@ -614,13 +604,28 @@ button{
   pointer-events:none;
   color:#fff;
   font:22px "Bungee";
-  text-shadow:-2px -2px #000,2px -2px #000,-2px 2px #000,2px 2px #000;
-  animation:dmg .7s forwards;
+  text-shadow:
+    -2px -2px #000,
+    2px -2px #000,
+    -2px 2px #000,
+    2px 2px #000;
+  animation:dmg .7s forwards
+}
+
+.damage.crit{
+  color:var(--yellow);
+  font-size:29px
 }
 
 @keyframes dmg{
-  from{transform:translate(-50%,-50%);opacity:1}
-  to{transform:translate(-50%,-115%);opacity:0}
+  from{
+    transform:translate(-50%,-50%);
+    opacity:1
+  }
+  to{
+    transform:translate(-50%,-115%);
+    opacity:0
+  }
 }
 
 .enemyMarker{
@@ -633,7 +638,7 @@ button{
   background:#ff3535;
   border:3px solid white;
   box-shadow:0 0 10px #ff3535;
-  transform:translate(-50%,-50%);
+  transform:translate(-50%,-50%)
 }
 
 #dangerIndicator{
@@ -645,15 +650,15 @@ button{
   transform:translate(-50%,-50%);
   font:38px "Bungee";
   color:#ff3c3c;
+  text-shadow:0 3px #000,0 0 14px #ff3131;
+  pointer-events:none
 }
-
-/* MOBILE */
 
 #touchLayer{
   display:none;
   position:absolute;
   inset:0;
-  pointer-events:auto;
+  pointer-events:auto
 }
 
 #moveBase{
@@ -665,7 +670,7 @@ button{
   background:rgba(10,20,30,.28);
   border:4px solid rgba(255,255,255,.38);
   transform:translate(-50%,-50%);
-  z-index:5;
+  z-index:5
 }
 
 #moveKnob{
@@ -676,6 +681,7 @@ button{
   top:38px;
   border-radius:50%;
   background:rgba(255,255,255,.8);
+  box-shadow:0 4px rgba(0,0,0,.25)
 }
 
 #shootMobile{
@@ -688,6 +694,7 @@ button{
   border-radius:50%;
   pointer-events:auto;
   z-index:10;
+  font:15px "Bungee"
 }
 
 #skillMobile{
@@ -697,8 +704,42 @@ button{
   bottom:82px;
   width:84px;
   height:84px;
+  border-radius:18px;
   pointer-events:auto;
-  z-index:10;
+  z-index:10
+}
+
+#upgradeGrid{
+  margin-top:18px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px
+}
+
+.upgradeCard{
+  min-height:170px;
+  padding:16px;
+  background:#101c27;
+  border:4px solid #3f586d;
+  color:white;
+  text-align:center;
+  cursor:pointer
+}
+
+.upgradeIcon{
+  font-size:40px
+}
+
+.upgradeName{
+  margin-top:9px;
+  font-size:20px;
+  color:var(--yellow)
+}
+
+.upgradeDesc{
+  margin-top:7px;
+  color:#b7cad9;
+  font-size:12px
 }
 
 #gameOver{
@@ -708,86 +749,178 @@ button{
   z-index:900;
   align-items:center;
   justify-content:center;
-  background:rgba(4,8,12,.82);
+  background:rgba(4,8,12,.82)
 }
 
 #gameOverCard{
   width:min(440px,90vw);
   padding:24px;
-  text-align:center;
+  text-align:center
 }
 
 #gameOverTitle{
   font:38px "Bungee";
-  color:#ff8241;
+  color:#ff8241
 }
 
 #gameOverStats{
   margin-top:14px;
   line-height:1.8;
-  font:12px "Orbitron";
+  font:12px "Orbitron"
 }
 
 #returnLobby{
   width:100%;
   height:55px;
-  margin-top:17px;
+  margin-top:17px
 }
 
 #tutorialModal .modal{
   width:min(650px,94vw);
-  text-align:center;
+  text-align:center
 }
 
 #tutorialIcon{
-  font-size:58px;
+  font-size:58px
 }
 
 #tutorialTitle{
   font:28px "Bungee";
   color:var(--yellow);
-  margin:10px 0;
+  margin:10px 0
 }
 
 #tutorialText{
   font-size:18px;
+  line-height:1.5;
+  color:#d7e7f3
 }
 
 #tutorialControls{
   font:11px "Orbitron";
+  line-height:1.7;
   color:#8fcdf1;
-  margin:12px 0;
+  margin:12px 0
 }
 
 #tutorialNext{
   width:100%;
   height:56px;
+  font:16px "Bungee"
+}
+
+#noticeText{
+  font-size:18px;
+  color:#c9dceb;
+  margin:16px 0
+}
+
+#fatalError{
+  position:fixed;
+  inset:0;
+  z-index:3000;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  background:rgba(4,7,10,.92);
+  padding:18px;
+  color:#fff
+}
+
+#fatalError.show{
+  display:flex
+}
+
+#fatalErrorCard{
+  width:min(650px,94vw);
+  padding:22px
+}
+
+#fatalErrorTitle{
+  font:24px "Bungee";
+  color:#ff6969
+}
+
+#fatalErrorText{
+  margin-top:12px;
+  white-space:pre-wrap;
+  word-break:break-word;
+  font:12px "Orbitron";
+  line-height:1.6;
+  color:#d9e7f2
 }
 
 @media(pointer:coarse){
   #touchLayer,
   #skillMobile,
   #shootMobile{
-    display:block;
+    display:block
   }
 
   #skillHud{
-    display:none;
+    display:none
   }
 
   #playerHP{
     width:158px;
+    bottom:10px
+  }
+
+  #hudTopLeft,
+  #hudTopRight{
+    transform:scale(.82);
+    transform-origin:top left
+  }
+
+  #hudTopRight{
+    transform-origin:top right
+  }
+
+  #hudTopCenter{
+    transform:translateX(-50%) scale(.82);
+    transform-origin:top center
   }
 
   #rosterGrid{
-    grid-template-columns:repeat(3,1fr);
+    grid-template-columns:repeat(3,1fr)
   }
 
   #gachaLayout{
-    grid-template-columns:1fr;
+    grid-template-columns:1fr
   }
 }
 
+@media(max-width:700px){
+  #machines{
+    gap:6px;
+    max-width:280px
+  }
+
+  .machineBtn{
+    width:82px;
+    height:82px
+  }
+
+  .machineBtn .icon{
+    font-size:25px
+  }
+
+  .machineBtn .name{
+    font-size:11px
+  }
+
+  #battlePanel{
+    width:245px
+  }
+
+  #selectedCard{
+    width:185px
+  }
+
+  #resources{
+    gap:10px
+  }
+}
 </style>
 </head>
 
@@ -803,25 +936,49 @@ button{
 <div id="lobby">
 
   <div id="logoBox" class="blockPanel">
-    <div class="gameTitle">爆<span>小鸡</span></div>
-    <div class="gameSub">BOOM CHICKEN</div>
+    <div class="gameTitle">
+      爆<span>小鸡</span>
+    </div>
+    <div class="gameSub">
+      BOOM CHICKEN
+    </div>
   </div>
 
-  <button id="langToggle" class="blockButton" onclick="toggleLanguage()">中文</button>
+  <button
+    id="langToggle"
+    class="blockButton"
+    onclick="toggleLanguage()"
+  >
+    中文
+  </button>
 
-  <div id="resources" class="blockPanel">
+  <div
+    id="resources"
+    class="blockPanel"
+  >
     <div class="res">
       <div class="resName">EGGS</div>
-      <div class="resValue">🥚 <span id="lobbyEggs">1000</span></div>
+      <div class="resValue">
+        🥚
+        <span id="lobbyEggs">1000</span>
+      </div>
     </div>
 
     <div class="res">
       <div class="resName">RANK</div>
-      <div class="resValue" id="lobbyRank">UNRANKED</div>
+      <div
+        class="resValue"
+        id="lobbyRank"
+      >
+        UNRANKED
+      </div>
     </div>
   </div>
 
-  <div id="selectedCard" class="blockPanel">
+  <div
+    id="selectedCard"
+    class="blockPanel"
+  >
     <div id="selectedName"></div>
     <div id="selectedStars"></div>
     <div id="selectedInfo"></div>
@@ -829,43 +986,95 @@ button{
 
   <div id="machines">
 
-    <button class="machineBtn blockButton" onclick="openRoster()">
+    <button
+      class="machineBtn blockButton"
+      onclick="openRoster()"
+    >
       <div class="icon">🐔</div>
-      <div class="name" id="chickensLabel">CHICKENS</div>
+      <div
+        class="name"
+        id="chickensLabel"
+      >
+        CHICKENS
+      </div>
     </button>
 
-    <button class="machineBtn blockButton" onclick="openGacha()">
+    <button
+      class="machineBtn blockButton"
+      onclick="openGacha()"
+    >
       <div class="icon">🥚</div>
       <div class="name">GACHA</div>
     </button>
 
-    <button class="machineBtn blockButton" onclick="showLobbyMessage()">
+    <button
+      class="machineBtn blockButton"
+      onclick="showLobbyMessage()"
+    >
       <div class="icon">📋</div>
-      <div class="name" id="missionsLabel">MISSIONS</div>
+      <div
+        class="name"
+        id="missionsLabel"
+      >
+        MISSIONS
+      </div>
     </button>
 
-    <button class="machineBtn blockButton" onclick="openTutorial()">
+    <button
+      class="machineBtn blockButton"
+      onclick="openTutorial()"
+    >
       <div class="icon">❓</div>
-      <div class="name" id="howToLabel">HOW TO PLAY</div>
+      <div
+        class="name"
+        id="howToLabel"
+      >
+        HOW TO PLAY
+      </div>
     </button>
 
   </div>
 
-  <div id="battlePanel" class="blockPanel">
+  <div
+    id="battlePanel"
+    class="blockPanel"
+  >
 
-    <button id="startBattleBtn" class="blockButton" onclick="startBattle()">
+    <button
+      id="startBattle"
+      class="blockButton"
+      onclick="startBattle()"
+    >
       START BATTLE
     </button>
 
-    <div id="modeLabel" class="selectorLabel">MODE</div>
-
-    <div class="selector">
-      <button onclick="changeMode(-1)">◀</button>
-      <div id="modeName">SURVIVAL</div>
-      <button onclick="changeMode(1)">▶</button>
+    <div
+      class="selectorLabel"
+      id="modeLabel"
+    >
+      MODE
     </div>
 
-    <div id="mapLabel" class="selectorLabel">MAP</div>
+    <div class="selector">
+      <button onclick="changeMode(-1)">
+        ◀
+      </button>
+
+      <div id="modeName">
+        SURVIVAL
+      </div>
+
+      <button onclick="changeMode(1)">
+        ▶
+      </button>
+    </div>
+
+    <div
+      class="selectorLabel"
+      id="mapLabel"
+    >
+      MAP
+    </div>
 
     <div class="selector">
       <button>◀</button>
@@ -877,12 +1086,23 @@ button{
 
 </div>
 
-<div id="rosterModal" class="modalWrap">
+<div
+  id="rosterModal"
+  class="modalWrap"
+>
   <div class="modal blockPanel">
 
     <div class="modalHeader">
-      <div class="modalTitle">CHICKENS</div>
-      <button class="close" onclick="closeRoster()">✕</button>
+      <div class="modalTitle">
+        CHICKENS
+      </div>
+
+      <button
+        class="close"
+        onclick="closeRoster()"
+      >
+        ✕
+      </button>
     </div>
 
     <div id="rosterGrid"></div>
@@ -890,12 +1110,25 @@ button{
   </div>
 </div>
 
-<div id="gachaModal" class="modalWrap">
+<div
+  id="gachaModal"
+  class="modalWrap"
+>
   <div class="modal blockPanel">
 
     <div class="modalHeader">
-      <div class="modalTitle">GACHA MACHINE</div>
-      <button class="close" onclick="closeGacha()">✕</button>
+
+      <div class="modalTitle">
+        GACHA MACHINE
+      </div>
+
+      <button
+        class="close"
+        onclick="closeGacha()"
+      >
+        ✕
+      </button>
+
     </div>
 
     <div id="gachaLayout">
@@ -903,11 +1136,42 @@ button{
       <div id="gachaMachine">
 
         <div id="machineBubble">
-          <div class="smallEgg" style="left:28px;top:32px"></div>
-          <div class="smallEgg" style="left:78px;top:20px;background:#ffd4ec"></div>
-          <div class="smallEgg" style="left:128px;top:40px;background:#cbe7ff"></div>
-          <div class="smallEgg" style="left:170px;top:66px"></div>
-          <div class="smallEgg" style="left:48px;top:95px;background:#d0ffd3"></div>
+
+          <div
+            class="smallEgg"
+            style="left:28px;top:32px"
+          ></div>
+
+          <div
+            class="smallEgg"
+            style="left:78px;top:20px;background:#ffd4ec"
+          ></div>
+
+          <div
+            class="smallEgg"
+            style="left:128px;top:40px;background:#cbe7ff"
+          ></div>
+
+          <div
+            class="smallEgg"
+            style="left:170px;top:66px"
+          ></div>
+
+          <div
+            class="smallEgg"
+            style="left:48px;top:95px;background:#d0ffd3"
+          ></div>
+
+          <div
+            class="smallEgg"
+            style="left:112px;top:106px"
+          ></div>
+
+          <div
+            class="smallEgg"
+            style="left:160px;top:123px;background:#ebd8ff"
+          ></div>
+
         </div>
 
         <div id="machineBody">
@@ -920,21 +1184,41 @@ button{
 
       <div id="gachaResult">
 
-        <div style="font:10px Orbitron;color:#9ab2c5;margin-top:20px">
-          1★ 55% · 2★ 27% · 3★ 12% · 4★ 5% · 5★ 1%
+        <div
+          style="
+            font:10px Orbitron;
+            color:#9ab2c5;
+            margin-top:20px
+          "
+        >
+          1★ 55% ·
+          2★ 27% ·
+          3★ 12% ·
+          4★ 5% ·
+          5★ 1%
         </div>
 
-        <div id="resultChicken">🥚</div>
+        <div id="resultChicken">
+          🥚
+        </div>
 
-        <div id="resultName">READY</div>
+        <div id="resultName">
+          READY
+        </div>
 
-        <div id="resultStars">500 EGGS PER ROLL</div>
+        <div id="resultStars">
+          500 EGGS PER ROLL
+        </div>
 
         <div id="gachaCost">
           Duplicates automatically convert to fragments.
         </div>
 
-        <button id="gachaRoll" class="blockButton" onclick="rollGacha()">
+        <button
+          id="gachaRoll"
+          class="blockButton"
+          onclick="rollGacha()"
+        >
           ROLL · 🥚500
         </button>
 
@@ -945,10 +1229,30 @@ button{
   </div>
 </div>
 
-<div id="tutorialModal" class="modalWrap">
+<div
+  id="upgradeModal"
+  class="modalWrap"
+>
   <div class="modal blockPanel">
 
-    <div id="tutorialIcon">🐔</div>
+    <div class="modalTitle">
+      LEVEL UP
+    </div>
+
+    <div id="upgradeGrid"></div>
+
+  </div>
+</div>
+
+<div
+  id="tutorialModal"
+  class="modalWrap"
+>
+  <div class="modal blockPanel">
+
+    <div id="tutorialIcon">
+      🐔
+    </div>
 
     <div id="tutorialTitle"></div>
 
@@ -956,19 +1260,42 @@ button{
 
     <div id="tutorialControls"></div>
 
-    <button id="tutorialNext" class="blockButton" onclick="nextTutorial()"></button>
+    <button
+      id="tutorialNext"
+      class="blockButton"
+      onclick="nextTutorial()"
+    ></button>
 
   </div>
 </div>
 
-<div id="noticeModal" class="modalWrap">
-  <div class="modal blockPanel" style="width:min(430px,90vw);text-align:center">
+<div
+  id="noticeModal"
+  class="modalWrap"
+>
+  <div
+    class="modal blockPanel"
+    style="
+      width:min(430px,90vw);
+      text-align:center
+    "
+  >
 
-    <div class="modalTitle" id="noticeTitle"></div>
+    <div
+      class="modalTitle"
+      id="noticeTitle"
+    ></div>
 
     <div id="noticeText"></div>
 
-    <button class="blockButton" style="width:100%;height:50px" onclick="closeLobbyMessage()">
+    <button
+      class="blockButton"
+      style="
+        width:100%;
+        height:50px
+      "
+      onclick="closeLobbyMessage()"
+    >
       CLOSE / 关闭
     </button>
 
@@ -977,40 +1304,94 @@ button{
 
 <div id="hud">
 
-  <div id="hudTopLeft" class="hudPanel">
-    <div class="bigHud" id="hudChicken"></div>
+  <div
+    id="hudTopLeft"
+    class="hudPanel"
+  >
+    <div
+      class="bigHud"
+      id="hudChicken"
+    ></div>
+
     <div class="smallHud">
-      <span id="killsLabel">KILLS</span>
-      <span id="killCount">0</span>
+      <span id="killsLabel">
+        KILLS
+      </span>
+
+      <span id="killCount">
+        0
+      </span>
     </div>
   </div>
 
-  <div id="hudTopCenter" class="hudPanel">
-    <div class="bigHud" id="waveText">WAVE 1</div>
-    <div class="smallHud" id="enemyText">ENEMIES 0</div>
+  <div
+    id="hudTopCenter"
+    class="hudPanel"
+  >
+    <div
+      class="bigHud"
+      id="waveText"
+    >
+      WAVE 1
+    </div>
+
+    <div
+      class="smallHud"
+      id="enemyText"
+    >
+      ENEMIES 0
+    </div>
   </div>
 
-  <div id="hudTopRight" class="hudPanel">
-    <div class="bigHud">🥚 <span id="battleEggCount">0</span></div>
+  <div
+    id="hudTopRight"
+    class="hudPanel"
+  >
+    <div class="bigHud">
+      🥚
+      <span id="battleEggCount">
+        0
+      </span>
+    </div>
+
     <div class="smallHud">
-      <span id="levelLabel">LEVEL</span>
-      <span id="levelText">1</span>
+      <span id="levelLabel">
+        LEVEL
+      </span>
+
+      <span id="levelText">
+        1
+      </span>
     </div>
   </div>
 
   <div id="playerHP">
+
     <div id="hpText"></div>
 
     <div class="barBG">
-      <div id="hpFill" class="barFill"></div>
+      <div
+        id="hpFill"
+        class="barFill"
+      ></div>
     </div>
 
-    <div class="barBG" style="margin-top:5px">
-      <div id="xpFill" class="barFill"></div>
+    <div
+      class="barBG"
+      style="margin-top:5px"
+    >
+      <div
+        id="xpFill"
+        class="barFill"
+      ></div>
     </div>
+
   </div>
 
-  <div id="skillHud" class="hudPanel">
+  <div
+    id="skillHud"
+    class="hudPanel"
+  >
     <div id="skillName"></div>
     <div id="skillCD"></div>
   </div>
@@ -1023,107 +1404,308 @@ button{
     </div>
   </div>
 
-  <button id="skillMobile" class="blockButton">SKILL</button>
-  <button id="shootMobile" class="blockButton">FIRE</button>
+  <button
+    id="skillMobile"
+    class="blockButton"
+  >
+    SKILL
+  </button>
 
-  <div id="dangerIndicator">❗</div>
+  <button
+    id="shootMobile"
+    class="blockButton"
+  >
+    FIRE
+  </button>
+
+  <div id="dangerIndicator">
+    ❗
+  </div>
+
+</div>
+
+<div id="fatalError">
+
+  <div
+    id="fatalErrorCard"
+    class="blockPanel"
+  >
+
+    <div id="fatalErrorTitle">
+      GAME ERROR
+    </div>
+
+    <div id="fatalErrorText"></div>
+
+    <button
+      class="blockButton"
+      style="
+        width:100%;
+        height:50px;
+        margin-top:14px
+      "
+      onclick="location.reload()"
+    >
+      RELOAD / 重新载入
+    </button>
+
+  </div>
 
 </div>
 
 <div id="gameOver">
-  <div id="gameOverCard" class="blockPanel">
 
-    <div id="gameOverTitle">GAME OVER</div>
+  <div
+    id="gameOverCard"
+    class="blockPanel"
+  >
+
+    <div id="gameOverTitle">
+      GAME OVER
+    </div>
 
     <div id="gameOverStats"></div>
 
-    <button id="returnLobby" class="blockButton" onclick="returnToLobby()">
+    <button
+      id="returnLobby"
+      class="blockButton"
+      onclick="returnToLobby()"
+    >
       RETURN TO LOBBY
     </button>
 
   </div>
+
 </div>
 
 <script type="module">
 
-import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js";
+import * as THREE
+from "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js";
+
 
 /* =========================
-   EXPLICIT DOM REFERENCES
+   DOM
 ========================= */
 
-const $ = id => document.getElementById(id);
+const $ =
+id =>
+document.getElementById(id);
 
-const introEl = $("intro");
-const lobbyEl = $("lobby");
-const hudEl = $("hud");
-const gameOverEl = $("gameOver");
+const introEl =
+$("intro");
 
-const startBattleBtn = $("startBattleBtn");
-const langToggle = $("langToggle");
+const lobbyEl =
+$("lobby");
 
-const lobbyEggs = $("lobbyEggs");
-const lobbyRank = $("lobbyRank");
+const hudEl =
+$("hud");
 
-const selectedName = $("selectedName");
-const selectedStars = $("selectedStars");
-const selectedInfo = $("selectedInfo");
+const gameOverEl =
+$("gameOver");
 
-const chickensLabel = $("chickensLabel");
-const missionsLabel = $("missionsLabel");
-const howToLabel = $("howToLabel");
-const modeLabel = $("modeLabel");
-const mapLabel = $("mapLabel");
-const modeName = $("modeName");
+const startBattleBtn =
+$("startBattle");
 
-const rosterModal = $("rosterModal");
-const rosterGrid = $("rosterGrid");
+const langToggleEl =
+$("langToggle");
 
-const gachaModal = $("gachaModal");
-const machineHandle = $("machineHandle");
-const gachaEgg = $("gachaEgg");
-const resultChicken = $("resultChicken");
-const resultName = $("resultName");
-const resultStars = $("resultStars");
-const gachaCost = $("gachaCost");
+const lobbyEggsEl =
+$("lobbyEggs");
 
-const tutorialModal = $("tutorialModal");
-const tutorialIcon = $("tutorialIcon");
-const tutorialTitle = $("tutorialTitle");
-const tutorialText = $("tutorialText");
-const tutorialControls = $("tutorialControls");
-const tutorialNext = $("tutorialNext");
+const lobbyRankEl =
+$("lobbyRank");
 
-const noticeModal = $("noticeModal");
-const noticeTitle = $("noticeTitle");
-const noticeText = $("noticeText");
+const selectedNameEl =
+$("selectedName");
 
-const hudChicken = $("hudChicken");
-const killsLabel = $("killsLabel");
-const killCount = $("killCount");
-const waveText = $("waveText");
-const enemyText = $("enemyText");
-const battleEggCountEl = $("battleEggCount");
-const levelLabel = $("levelLabel");
-const levelText = $("levelText");
+const selectedStarsEl =
+$("selectedStars");
 
-const hpText = $("hpText");
-const hpFill = $("hpFill");
-const xpFill = $("xpFill");
+const selectedInfoEl =
+$("selectedInfo");
 
-const skillName = $("skillName");
-const skillCD = $("skillCD");
+const chickensLabelEl =
+$("chickensLabel");
 
-const messageEl = $("message");
-const dangerIndicator = $("dangerIndicator");
+const missionsLabelEl =
+$("missionsLabel");
 
-const touchLayer = $("touchLayer");
-const moveBase = $("moveBase");
-const moveKnob = $("moveKnob");
-const skillMobile = $("skillMobile");
-const shootMobile = $("shootMobile");
+const howToLabelEl =
+$("howToLabel");
 
-const gameOverStats = $("gameOverStats");
+const modeLabelEl =
+$("modeLabel");
+
+const mapLabelEl =
+$("mapLabel");
+
+const modeNameEl =
+$("modeName");
+
+const rosterModalEl =
+$("rosterModal");
+
+const rosterGridEl =
+$("rosterGrid");
+
+const gachaModalEl =
+$("gachaModal");
+
+const machineHandleEl =
+$("machineHandle");
+
+const gachaEggEl =
+$("gachaEgg");
+
+const resultChickenEl =
+$("resultChicken");
+
+const resultNameEl =
+$("resultName");
+
+const resultStarsEl =
+$("resultStars");
+
+const gachaCostEl =
+$("gachaCost");
+
+const upgradeModalEl =
+$("upgradeModal");
+
+const upgradeGridEl =
+$("upgradeGrid");
+
+const tutorialModalEl =
+$("tutorialModal");
+
+const tutorialIconEl =
+$("tutorialIcon");
+
+const tutorialTitleEl =
+$("tutorialTitle");
+
+const tutorialTextEl =
+$("tutorialText");
+
+const tutorialControlsEl =
+$("tutorialControls");
+
+const tutorialNextEl =
+$("tutorialNext");
+
+const noticeModalEl =
+$("noticeModal");
+
+const noticeTitleEl =
+$("noticeTitle");
+
+const noticeTextEl =
+$("noticeText");
+
+const hudChickenEl =
+$("hudChicken");
+
+const killsLabelEl =
+$("killsLabel");
+
+const killCountEl =
+$("killCount");
+
+const waveTextEl =
+$("waveText");
+
+const enemyTextEl =
+$("enemyText");
+
+const battleEggCountEl =
+$("battleEggCount");
+
+const levelLabelEl =
+$("levelLabel");
+
+const levelTextEl =
+$("levelText");
+
+const hpTextEl =
+$("hpText");
+
+const hpFillEl =
+$("hpFill");
+
+const xpFillEl =
+$("xpFill");
+
+const skillNameEl =
+$("skillName");
+
+const skillCDEl =
+$("skillCD");
+
+const messageEl =
+$("message");
+
+const dangerIndicatorEl =
+$("dangerIndicator");
+
+const gameOverStatsEl =
+$("gameOverStats");
+
+const fatalErrorEl =
+$("fatalError");
+
+const fatalErrorTextEl =
+$("fatalErrorText");
+
+
+/* =========================
+   ERROR SCREEN
+========================= */
+
+function showFatalError(error){
+
+  console.error(error);
+
+  gameActive=false;
+  paused=true;
+
+  const msg=
+  error?.stack
+  ||
+  error?.message
+  ||
+  String(error);
+
+  fatalErrorTextEl.textContent=
+  msg;
+
+  fatalErrorEl.classList.add(
+    "show"
+  );
+}
+
+window.addEventListener(
+  "error",
+  event=>
+  showFatalError(
+    event.error
+    ||
+    new Error(event.message)
+  )
+);
+
+window.addEventListener(
+  "unhandledrejection",
+  event=>
+  showFatalError(
+    event.reason
+    ||
+    new Error(
+      "Unhandled promise rejection"
+    )
+  )
+);
+
 
 /* =========================
    CHICKENS
@@ -1131,43 +1713,240 @@ const gameOverStats = $("gameOverStats");
 
 const CHICKENS=[
 
-{id:"white",name:"WHITE CHICKEN",zh:"白鸡",stars:1,color:0xffffff,weapon:"Pistol",skill:"Power Shot",damage:17,fireRate:.38,range:15,speed:5.8,skillCD:6},
+{
+id:"white",
+name:"WHITE CHICKEN",
+zh:"白鸡",
+stars:1,
+color:0xffffff,
+weapon:"Pistol",
+skill:"Power Shot",
+damage:17,
+fireRate:.38,
+range:15,
+speed:5.8,
+skillCD:6
+},
 
-{id:"black",name:"BLACK CHICKEN",zh:"黑鸡",stars:1,color:0x22252a,weapon:"Dual Pistols",skill:"Frenzy",damage:11,fireRate:.22,range:14,speed:6,skillCD:8},
+{
+id:"black",
+name:"BLACK CHICKEN",
+zh:"黑鸡",
+stars:1,
+color:0x22252a,
+weapon:"Dual Pistols",
+skill:"Frenzy",
+damage:11,
+fireRate:.22,
+range:14,
+speed:6,
+skillCD:8
+},
 
-{id:"yellow",name:"YELLOW CHICKEN",zh:"黄鸡",stars:1,color:0xffd84e,weapon:"Heavy Slingshot",skill:"Giant Egg",damage:24,fireRate:.65,range:16,speed:5.4,skillCD:7},
+{
+id:"yellow",
+name:"YELLOW CHICKEN",
+zh:"黄鸡",
+stars:1,
+color:0xffd84e,
+weapon:"Heavy Slingshot",
+skill:"Giant Egg",
+damage:24,
+fireRate:.65,
+range:16,
+speed:5.4,
+skillCD:7
+},
 
-{id:"brown",name:"BROWN CHICKEN",zh:"棕鸡",stars:2,color:0x8f542e,weapon:"Shotgun",skill:"360 Blast",damage:10,fireRate:.85,range:9,speed:5.4,skillCD:8},
+{
+id:"brown",
+name:"BROWN CHICKEN",
+zh:"棕鸡",
+stars:2,
+color:0x8f542e,
+weapon:"Shotgun",
+skill:"360 Blast",
+damage:10,
+fireRate:.85,
+range:9,
+speed:5.4,
+skillCD:8
+},
 
-{id:"green",name:"GREEN CHICKEN",zh:"毒气鸡",stars:2,color:0x5aba63,weapon:"Poison Gun",skill:"Poison Gas",damage:12,fireRate:.34,range:13,speed:5.6,skillCD:8},
+{
+id:"green",
+name:"GREEN CHICKEN",
+zh:"毒气鸡",
+stars:2,
+color:0x5aba63,
+weapon:"Poison Gun",
+skill:"Poison Gas",
+damage:12,
+fireRate:.34,
+range:13,
+speed:5.6,
+skillCD:8
+},
 
-{id:"blue",name:"BLUE CHICKEN",zh:"蓝鸡",stars:2,color:0x5ba9ff,weapon:"SMG",skill:"Speed Mode",damage:8,fireRate:.13,range:12,speed:6.2,skillCD:8},
+{
+id:"blue",
+name:"BLUE CHICKEN",
+zh:"蓝鸡",
+stars:2,
+color:0x5ba9ff,
+weapon:"SMG",
+skill:"Speed Mode",
+damage:8,
+fireRate:.13,
+range:12,
+speed:6.2,
+skillCD:8
+},
 
-{id:"cowboy",name:"COWBOY CHICKEN",zh:"牛仔鸡",stars:3,color:0xc28a4b,weapon:"Revolver",skill:"Quick Draw",damage:23,fireRate:.58,range:16,speed:5.8,skillCD:8},
+{
+id:"cowboy",
+name:"COWBOY CHICKEN",
+zh:"牛仔鸡",
+stars:3,
+color:0xc28a4b,
+weapon:"Revolver",
+skill:"Quick Draw",
+damage:23,
+fireRate:.58,
+range:16,
+speed:5.8,
+skillCD:8
+},
 
-{id:"ninja",name:"NINJA CHICKEN",zh:"忍者鸡",stars:3,color:0x383844,weapon:"Shuriken",skill:"Shadow Clone",damage:16,fireRate:.32,range:14,speed:6.4,skillCD:9},
+{
+id:"ninja",
+name:"NINJA CHICKEN",
+zh:"忍者鸡",
+stars:3,
+color:0x383844,
+weapon:"Shuriken",
+skill:"Shadow Clone",
+damage:16,
+fireRate:.32,
+range:14,
+speed:6.4,
+skillCD:9
+},
 
-{id:"pirate",name:"PIRATE CHICKEN",zh:"海盗鸡",stars:3,color:0x653d2d,weapon:"Musket",skill:"Cannon Barrage",damage:28,fireRate:.8,range:18,speed:5.2,skillCD:10},
+{
+id:"pirate",
+name:"PIRATE CHICKEN",
+zh:"海盗鸡",
+stars:3,
+color:0x653d2d,
+weapon:"Musket",
+skill:"Cannon Barrage",
+damage:28,
+fireRate:.8,
+range:18,
+speed:5.2,
+skillCD:10
+},
 
-{id:"doctor",name:"DOCTOR CHICKEN",zh:"医生鸡",stars:3,color:0xf3f4f4,weapon:"Medical Gun",skill:"Heal",damage:13,fireRate:.38,range:13,speed:5.5,skillCD:10},
+{
+id:"doctor",
+name:"DOCTOR CHICKEN",
+zh:"医生鸡",
+stars:3,
+color:0xf3f4f4,
+weapon:"Medical Gun",
+skill:"Heal",
+damage:13,
+fireRate:.38,
+range:13,
+speed:5.5,
+skillCD:10
+},
 
-{id:"wizard",name:"WIZARD CHICKEN",zh:"法师鸡",stars:3,color:0x8057d9,weapon:"Magic Bolt",skill:"Magic Storm",damage:18,fireRate:.42,range:15,speed:5.4,skillCD:9},
+{
+id:"wizard",
+name:"WIZARD CHICKEN",
+zh:"法师鸡",
+stars:3,
+color:0x8057d9,
+weapon:"Magic Bolt",
+skill:"Magic Storm",
+damage:18,
+fireRate:.42,
+range:15,
+speed:5.4,
+skillCD:9
+},
 
-{id:"robot",name:"ROBOT CHICKEN",zh:"机器人鸡",stars:4,color:0x9aa5ae,weapon:"Laser Cannon",skill:"Energy Shield",damage:19,fireRate:.31,range:17,speed:5.5,skillCD:11},
+{
+id:"robot",
+name:"ROBOT CHICKEN",
+zh:"机器人鸡",
+stars:4,
+color:0x9aa5ae,
+weapon:"Laser Cannon",
+skill:"Energy Shield",
+damage:19,
+fireRate:.31,
+range:17,
+speed:5.5,
+skillCD:11
+},
 
-{id:"fire",name:"FIRE CHICKEN",zh:"火焰鸡",stars:4,color:0xf05b32,weapon:"Flamethrower",skill:"Flame Field",damage:9,fireRate:.12,range:9,speed:5.6,skillCD:9},
+{
+id:"fire",
+name:"FIRE CHICKEN",
+zh:"火焰鸡",
+stars:4,
+color:0xf05b32,
+weapon:"Flamethrower",
+skill:"Flame Field",
+damage:9,
+fireRate:.12,
+range:9,
+speed:5.6,
+skillCD:9
+},
 
-{id:"ice",name:"FROST CHICKEN",zh:"冰霜鸡",stars:4,color:0x8edcff,weapon:"Freeze Cannon",skill:"Freeze",damage:16,fireRate:.4,range:14,speed:5.4,skillCD:10},
+{
+id:"ice",
+name:"FROST CHICKEN",
+zh:"冰霜鸡",
+stars:4,
+color:0x8edcff,
+weapon:"Freeze Cannon",
+skill:"Freeze",
+damage:16,
+fireRate:.4,
+range:14,
+speed:5.4,
+skillCD:10
+},
 
-{id:"thunder",name:"THUNDER CHICKEN",zh:"雷霆鸡",stars:5,color:0xffe04f,weapon:"Lightning Cannon",skill:"Thunderstorm",damage:23,fireRate:.45,range:17,speed:5.8,skillCD:11}
+{
+id:"thunder",
+name:"THUNDER CHICKEN",
+zh:"雷霆鸡",
+stars:5,
+color:0xffe04f,
+weapon:"Lightning Cannon",
+skill:"Thunderstorm",
+damage:23,
+fireRate:.45,
+range:17,
+speed:5.8,
+skillCD:11
+}
 
 ];
+
 
 const MODES=[
   "SURVIVAL",
   "AI BRAWL",
   "RANKED BRAWL"
 ];
+
 
 const RANKS=[
   "UNRANKED",
@@ -1179,45 +1958,84 @@ const RANKS=[
   "WORLD'S STRONGEST"
 ];
 
+
 const DEFAULT_SAVE={
   eggs:1000,
   selected:"white",
-  unlocked:["white","black","yellow"],
+  unlocked:[
+    "white",
+    "black",
+    "yellow"
+  ],
   fragments:{},
   rankPoints:0,
   language:"en",
   tutorialSeen:false
 };
 
+
 let save=
 JSON.parse(
-  localStorage.getItem("boomChickenSave") || "null"
+  localStorage.getItem(
+    "boomChickenSave"
+  )
+  ||
+  "null"
 )
 ||
-structuredClone(DEFAULT_SAVE);
+structuredClone(
+  DEFAULT_SAVE
+);
 
-save.language=save.language || "en";
-save.tutorialSeen=!!save.tutorialSeen;
+
+save.language=
+save.language
+||
+"en";
+
+
+save.tutorialSeen=
+!!save.tutorialSeen;
+
+
+function getChicken(id){
+
+  return(
+    CHICKENS.find(
+      chicken=>
+      chicken.id===id
+    )
+    ||
+    CHICKENS[0]
+  );
+}
+
+
+let selectedChicken=
+getChicken(
+  save.selected
+);
+
 
 function saveGame(){
+
   localStorage.setItem(
     "boomChickenSave",
     JSON.stringify(save)
   );
 }
 
-function getChicken(id){
-  return CHICKENS.find(c=>c.id===id) || CHICKENS[0];
-}
 
 function getRank(){
+
   return Math.min(
     6,
-    Math.floor(save.rankPoints/250)
+    Math.floor(
+      save.rankPoints/250
+    )
   );
 }
 
-let selectedChicken=getChicken(save.selected);
 
 /* =========================
    LANGUAGE
@@ -1233,11 +2051,13 @@ en:{
   mode:"MODE",
   map:"MAP",
   missionTitle:"MISSION BOARD",
-  missionText:"Missions are coming next.",
+  missionText:
+  "Missions are coming next. Keep fighting, levelling up and collecting eggs.",
   next:"NEXT",
   go:"LET'S GO!",
   kills:"KILLS",
-  level:"LEVEL"
+  level:"LEVEL",
+  ready:"READY"
 },
 
 zh:{
@@ -1248,95 +2068,185 @@ zh:{
   mode:"模式",
   map:"地图",
   missionTitle:"任务板",
-  missionText:"任务系统正在制作中。",
+  missionText:
+  "任务系统正在制作中。先继续战斗、升级和收集蛋币。",
   next:"下一步",
   go:"开始游戏",
   kills:"击杀",
-  level:"等级"
+  level:"等级",
+  ready:"就绪"
 }
 
 };
 
+
 const TUTORIAL=[
 
 {
-  icon:"🐔",
-  en:["WELCOME TO BOOM CHICKEN","Choose your chicken and enter the arena.",""],
-  zh:["欢迎来到《爆小鸡》","选择你的小鸡，进入竞技场战斗。",""]
+i:"🐔",
+en:[
+  "WELCOME TO BOOM CHICKEN",
+  "Choose your chicken and enter the arena.",
+  ""
+],
+zh:[
+  "欢迎来到《爆小鸡》",
+  "选择你的小鸡，进入竞技场战斗。",
+  ""
+]
 },
 
 {
-  icon:"🎮",
-  en:["MOVE","Use WASD to move.","Mobile: use the left joystick."],
-  zh:["移动","电脑使用 WASD 移动。","手机：使用左侧摇杆。"]
+i:"🎮",
+en:[
+  "MOVE",
+  "Use WASD to move.",
+  "Mobile: use the large left joystick."
+],
+zh:[
+  "移动",
+  "电脑使用 WASD 移动。",
+  "手机：使用左侧大摇杆。"
+]
 },
 
 {
-  icon:"🎯",
-  en:["AIM","Hold RIGHT MOUSE to aim.","Mobile: drag on the right side."],
-  zh:["瞄准","按住鼠标右键瞄准。","手机：在屏幕右侧拖动瞄准。"]
+i:"🎯",
+en:[
+  "AIM",
+  "Hold RIGHT MOUSE to aim.",
+  "Mobile: drag on the right side to aim."
+],
+zh:[
+  "瞄准",
+  "电脑按住鼠标右键瞄准。",
+  "手机：在屏幕右侧拖动瞄准。"
+]
 },
 
 {
-  icon:"💥",
-  en:["SHOOT","Hold LEFT MOUSE while aiming.","Mobile: hold FIRE."],
-  zh:["射击","瞄准时按住鼠标左键射击。","手机：按住 FIRE。"]
+i:"💥",
+en:[
+  "SHOOT",
+  "While aiming, hold LEFT MOUSE to fire.",
+  "Mobile: hold the FIRE button."
+],
+zh:[
+  "射击",
+  "瞄准时按住鼠标左键射击。",
+  "手机：按住 FIRE 射击按钮。"
+]
 },
 
 {
-  icon:"⚡",
-  en:["SKILL","Press E to use your skill.","Mobile: press SKILL."],
-  zh:["技能","按 E 使用技能。","手机：按 SKILL。"]
+i:"⚡",
+en:[
+  "SKILL",
+  "Press E to use your chicken's unique skill.",
+  "Mobile: tap the SKILL button."
+],
+zh:[
+  "技能",
+  "按 E 使用小鸡专属技能。",
+  "手机：点击 SKILL 技能按钮。"
+]
 },
 
 {
-  icon:"🌿",
-  en:["GRASS","Grass hides you until you attack or take damage.",""],
-  zh:["草丛","草丛可以隐藏你；攻击或受伤会暴露。",""]
+i:"🌿",
+en:[
+  "GRASS",
+  "Grass can hide you from distant enemies.",
+  "Shooting, skills or taking damage reveals you."
+],
+zh:[
+  "草丛",
+  "进入草丛可以躲避远处敌人。",
+  "开枪、放技能或受伤会暴露。"
+]
 },
 
 {
-  icon:"🥚",
-  en:["PICKUPS","Collect EXP, eggs and medkits.",""],
-  zh:["掉落","收集 EXP、蛋币和血包。",""]
+i:"🥚",
+en:[
+  "PICKUPS",
+  "Collect EXP to level up, eggs for gacha, and medkits to heal.",
+  ""
+],
+zh:[
+  "掉落物",
+  "收集 EXP 升级、蛋币扭蛋、血包回血。",
+  ""
+]
 },
 
 {
-  icon:"🏆",
-  en:["SURVIVE & BRAWL","Survival has waves. Brawl: be the last chicken alive.",""],
-  zh:["生存与乱斗","生存模式打波次；乱斗模式成为最后一只鸡。",""]
+i:"🏆",
+en:[
+  "SURVIVE & BRAWL",
+  "Survival: defeat waves and bosses. Brawl: be the last chicken alive.",
+  ""
+],
+zh:[
+  "生存与乱斗",
+  "生存：击败一波波敌人和 Boss。乱斗：成为最后活着的小鸡。",
+  ""
+]
 }
 
 ];
 
+
 let tutorialIndex=0;
+
 
 function applyLanguage(){
 
-  const lang=save.language;
-  const text=I18N[lang];
+  const language=
+  save.language;
 
-  startBattleBtn.textContent=text.start;
-  missionsLabel.textContent=text.missions;
-  howToLabel.textContent=text.how;
-  chickensLabel.textContent=text.chickens;
-  modeLabel.textContent=text.mode;
-  mapLabel.textContent=text.map;
-  killsLabel.textContent=text.kills;
-  levelLabel.textContent=text.level;
+  const text=
+  I18N[language];
 
-  langToggle.textContent=
-  lang==="en"
+  startBattleBtn.textContent=
+  text.start;
+
+  missionsLabelEl.textContent=
+  text.missions;
+
+  howToLabelEl.textContent=
+  text.how;
+
+  chickensLabelEl.textContent=
+  text.chickens;
+
+  modeLabelEl.textContent=
+  text.mode;
+
+  mapLabelEl.textContent=
+  text.map;
+
+  killsLabelEl.textContent=
+  text.kills;
+
+  levelLabelEl.textContent=
+  text.level;
+
+  langToggleEl.textContent=
+  language==="en"
   ?
   "中文"
   :
   "EN";
 
   updateLobbyUI();
+
   updateHUD();
 }
 
-window.toggleLanguage=function(){
+
+window.toggleLanguage=
+()=>{
 
   save.language=
   save.language==="en"
@@ -1350,60 +2260,100 @@ window.toggleLanguage=function(){
   applyLanguage();
 
   if(
-    tutorialModal.classList.contains("show")
+    tutorialModalEl
+    .classList
+    .contains("show")
   ){
+
     renderTutorial();
   }
 };
 
-window.showLobbyMessage=function(){
 
-  const text=I18N[save.language];
+window.showLobbyMessage=
+()=>{
 
-  noticeTitle.textContent=text.missionTitle;
-  noticeText.textContent=text.missionText;
+  const text=
+  I18N[
+    save.language
+  ];
 
-  noticeModal.classList.add("show");
+  noticeTitleEl.textContent=
+  text.missionTitle;
+
+  noticeTextEl.textContent=
+  text.missionText;
+
+  noticeModalEl.classList.add(
+    "show"
+  );
 };
 
-window.closeLobbyMessage=function(){
-  noticeModal.classList.remove("show");
+
+window.closeLobbyMessage=
+()=>{
+
+  noticeModalEl
+  .classList
+  .remove("show");
 };
 
-window.openTutorial=function(){
+
+window.openTutorial=
+()=>{
 
   tutorialIndex=0;
 
-  tutorialModal.classList.add("show");
+  tutorialModalEl
+  .classList
+  .add("show");
 
   renderTutorial();
 };
 
+
 function renderTutorial(){
 
-  const lang=save.language;
+  const language=
+  save.language;
 
-  const step=TUTORIAL[tutorialIndex];
+  const data=
+  TUTORIAL[
+    tutorialIndex
+  ][language];
 
-  const data=step[lang];
+  tutorialIconEl.textContent=
+  TUTORIAL[
+    tutorialIndex
+  ].i;
 
-  tutorialIcon.textContent=step.icon;
-  tutorialTitle.textContent=data[0];
-  tutorialText.textContent=data[1];
-  tutorialControls.textContent=data[2];
+  tutorialTitleEl.textContent=
+  data[0];
 
-  tutorialNext.textContent=
-  tutorialIndex===TUTORIAL.length-1
+  tutorialTextEl.textContent=
+  data[1];
+
+  tutorialControlsEl.textContent=
+  data[2];
+
+  tutorialNextEl.textContent=
+  tutorialIndex
+  ===
+  TUTORIAL.length-1
   ?
-  I18N[lang].go
+  I18N[language].go
   :
-  I18N[lang].next;
+  I18N[language].next;
 }
 
-window.nextTutorial=function(){
+
+window.nextTutorial=
+()=>{
 
   if(
-    tutorialIndex<TUTORIAL.length-1
+    tutorialIndex
+    <
+    TUTORIAL.length-1
   ){
 
     tutorialIndex++;
@@ -1412,20 +2362,26 @@ window.nextTutorial=function(){
 
   }else{
 
-    tutorialModal.classList.remove("show");
+    tutorialModalEl
+    .classList
+    .remove("show");
 
-    save.tutorialSeen=true;
+    save.tutorialSeen=
+    true;
 
     saveGame();
   }
 };
+
 
 /* =========================
    AUDIO
 ========================= */
 
 let audioCtx=null;
+
 let aiSoundGate=0;
+
 
 function ensureAudio(){
 
@@ -1439,17 +2395,23 @@ function ensureAudio(){
     )();
   }
 
-  if(audioCtx.state==="suspended"){
+  if(
+    audioCtx.state
+    ===
+    "suspended"
+  ){
+
     audioCtx.resume();
   }
 }
 
+
 function tone(
   freq=440,
-  duration=.07,
+  dur=.07,
   type="square",
-  volume=.03,
-  endFreq=0
+  vol=.035,
+  end=0
 ){
 
   ensureAudio();
@@ -1460,51 +2422,65 @@ function tone(
   const gain=
   audioCtx.createGain();
 
-  oscillator.type=type;
+  oscillator.type=
+  type;
 
-  oscillator.frequency.setValueAtTime(
+  oscillator.frequency
+  .setValueAtTime(
     freq,
     audioCtx.currentTime
   );
 
-  if(endFreq){
+  if(end){
 
-    oscillator.frequency.exponentialRampToValueAtTime(
-      Math.max(30,endFreq),
-      audioCtx.currentTime+duration
+    oscillator.frequency
+    .exponentialRampToValueAtTime(
+      Math.max(
+        30,
+        end
+      ),
+      audioCtx.currentTime+dur
     );
   }
 
-  gain.gain.setValueAtTime(
-    volume,
+  gain.gain
+  .setValueAtTime(
+    vol,
     audioCtx.currentTime
   );
 
-  gain.gain.exponentialRampToValueAtTime(
+  gain.gain
+  .exponentialRampToValueAtTime(
     .001,
-    audioCtx.currentTime+duration
+    audioCtx.currentTime+dur
   );
 
-  oscillator.connect(gain);
-  gain.connect(audioCtx.destination);
+  oscillator.connect(
+    gain
+  );
+
+  gain.connect(
+    audioCtx.destination
+  );
 
   oscillator.start();
 
   oscillator.stop(
-    audioCtx.currentTime+duration
+    audioCtx.currentTime+dur
   );
 }
 
+
 function noise(
-  duration=.05,
-  volume=.02
+  dur=.05,
+  vol=.025
 ){
 
   ensureAudio();
 
   const count=
   Math.floor(
-    audioCtx.sampleRate*duration
+    audioCtx.sampleRate*dur
   );
 
   const buffer=
@@ -1524,9 +2500,13 @@ function noise(
   ){
 
     data[i]=
-    (Math.random()*2-1)
+    (
+      Math.random()*2-1
+    )
     *
-    (1-i/count);
+    (
+      1-i/count
+    );
   }
 
   const source=
@@ -1535,134 +2515,307 @@ function noise(
   const gain=
   audioCtx.createGain();
 
-  source.buffer=buffer;
-  gain.gain.value=volume;
+  source.buffer=
+  buffer;
 
-  source.connect(gain);
-  gain.connect(audioCtx.destination);
+  gain.gain.value=
+  vol;
+
+  source.connect(
+    gain
+  );
+
+  gain.connect(
+    audioCtx.destination
+  );
 
   source.start();
 }
 
-function sfxGun(chicken,isAI=false){
 
-  const now=performance.now();
+function sfxGun(
+  chicken,
+  ai=false
+){
+
+  const now=
+  performance.now();
 
   if(
-    isAI
+    ai
     &&
     now<aiSoundGate
   ){
     return;
   }
 
-  if(isAI){
-    aiSoundGate=now+80;
+  if(ai){
+
+    aiSoundGate=
+    now+85;
   }
 
   if(
-    chicken.weapon.includes("Shotgun")
+    chicken.weapon
+    .includes("Shotgun")
   ){
 
     noise(
       .1,
-      isAI?.02:.05
+      ai
+      ?
+      .022
+      :
+      .055
     );
 
     tone(
       125,
       .12,
       "sawtooth",
-      isAI?.012:.04,
+      ai
+      ?
+      .015
+      :
+      .042,
       70
     );
 
   }else if(
-    chicken.weapon.includes("SMG")
+    chicken.weapon
+    .includes("SMG")
     ||
-    chicken.weapon.includes("Dual")
+    chicken.weapon
+    .includes("Dual")
   ){
 
     noise(
       .035,
-      isAI?.008:.02
+      ai
+      ?
+      .01
+      :
+      .022
     );
 
     tone(
       260,
       .04,
       "square",
-      isAI?.01:.02,
+      ai
+      ?
+      .012
+      :
+      .023,
       150
+    );
+
+  }else if(
+    chicken.id==="thunder"
+  ){
+
+    tone(
+      520,
+      .08,
+      "sawtooth",
+      ai
+      ?
+      .014
+      :
+      .032,
+      170
+    );
+
+  }else if(
+    chicken.id==="ice"
+  ){
+
+    tone(
+      700,
+      .07,
+      "sine",
+      ai
+      ?
+      .014
+      :
+      .028,
+      380
+    );
+
+  }else if(
+    chicken.id==="fire"
+  ){
+
+    noise(
+      .05,
+      ai
+      ?
+      .009
+      :
+      .018
+    );
+
+    tone(
+      95,
+      .05,
+      "sawtooth",
+      ai
+      ?
+      .01
+      :
+      .018,
+      65
     );
 
   }else{
 
     noise(
       .045,
-      isAI?.01:.025
+      ai
+      ?
+      .012
+      :
+      .028
     );
 
     tone(
       220,
       .06,
       "square",
-      isAI?.012:.028,
+      ai
+      ?
+      .014
+      :
+      .03,
       120
     );
   }
 }
 
-function sfxHit(){
-  tone(145,.04,"square",.017,85);
-}
 
-function sfxHurt(){
-  tone(175,.11,"sawtooth",.03,70);
-}
+const sfxHit=
+()=>tone(
+  145,
+  .04,
+  "square",
+  .018,
+  85
+);
 
-function sfxDeath(){
-  noise(.11,.03);
-  tone(115,.18,"sawtooth",.025,45);
-}
 
-function sfxPickup(){
-  tone(650,.06,"sine",.025,930);
-}
+const sfxHurt=
+()=>tone(
+  175,
+  .11,
+  "sawtooth",
+  .035,
+  70
+);
 
-function sfxSkill(){
-  tone(330,.12,"triangle",.03,700);
-}
 
-function sfxChicken(){
-  tone(520,.06,"square",.02,410);
+const sfxDeath=
+()=>{
+
+  noise(
+    .11,
+    .035
+  );
+
+  tone(
+    115,
+    .18,
+    "sawtooth",
+    .028,
+    45
+  );
+};
+
+
+const sfxPickup=
+()=>tone(
+  650,
+  .06,
+  "sine",
+  .025,
+  930
+);
+
+
+const sfxSkill=
+()=>tone(
+  330,
+  .12,
+  "triangle",
+  .03,
+  700
+);
+
+
+const sfxChicken=
+()=>{
+
+  tone(
+    520,
+    .06,
+    "square",
+    .02,
+    410
+  );
 
   setTimeout(
-    ()=>tone(610,.08,"square",.018,470),
+    ()=>tone(
+      610,
+      .08,
+      "square",
+      .018,
+      470
+    ),
     75
   );
-}
+};
 
-function sfxGacha(){
-  tone(190,.1,"square",.022,280);
+
+const sfxGacha=
+()=>{
+
+  tone(
+    190,
+    .1,
+    "square",
+    .022,
+    280
+  );
 
   setTimeout(
-    ()=>tone(330,.11,"square",.022,440),
+    ()=>tone(
+      330,
+      .11,
+      "square",
+      .022,
+      440
+    ),
     130
   );
-}
+};
+
 
 addEventListener(
   "pointerdown",
   ensureAudio,
-  {once:true}
+  {
+    once:true
+  }
 );
+
 
 addEventListener(
   "keydown",
   ensureAudio,
-  {once:true}
+  {
+    once:true
+  }
 );
+
 
 /* =========================
    THREE
@@ -1671,10 +2824,12 @@ addEventListener(
 const scene=
 new THREE.Scene();
 
+
 scene.background=
 new THREE.Color(
   0x0d1723
 );
+
 
 scene.fog=
 new THREE.Fog(
@@ -1682,6 +2837,7 @@ new THREE.Fog(
   30,
   90
 );
+
 
 const camera=
 new THREE.PerspectiveCamera(
@@ -1691,31 +2847,42 @@ new THREE.PerspectiveCamera(
   150
 );
 
+
 camera.position.set(
   0,
   9,
   14
 );
 
+
 const renderer=
 new THREE.WebGLRenderer({
   antialias:true
 });
 
+
 renderer.setPixelRatio(
-  Math.min(devicePixelRatio,2)
+  Math.min(
+    devicePixelRatio,
+    2
+  )
 );
+
 
 renderer.setSize(
   innerWidth,
   innerHeight
 );
 
-renderer.shadowMap.enabled=true;
+
+renderer.shadowMap.enabled=
+true;
+
 
 document.body.prepend(
   renderer.domElement
 );
+
 
 scene.add(
   new THREE.HemisphereLight(
@@ -1725,11 +2892,13 @@ scene.add(
   )
 );
 
+
 const moon=
 new THREE.DirectionalLight(
   0xb9dcff,
   2
 );
+
 
 moon.position.set(
   8,
@@ -1737,12 +2906,23 @@ moon.position.set(
   7
 );
 
-scene.add(moon);
+
+moon.castShadow=true;
+
+
+scene.add(
+  moon
+);
+
 
 const world=
 new THREE.Group();
 
-scene.add(world);
+
+scene.add(
+  world
+);
+
 
 function box(
   sx,
@@ -1767,6 +2947,7 @@ function box(
   );
 }
 
+
 function clearWorld(){
 
   while(
@@ -1779,6 +2960,7 @@ function clearWorld(){
   }
 }
 
+
 /* =========================
    CHICKEN MODEL
 ========================= */
@@ -1788,6 +2970,7 @@ function createChickenModel(chicken){
   const group=
   new THREE.Group();
 
+
   const body=
   box(
     1.25,
@@ -1796,9 +2979,16 @@ function createChickenModel(chicken){
     chicken.color
   );
 
-  body.position.y=.9;
+  body.position.y=
+  .9;
 
-  group.add(body);
+  body.castShadow=
+  true;
+
+  group.add(
+    body
+  );
+
 
   const head=
   box(
@@ -1814,7 +3004,13 @@ function createChickenModel(chicken){
     .05
   );
 
-  group.add(head);
+  head.castShadow=
+  true;
+
+  group.add(
+    head
+  );
+
 
   const beak=
   box(
@@ -1830,13 +3026,20 @@ function createChickenModel(chicken){
     .67
   );
 
-  group.add(beak);
+  group.add(
+    beak
+  );
+
 
   const comb=
   box(
     .28,
     .35,
     .36,
+    chicken.id==="black"
+    ?
+    0x8d1010
+    :
     0xe9362b
   );
 
@@ -1846,7 +3049,10 @@ function createChickenModel(chicken){
     0
   );
 
-  group.add(comb);
+  group.add(
+    comb
+  );
+
 
   const eye1=
   box(
@@ -1859,11 +3065,13 @@ function createChickenModel(chicken){
   const eye2=
   eye1.clone();
 
+
   eye1.position.set(
     -.25,
     1.92,
     .54
   );
+
 
   eye2.position.set(
     .25,
@@ -1871,16 +3079,22 @@ function createChickenModel(chicken){
     .54
   );
 
+
   group.add(
     eye1,
     eye2
   );
+
 
   const gun=
   box(
     .28,
     .25,
     .95,
+    chicken.id==="robot"
+    ?
+    0x7ddcff
+    :
     0x4c4f55
   );
 
@@ -1890,10 +3104,212 @@ function createChickenModel(chicken){
     .55
   );
 
-  group.add(gun);
+  group.add(
+    gun
+  );
+
+
+  if(
+    chicken.id==="cowboy"
+  ){
+
+    const hat=
+    box(
+      1.25,
+      .18,
+      1,
+      0x5f341b
+    );
+
+    hat.position.set(
+      0,
+      2.35,
+      0
+    );
+
+    group.add(
+      hat
+    );
+  }
+
+
+  if(
+    chicken.id==="wizard"
+  ){
+
+    const hat=
+    box(
+      .8,
+      .8,
+      .8,
+      0x4f2e85
+    );
+
+    hat.position.set(
+      0,
+      2.55,
+      0
+    );
+
+    hat.rotation.z=
+    .3;
+
+    group.add(
+      hat
+    );
+  }
+
+
+  if(
+    chicken.id==="pirate"
+  ){
+
+    const patch=
+    box(
+      .35,
+      .18,
+      .1,
+      0x111111
+    );
+
+    patch.position.set(
+      -.23,
+      1.92,
+      .58
+    );
+
+    group.add(
+      patch
+    );
+  }
+
+
+  if(
+    chicken.id==="doctor"
+  ){
+
+    const cap=
+    box(
+      .85,
+      .23,
+      .75,
+      0xffffff
+    );
+
+    cap.position.set(
+      0,
+      2.38,
+      0
+    );
+
+    group.add(
+      cap
+    );
+  }
+
+
+  if(
+    chicken.id==="robot"
+  ){
+
+    const plate=
+    box(
+      .4,
+      .4,
+      .1,
+      0x64d7ff
+    );
+
+    plate.position.set(
+      .23,
+      1.92,
+      .57
+    );
+
+    group.add(
+      plate
+    );
+  }
+
+
+  if(
+    chicken.id==="fire"
+  ){
+
+    const flame=
+    box(
+      .35,
+      .55,
+      .35,
+      0xff7a21
+    );
+
+    flame.position.set(
+      0,
+      2.55,
+      0
+    );
+
+    group.add(
+      flame
+    );
+  }
+
+
+  if(
+    chicken.id==="ice"
+  ){
+
+    const ice=
+    box(
+      .3,
+      .45,
+      .3,
+      0xc6f3ff
+    );
+
+    ice.position.set(
+      0,
+      2.5,
+      0
+    );
+
+    group.add(
+      ice
+    );
+  }
+
+
+  if(
+    chicken.id==="thunder"
+  ){
+
+    const bolt=
+    box(
+      .18,
+      .65,
+      .18,
+      0xffff66
+    );
+
+    bolt.position.set(
+      0,
+      2.55,
+      0
+    );
+
+    bolt.rotation.z=
+    .5;
+
+    group.add(
+      bolt
+    );
+  }
+
 
   return group;
 }
+
 
 /* =========================
    STATE
@@ -1918,6 +3334,8 @@ let enemies=[];
 let bullets=[];
 
 let pickups=[];
+
+let fields=[];
 
 let grassZones=[];
 
@@ -1969,17 +3387,27 @@ let playerHidden=false;
 
 let dangerCD=0;
 
+let matchEnding=false;
+
+
 const mouse=
 new THREE.Vector2();
+
 
 const raycaster=
 new THREE.Raycaster();
 
+
 const aimPlane=
 new THREE.Plane(
-  new THREE.Vector3(0,1,0),
+  new THREE.Vector3(
+    0,
+    1,
+    0
+  ),
   0
 );
+
 
 const aimPoint=
 new THREE.Vector3(
@@ -1988,14 +3416,18 @@ new THREE.Vector3(
   5
 );
 
+
 const keys={};
+
 
 const moveVelocity=
 new THREE.Vector2();
 
+
 let joyX=0;
 
 let joyY=0;
+
 
 /* =========================
    LOBBY
@@ -2007,6 +3439,7 @@ function buildLobbyScene(){
 
   grassZones=[];
 
+
   const platform=
   box(
     14,
@@ -2015,9 +3448,79 @@ function buildLobbyScene(){
     0x385d52
   );
 
-  platform.position.y=-.35;
+  platform.position.y=
+  -.35;
 
-  world.add(platform);
+  platform.receiveShadow=
+  true;
+
+  world.add(
+    platform
+  );
+
+
+  for(
+    let i=-6;
+    i<=6;
+    i+=2
+  ){
+
+    const tile=
+    box(
+      1.8,
+      .12,
+      1.8,
+      (i/2)%2
+      ?
+      0x456b5e
+      :
+      0x3c6256
+    );
+
+    tile.position.set(
+      i,
+      0,
+      -3.5
+    );
+
+    world.add(
+      tile
+    );
+  }
+
+
+  for(
+    const x
+    of
+    [-6,6]
+  ){
+
+    for(
+      let z=-4;
+      z<=4;
+      z+=2
+    ){
+
+      const post=
+      box(
+        .45,
+        1.6,
+        .45,
+        0x7e5c3d
+      );
+
+      post.position.set(
+        x,
+        .8,
+        z
+      );
+
+      world.add(
+        post
+      );
+    }
+  }
+
 
   lobbyChicken=
   createChickenModel(
@@ -2034,6 +3537,7 @@ function buildLobbyScene(){
     lobbyChicken
   );
 
+
   const pedestal=
   box(
     3,
@@ -2042,45 +3546,56 @@ function buildLobbyScene(){
     0x596c7b
   );
 
-  pedestal.position.y=.2;
+  pedestal.position.y=
+  .2;
 
-  world.add(pedestal);
+  world.add(
+    pedestal
+  );
 
-  const orange=
+
+  const lamp1=
   new THREE.PointLight(
     0xff8a36,
     8,
     12
   );
 
-  orange.position.set(
-    -5,
-    4,
-    1
-  );
 
-  world.add(orange);
-
-  const blue=
+  const lamp2=
   new THREE.PointLight(
     0x6cc7ff,
     6,
     12
   );
 
-  blue.position.set(
+
+  lamp1.position.set(
+    -5,
+    4,
+    1
+  );
+
+
+  lamp2.position.set(
     5,
     4,
     -1
   );
 
-  world.add(blue);
+
+  world.add(
+    lamp1,
+    lamp2
+  );
+
 
   camera.position.set(
     0,
     9,
     14
   );
+
 
   camera.lookAt(
     0,
@@ -2089,11 +3604,15 @@ function buildLobbyScene(){
   );
 }
 
+
 /* =========================
    ARENA
 ========================= */
 
-function addTree(x,z){
+function addTree(
+  x,
+  z
+){
 
   const trunk=
   box(
@@ -2109,29 +3628,80 @@ function addTree(x,z){
     z
   );
 
-  world.add(trunk);
-
-  const leaf=
-  box(
-    2,
-    2,
-    2,
-    0x2e6b43
+  world.add(
+    trunk
   );
 
-  leaf.position.set(
+
+  for(
+    const part
+    of
+    [
+      [0,2,0],
+      [.7,1.6,0],
+      [-.7,1.6,0],
+      [0,1.6,.7],
+      [0,1.6,-.7]
+    ]
+  ){
+
+    const leaf=
+    box(
+      1.35,
+      1.35,
+      1.35,
+      0x2e6b43
+    );
+
+    leaf.position.set(
+      x+part[0],
+      1.5+part[1],
+      z+part[2]
+    );
+
+    world.add(
+      leaf
+    );
+  }
+}
+
+
+function addRock(
+  x,
+  z
+){
+
+  const rock=
+  box(
+    1.35,
+    .9,
+    1.2,
+    0x667078
+  );
+
+  rock.position.set(
     x,
-    2.7,
+    .45,
     z
   );
 
-  world.add(leaf);
+  rock.rotation.y=
+  Math.random();
+
+  world.add(
+    rock
+  );
 }
 
-function addGrass(x,z){
+
+function addGrass(
+  x,
+  z
+){
 
   const group=
   new THREE.Group();
+
 
   for(
     let i=0;
@@ -2147,8 +3717,10 @@ function addGrass(x,z){
       0xc8a94a
     );
 
+
     const angle=
     i/8*Math.PI*2;
+
 
     blade.position.set(
       Math.cos(angle)*.75,
@@ -2156,8 +3728,20 @@ function addGrass(x,z){
       Math.sin(angle)*.75
     );
 
-    group.add(blade);
+
+    blade.rotation.z=
+    (
+      Math.random()-.5
+    )
+    *
+    .25;
+
+
+    group.add(
+      blade
+    );
   }
+
 
   group.position.set(
     x,
@@ -2165,7 +3749,11 @@ function addGrass(x,z){
     z
   );
 
-  world.add(group);
+
+  world.add(
+    group
+  );
+
 
   grassZones.push({
     x,
@@ -2174,11 +3762,13 @@ function addGrass(x,z){
   });
 }
 
+
 function buildArena(){
 
   clearWorld();
 
   grassZones=[];
+
 
   const limit=
   currentMode===0
@@ -2186,6 +3776,7 @@ function buildArena(){
   26
   :
   33;
+
 
   const floor=
   box(
@@ -2195,25 +3786,78 @@ function buildArena(){
     0x3a5e47
   );
 
-  floor.position.y=-.2;
 
-  world.add(floor);
+  floor.position.y=
+  -.2;
 
-  const wallHeight=2.4;
 
-  const wallThickness=.8;
+  floor.receiveShadow=
+  true;
 
-  const walls=[
 
+  world.add(
+    floor
+  );
+
+
+  for(
+    let x=-limit+1;
+    x<limit;
+    x+=3
+  ){
+
+    for(
+      let z=-limit+1;
+      z<limit;
+      z+=3
+    ){
+
+      const tile=
+      box(
+        2.8,
+        .04,
+        2.8,
+        (
+          Math.floor(
+            (x+z)/3
+          )%2
+        )
+        ?
+        0x3d644a
+        :
+        0x355a43
+      );
+
+
+      tile.position.set(
+        x,
+        .01,
+        z
+      );
+
+
+      world.add(
+        tile
+      );
+    }
+  }
+
+
+  const wallHeight=
+  2.4;
+
+
+  const wallThickness=
+  .8;
+
+
+  const wallData=[
     [0,-limit,limit*2,wallThickness],
-
     [0,limit,limit*2,wallThickness],
-
     [-limit,0,wallThickness,limit*2],
-
     [limit,0,wallThickness,limit*2]
-
   ];
+
 
   for(
     const [
@@ -2222,7 +3866,7 @@ function buildArena(){
       width,
       depth
     ]
-    of walls
+    of wallData
   ){
 
     const wall=
@@ -2233,26 +3877,35 @@ function buildArena(){
       0x59616b
     );
 
+
     wall.position.set(
       x,
       wallHeight/2,
       z
     );
 
-    world.add(wall);
+
+    world.add(
+      wall
+    );
   }
+
 
   const trees=[
     [-6,-4],
     [7,4],
     [4,-8],
     [-9,8],
+    [0,7],
     [10,-3],
     [-17,12],
     [16,-12],
     [-14,-16],
-    [15,16]
+    [15,16],
+    [0,-17],
+    [18,3]
   ];
+
 
   trees.forEach(
     position=>
@@ -2262,6 +3915,28 @@ function buildArena(){
     )
   );
 
+
+  const rocks=[
+    [-3,5],
+    [6,-2],
+    [-7,-8],
+    [9,9],
+    [-16,4],
+    [14,-5],
+    [4,17],
+    [-12,15]
+  ];
+
+
+  rocks.forEach(
+    position=>
+    addRock(
+      position[0],
+      position[1]
+    )
+  );
+
+
   const grass=[
     [-8,2],
     [7,-7],
@@ -2270,8 +3945,10 @@ function buildArena(){
     [10,5],
     [-17,-5],
     [16,8],
-    [-5,17]
+    [-5,17],
+    [17,-16]
   ];
+
 
   grass.forEach(
     position=>
@@ -2282,8 +3959,9 @@ function buildArena(){
   );
 }
 
+
 /* =========================
-   SPAWN
+   PLAYER / AI SPAWN
 ========================= */
 
 function spawnPlayer(){
@@ -2293,13 +3971,18 @@ function spawnPlayer(){
     selectedChicken
   );
 
+
   player.position.set(
     0,
     0,
     0
   );
 
-  world.add(player);
+
+  world.add(
+    player
+  );
+
 
   actors.push({
 
@@ -2326,6 +4009,7 @@ function spawnPlayer(){
   });
 }
 
+
 function spawnAIChickens(){
 
   const pool=
@@ -2334,12 +4018,17 @@ function spawnAIChickens(){
     chicken.id!==selectedChicken.id
   );
 
+
   const rank=
   currentMode===2
   ?
-  Math.max(1,getRank())
+  Math.max(
+    1,
+    getRank()
+  )
   :
   2;
+
 
   for(
     let i=0;
@@ -2354,17 +4043,21 @@ function spawnAIChickens(){
       )
     ];
 
+
     const model=
     createChickenModel(
       chicken
     );
 
+
     const angle=
     i/7*Math.PI*2;
+
 
     const radius=
     20+
     Math.random()*6;
+
 
     model.position.set(
       Math.cos(angle)*radius,
@@ -2372,19 +4065,26 @@ function spawnAIChickens(){
       Math.sin(angle)*radius
     );
 
-    world.add(model);
+
+    world.add(
+      model
+    );
+
 
     const marker=
     document.createElement(
       "div"
     );
 
+
     marker.className=
     "enemyMarker";
+
 
     document.body.appendChild(
       marker
     );
+
 
     actors.push({
 
@@ -2404,6 +4104,8 @@ function spawnAIChickens(){
 
       fire:.5+Math.random(),
 
+      skill:4+Math.random()*5,
+
       rank,
 
       target:null,
@@ -2420,70 +4122,112 @@ function spawnAIChickens(){
   }
 }
 
+
 /* =========================
-   SURVIVAL
+   SURVIVAL ENEMIES
 ========================= */
 
 function makeEnemy(
   type="normal"
 ){
 
-  const types={
+  const data=
+  {
 
     normal:{
       hp:45,
       speed:2,
       damage:8,
-      color:0x6d6d70
+      color:0x6d6d70,
+      size:1
     },
 
     fast:{
       hp:32,
-      speed:3.2,
+      speed:3.3,
       damage:6,
-      color:0x8f7272
+      color:0x8f7272,
+      size:.85
     },
 
     tank:{
       hp:100,
-      speed:1.3,
+      speed:1.35,
       damage:14,
-      color:0x4f5155
+      color:0x4f5155,
+      size:1.25
+    },
+
+    bomber:{
+      hp:38,
+      speed:2.4,
+      damage:18,
+      color:0x8d4f4f,
+      size:.95
     },
 
     boss:{
       hp:450,
-      speed:1.5,
+      speed:1.55,
       damage:20,
-      color:0x8b3232
+      color:0x8b3232,
+      size:1.8
     }
 
-  };
+  }[type];
 
-  const data=
-  types[type];
 
   const model=
   new THREE.Group();
 
+
   const body=
   box(
-    1.3,
-    1,
-    1.5,
+    1.2*data.size,
+    .8*data.size,
+    1.4*data.size,
     data.color
   );
 
-  body.position.y=.7;
 
-  model.add(body);
+  body.position.y=
+  .7*data.size;
+
+
+  model.add(
+    body
+  );
+
+
+  const head=
+  box(
+    .9*data.size,
+    .7*data.size,
+    .9*data.size,
+    data.color
+  );
+
+
+  head.position.set(
+    0,
+    1.3*data.size,
+    .45*data.size
+  );
+
+
+  model.add(
+    head
+  );
+
 
   const angle=
   Math.random()*Math.PI*2;
 
+
   const radius=
   18+
   Math.random()*7;
+
 
   model.position.set(
     Math.cos(angle)*radius,
@@ -2491,7 +4235,11 @@ function makeEnemy(
     Math.sin(angle)*radius
   );
 
-  world.add(model);
+
+  world.add(
+    model
+  );
+
 
   enemies.push({
 
@@ -2514,10 +4262,12 @@ function makeEnemy(
   });
 }
 
+
 function startWave(){
 
   const boss=
   wave%5===0;
+
 
   const count=
   boss
@@ -2526,54 +4276,99 @@ function startWave(){
   :
   5+wave*2;
 
+
   for(
     let i=0;
     i<count;
     i++
   ){
 
+    let type="normal";
+
+
     if(boss){
 
-      makeEnemy("boss");
+      type="boss";
 
     }else{
 
       const random=
       Math.random();
 
-      makeEnemy(
+
+      if(
         random<.18
-        ?
-        "fast"
-        :
+      ){
+
+        type="fast";
+
+      }else if(
         random<.30
-        ?
-        "tank"
-        :
-        "normal"
-      );
+      ){
+
+        type="tank";
+
+      }else if(
+        random<.38
+      ){
+
+        type="bomber";
+      }
     }
+
+
+    makeEnemy(
+      type
+    );
   }
 
+
   showMessage(
-    save.language==="zh"
-    ?
-    "第 "+wave+" 波"
-    :
-    "WAVE "+wave
+
+    (
+      save.language==="zh"
+      ?
+      "第 "
+      :
+      "WAVE "
+    )
+
+    +
+
+    wave
+
+    +
+
+    (
+      boss
+      ?
+      " · BOSS"
+      :
+      ""
+    )
   );
 }
+
 
 function updateEnemies(dt){
 
   for(
-    const enemy
-    of enemies
+    let i=enemies.length-1;
+    i>=0;
+    i--
   ){
 
-    enemy.hitCD-=dt;
+    const enemy=
+    enemies[i];
 
-    enemy.slow-=dt;
+
+    enemy.hitCD-=
+    dt;
+
+
+    enemy.slow-=
+    dt;
+
 
     const direction=
     new THREE.Vector3()
@@ -2582,19 +4377,37 @@ function updateEnemies(dt){
       enemy.mesh.position
     );
 
-    direction.y=0;
+
+    direction.y=
+    0;
+
 
     const distance=
     direction.length();
 
-    if(distance>.01){
+
+    if(
+      distance>.01
+    ){
+
       direction.normalize();
     }
 
+
+    enemy.mesh.rotation.y=
+    Math.atan2(
+      direction.x,
+      direction.z
+    );
+
+
     enemy.mesh.position
     .addScaledVector(
+
       direction,
-      enemy.speed*
+
+      enemy.speed
+      *
       (
         enemy.slow>0
         ?
@@ -2606,17 +4419,24 @@ function updateEnemies(dt){
       dt
     );
 
+
     if(
       distance<1.2
       &&
       enemy.hitCD<=0
     ){
 
-      enemy.hitCD=.65;
+      enemy.hitCD=
+      .65;
 
-      if(shieldTimer<=0){
 
-        playerHP-=enemy.damage;
+      if(
+        shieldTimer<=0
+      ){
+
+        playerHP-=
+        enemy.damage;
+
 
         const playerActor=
         actors.find(
@@ -2624,11 +4444,22 @@ function updateEnemies(dt){
           actor.type==="player"
         );
 
+
         if(playerActor){
-          playerActor.hp=playerHP;
+
+          playerActor.hp=
+          playerHP;
         }
 
+
         sfxHurt();
+
+
+        showMessage(
+          "-"+
+          enemy.damage+
+          " HP"
+        );
 
       }else{
 
@@ -2636,23 +4467,50 @@ function updateEnemies(dt){
           "SHIELD"
         );
       }
+
+
+      if(
+        enemy.type==="bomber"
+      ){
+
+        enemy.hp=0;
+
+        enemyDeath(
+          enemy,
+          i
+        );
+
+        continue;
+      }
     }
   }
+
 
   if(
     enemies.length===0
     &&
     gameActive
+    &&
+    !matchEnding
   ){
 
     wave++;
 
     setTimeout(
-      startWave,
+      ()=>{
+        if(
+          gameActive
+          &&
+          currentMode===0
+        ){
+          startWave();
+        }
+      },
       700
     );
   }
 }
+
 
 /* =========================
    BULLETS
@@ -2667,11 +4525,19 @@ function createBullet(
   sourceActor=null
 ){
 
-  const mesh=
+  const bulletMesh=
   box(
+
     .18,
+
     .18,
+
     .55,
+
+    chicken.id==="thunder"
+    ?
+    0xffff55
+    :
     chicken.id==="ice"
     ?
     0xaeeeff
@@ -2681,9 +4547,11 @@ function createBullet(
     0xff6c21
     :
     0xffe6a4
+
   );
 
-  mesh.position
+
+  bulletMesh.position
   .copy(origin)
   .add(
     new THREE.Vector3(
@@ -2697,28 +4565,42 @@ function createBullet(
     .85
   );
 
-  world.add(mesh);
+
+  bulletMesh.rotation.y=
+  Math.atan2(
+    direction.x,
+    direction.z
+  );
+
+
+  world.add(
+    bulletMesh
+  );
+
+
+  const actualDamage=
+  chicken.damage
+  *
+  scale
+  *
+  (
+    owner==="player"
+    ?
+    damageMultiplier
+    :
+    1
+  );
+
 
   bullets.push({
 
-    mesh,
+    mesh:bulletMesh,
 
     dir:direction.clone(),
 
     speed:22,
 
-    damage:
-    chicken.damage
-    *
-    scale
-    *
-    (
-      owner==="player"
-      ?
-      damageMultiplier
-      :
-      1
-    ),
+    damage:actualDamage,
 
     life:1.4,
 
@@ -2738,29 +4620,55 @@ function createBullet(
   });
 }
 
+
 function showDamage(
   position,
-  amount
+  value,
+  crit=false
 ){
 
   const screen=
   position.clone();
 
-  screen.y+=2.5;
 
-  screen.project(camera);
+  screen.y+=
+  2.5;
+
+
+  screen.project(
+    camera
+  );
+
 
   const element=
   document.createElement(
     "div"
   );
 
+
   element.className=
-  "damage";
+  "damage"
+  +
+  (
+    crit
+    ?
+    " crit"
+    :
+    ""
+  );
+
 
   element.textContent=
-  "-"+
-  Math.round(amount);
+  (
+    crit
+    ?
+    "CRIT "
+    :
+    "-"
+  )
+  +
+  Math.round(value);
+
 
   element.style.left=
   (
@@ -2773,6 +4681,7 @@ function showDamage(
   +
   "px";
 
+
   element.style.top=
   (
     (
@@ -2784,20 +4693,25 @@ function showDamage(
   +
   "px";
 
+
   document.body.appendChild(
     element
   );
 
+
   setTimeout(
-    ()=>element.remove(),
+    ()=>{
+      element.remove();
+    },
     750
   );
 }
 
+
 function damageActor(
   target,
   amount,
-  source
+  source=null
 ){
 
   if(
@@ -2807,21 +4721,31 @@ function damageActor(
     ||
     target===source
   ){
-    return;
+
+    return false;
   }
 
-  target.hp-=amount;
 
-  target.revealTimer=2.3;
+  target.hp-=
+  amount;
 
-  target.hidden=false;
+
+  target.revealTimer=
+  2.3;
+
+
+  target.hidden=
+  false;
+
 
   sfxHit();
+
 
   showDamage(
     target.mesh.position,
     amount
   );
+
 
   if(
     target.type==="player"
@@ -2833,25 +4757,41 @@ function damageActor(
       target.hp
     );
 
+
     sfxHurt();
   }
+
 
   if(
     target.hp<=0
   ){
 
-    target.hp=0;
+    target.hp=
+    0;
 
-    target.alive=false;
+
+    target.alive=
+    false;
+
 
     sfxDeath();
 
-    if(target.marker){
+
+    createDeathBlocks(
+      target.mesh.position,
+      10
+    );
+
+
+    if(
+      target.marker
+    ){
 
       target.marker.remove();
 
       target.marker=null;
     }
+
 
     if(
       target.type==="ai"
@@ -2862,6 +4802,7 @@ function damageActor(
       );
     }
 
+
     if(
       source
       &&
@@ -2871,6 +4812,7 @@ function damageActor(
       kills++;
     }
 
+
     if(
       target.type==="player"
     ){
@@ -2878,7 +4820,11 @@ function damageActor(
       endGame();
     }
   }
+
+
+  return true;
 }
+
 
 function updateBullets(dt){
 
@@ -2891,15 +4837,21 @@ function updateBullets(dt){
     const bullet=
     bullets[i];
 
+
     bullet.mesh.position
     .addScaledVector(
       bullet.dir,
       bullet.speed*dt
     );
 
-    bullet.life-=dt;
 
-    let remove=false;
+    bullet.life-=
+    dt;
+
+
+    let remove=
+    false;
+
 
     if(
       currentMode===0
@@ -2914,6 +4866,7 @@ function updateBullets(dt){
         const enemy=
         enemies[j];
 
+
         if(
           bullet.mesh.position
           .distanceTo(
@@ -2923,21 +4876,44 @@ function updateBullets(dt){
           .75
         ){
 
+          const crit=
+          Math.random()<.08;
+
+
+          const damage=
+          bullet.damage
+          *
+          (
+            crit
+            ?
+            1.7
+            :
+            1
+          );
+
+
           enemy.hp-=
-          bullet.damage;
+          damage;
+
 
           sfxHit();
 
+
           showDamage(
             enemy.mesh.position,
-            bullet.damage
+            damage,
+            crit
           );
+
 
           if(
             bullet.chicken.id==="ice"
           ){
-            enemy.slow=2.5;
+
+            enemy.slow=
+            2.5;
           }
+
 
           if(
             enemy.hp<=0
@@ -2949,6 +4925,7 @@ function updateBullets(dt){
             );
           }
 
+
           if(
             bullet.pierce>0
           ){
@@ -2957,8 +4934,10 @@ function updateBullets(dt){
 
           }else{
 
-            remove=true;
+            remove=
+            true;
           }
+
 
           break;
         }
@@ -2972,22 +4951,28 @@ function updateBullets(dt){
       ){
 
         if(
+          remove
+          ||
           !actor.alive
           ||
           actor===bullet.sourceActor
         ){
+
           continue;
         }
+
 
         const dx=
         bullet.mesh.position.x
         -
         actor.mesh.position.x;
 
+
         const dz=
         bullet.mesh.position.z
         -
         actor.mesh.position.z;
+
 
         if(
           dx*dx+dz*dz
@@ -3001,25 +4986,32 @@ function updateBullets(dt){
             bullet.sourceActor
           );
 
-          remove=true;
+
+          remove=
+          true;
+
 
           break;
         }
       }
     }
 
+
     if(
       bullet.life<=0
     ){
 
-      remove=true;
+      remove=
+      true;
     }
+
 
     if(remove){
 
       world.remove(
         bullet.mesh
       );
+
 
       bullets.splice(
         i,
@@ -3029,48 +5021,180 @@ function updateBullets(dt){
   }
 }
 
+
+/* =========================
+   DEATH / FX
+========================= */
+
 function enemyDeath(
   enemy,
   index
 ){
 
+  sfxDeath();
+
+
   const position=
   enemy.mesh.position.clone();
+
 
   world.remove(
     enemy.mesh
   );
+
 
   enemies.splice(
     index,
     1
   );
 
+
   kills++;
 
-  sfxDeath();
 
   if(
     Math.random()<.75
   ){
+
     spawnPickup(
       position,
       "xp"
     );
   }
 
+
   if(
     Math.random()<.2
   ){
+
     spawnPickup(
       position,
       "egg"
     );
   }
+
+
+  if(
+    Math.random()<.08
+  ){
+
+    spawnPickup(
+      position,
+      "med"
+    );
+  }
+
+
+  createDeathBlocks(
+    position,
+    8
+  );
 }
 
+
+function createDeathBlocks(
+  position,
+  count
+){
+
+  for(
+    let i=0;
+    i<count;
+    i++
+  ){
+
+    const mesh=
+    box(
+      .18,
+      .18,
+      .18,
+      0xff8a35
+    );
+
+
+    mesh.position
+    .copy(
+      position
+    )
+    .add(
+      new THREE.Vector3(
+        Math.random()-.5,
+        1+Math.random(),
+        Math.random()-.5
+      )
+    );
+
+
+    world.add(
+      mesh
+    );
+
+
+    fx.push({
+
+      mesh,
+
+      v:
+      new THREE.Vector3(
+        (Math.random()-.5)*3,
+        2+Math.random()*2,
+        (Math.random()-.5)*3
+      ),
+
+      life:.65
+
+    });
+  }
+}
+
+
+function updateFX(dt){
+
+  for(
+    let i=fx.length-1;
+    i>=0;
+    i--
+  ){
+
+    const effect=
+    fx[i];
+
+
+    effect.life-=
+    dt;
+
+
+    effect.v.y-=
+    6*dt;
+
+
+    effect.mesh.position
+    .addScaledVector(
+      effect.v,
+      dt
+    );
+
+
+    if(
+      effect.life<=0
+    ){
+
+      world.remove(
+        effect.mesh
+      );
+
+
+      fx.splice(
+        i,
+        1
+      );
+    }
+  }
+}
+
+
 /* =========================
-   SHOOT
+   SHOOTING
 ========================= */
 
 function currentAimDir(){
@@ -3082,7 +5206,10 @@ function currentAimDir(){
     player.position
   );
 
-  direction.y=0;
+
+  direction.y=
+  0;
+
 
   if(
     direction.lengthSq()<.01
@@ -3094,35 +5221,21 @@ function currentAimDir(){
       1
     )
     .applyAxisAngle(
+
       new THREE.Vector3(
         0,
         1,
         0
       ),
+
       player.rotation.y
     );
   }
 
+
   return direction.normalize();
 }
 
-function exposePlayer(){
-
-  playerHidden=false;
-
-  const actor=
-  actors.find(
-    actor=>
-    actor.type==="player"
-  );
-
-  if(actor){
-
-    actor.revealTimer=2.3;
-
-    actor.hidden=false;
-  }
-}
 
 function shoot(){
 
@@ -3135,13 +5248,16 @@ function shoot(){
     ||
     !player
   ){
+
     return;
   }
+
 
   const chicken=
   selectedChicken;
 
-  fireCooldown=
+
+  const rate=
   chicken.fireRate
   *
   (
@@ -3154,43 +5270,62 @@ function shoot(){
   *
   fireMultiplier;
 
+
+  fireCooldown=
+  rate;
+
+
   const source=
   actors.find(
     actor=>
     actor.type==="player"
   );
 
-  const base=
+
+  const baseDirection=
   currentAimDir();
 
+
   exposePlayer();
+
 
   sfxGun(
     chicken,
     false
   );
 
-  let shots=1;
 
-  let spread=.02;
+  let shots=
+  1;
+
+
+  let spread=
+  .02;
+
 
   if(
     chicken.weapon==="Shotgun"
   ){
 
-    shots=5;
+    shots=
+    5;
 
-    spread=.28;
+    spread=
+    .28;
   }
+
 
   if(
     chicken.weapon==="Dual Pistols"
   ){
 
-    shots=2;
+    shots=
+    2;
 
-    spread=.08;
+    spread=
+    .08;
   }
+
 
   for(
     let i=0;
@@ -3199,7 +5334,8 @@ function shoot(){
   ){
 
     const direction=
-    base.clone();
+    baseDirection.clone();
+
 
     direction.applyAxisAngle(
 
@@ -3219,6 +5355,7 @@ function shoot(){
       spread
     );
 
+
     createBullet(
       player.position,
       direction,
@@ -3230,8 +5367,34 @@ function shoot(){
   }
 }
 
+
+function exposePlayer(){
+
+  playerHidden=
+  false;
+
+
+  const actor=
+  actors.find(
+    actor=>
+    actor.type==="player"
+  );
+
+
+  if(actor){
+
+    actor.revealTimer=
+    2.3;
+
+
+    actor.hidden=
+    false;
+  }
+}
+
+
 /* =========================
-   SKILL
+   SKILLS
 ========================= */
 
 function beginSkill(){
@@ -3243,10 +5406,14 @@ function beginSkill(){
     ||
     skillCooldown>0
   ){
+
     return;
   }
 
-  skillAiming=true;
+
+  skillAiming=
+  true;
+
 
   if(
     [
@@ -3259,9 +5426,11 @@ function beginSkill(){
       selectedChicken.id
     )
   ){
+
     castSkill();
   }
 }
+
 
 function castSkill(){
 
@@ -3270,20 +5439,35 @@ function castSkill(){
     ||
     skillCooldown>0
   ){
+
     return;
   }
 
-  skillAiming=false;
+
+  const chicken=
+  selectedChicken;
+
+
+  skillAiming=
+  false;
+
 
   skillCooldown=
-  selectedChicken.skillCD;
+  chicken.skillCD;
+
 
   sfxSkill();
 
+
   exposePlayer();
 
+
+  const direction=
+  currentAimDir();
+
+
   if(
-    selectedChicken.id==="doctor"
+    chicken.id==="doctor"
   ){
 
     playerHP=
@@ -3292,75 +5476,383 @@ function castSkill(){
       playerHP+35
     );
 
+
     const actor=
     actors.find(
       actor=>
       actor.type==="player"
     );
 
+
     if(actor){
-      actor.hp=playerHP;
+
+      actor.hp=
+      playerHP;
     }
 
-    showMessage("+35 HP");
 
-    return;
+    showMessage(
+      "+35 HP"
+    );
   }
 
-  if(
-    selectedChicken.id==="robot"
+
+  else if(
+    chicken.id==="robot"
   ){
 
-    shieldTimer=4;
+    shieldTimer=
+    4;
+
 
     showMessage(
       "SHIELD"
     );
-
-    return;
   }
 
-  if(
-    selectedChicken.id==="black"
+
+  else if(
+    chicken.id==="black"
   ){
 
-    frenzyTimer=5;
+    frenzyTimer=
+    5;
+
 
     showMessage(
       "FRENZY"
     );
-
-    return;
   }
 
-  if(
-    selectedChicken.id==="blue"
+
+  else if(
+    chicken.id==="blue"
   ){
 
-    speedTimer=5;
+    speedTimer=
+    5;
+
 
     showMessage(
       "SPEED"
     );
-
-    return;
   }
 
-  const direction=
-  currentAimDir();
 
-  createBullet(
-    player.position,
-    direction,
-    selectedChicken,
-    "player",
-    2,
-    actors.find(
-      actor=>
-      actor.type==="player"
-    )
-  );
+  else if(
+    chicken.id==="brown"
+  ){
+
+    for(
+      let i=0;
+      i<16;
+      i++
+    ){
+
+      const bulletDirection=
+      new THREE.Vector3(
+        Math.sin(
+          i/16*Math.PI*2
+        ),
+        0,
+        Math.cos(
+          i/16*Math.PI*2
+        )
+      );
+
+
+      createBullet(
+        player.position,
+        bulletDirection,
+        chicken,
+        "player",
+        1.15,
+        actors.find(
+          actor=>
+          actor.type==="player"
+        )
+      );
+    }
+  }
+
+
+  else if(
+    chicken.id==="yellow"
+  ){
+
+    createBullet(
+      player.position,
+      direction,
+      chicken,
+      "player",
+      2.2,
+      actors.find(
+        actor=>
+        actor.type==="player"
+      )
+    );
+  }
+
+
+  else if(
+    chicken.id==="cowboy"
+  ){
+
+    for(
+      let i=-2;
+      i<=2;
+      i++
+    ){
+
+      const bulletDirection=
+      direction.clone()
+      .applyAxisAngle(
+
+        new THREE.Vector3(
+          0,
+          1,
+          0
+        ),
+
+        i*.12
+      );
+
+
+      createBullet(
+        player.position,
+        bulletDirection,
+        chicken,
+        "player",
+        1.25,
+        actors.find(
+          actor=>
+          actor.type==="player"
+        )
+      );
+    }
+  }
+
+
+  else if(
+    chicken.id==="pirate"
+  ){
+
+    for(
+      let i=-2;
+      i<=2;
+      i++
+    ){
+
+      const bulletDirection=
+      direction.clone()
+      .applyAxisAngle(
+
+        new THREE.Vector3(
+          0,
+          1,
+          0
+        ),
+
+        i*.16
+      );
+
+
+      createBullet(
+        player.position,
+        bulletDirection,
+        chicken,
+        "player",
+        1.5,
+        actors.find(
+          actor=>
+          actor.type==="player"
+        )
+      );
+    }
+  }
+
+
+  else if(
+    chicken.id==="wizard"
+    ||
+    chicken.id==="thunder"
+  ){
+
+    for(
+      let i=0;
+      i<10;
+      i++
+    ){
+
+      const bulletDirection=
+      new THREE.Vector3(
+        Math.sin(
+          i/10*Math.PI*2
+        ),
+        0,
+        Math.cos(
+          i/10*Math.PI*2
+        )
+      );
+
+
+      createBullet(
+        player.position,
+        bulletDirection,
+        chicken,
+        "player",
+        1.1,
+        actors.find(
+          actor=>
+          actor.type==="player"
+        )
+      );
+    }
+  }
+
+
+  else if(
+    chicken.id==="ice"
+  ){
+
+    if(
+      currentMode===0
+    ){
+
+      enemies.forEach(
+        enemy=>{
+
+          if(
+            enemy.mesh.position
+            .distanceTo(
+              player.position
+            )
+            <
+            8
+          ){
+
+            enemy.slow=
+            4;
+          }
+        }
+      );
+
+    }else{
+
+      actors
+      .filter(
+        actor=>
+        actor.type==="ai"
+        &&
+        actor.alive
+      )
+      .forEach(
+        actor=>{
+
+          if(
+            actor.mesh.position
+            .distanceTo(
+              player.position
+            )
+            <
+            8
+          ){
+
+            actor.slowTimer=
+            3;
+          }
+        }
+      );
+    }
+
+
+    showMessage(
+      "FREEZE"
+    );
+  }
+
+
+  else if(
+    chicken.id==="fire"
+    ||
+    chicken.id==="green"
+  ){
+
+    for(
+      let i=0;
+      i<9;
+      i++
+    ){
+
+      const bulletDirection=
+      direction.clone()
+      .applyAxisAngle(
+
+        new THREE.Vector3(
+          0,
+          1,
+          0
+        ),
+
+        (
+          i-4
+        )
+        *
+        .1
+      );
+
+
+      createBullet(
+        player.position,
+        bulletDirection,
+        chicken,
+        "player",
+        1,
+        actors.find(
+          actor=>
+          actor.type==="player"
+        )
+      );
+    }
+  }
+
+
+  else if(
+    chicken.id==="white"
+  ){
+
+    createBullet(
+      player.position,
+      direction,
+      chicken,
+      "player",
+      2,
+      actors.find(
+        actor=>
+        actor.type==="player"
+      )
+    );
+  }
+
+
+  else if(
+    chicken.id==="ninja"
+  ){
+
+    speedTimer=
+    3;
+
+
+    shieldTimer=
+    1.3;
+
+
+    showMessage(
+      "SHADOW"
+    );
+  }
 }
+
 
 /* =========================
    PICKUPS
@@ -3376,7 +5868,12 @@ function spawnPickup(
   ?
   0x53c8ff
   :
-  0xffd85b;
+  type==="egg"
+  ?
+  0xffd85b
+  :
+  0x65df75;
+
 
   const mesh=
   box(
@@ -3386,8 +5883,11 @@ function spawnPickup(
     color
   );
 
+
   mesh.position
-  .copy(position)
+  .copy(
+    position
+  )
   .add(
     new THREE.Vector3(
       0,
@@ -3396,13 +5896,21 @@ function spawnPickup(
     )
   );
 
-  world.add(mesh);
+
+  world.add(
+    mesh
+  );
+
 
   pickups.push({
+
     mesh,
+
     type
+
   });
 }
+
 
 function updatePickups(dt){
 
@@ -3415,8 +5923,10 @@ function updatePickups(dt){
     const pickup=
     pickups[i];
 
+
     pickup.mesh.rotation.y+=
     dt*2;
+
 
     if(
       pickup.mesh.position
@@ -3429,36 +5939,70 @@ function updatePickups(dt){
 
       sfxPickup();
 
+
       if(
         pickup.type==="xp"
       ){
 
-        xp+=10;
+        xp+=
+        10;
+
 
         if(
           xp>=xpNeeded
         ){
 
-          xp-=xpNeeded;
+          xp-=
+          xpNeeded;
+
 
           xpNeeded=
           Math.round(
             xpNeeded*1.35
           );
 
+
           level++;
 
-          damageMultiplier*=1.05;
+
+          openUpgrade();
         }
+
+      }else if(
+        pickup.type==="egg"
+      ){
+
+        battleEggTotal+=
+        10;
 
       }else{
 
-        battleEggTotal+=10;
+        playerHP=
+        Math.min(
+          maxHP,
+          playerHP+25
+        );
+
+
+        const actor=
+        actors.find(
+          actor=>
+          actor.type==="player"
+        );
+
+
+        if(actor){
+
+          actor.hp=
+          playerHP;
+        }
       }
+
 
       world.remove(
         pickup.mesh
       );
+
 
       pickups.splice(
         i,
@@ -3468,21 +6012,237 @@ function updatePickups(dt){
   }
 }
 
+
 /* =========================
-   AI
+   UPGRADES
+========================= */
+
+const UPGRADES=[
+
+[
+  "💥",
+  "MORE DAMAGE",
+  "+18% damage",
+  "damage"
+],
+
+[
+  "⚡",
+  "FASTER FIRE",
+  "15% faster fire",
+  "fire"
+],
+
+[
+  "❤️",
+  "MORE HP",
+  "+25 max HP",
+  "hp"
+],
+
+[
+  "👟",
+  "MOVE SPEED",
+  "+12% speed",
+  "speed"
+],
+
+[
+  "🎯",
+  "PIERCE",
+  "Bullets pierce +1 enemy",
+  "pierce"
+],
+
+[
+  "💊",
+  "HEAL",
+  "Restore 35 HP",
+  "heal"
+]
+
+];
+
+
+function openUpgrade(){
+
+  paused=
+  true;
+
+
+  upgradeGridEl.innerHTML=
+  "";
+
+
+  [
+    ...UPGRADES
+  ]
+  .sort(
+    ()=>
+    Math.random()-.5
+  )
+  .slice(
+    0,
+    3
+  )
+  .forEach(
+    upgrade=>{
+
+      const card=
+      document.createElement(
+        "div"
+      );
+
+
+      card.className=
+      "upgradeCard";
+
+
+      card.innerHTML=
+      `
+      <div class="upgradeIcon">
+        ${upgrade[0]}
+      </div>
+
+      <div class="upgradeName">
+        ${upgrade[1]}
+      </div>
+
+      <div class="upgradeDesc">
+        ${upgrade[2]}
+      </div>
+      `;
+
+
+      card.onclick=
+      ()=>applyUpgrade(
+        upgrade[3]
+      );
+
+
+      upgradeGridEl.appendChild(
+        card
+      );
+    }
+  );
+
+
+  upgradeModalEl
+  .classList
+  .add("show");
+}
+
+
+function applyUpgrade(type){
+
+  if(
+    type==="damage"
+  ){
+
+    damageMultiplier*=
+    1.18;
+  }
+
+
+  if(
+    type==="fire"
+  ){
+
+    fireMultiplier*=
+    .85;
+  }
+
+
+  if(
+    type==="hp"
+  ){
+
+    maxHP+=
+    25;
+
+
+    playerHP+=
+    25;
+  }
+
+
+  if(
+    type==="speed"
+  ){
+
+    moveMultiplier*=
+    1.12;
+  }
+
+
+  if(
+    type==="pierce"
+  ){
+
+    bulletPierce++;
+  }
+
+
+  if(
+    type==="heal"
+  ){
+
+    playerHP=
+    Math.min(
+      maxHP,
+      playerHP+35
+    );
+  }
+
+
+  const actor=
+  actors.find(
+    actor=>
+    actor.type==="player"
+  );
+
+
+  if(actor){
+
+    actor.hp=
+    playerHP;
+
+
+    actor.maxHP=
+    maxHP;
+  }
+
+
+  upgradeModalEl
+  .classList
+  .remove("show");
+
+
+  paused=
+  false;
+}
+
+
+/* =========================
+   AI BRAWL
 ========================= */
 
 function actorInGrass(actor){
 
   return grassZones.some(
-
     zone=>{
 
       const dx=
-      actor.mesh.position.x-zone.x;
+      actor.mesh.position.x
+      -
+      zone.x;
+
 
       const dz=
-      actor.mesh.position.z-zone.z;
+      actor.mesh.position.z
+      -
+      zone.z;
+
 
       return(
         dx*dx+dz*dz
@@ -3490,65 +6250,104 @@ function actorInGrass(actor){
         zone.radius*zone.radius
       );
     }
-
   );
 }
 
+
 function chooseAITarget(ai){
 
-  const possible=
+  const candidates=
   actors.filter(
+    other=>
 
-    actor=>
-    actor.alive
+    other.alive
+
     &&
-    actor!==ai
+
+    other!==ai
+
     &&
+
     !(
-      actor.hidden
+      other.hidden
       &&
-      actor.revealTimer<=0
+      other.revealTimer<=0
       &&
-      actor.mesh.position
+      other.mesh.position
       .distanceTo(
         ai.mesh.position
       )
       >
       5
     )
-
   );
 
+
   if(
-    possible.length===0
+    !candidates.length
   ){
+
     return null;
   }
 
-  possible.sort(
 
-    (a,b)=>
+  candidates.sort(
+    (
+      a,
+      b
+    )=>{
 
-    a.mesh.position
-    .distanceTo(
-      ai.mesh.position
-    )
+      const distanceA=
+      a.mesh.position
+      .distanceTo(
+        ai.mesh.position
+      )
+      -
+      (
+        1-a.hp/a.maxHP
+      )
+      *
+      2;
 
-    -
 
-    b.mesh.position
-    .distanceTo(
-      ai.mesh.position
-    )
+      const distanceB=
+      b.mesh.position
+      .distanceTo(
+        ai.mesh.position
+      )
+      -
+      (
+        1-b.hp/b.maxHP
+      )
+      *
+      2;
 
+
+      return(
+        distanceA-distanceB
+      );
+    }
   );
 
-  return possible[0];
+
+  return(
+    Math.random()<.82
+    ?
+    candidates[0]
+    :
+    candidates[
+      Math.min(
+        candidates.length-1,
+        1
+      )
+    ]
+  );
 }
+
 
 function updateAI(dt){
 
-  const livingAI=
+  const liveAI=
   actors.filter(
     actor=>
     actor.type==="ai"
@@ -3556,203 +6355,392 @@ function updateAI(dt){
     actor.alive
   );
 
-  for(
-    const ai
-    of livingAI
-  ){
 
-    ai.fire-=dt;
+  liveAI.forEach(
+    ai=>{
 
-    ai.targetLock-=dt;
+      ai.fire-=
+      dt;
 
-    ai.revealTimer=
-    Math.max(
-      0,
-      ai.revealTimer-dt
-    );
 
-    ai.hidden=
-    actorInGrass(ai)
-    &&
-    ai.revealTimer<=0;
+      ai.targetLock-=
+      dt;
 
-    if(
-      !ai.target
-      ||
-      !ai.target.alive
-      ||
-      ai.targetLock<=0
-    ){
 
-      ai.target=
-      chooseAITarget(ai);
-
-      ai.targetLock=
-      2.7+
-      Math.random()*2.6;
-    }
-
-    if(!ai.target){
-      continue;
-    }
-
-    const direction=
-    new THREE.Vector3()
-    .subVectors(
-      ai.target.mesh.position,
-      ai.mesh.position
-    );
-
-    direction.y=0;
-
-    const distance=
-    direction.length();
-
-    if(distance<.001){
-      continue;
-    }
-
-    direction.normalize();
-
-    const keepDistance=
-    Math.min(
-      ai.chicken.range*.72,
-      8
-    );
-
-    const strafe=
-    new THREE.Vector3(
-      -direction.z,
-      0,
-      direction.x
-    );
-
-    if(
-      distance>
-      keepDistance+1
-    ){
-
-      ai.mesh.position
-      .addScaledVector(
-        direction,
-        2.2*dt
+      ai.revealTimer=
+      Math.max(
+        0,
+        ai.revealTimer-dt
       );
 
-    }else if(
-      distance<
-      keepDistance-1
-    ){
 
-      ai.mesh.position
-      .addScaledVector(
-        direction,
-        -1.2*dt
+      ai.slowTimer=
+      Math.max(
+        0,
+        (
+          ai.slowTimer
+          ||
+          0
+        )
+        -
+        dt
       );
-    }
 
-    ai.mesh.position
-    .addScaledVector(
-      strafe,
+
+      ai.hidden=
+      actorInGrass(ai)
+      &&
+      ai.revealTimer<=0;
+
+
+      if(
+        !ai.target
+        ||
+        !ai.target.alive
+        ||
+        ai.targetLock<=0
+        ||
+        (
+          ai.target.hidden
+          &&
+          ai.target.revealTimer<=0
+          &&
+          ai.mesh.position
+          .distanceTo(
+            ai.target.mesh.position
+          )
+          >
+          5
+        )
+      ){
+
+        ai.target=
+        chooseAITarget(ai);
+
+
+        ai.targetLock=
+        2.7+
+        Math.random()*2.6;
+      }
+
+
+      const target=
+      ai.target;
+
+
+      if(
+        !target
+      ){
+
+        return;
+      }
+
+
+      const direction=
+      new THREE.Vector3()
+      .subVectors(
+        target.mesh.position,
+        ai.mesh.position
+      );
+
+
+      direction.y=
+      0;
+
+
+      const distance=
+      direction.length();
+
+
+      if(
+        distance<.001
+      ){
+
+        return;
+      }
+
+
+      direction.normalize();
+
+
+      const rank=
+      ai.rank;
+
+
+      const keepDistance=
+      Math.min(
+        ai.chicken.range*.72,
+        7.5+
+        rank*.35
+      );
+
+
+      const strafe=
+      new THREE.Vector3(
+        -direction.z,
+        0,
+        direction.x
+      );
+
+
+      const side=
       Math.sin(
-        performance.now()*.001+
+        performance.now()*.0013
+        +
         ai.mesh.position.x
       )
-      *
-      .6
-      *
-      dt
-    );
+      >
+      0
+      ?
+      1
+      :
+      -1;
 
-    ai.mesh.position.x=
-    THREE.MathUtils.clamp(
-      ai.mesh.position.x,
-      -31.2,
-      31.2
-    );
 
-    ai.mesh.position.z=
-    THREE.MathUtils.clamp(
-      ai.mesh.position.z,
-      -31.2,
-      31.2
-    );
+      const slow=
+      ai.slowTimer>0
+      ?
+      .55
+      :
+      1;
 
-    ai.mesh.rotation.y=
-    Math.atan2(
-      direction.x,
-      direction.z
-    );
 
-    if(
-      ai.fire<=0
-      &&
-      distance<
-      ai.chicken.range
-      &&
-      !ai.target.hidden
-    ){
+      if(
+        distance>
+        keepDistance+1.1
+      ){
 
-      ai.fire=
-      Math.max(
-        .38,
-        ai.chicken.fireRate*2
-      )
-      +
-      .15+
-      Math.random()*.25;
+        ai.mesh.position
+        .addScaledVector(
 
-      const error=
-      Math.max(
-        .03,
-        .24-ai.rank*.025
-      );
+          direction,
 
-      const shot=
-      direction.clone()
-      .applyAxisAngle(
-        new THREE.Vector3(
-          0,
-          1,
-          0
-        ),
+          (
+            2.05+
+            rank*.1
+          )
+          *
+          slow
+          *
+          dt
+        );
+
+      }else if(
+        distance<
+        keepDistance-1.5
+      ){
+
+        ai.mesh.position
+        .addScaledVector(
+
+          direction,
+
+          -(
+            1.15+
+            rank*.06
+          )
+          *
+          slow
+          *
+          dt
+        );
+      }
+
+
+      ai.mesh.position
+      .addScaledVector(
+
+        strafe,
+
+        side
+        *
         (
-          Math.random()-.5
+          .55+
+          rank*.05
         )
         *
-        error
+        slow
+        *
+        dt
       );
 
-      createBullet(
-        ai.mesh.position,
-        shot,
-        ai.chicken,
-        "ai",
-        .7,
-        ai
+
+      ai.mesh.position.x=
+      THREE.MathUtils.clamp(
+        ai.mesh.position.x,
+        -31.2,
+        31.2
       );
 
-      sfxGun(
-        ai.chicken,
-        true
+
+      ai.mesh.position.z=
+      THREE.MathUtils.clamp(
+        ai.mesh.position.z,
+        -31.2,
+        31.2
       );
 
-      ai.revealTimer=2.3;
 
-      ai.hidden=false;
+      ai.mesh.rotation.y=
+      Math.atan2(
+        direction.x,
+        direction.z
+      );
+
+
+      if(
+        ai.fire<=0
+        &&
+        distance<
+        ai.chicken.range
+        &&
+        !target.hidden
+      ){
+
+        const rankSpeed=
+        Math.max(
+          .72,
+          1-rank*.035
+        );
+
+
+        const baseCooldown=
+        Math.max(
+          .36,
+          ai.chicken.fireRate*2.05
+        );
+
+
+        ai.fire=
+        (
+          baseCooldown+
+          .12+
+          Math.random()*.28
+        )
+        *
+        rankSpeed;
+
+
+        const error=
+        Math.max(
+          .025,
+          .28-rank*.032
+        );
+
+
+        const shot=
+        direction.clone()
+        .applyAxisAngle(
+
+          new THREE.Vector3(
+            0,
+            1,
+            0
+          ),
+
+          (
+            Math.random()-.5
+          )
+          *
+          error
+        );
+
+
+        createBullet(
+          ai.mesh.position,
+          shot,
+          ai.chicken,
+          "ai",
+          .62+
+          rank*.045,
+          ai
+        );
+
+
+        sfxGun(
+          ai.chicken,
+          true
+        );
+
+
+        ai.revealTimer=
+        2.3;
+
+
+        ai.hidden=
+        false;
+      }
     }
+  );
+
+
+  const playerActor=
+  actors.find(
+    actor=>
+    actor.type==="player"
+  );
+
+
+  if(
+    playerActor
+  ){
+
+    playerActor.hp=
+    playerHP;
+
+
+    playerActor.revealTimer=
+    Math.max(
+      0,
+      playerActor.revealTimer-dt
+    );
+
+
+    playerActor.hidden=
+    playerHidden
+    &&
+    playerActor.revealTimer<=0;
   }
+
 
   updateAIMarkers();
 
+
   if(
-    livingAI.length===0
+    actors.filter(
+      actor=>
+      actor.type==="ai"
+      &&
+      actor.alive
+    ).length
+    ===
+    0
     &&
     gameActive
+    &&
+    !matchEnding
   ){
+
+    matchEnding=
+    true;
+
+
+    if(
+      currentMode===2
+    ){
+
+      save.rankPoints+=
+      70;
+
+
+      saveGame();
+    }
+
 
     showMessage(
       "YOU WIN!"
     );
+
 
     setTimeout(
       endGame,
@@ -3760,6 +6748,7 @@ function updateAI(dt){
     );
   }
 }
+
 
 function updateAIMarkers(){
 
@@ -3769,12 +6758,15 @@ function updateAIMarkers(){
     actor.type==="ai"
   )
   .forEach(
-
     ai=>{
 
-      if(!ai.marker){
+      if(
+        !ai.marker
+      ){
+
         return;
       }
+
 
       if(
         !ai.alive
@@ -3788,14 +6780,21 @@ function updateAIMarkers(){
         return;
       }
 
+
       const screen=
       ai.mesh.position.clone();
 
-      screen.y+=3;
 
-      screen.project(camera);
+      screen.y+=
+      3;
 
-      const visible=
+
+      screen.project(
+        camera
+      );
+
+
+      const onScreen=
       screen.z<1
       &&
       screen.x>-1.05
@@ -3806,14 +6805,18 @@ function updateAIMarkers(){
       &&
       screen.y<1.05;
 
+
       ai.marker.style.display=
-      visible
+      onScreen
       ?
       "block"
       :
       "none";
 
-      if(visible){
+
+      if(
+        onScreen
+      ){
 
         ai.marker.style.left=
         (
@@ -3825,6 +6828,7 @@ function updateAIMarkers(){
         )
         +
         "px";
+
 
         ai.marker.style.top=
         (
@@ -3841,13 +6845,16 @@ function updateAIMarkers(){
   );
 }
 
+
 /* =========================
    GRASS
 ========================= */
 
 function updateGrass(){
 
-  playerHidden=false;
+  playerHidden=
+  false;
+
 
   for(
     const zone
@@ -3855,10 +6862,16 @@ function updateGrass(){
   ){
 
     const dx=
-    player.position.x-zone.x;
+    player.position.x
+    -
+    zone.x;
+
 
     const dz=
-    player.position.z-zone.z;
+    player.position.z
+    -
+    zone.z;
+
 
     if(
       dx*dx+dz*dz
@@ -3866,11 +6879,13 @@ function updateGrass(){
       zone.radius*zone.radius
     ){
 
-      playerHidden=true;
+      playerHidden=
+      true;
 
       break;
     }
   }
+
 
   const playerActor=
   actors.find(
@@ -3878,24 +6893,28 @@ function updateGrass(){
     actor.type==="player"
   );
 
+
   if(
     playerActor
     &&
     playerActor.revealTimer>0
   ){
 
-    playerHidden=false;
+    playerHidden=
+    false;
   }
 
-  player.traverse(
 
+  player.traverse(
     child=>{
 
       if(
         child.material
       ){
 
-        child.material.transparent=true;
+        child.material.transparent=
+        true;
+
 
         child.material.opacity=
         playerHidden
@@ -3905,10 +6924,12 @@ function updateGrass(){
         1;
       }
     }
-
   );
 
-  let danger=false;
+
+  let danger=
+  false;
+
 
   if(
     currentMode>0
@@ -3916,7 +6937,8 @@ function updateGrass(){
 
     for(
       const ai
-      of actors.filter(
+      of
+      actors.filter(
         actor=>
         actor.type==="ai"
         &&
@@ -3929,6 +6951,7 @@ function updateGrass(){
       &&
       ai.revealTimer<=0;
 
+
       if(
         ai.hidden
         &&
@@ -3940,17 +6963,20 @@ function updateGrass(){
         6.2
       ){
 
-        danger=true;
+        danger=
+        true;
       }
     }
   }
 
-  dangerIndicator.style.display=
+
+  dangerIndicatorEl.style.display=
   danger
   ?
   "block"
   :
   "none";
+
 
   if(
     danger
@@ -3958,23 +6984,28 @@ function updateGrass(){
     dangerCD<=0
   ){
 
-    dangerCD=2;
+    dangerCD=
+    2;
+
 
     sfxChicken();
   }
 }
+
 
 /* =========================
    KEYBOARD
 ========================= */
 
 addEventListener(
-
   "keydown",
-
   event=>{
 
-    keys[event.code]=true;
+    keys[
+      event.code
+    ]=
+    true;
+
 
     if(
       event.code==="KeyE"
@@ -3985,16 +7016,18 @@ addEventListener(
       beginSkill();
     }
   }
-
 );
 
+
 addEventListener(
-
   "keyup",
-
   event=>{
 
-    keys[event.code]=false;
+    keys[
+      event.code
+    ]=
+    false;
+
 
     if(
       event.code==="KeyE"
@@ -4005,8 +7038,8 @@ addEventListener(
       castSkill();
     }
   }
-
 );
+
 
 function updatePlayer(dt){
 
@@ -4015,30 +7048,50 @@ function updatePlayer(dt){
     ||
     !player
   ){
+
     return;
   }
 
+
   let x=
   (
-    keys.KeyD?1:0
+    keys.KeyD
+    ?
+    1
+    :
+    0
   )
   -
   (
-    keys.KeyA?1:0
+    keys.KeyA
+    ?
+    1
+    :
+    0
   )
   +
   joyX;
 
+
   let z=
   (
-    keys.KeyS?1:0
+    keys.KeyS
+    ?
+    1
+    :
+    0
   )
   -
   (
-    keys.KeyW?1:0
+    keys.KeyW
+    ?
+    1
+    :
+    0
   )
   +
   joyY;
+
 
   const length=
   Math.hypot(
@@ -4046,12 +7099,19 @@ function updatePlayer(dt){
     z
   );
 
-  if(length>1){
 
-    x/=length;
+  if(
+    length>1
+  ){
 
-    z/=length;
+    x/=
+    length;
+
+
+    z/=
+    length;
   }
+
 
   const speed=
   selectedChicken.speed
@@ -4066,12 +7126,14 @@ function updatePlayer(dt){
     1
   );
 
+
   moveVelocity.x=
   THREE.MathUtils.lerp(
     moveVelocity.x,
     x*speed,
     .18
   );
+
 
   moveVelocity.y=
   THREE.MathUtils.lerp(
@@ -4080,11 +7142,14 @@ function updatePlayer(dt){
     .18
   );
 
+
   player.position.x+=
   moveVelocity.x*dt;
 
+
   player.position.z+=
   moveVelocity.y*dt;
+
 
   const limit=
   currentMode===0
@@ -4093,6 +7158,7 @@ function updatePlayer(dt){
   :
   31.2;
 
+
   player.position.x=
   THREE.MathUtils.clamp(
     player.position.x,
@@ -4100,12 +7166,14 @@ function updatePlayer(dt){
     limit
   );
 
+
   player.position.z=
   THREE.MathUtils.clamp(
     player.position.z,
     -limit,
     limit
   );
+
 
   if(
     rightMouseDown
@@ -4118,6 +7186,7 @@ function updatePlayer(dt){
     const direction=
     currentAimDir();
 
+
     player.rotation.y=
     Math.atan2(
       direction.x,
@@ -4125,6 +7194,7 @@ function updatePlayer(dt){
     );
   }
 }
+
 
 /* =========================
    DESKTOP AIM
@@ -4138,19 +7208,30 @@ function setAim(
   mouse.x=
   clientX/innerWidth*2-1;
 
+
   mouse.y=
-  -(clientY/innerHeight)*2+1;
+  -(
+    clientY/innerHeight
+  )
+  *
+  2
+  +
+  1;
+
 
   raycaster.setFromCamera(
     mouse,
     camera
   );
 
-  raycaster.ray.intersectPlane(
+
+  raycaster.ray
+  .intersectPlane(
     aimPlane,
     aimPoint
   );
 }
+
 
 addEventListener(
   "contextmenu",
@@ -4158,10 +7239,9 @@ addEventListener(
   event.preventDefault()
 );
 
+
 addEventListener(
-
   "pointermove",
-
   event=>{
 
     if(
@@ -4169,8 +7249,10 @@ addEventListener(
       ||
       event.pointerType==="touch"
     ){
+
       return;
     }
+
 
     if(
       rightMouseDown
@@ -4184,13 +7266,11 @@ addEventListener(
       );
     }
   }
-
 );
 
+
 addEventListener(
-
   "pointerdown",
-
   event=>{
 
     if(
@@ -4200,22 +7280,28 @@ addEventListener(
       ||
       event.pointerType==="touch"
     ){
+
       return;
     }
+
 
     if(
       event.button===2
     ){
 
-      rightMouseDown=true;
+      rightMouseDown=
+      true;
+
 
       setAim(
         event.clientX,
         event.clientY
       );
 
+
       return;
     }
+
 
     if(
       event.button===0
@@ -4223,44 +7309,71 @@ addEventListener(
       rightMouseDown
     ){
 
-      mouseDown=true;
+      mouseDown=
+      true;
+
 
       shoot();
     }
   }
-
 );
 
+
 addEventListener(
-
   "pointerup",
-
   event=>{
 
     if(
       event.pointerType==="touch"
     ){
+
       return;
     }
+
 
     if(
       event.button===2
     ){
-      rightMouseDown=false;
+
+      rightMouseDown=
+      false;
     }
+
 
     if(
       event.button===0
     ){
-      mouseDown=false;
+
+      mouseDown=
+      false;
     }
   }
-
 );
+
 
 /* =========================
    MOBILE
 ========================= */
+
+const touchLayer=
+$("touchLayer");
+
+
+const moveBase=
+$("moveBase");
+
+
+const moveKnob=
+$("moveKnob");
+
+
+const skillMobile=
+$("skillMobile");
+
+
+const shootMobile=
+$("shootMobile");
+
 
 let moveID=null;
 
@@ -4270,10 +7383,9 @@ let moveCX=0;
 
 let moveCY=0;
 
+
 touchLayer.addEventListener(
-
   "pointerdown",
-
   event=>{
 
     if(
@@ -4281,13 +7393,17 @@ touchLayer.addEventListener(
       &&
       event.pointerType!=="pen"
     ){
+
       return;
     }
 
+
     event.preventDefault();
 
+
     if(
-      event.clientX<
+      event.clientX
+      <
       innerWidth*.48
       &&
       moveID===null
@@ -4296,17 +7412,22 @@ touchLayer.addEventListener(
       moveID=
       event.pointerId;
 
+
       moveCX=
       event.clientX;
+
 
       moveCY=
       event.clientY;
 
+
       moveBase.style.left=
       moveCX+"px";
 
+
       moveBase.style.top=
       moveCY+"px";
+
 
       moveBase.style.display=
       "block";
@@ -4318,7 +7439,10 @@ touchLayer.addEventListener(
       aimID=
       event.pointerId;
 
-      mobileAiming=true;
+
+      mobileAiming=
+      true;
+
 
       setAim(
         event.clientX,
@@ -4326,15 +7450,14 @@ touchLayer.addEventListener(
       );
     }
   },
-
-  {passive:false}
-
+  {
+    passive:false
+  }
 );
 
+
 touchLayer.addEventListener(
-
   "pointermove",
-
   event=>{
 
     if(
@@ -4343,13 +7466,18 @@ touchLayer.addEventListener(
 
       event.preventDefault();
 
+
       let dx=
       event.clientX-moveCX;
+
 
       let dy=
       event.clientY-moveCY;
 
-      const max=42;
+
+      const max=
+      42;
+
 
       const length=
       Math.hypot(
@@ -4357,20 +7485,27 @@ touchLayer.addEventListener(
         dy
       );
 
+
       if(
         length>max
       ){
 
-        dx*=max/length;
+        dx*=
+        max/length;
 
-        dy*=max/length;
+
+        dy*=
+        max/length;
       }
+
 
       joyX=
       dx/max;
 
+
       joyY=
       dy/max;
+
 
       moveKnob.style.transform=
       `translate(${dx}px,${dy}px)`;
@@ -4381,7 +7516,10 @@ touchLayer.addEventListener(
 
       event.preventDefault();
 
-      mobileAiming=true;
+
+      mobileAiming=
+      true;
+
 
       setAim(
         event.clientX,
@@ -4389,10 +7527,11 @@ touchLayer.addEventListener(
       );
     }
   },
-
-  {passive:false}
-
+  {
+    passive:false
+  }
 );
+
 
 function endTouch(event){
 
@@ -4400,54 +7539,75 @@ function endTouch(event){
     event.pointerId===moveID
   ){
 
-    moveID=null;
+    moveID=
+    null;
 
-    joyX=0;
 
-    joyY=0;
+    joyX=
+    0;
+
+
+    joyY=
+    0;
+
 
     moveBase.style.display=
     "none";
+
 
     moveKnob.style.transform=
     "translate(0,0)";
   }
 
+
   if(
     event.pointerId===aimID
   ){
 
-    aimID=null;
+    aimID=
+    null;
 
-    mobileAiming=false;
+
+    mobileAiming=
+    false;
   }
 }
+
 
 touchLayer.addEventListener(
   "pointerup",
   endTouch,
-  {passive:false}
+  {
+    passive:false
+  }
 );
+
 
 touchLayer.addEventListener(
   "pointercancel",
   endTouch,
-  {passive:false}
+  {
+    passive:false
+  }
 );
 
+
 shootMobile.addEventListener(
-
   "pointerdown",
-
   event=>{
 
     event.preventDefault();
 
     event.stopPropagation();
 
-    mouseDown=true;
 
-    mobileAiming=true;
+    mouseDown=
+    true;
+
+
+    mobileAiming=
+    true;
+
 
     if(
       aimID===null
@@ -4462,13 +7622,16 @@ shootMobile.addEventListener(
         1
       )
       .applyAxisAngle(
+
         new THREE.Vector3(
           0,
           1,
           0
         ),
+
         player.rotation.y
       );
+
 
       aimPoint
       .copy(
@@ -4480,85 +7643,115 @@ shootMobile.addEventListener(
       );
     }
 
+
     shoot();
   },
-
-  {passive:false}
-
+  {
+    passive:false
+  }
 );
 
+
 shootMobile.addEventListener(
-
   "pointerup",
-
   event=>{
 
     event.preventDefault();
 
     event.stopPropagation();
 
-    mouseDown=false;
+
+    mouseDown=
+    false;
+
 
     if(
       aimID===null
     ){
 
-      mobileAiming=false;
+      mobileAiming=
+      false;
     }
   },
-
-  {passive:false}
-
+  {
+    passive:false
+  }
 );
 
+
+shootMobile.addEventListener(
+  "pointercancel",
+  ()=>{
+
+    mouseDown=
+    false;
+
+
+    if(
+      aimID===null
+    ){
+
+      mobileAiming=
+      false;
+    }
+  }
+);
+
+
 skillMobile.addEventListener(
-
   "pointerdown",
-
   event=>{
 
     event.preventDefault();
 
     event.stopPropagation();
+
 
     beginSkill();
   },
-
-  {passive:false}
-
+  {
+    passive:false
+  }
 );
 
+
 skillMobile.addEventListener(
-
   "pointerup",
-
   event=>{
 
     event.preventDefault();
 
     event.stopPropagation();
 
-    if(skillAiming){
+
+    if(
+      skillAiming
+    ){
+
       castSkill();
     }
   },
-
-  {passive:false}
-
+  {
+    passive:false
+  }
 );
 
-/* ANTI ZOOM */
 
-let lastTouchEnd=0;
+/* =========================
+   ANTI ZOOM
+========================= */
+
+let lastTouchEnd=
+0;
+
 
 document.addEventListener(
-
   "touchend",
-
   event=>{
 
     const now=
     Date.now();
+
 
     if(
       now-lastTouchEnd<=320
@@ -4567,64 +7760,91 @@ document.addEventListener(
       event.preventDefault();
     }
 
-    lastTouchEnd=now;
+
+    lastTouchEnd=
+    now;
   },
-
-  {passive:false}
-
+  {
+    passive:false
+  }
 );
+
 
 document.addEventListener(
   "gesturestart",
   event=>
   event.preventDefault(),
-  {passive:false}
+  {
+    passive:false
+  }
 );
+
 
 document.addEventListener(
   "gesturechange",
   event=>
   event.preventDefault(),
-  {passive:false}
+  {
+    passive:false
+  }
 );
+
+
+document.addEventListener(
+  "gestureend",
+  event=>
+  event.preventDefault(),
+  {
+    passive:false
+  }
+);
+
 
 /* =========================
    ROSTER
 ========================= */
 
-window.openRoster=function(){
+window.openRoster=
+()=>{
 
   renderRoster();
 
-  rosterModal.classList.add(
-    "show"
-  );
+  rosterModalEl
+  .classList
+  .add("show");
 };
 
-window.closeRoster=function(){
 
-  rosterModal.classList.remove(
-    "show"
-  );
+window.closeRoster=
+()=>{
+
+  rosterModalEl
+  .classList
+  .remove("show");
 };
+
 
 function renderRoster(){
 
-  rosterGrid.innerHTML="";
+  rosterGridEl.innerHTML=
+  "";
+
 
   CHICKENS.forEach(
-
     chicken=>{
 
       const unlocked=
-      save.unlocked.includes(
+      save.unlocked
+      .includes(
         chicken.id
       );
+
 
       const card=
       document.createElement(
         "div"
       );
+
 
       card.className=
       "chickenCard"
@@ -4637,11 +7857,14 @@ function renderRoster(){
         " locked"
       );
 
+
       card.innerHTML=
       `
       <div
         class="cardColor"
-        style="background:#${chicken.color.toString(16).padStart(6,"0")}"
+        style="
+          background:#${chicken.color.toString(16).padStart(6,"0")}
+        "
       ></div>
 
       <div class="cardName">
@@ -4663,94 +7886,139 @@ function renderRoster(){
       </div>
       `;
 
-      if(unlocked){
+
+      if(
+        unlocked
+      ){
 
         card.onclick=
-        function(){
+        ()=>{
 
           save.selected=
           chicken.id;
 
+
           selectedChicken=
           chicken;
 
+
           saveGame();
+
 
           window.closeRoster();
 
+
           buildLobbyScene();
+
 
           updateLobbyUI();
         };
       }
 
-      rosterGrid.appendChild(
+
+      rosterGridEl.appendChild(
         card
       );
     }
-
   );
 }
+
 
 /* =========================
    GACHA
 ========================= */
 
-window.openGacha=function(){
-  gachaModal.classList.add(
-    "show"
-  );
+window.openGacha=
+()=>{
+
+  gachaModalEl
+  .classList
+  .add("show");
 };
 
-window.closeGacha=function(){
-  gachaModal.classList.remove(
-    "show"
-  );
+
+window.closeGacha=
+()=>{
+
+  gachaModalEl
+  .classList
+  .remove("show");
 };
+
 
 let rolling=false;
 
-window.rollGacha=function(){
+
+window.rollGacha=
+()=>{
 
   if(
     rolling
     ||
     save.eggs<500
   ){
+
+    showMessage(
+      save.eggs<500
+      ?
+      "NOT ENOUGH EGGS"
+      :
+      "WAIT"
+    );
+
     return;
   }
 
-  rolling=true;
 
-  save.eggs-=500;
+  rolling=
+  true;
+
+
+  save.eggs-=
+  500;
+
 
   saveGame();
 
+
   updateLobbyUI();
+
 
   sfxGacha();
 
-  machineHandle.style.transform=
+
+  machineHandleEl
+  .style
+  .transform=
   "rotate(85deg)";
+
 
   setTimeout(
     ()=>{
 
-      machineHandle.style.transform=
+      machineHandleEl
+      .style
+      .transform=
       "rotate(0deg)";
 
-      gachaEgg.classList.add(
-        "show"
+
+      gachaEggEl
+      .classList
+      .add(
+        "show",
+        "shake"
       );
     },
-    350
+    380
   );
+
 
   setTimeout(
     ()=>{
 
       const random=
       Math.random();
+
 
       const stars=
       random<.55
@@ -4771,11 +8039,13 @@ window.rollGacha=function(){
       :
       5;
 
+
       const pool=
       CHICKENS.filter(
         chicken=>
         chicken.stars===stars
       );
+
 
       const chicken=
       pool[
@@ -4784,12 +8054,17 @@ window.rollGacha=function(){
         )
       ];
 
+
       const duplicate=
-      save.unlocked.includes(
+      save.unlocked
+      .includes(
         chicken.id
       );
 
-      if(!duplicate){
+
+      if(
+        !duplicate
+      ){
 
         save.unlocked.push(
           chicken.id
@@ -4797,58 +8072,100 @@ window.rollGacha=function(){
 
       }else{
 
-        const amounts={
+        const fragmentAmount=
+        {
           1:10,
           2:25,
           3:60,
           4:150,
           5:400
-        };
+        }[stars];
 
-        save.fragments[chicken.id]=
+
+        save.fragments[
+          chicken.id
+        ]=
         (
-          save.fragments[chicken.id]
+          save.fragments[
+            chicken.id
+          ]
           ||
           0
         )
         +
-        amounts[stars];
+        fragmentAmount;
       }
+
 
       saveGame();
 
-      gachaEgg.classList.remove(
+
+      gachaEggEl
+      .classList
+      .remove(
+        "shake"
+      );
+
+
+      gachaEggEl
+      .classList
+      .remove(
         "show"
       );
 
-      resultChicken.textContent=
+
+      resultChickenEl.textContent=
       "🐔";
 
-      resultName.textContent=
-      save.language==="zh"
-      ?
-      chicken.zh
-      :
-      chicken.name;
 
-      resultStars.textContent=
-      "★".repeat(stars);
+      resultNameEl.textContent=
+      (
+        save.language==="zh"
+        ?
+        chicken.zh
+        :
+        chicken.name
+      )
+      +
+      (
+        duplicate
+        ?
+        " · FRAGMENTS"
+        :
+        ""
+      );
 
-      gachaCost.textContent=
+
+      resultStarsEl.textContent=
+      "★".repeat(
+        stars
+      );
+
+
+      gachaCostEl.textContent=
       duplicate
       ?
-      "DUPLICATE → FRAGMENTS"
+      `+${{
+        1:10,
+        2:25,
+        3:60,
+        4:150,
+        5:400
+      }[stars]} FRAGMENTS`
       :
       "NEW CHICKEN!";
 
+
       sfxChicken();
 
-      rolling=false;
 
+      rolling=
+      false;
     },
-    1300
+    1500
   );
 };
+
 
 /* =========================
    UI
@@ -4856,56 +8173,84 @@ window.rollGacha=function(){
 
 function updateLobbyUI(){
 
-  lobbyEggs.textContent=
+  lobbyEggsEl.textContent=
   save.eggs;
 
-  lobbyRank.textContent=
+
+  lobbyRankEl.textContent=
   RANKS[
     getRank()
   ];
 
-  selectedName.textContent=
+
+  selectedNameEl.textContent=
   save.language==="zh"
   ?
   selectedChicken.zh
   :
   selectedChicken.name;
 
-  selectedStars.textContent=
+
+  selectedStarsEl.textContent=
   "★".repeat(
     selectedChicken.stars
   );
 
-  selectedInfo.innerHTML=
+
+  selectedInfoEl.innerHTML=
   `
-  ${save.language==="zh"?"武器":"Weapon"}:
+  ${
+    save.language==="zh"
+    ?
+    "武器"
+    :
+    "Weapon"
+  }:
   ${selectedChicken.weapon}
+
   <br>
-  ${save.language==="zh"?"技能":"Skill"}:
+
+  ${
+    save.language==="zh"
+    ?
+    "技能"
+    :
+    "Skill"
+  }:
   ${selectedChicken.skill}
   `;
 
-  modeName.textContent=
-  MODES[currentMode];
+
+  modeNameEl.textContent=
+  MODES[
+    currentMode
+  ];
 }
+
 
 function updateHUD(){
 
-  if(!selectedChicken){
+  if(
+    !selectedChicken
+  ){
+
     return;
   }
 
-  hudChicken.textContent=
+
+  hudChickenEl.textContent=
   save.language==="zh"
   ?
   selectedChicken.zh
   :
   selectedChicken.name;
 
-  killCount.textContent=
+
+  killCountEl.textContent=
   kills;
 
-  waveText.textContent=
+
+  waveTextEl.textContent=
   currentMode===0
   ?
   (
@@ -4918,42 +8263,51 @@ function updateHUD(){
   :
   "BRAWL";
 
-  enemyText.textContent=
+
+  enemyTextEl.textContent=
   currentMode===0
   ?
   (
-    save.language==="zh"
-    ?
-    "敌人 "
-    :
-    "ENEMIES "
+    (
+      save.language==="zh"
+      ?
+      "敌人 "
+      :
+      "ENEMIES "
+    )
+    +
+    enemies.length
   )
-  +
-  enemies.length
   :
   (
-    save.language==="zh"
-    ?
-    "存活 "
-    :
-    "ALIVE "
-  )
-  +
-  actors.filter(
-    actor=>
-    actor.alive
-  ).length;
+    (
+      save.language==="zh"
+      ?
+      "存活 "
+      :
+      "ALIVE "
+    )
+    +
+    actors.filter(
+      actor=>
+      actor.alive
+    ).length
+  );
+
 
   battleEggCountEl.textContent=
   battleEggTotal;
 
-  levelText.textContent=
+
+  levelTextEl.textContent=
   level;
 
-  hpText.textContent=
+
+  hpTextEl.textContent=
   `HP ${Math.max(0,Math.round(playerHP))} / ${maxHP}`;
 
-  hpFill.style.width=
+
+  hpFillEl.style.width=
   Math.max(
     0,
     playerHP/maxHP*100
@@ -4961,7 +8315,8 @@ function updateHUD(){
   +
   "%";
 
-  xpFill.style.width=
+
+  xpFillEl.style.width=
   Math.min(
     100,
     xp/xpNeeded*100
@@ -4969,42 +8324,63 @@ function updateHUD(){
   +
   "%";
 
-  skillName.textContent=
-  selectedChicken.skill.toUpperCase();
 
-  skillCD.textContent=
+  skillNameEl.textContent=
+  selectedChicken.skill
+  .toUpperCase();
+
+
+  skillCDEl.textContent=
   skillCooldown<=0
   ?
-  "E · READY"
+  (
+    save.language==="zh"
+    ?
+    "E · 就绪"
+    :
+    "E · READY"
+  )
   :
-  "E · "+
+  "E · "
+  +
   skillCooldown.toFixed(1)
   +
   "s";
 }
 
+
 function showMessage(text){
 
-  messageEl.textContent=text;
+  messageEl.textContent=
+  text;
 
-  messageEl.classList.add(
-    "show"
-  );
+
+  messageEl
+  .classList
+  .add("show");
+
 
   clearTimeout(
     messageEl.timer
   );
 
+
   messageEl.timer=
   setTimeout(
-    ()=>messageEl.classList.remove(
-      "show"
-    ),
+    ()=>{
+
+      messageEl
+      .classList
+      .remove("show");
+
+    },
     900
   );
 }
 
-window.changeMode=function(direction){
+
+window.changeMode=
+direction=>{
 
   currentMode=
   (
@@ -5017,11 +8393,13 @@ window.changeMode=function(direction){
   %
   MODES.length;
 
+
   updateLobbyUI();
 };
 
+
 /* =========================
-   START MATCH
+   START / END
 ========================= */
 
 function clearMarkers(){
@@ -5036,15 +8414,17 @@ function clearMarkers(){
   );
 }
 
-window.startBattle=function(){
+
+window.startBattle=
+()=>{
 
   try{
 
     ensureAudio();
 
+
     clearMarkers();
 
-    /* reset state BEFORE building game */
 
     actors=[];
 
@@ -5054,9 +8434,13 @@ window.startBattle=function(){
 
     pickups=[];
 
+    fields=[];
+
     fx=[];
 
+
     player=null;
+
 
     playerHP=100;
 
@@ -5074,6 +8458,7 @@ window.startBattle=function(){
 
     wave=1;
 
+
     damageMultiplier=1;
 
     moveMultiplier=1;
@@ -5082,15 +8467,18 @@ window.startBattle=function(){
 
     bulletPierce=0;
 
+
     fireCooldown=0;
 
     skillCooldown=0;
+
 
     speedTimer=0;
 
     shieldTimer=0;
 
     frenzyTimer=0;
+
 
     mouseDown=false;
 
@@ -5100,24 +8488,35 @@ window.startBattle=function(){
 
     skillAiming=false;
 
-    moveVelocity.set(
-      0,
-      0
-    );
 
     joyX=0;
 
     joyY=0;
 
+
+    matchEnding=false;
+
+
+    moveVelocity.set(
+      0,
+      0
+    );
+
+
     buildArena();
+
 
     lobbyMode=false;
 
+
     gameActive=true;
+
 
     paused=false;
 
+
     spawnPlayer();
+
 
     if(
       currentMode===0
@@ -5130,108 +8529,177 @@ window.startBattle=function(){
       spawnAIChickens();
     }
 
+
     lobbyEl.style.display=
     "none";
+
 
     hudEl.style.display=
     "block";
 
+
     gameOverEl.style.display=
     "none";
 
+
+    fatalErrorEl
+    .classList
+    .remove("show");
+
+
     sfxChicken();
 
+
     showMessage(
-      MODES[currentMode]
+      MODES[
+        currentMode
+      ]
     );
+
 
     updateHUD();
 
   }catch(error){
 
-    console.error(
-      "START BATTLE ERROR:",
+    showFatalError(
       error
-    );
-
-    lobbyEl.style.display=
-    "block";
-
-    hudEl.style.display=
-    "none";
-
-    alert(
-      "Game start error: "+
-      error.message
     );
   }
 };
 
-/* =========================
-   GAME OVER
-========================= */
 
 function endGame(){
 
-  if(!gameActive){
+  if(
+    !gameActive
+  ){
+
     return;
   }
 
-  gameActive=false;
+
+  gameActive=
+  false;
+
+
+  matchEnding=
+  true;
+
 
   save.eggs+=
   battleEggTotal;
 
+
+  if(
+    currentMode===2
+    &&
+    playerHP<=0
+  ){
+
+    save.rankPoints=
+    Math.max(
+      0,
+      save.rankPoints-20
+    );
+  }
+
+
   saveGame();
+
 
   gameOverEl.style.display=
   "flex";
 
-  gameOverStats.innerHTML=
+
+  gameOverStatsEl.innerHTML=
   `
-  MODE: ${MODES[currentMode]}
+  MODE:
+  ${MODES[currentMode]}
+
   <br>
-  KILLS: ${kills}
+
+  KILLS:
+  ${kills}
+
   <br>
-  EGGS: +${battleEggTotal}
+
+  EGGS:
+  +${battleEggTotal}
+
   <br>
-  LEVEL: ${level}
+
+  LEVEL:
+  ${level}
+
   <br>
-  RANK: ${RANKS[getRank()]}
+
+  RANK:
+  ${RANKS[getRank()]}
   `;
 }
 
-window.returnToLobby=function(){
+
+window.returnToLobby=
+()=>{
 
   clearMarkers();
+
 
   gameOverEl.style.display=
   "none";
 
+
   hudEl.style.display=
   "none";
+
 
   lobbyEl.style.display=
   "block";
 
-  gameActive=false;
 
-  paused=false;
+  fatalErrorEl
+  .classList
+  .remove("show");
 
-  mouseDown=false;
 
-  rightMouseDown=false;
+  gameActive=
+  false;
 
-  mobileAiming=false;
 
-  skillAiming=false;
+  paused=
+  false;
 
-  lobbyMode=true;
+
+  matchEnding=
+  false;
+
+
+  mouseDown=
+  false;
+
+
+  rightMouseDown=
+  false;
+
+
+  mobileAiming=
+  false;
+
+
+  skillAiming=
+  false;
+
+
+  lobbyMode=
+  true;
+
 
   buildLobbyScene();
 
+
   updateLobbyUI();
 };
+
 
 /* =========================
    CAMERA
@@ -5239,10 +8707,15 @@ window.returnToLobby=function(){
 
 function updateCamera(){
 
-  if(lobbyMode){
+  if(
+    lobbyMode
+  ){
 
     const time=
-    performance.now()*.0003;
+    performance.now()
+    *
+    .0003;
+
 
     camera.position.set(
       Math.sin(time)*2.2,
@@ -5251,18 +8724,40 @@ function updateCamera(){
       Math.cos(time)*1.4
     );
 
+
     camera.lookAt(
       0,
       1,
       0
     );
 
+
+    if(
+      lobbyChicken
+    ){
+
+      lobbyChicken.rotation.y=
+      Math.sin(
+        performance.now()
+        *
+        .0007
+      )
+      *
+      .3;
+    }
+
+
     return;
   }
 
-  if(!player){
+
+  if(
+    !player
+  ){
+
     return;
   }
+
 
   if(
     currentMode>0
@@ -5271,19 +8766,32 @@ function updateCamera(){
     const mobile=
     matchMedia(
       "(pointer:coarse)"
-    ).matches;
+    )
+    .matches;
+
 
     const desired=
     new THREE.Vector3(
       0,
-      mobile?40:44,
-      mobile?35:39
+      mobile
+      ?
+      40
+      :
+      44,
+      mobile
+      ?
+      35
+      :
+      39
     );
 
-    camera.position.lerp(
+
+    camera.position
+    .lerp(
       desired,
       .07
     );
+
 
     camera.lookAt(
       0,
@@ -5304,10 +8812,13 @@ function updateCamera(){
       )
     );
 
-    camera.position.lerp(
+
+    camera.position
+    .lerp(
       desired,
       .09
     );
+
 
     camera.lookAt(
       player.position.x,
@@ -5317,23 +8828,36 @@ function updateCamera(){
   }
 }
 
+
 /* =========================
    LOOP
 ========================= */
 
 function updateTimers(dt){
 
-  fireCooldown-=dt;
+  fireCooldown-=
+  dt;
 
-  skillCooldown-=dt;
 
-  frenzyTimer-=dt;
+  skillCooldown-=
+  dt;
 
-  speedTimer-=dt;
 
-  shieldTimer-=dt;
+  frenzyTimer-=
+  dt;
 
-  dangerCD-=dt;
+
+  speedTimer-=
+  dt;
+
+
+  shieldTimer-=
+  dt;
+
+
+  dangerCD-=
+  dt;
+
 
   const playerActor=
   actors.find(
@@ -5341,7 +8865,10 @@ function updateTimers(dt){
     actor.type==="player"
   );
 
-  if(playerActor){
+
+  if(
+    playerActor
+  ){
 
     playerActor.revealTimer=
     Math.max(
@@ -5349,6 +8876,7 @@ function updateTimers(dt){
       playerActor.revealTimer-dt
     );
   }
+
 
   if(
     mouseDown
@@ -5368,8 +8896,10 @@ function updateTimers(dt){
   }
 }
 
+
 const clock=
 new THREE.Clock();
+
 
 function animate(){
 
@@ -5377,104 +8907,156 @@ function animate(){
     animate
   );
 
-  const dt=
-  Math.min(
-    clock.getDelta(),
-    .035
-  );
 
-  updateCamera();
+  try{
 
-  if(
-    gameActive
-    &&
-    !paused
-  ){
+    const dt=
+    Math.min(
+      clock.getDelta(),
+      .035
+    );
 
-    updateTimers(dt);
 
-    updatePlayer(dt);
+    updateCamera();
 
-    updateBullets(dt);
-
-    updateGrass();
 
     if(
-      currentMode===0
+      gameActive
+      &&
+      !paused
     ){
 
-      updateEnemies(dt);
+      updateTimers(
+        dt
+      );
 
-      updatePickups(dt);
+
+      updatePlayer(
+        dt
+      );
+
+
+      updateBullets(
+        dt
+      );
+
+
+      updateFX(
+        dt
+      );
+
+
+      updateGrass();
+
 
       if(
-        playerHP<=0
+        currentMode===0
       ){
 
-        endGame();
+        updateEnemies(
+          dt
+        );
+
+
+        updatePickups(
+          dt
+        );
+
+
+        if(
+          playerHP<=0
+        ){
+
+          endGame();
+        }
+
+      }else{
+
+        updateAI(
+          dt
+        );
       }
 
-    }else{
 
-      updateAI(dt);
+      updateHUD();
     }
 
-    updateHUD();
-  }
 
-  renderer.render(
-    scene,
-    camera
-  );
+    renderer.render(
+      scene,
+      camera
+    );
+
+  }catch(error){
+
+    showFatalError(
+      error
+    );
+  }
 }
 
+
 animate();
+
 
 /* =========================
    RESIZE
 ========================= */
 
 addEventListener(
-
   "resize",
-
   ()=>{
 
     camera.aspect=
     innerWidth/innerHeight;
 
+
     camera.updateProjectionMatrix();
+
 
     renderer.setSize(
       innerWidth,
       innerHeight
     );
   }
-
 );
 
+
 /* =========================
-   INITIAL
+   INITIALIZE
 ========================= */
 
 setTimeout(
-  ()=>introEl.classList.add("hide"),
+  ()=>{
+
+    introEl
+    .classList
+    .add("hide");
+
+  },
   1300
 );
 
+
 buildLobbyScene();
+
 
 updateLobbyUI();
 
+
 applyLanguage();
+
 
 setTimeout(
   ()=>{
+
     if(
       !save.tutorialSeen
     ){
+
       window.openTutorial();
     }
+
   },
   2200
 );
