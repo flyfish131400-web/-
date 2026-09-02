@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 
 <meta
   name="viewport"
@@ -11,6 +11,7 @@
 <title>爆小鸡 GLB 模型测试</title>
 
 <style>
+
 *{
   box-sizing:border-box;
 }
@@ -22,8 +23,8 @@ body{
   height:100%;
   overflow:hidden;
   background:#101722;
-  font-family:Arial,sans-serif;
   color:white;
+  font-family:Arial,sans-serif;
 }
 
 canvas{
@@ -32,123 +33,105 @@ canvas{
 
 #title{
   position:fixed;
-  left:20px;
-  top:18px;
+  left:15px;
+  top:15px;
   z-index:10;
 
-  padding:12px 16px;
+  padding:12px 15px;
 
-  background:rgba(10,18,28,.85);
-  border:2px solid #60778b;
+  background:rgba(8,15,24,.88);
+  border:2px solid #60798e;
   border-radius:8px;
 }
 
-#title h1{
-  margin:0;
+#title strong{
   font-size:20px;
 }
 
 #title div{
   margin-top:5px;
   font-size:12px;
-  color:#aac1d3;
+  color:#a9c4d7;
 }
 
-#info{
+#status{
   position:fixed;
-  right:20px;
-  top:18px;
+  right:15px;
+  top:15px;
   z-index:10;
 
-  width:260px;
+  width:270px;
+
   padding:12px;
 
-  background:rgba(10,18,28,.88);
-  border:2px solid #60778b;
+  background:rgba(8,15,24,.9);
+  border:2px solid #60798e;
   border-radius:8px;
 
   font-size:12px;
-  line-height:1.6;
+  line-height:1.7;
 }
 
 .good{
-  color:#70e18b;
+  color:#66e38a;
 }
 
 .bad{
-  color:#ff6b6b;
+  color:#ff6868;
 }
 
-#controls{
+#buttons{
   position:fixed;
   left:50%;
   bottom:18px;
+
   transform:translateX(-50%);
 
   z-index:10;
 
   display:flex;
-  gap:8px;
+  gap:7px;
 
-  padding:10px;
+  padding:8px;
 
-  background:rgba(10,18,28,.85);
-  border:2px solid #60778b;
+  background:rgba(8,15,24,.88);
+  border:2px solid #60798e;
   border-radius:8px;
 }
 
 button{
-  min-width:100px;
   height:42px;
+  min-width:75px;
 
   border:0;
   border-radius:6px;
 
-  background:#ff8838;
+  background:#ff8537;
   color:white;
 
-  font-weight:bold;
-  cursor:pointer;
-}
-
-button:hover{
-  background:#ff9e5f;
-}
-
-#loading{
-  position:fixed;
-  left:50%;
-  top:50%;
-  transform:translate(-50%,-50%);
-
-  z-index:20;
-
-  font-size:22px;
   font-weight:bold;
 }
 
 #error{
   position:fixed;
-  inset:0;
+  left:50%;
+  top:50%;
 
-  display:none;
-  align-items:center;
-  justify-content:center;
+  transform:translate(-50%,-50%);
 
   z-index:100;
 
-  padding:30px;
+  display:none;
 
-  background:rgba(5,8,12,.95);
-}
-
-#errorBox{
-  max-width:700px;
+  width:min(650px,90vw);
 
   padding:20px;
 
-  border:2px solid #ff5555;
-  background:#171d25;
+  background:#171e28;
+
+  border:3px solid #ff5353;
+
+  color:white;
 
   white-space:pre-wrap;
   word-break:break-word;
@@ -160,97 +143,92 @@ button:hover{
 <body>
 
 <div id="title">
-  <h1>🐔 爆小鸡 · GLB TEST</h1>
+
+  <strong>
+    🐔 爆小鸡 · GLB TEST
+  </strong>
 
   <div>
-    白鸡 + 方块狼模型检查
+    white_chicken.glb + wolf.glb
   </div>
+
 </div>
 
 
-<div id="info">
+<div id="status">
 
-  <b>检查：</b>
-
-  <br>
-
-  ① 鸡是不是站在地面
+  <b>模型状态</b>
 
   <br>
 
-  ② 狼是不是站在地面
+  白鸡：
+  <span id="chickenStatus">
+    Loading...
+  </span>
 
   <br>
 
-  ③ 鸡是不是面对蓝色箭头
-
-  <br>
-
-  ④ 狼是不是面对蓝色箭头
-
-  <br>
-
-  ⑤ 鸡和狼比例是否合理
-
-  <br>
-
-  ⑥ 枪、嘴、腿、尾巴有没有问题
+  狼：
+  <span id="wolfStatus">
+    Loading...
+  </span>
 
   <br><br>
 
   <span class="good">
-    绿色 = +Z 正方向
+    绿色箭头 = +Z
   </span>
+
+  <br>
+
+  左边应该是白鸡
+
+  <br>
+
+  右边应该是狼
 
 </div>
 
 
-<div id="controls">
+<div id="buttons">
 
-  <button id="frontBtn">
+  <button id="front">
     正面
   </button>
 
-  <button id="sideBtn">
+  <button id="side">
     侧面
   </button>
 
-  <button id="backBtn">
+  <button id="back">
     背面
   </button>
 
-  <button id="topBtn">
+  <button id="top">
     俯视
   </button>
 
-  <button id="resetBtn">
+  <button id="angle">
     45°
   </button>
 
 </div>
 
 
-<div id="loading">
-  LOADING GLB...
-</div>
-
-
-<div id="error">
-
-  <div id="errorBox"></div>
-
-</div>
+<div id="error"></div>
 
 
 <script type="importmap">
 
 {
   "imports":{
+
     "three":
     "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
 
     "three/addons/":
     "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"
+
   }
 }
 
@@ -275,9 +253,10 @@ import {
 from "three/addons/controls/OrbitControls.js";
 
 
-/* ==============================
-   BASIC SETUP
-============================== */
+
+/* ========================================
+   SCENE
+======================================== */
 
 
 const scene=
@@ -286,17 +265,14 @@ new THREE.Scene();
 
 scene.background=
 new THREE.Color(
-  0x172231
+  0x172332
 );
 
 
-scene.fog=
-new THREE.Fog(
-  0x172231,
-  20,
-  55
-);
 
+/* ========================================
+   CAMERA
+======================================== */
 
 
 const camera=
@@ -304,11 +280,9 @@ new THREE.PerspectiveCamera(
 
   45,
 
-  window.innerWidth
-  /
-  window.innerHeight,
+  innerWidth/innerHeight,
 
-  0.1,
+  .1,
 
   100
 
@@ -323,6 +297,11 @@ camera.position.set(
 
 
 
+/* ========================================
+   RENDERER
+======================================== */
+
+
 const renderer=
 new THREE.WebGLRenderer({
 
@@ -334,7 +313,7 @@ new THREE.WebGLRenderer({
 renderer.setPixelRatio(
 
   Math.min(
-    window.devicePixelRatio,
+    devicePixelRatio,
     2
   )
 
@@ -342,20 +321,13 @@ renderer.setPixelRatio(
 
 
 renderer.setSize(
-
-  window.innerWidth,
-
-  window.innerHeight
-
+  innerWidth,
+  innerHeight
 );
 
 
 renderer.shadowMap.enabled=
 true;
-
-
-renderer.shadowMap.type=
-THREE.PCFSoftShadowMap;
 
 
 renderer.outputColorSpace=
@@ -367,7 +339,7 @@ THREE.ACESFilmicToneMapping;
 
 
 renderer.toneMappingExposure=
-1.25;
+1.3;
 
 
 document.body.prepend(
@@ -376,9 +348,9 @@ document.body.prepend(
 
 
 
-/* ==============================
-   CONTROLS
-============================== */
+/* ========================================
+   CAMERA CONTROLS
+======================================== */
 
 
 const controls=
@@ -395,53 +367,40 @@ controls.enableDamping=
 true;
 
 
-controls.dampingFactor=
-0.08;
-
-
 controls.target.set(
   0,
-  1,
+  1.5,
   0
 );
 
 
 
-/* ==============================
+/* ========================================
    LIGHTS
-============================== */
-
-
-const hemi=
-new THREE.HemisphereLight(
-
-  0xbadfff,
-
-  0x26351d,
-
-  2.2
-
-);
+======================================== */
 
 
 scene.add(
-  hemi
+
+  new THREE.HemisphereLight(
+    0xc8e4ff,
+    0x28391e,
+    2.2
+  )
+
 );
 
 
 
 const sun=
 new THREE.DirectionalLight(
-
   0xffffff,
-
   3
-
 );
 
 
 sun.position.set(
-  6,
+  7,
   12,
   8
 );
@@ -449,12 +408,6 @@ sun.position.set(
 
 sun.castShadow=
 true;
-
-
-sun.shadow.mapSize.set(
-  2048,
-  2048
-);
 
 
 scene.add(
@@ -465,13 +418,9 @@ scene.add(
 
 const warm=
 new THREE.PointLight(
-
-  0xff9b52,
-
-  18,
-
+  0xff994d,
+  16,
   15
-
 );
 
 
@@ -490,20 +439,16 @@ scene.add(
 
 const blue=
 new THREE.PointLight(
-
-  0x61baff,
-
+  0x55baff,
   12,
-
   15
-
 );
 
 
 blue.position.set(
   5,
-  3,
-  -4
+  4,
+  -3
 );
 
 
@@ -513,9 +458,9 @@ scene.add(
 
 
 
-/* ==============================
+/* ========================================
    FLOOR
-============================== */
+======================================== */
 
 
 const floor=
@@ -528,9 +473,9 @@ new THREE.Mesh(
 
   new THREE.MeshStandardMaterial({
 
-    color:0x405a45,
+    color:0x3d5945,
 
-    roughness:0.9
+    roughness:.9
 
   })
 
@@ -551,9 +496,9 @@ scene.add(
 
 
 
-/* ==============================
+/* ========================================
    GRID
-============================== */
+======================================== */
 
 
 const grid=
@@ -563,15 +508,15 @@ new THREE.GridHelper(
 
   30,
 
-  0x9ab7ca,
+  0x90b1c5,
 
-  0x607080
+  0x536a79
 
 );
 
 
 grid.position.y=
-0.01;
+.01;
 
 
 scene.add(
@@ -580,9 +525,9 @@ scene.add(
 
 
 
-/* ==============================
-   +Z DIRECTION
-============================== */
+/* ========================================
+   +Z ARROW
+======================================== */
 
 
 const arrow=
@@ -596,7 +541,7 @@ new THREE.ArrowHelper(
 
   new THREE.Vector3(
     0,
-    0.05,
+    .05,
     0
   ),
 
@@ -604,9 +549,9 @@ new THREE.ArrowHelper(
 
   0x00ff88,
 
-  0.7,
+  .7,
 
-  0.35
+  .35
 
 );
 
@@ -617,12 +562,12 @@ scene.add(
 
 
 
-/* ==============================
-   LABEL PEDESTALS
-============================== */
+/* ========================================
+   PEDESTALS
+======================================== */
 
 
-function pedestal(
+function makePedestal(
   x,
   color
 ){
@@ -632,16 +577,12 @@ function pedestal(
 
     new THREE.BoxGeometry(
       4,
-      0.35,
+      .3,
       4
     ),
 
     new THREE.MeshStandardMaterial({
-
-      color,
-
-      roughness:0.75
-
+      color
     })
 
   );
@@ -649,7 +590,7 @@ function pedestal(
 
   mesh.position.set(
     x,
-    0.175,
+    .15,
     0
   );
 
@@ -662,28 +603,25 @@ function pedestal(
     mesh
   );
 
-
-  return mesh;
 }
 
 
-
-pedestal(
+makePedestal(
   -3,
-  0x526d80
+  0x4d6d84
 );
 
 
-pedestal(
+makePedestal(
   3,
-  0x6c5a52
+  0x745d53
 );
 
 
 
-/* ==============================
-   MODEL LOADER
-============================== */
+/* ========================================
+   GLTF LOADER
+======================================== */
 
 
 const loader=
@@ -695,39 +633,13 @@ let chicken=null;
 let wolf=null;
 
 
-let loadedCount=0;
+
+/* ========================================
+   MODEL PREPARATION
+======================================== */
 
 
-
-function modelLoaded(){
-
-  loadedCount++;
-
-
-  if(
-    loadedCount>=2
-  ){
-
-    document
-    .getElementById(
-      "loading"
-    )
-    .style
-    .display=
-    "none";
-
-  }
-
-}
-
-
-
-/* ==============================
-   PREPARE MODEL
-============================== */
-
-
-function prepareModel(
+function prepare(
   model,
   x
 ){
@@ -740,35 +652,22 @@ function prepareModel(
 
 
   model.traverse(
+  object=>{
 
-    object=>{
+    if(
+      object.isMesh
+    ){
 
-      if(
-        object.isMesh
-      ){
-
-        object.castShadow=
-        true;
-
-
-        object.receiveShadow=
-        true;
+      object.castShadow=
+      true;
 
 
-        if(
-          object.material
-        ){
-
-          object.material.needsUpdate=
-          true;
-
-        }
-
-      }
+      object.receiveShadow=
+      true;
 
     }
 
-  );
+  });
 
 
   scene.add(
@@ -779,14 +678,17 @@ function prepareModel(
 
 
 
-/* ==============================
-   CHICKEN
-============================== */
+/* ========================================
+   WHITE CHICKEN
+
+   IMPORTANT:
+   MODEL IS IN ROOT DIRECTORY
+======================================== */
 
 
 loader.load(
 
-  "./assets/white_chicken.glb",
+  "./white_chicken.glb",
 
   gltf=>{
 
@@ -794,44 +696,56 @@ loader.load(
     gltf.scene;
 
 
-    prepareModel(
+    prepare(
       chicken,
       -3
     );
 
 
-    console.log(
-      "Chicken loaded",
-      chicken
-    );
+    document
+    .getElementById(
+      "chickenStatus"
+    )
+    .innerHTML=
+    '<span class="good">LOADED ✓</span>';
 
 
-    modelLoaded();
-
-  },
-
-  progress=>{
-
-    console.log(
-      "Chicken loading:",
-      progress.loaded
+    inspectModel(
+      chicken,
+      "WHITE CHICKEN"
     );
 
   },
+
+
+  undefined,
+
 
   error=>{
 
+    document
+    .getElementById(
+      "chickenStatus"
+    )
+    .innerHTML=
+    '<span class="bad">FAILED ✕</span>';
+
+
     showError(
 
-      "WHITE CHICKEN FAILED TO LOAD\n\n"
+      "WHITE CHICKEN FAILED\n\n"
 
       +
 
-      error
+      String(error)
 
       +
 
-      "\n\n检查路径：assets/white_chicken.glb"
+      "\n\n正确路径应该是：\n"
+
+      +
+
+      "./white_chicken.glb"
 
     );
 
@@ -841,14 +755,17 @@ loader.load(
 
 
 
-/* ==============================
+/* ========================================
    WOLF
-============================== */
+
+   IMPORTANT:
+   MODEL IS IN ROOT DIRECTORY
+======================================== */
 
 
 loader.load(
 
-  "./assets/wolf.glb",
+  "./wolf.glb",
 
   gltf=>{
 
@@ -856,44 +773,56 @@ loader.load(
     gltf.scene;
 
 
-    prepareModel(
+    prepare(
       wolf,
       3
     );
 
 
-    console.log(
-      "Wolf loaded",
-      wolf
-    );
+    document
+    .getElementById(
+      "wolfStatus"
+    )
+    .innerHTML=
+    '<span class="good">LOADED ✓</span>';
 
 
-    modelLoaded();
-
-  },
-
-  progress=>{
-
-    console.log(
-      "Wolf loading:",
-      progress.loaded
+    inspectModel(
+      wolf,
+      "WOLF"
     );
 
   },
+
+
+  undefined,
+
 
   error=>{
 
+    document
+    .getElementById(
+      "wolfStatus"
+    )
+    .innerHTML=
+    '<span class="bad">FAILED ✕</span>';
+
+
     showError(
 
-      "WOLF FAILED TO LOAD\n\n"
+      "WOLF FAILED\n\n"
 
       +
 
-      error
+      String(error)
 
       +
 
-      "\n\n检查路径：assets/wolf.glb"
+      "\n\n正确路径应该是：\n"
+
+      +
+
+      "./wolf.glb"
 
     );
 
@@ -903,24 +832,86 @@ loader.load(
 
 
 
-/* ==============================
+/* ========================================
+   MODEL INSPECTION
+======================================== */
+
+
+function inspectModel(
+  model,
+  name
+){
+
+  const box=
+  new THREE.Box3()
+  .setFromObject(
+    model
+  );
+
+
+  const size=
+  new THREE.Vector3();
+
+
+  const center=
+  new THREE.Vector3();
+
+
+  box.getSize(
+    size
+  );
+
+
+  box.getCenter(
+    center
+  );
+
+
+  console.log(
+    name,
+    {
+      size:{
+        x:size.x,
+        y:size.y,
+        z:size.z
+      },
+
+      center:{
+        x:center.x,
+        y:center.y,
+        z:center.z
+      },
+
+      min:{
+        x:box.min.x,
+        y:box.min.y,
+        z:box.min.z
+      },
+
+      max:{
+        x:box.max.x,
+        y:box.max.y,
+        z:box.max.z
+      }
+    }
+  );
+
+}
+
+
+
+/* ========================================
    ERROR
-============================== */
+======================================== */
 
 
 function showError(
   text
 ){
 
-  const error=
-  document.getElementById(
-    "error"
-  );
-
-
   const box=
   document.getElementById(
-    "errorBox"
+    "error"
   );
 
 
@@ -928,19 +919,19 @@ function showError(
   text;
 
 
-  error.style.display=
-  "flex";
+  box.style.display=
+  "block";
 
 }
 
 
 
-/* ==============================
-   CAMERA BUTTONS
-============================== */
+/* ========================================
+   CAMERA PRESETS
+======================================== */
 
 
-function cameraMove(
+function moveCamera(
   x,
   y,
   z
@@ -955,7 +946,7 @@ function cameraMove(
 
   controls.target.set(
     0,
-    1,
+    1.5,
     0
   );
 
@@ -968,12 +959,12 @@ function cameraMove(
 
 document
 .getElementById(
-  "frontBtn"
+  "front"
 )
 .onclick=
 ()=>{
 
-  cameraMove(
+  moveCamera(
     0,
     3,
     12
@@ -985,12 +976,12 @@ document
 
 document
 .getElementById(
-  "sideBtn"
+  "side"
 )
 .onclick=
 ()=>{
 
-  cameraMove(
+  moveCamera(
     12,
     3,
     0
@@ -1002,12 +993,12 @@ document
 
 document
 .getElementById(
-  "backBtn"
+  "back"
 )
 .onclick=
 ()=>{
 
-  cameraMove(
+  moveCamera(
     0,
     3,
     -12
@@ -1019,15 +1010,15 @@ document
 
 document
 .getElementById(
-  "topBtn"
+  "top"
 )
 .onclick=
 ()=>{
 
-  cameraMove(
+  moveCamera(
     0,
     15,
-    0.01
+    .01
   );
 
 };
@@ -1036,12 +1027,12 @@ document
 
 document
 .getElementById(
-  "resetBtn"
+  "angle"
 )
 .onclick=
 ()=>{
 
-  cameraMove(
+  moveCamera(
     8,
     6,
     10
@@ -1051,103 +1042,9 @@ document
 
 
 
-/* ==============================
-   AUTO MODEL INFO
-============================== */
-
-
-function printModelInfo(
-  model,
-  name
-){
-
-  if(
-    !model
-  ){
-    return;
-  }
-
-
-  const box=
-  new THREE.Box3()
-  .setFromObject(
-    model
-  );
-
-
-  const size=
-  new THREE.Vector3();
-
-
-  box.getSize(
-    size
-  );
-
-
-  const center=
-  new THREE.Vector3();
-
-
-  box.getCenter(
-    center
-  );
-
-
-  console.log(
-    name,
-    {
-      min:box.min,
-      max:box.max,
-      size,
-      center
-    }
-  );
-
-}
-
-
-
-/* ==============================
-   KEY SHORTCUT
-============================== */
-
-
-window.addEventListener(
-
-  "keydown",
-
-  event=>{
-
-    if(
-      event.code==="KeyI"
-    ){
-
-      printModelInfo(
-        chicken,
-        "WHITE CHICKEN"
-      );
-
-
-      printModelInfo(
-        wolf,
-        "WOLF"
-      );
-
-    }
-
-  }
-
-);
-
-
-
-/* ==============================
+/* ========================================
    ANIMATION LOOP
-============================== */
-
-
-const clock=
-new THREE.Clock();
+======================================== */
 
 
 function animate(){
@@ -1157,45 +1054,7 @@ function animate(){
   );
 
 
-  const dt=
-  clock.getDelta();
-
-
   controls.update();
-
-
-  /*
-    Very small idle animation.
-    This is only for testing.
-  */
-
-
-  if(
-    chicken
-  ){
-
-    chicken.position.y=
-    Math.sin(
-      performance.now()*0.002
-    )
-    *
-    0.025;
-
-  }
-
-
-  if(
-    wolf
-  ){
-
-    wolf.rotation.y=
-    Math.sin(
-      performance.now()*0.0007
-    )
-    *
-    0.08;
-
-  }
 
 
   renderer.render(
@@ -1210,37 +1069,28 @@ animate();
 
 
 
-/* ==============================
+/* ========================================
    RESIZE
-============================== */
+======================================== */
 
 
 window.addEventListener(
+"resize",
+()=>{
 
-  "resize",
-
-  ()=>{
-
-    camera.aspect=
-    window.innerWidth
-    /
-    window.innerHeight;
+  camera.aspect=
+  innerWidth/innerHeight;
 
 
-    camera.updateProjectionMatrix();
+  camera.updateProjectionMatrix();
 
 
-    renderer.setSize(
+  renderer.setSize(
+    innerWidth,
+    innerHeight
+  );
 
-      window.innerWidth,
-
-      window.innerHeight
-
-    );
-
-  }
-
-);
+});
 
 </script>
 
