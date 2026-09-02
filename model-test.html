@@ -2,46 +2,35 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
+<meta name="viewport"
+content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 
-<meta
-  name="viewport"
-  content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"
->
-
-<title>爆小鸡 GLB V1 / V2 对比</title>
+<title>爆小鸡 · 3版本模型比较</title>
 
 <style>
+*{box-sizing:border-box}
 
-*{
-  box-sizing:border-box;
-}
-
-html,
-body{
+html,body{
   margin:0;
   width:100%;
   height:100%;
   overflow:hidden;
-  background:#101722;
-  color:#fff;
+  background:#111923;
+  color:white;
   font-family:Arial,sans-serif;
 }
 
-canvas{
-  display:block;
-}
+canvas{display:block}
 
 #title{
   position:fixed;
-  left:15px;
-  top:15px;
+  left:14px;
+  top:14px;
   z-index:10;
-
   padding:12px 15px;
-
-  background:rgba(8,15,24,.9);
-  border:2px solid #60798e;
-  border-radius:8px;
+  background:rgba(7,14,22,.92);
+  border:2px solid #546b7c;
+  border-radius:9px;
 }
 
 #title strong{
@@ -50,203 +39,132 @@ canvas{
 
 #title div{
   margin-top:5px;
-  font-size:12px;
-  color:#a9c4d7;
+  font-size:11px;
+  color:#9db5c6;
 }
 
 #status{
   position:fixed;
-  right:15px;
-  top:15px;
+  right:14px;
+  top:14px;
   z-index:10;
-
-  width:285px;
+  width:290px;
   padding:12px;
-
-  background:rgba(8,15,24,.9);
-  border:2px solid #60798e;
-  border-radius:8px;
-
-  font-size:12px;
-  line-height:1.7;
+  background:rgba(7,14,22,.93);
+  border:2px solid #546b7c;
+  border-radius:9px;
+  font-size:11px;
+  line-height:1.6;
 }
 
-.good{
-  color:#66e38a;
-}
+.good{color:#66dc87}
+.bad{color:#ff6666}
 
-.bad{
-  color:#ff6969;
-}
-
-#legend{
+#controls{
   position:fixed;
-  left:15px;
-  bottom:18px;
   z-index:10;
-
-  padding:10px 14px;
-
-  background:rgba(8,15,24,.9);
-  border:2px solid #60798e;
-  border-radius:8px;
-
-  font-size:12px;
-  line-height:1.7;
-}
-
-#buttons{
-  position:fixed;
   left:50%;
-  bottom:18px;
-
+  bottom:15px;
   transform:translateX(-50%);
-
-  z-index:10;
-
   display:flex;
-  gap:7px;
-
+  gap:6px;
   padding:8px;
-
-  background:rgba(8,15,24,.9);
-  border:2px solid #60798e;
-  border-radius:8px;
+  background:rgba(7,14,22,.93);
+  border:2px solid #546b7c;
+  border-radius:9px;
 }
 
 button{
   height:42px;
   min-width:72px;
-
   border:0;
   border-radius:6px;
-
-  background:#ff8537;
-  color:white;
-
+  background:#d47736;
+  color:#fff;
   font-weight:bold;
-  cursor:pointer;
+}
+
+#labels{
+  position:fixed;
+  left:14px;
+  bottom:15px;
+  z-index:10;
+  padding:10px 12px;
+  background:rgba(7,14,22,.9);
+  border:2px solid #546b7c;
+  border-radius:8px;
+  font-size:11px;
+  line-height:1.7;
 }
 
 #error{
   position:fixed;
   left:50%;
   top:50%;
-
   transform:translate(-50%,-50%);
-
   z-index:100;
-
   display:none;
-
   width:min(700px,92vw);
-
-  padding:20px;
-
-  background:#171e28;
-
-  border:3px solid #ff5353;
-
-  color:white;
-
+  padding:18px;
+  background:#171e27;
+  border:3px solid #ff5555;
   white-space:pre-wrap;
   word-break:break-word;
 }
-
 </style>
 </head>
 
 <body>
 
 <div id="title">
-
-  <strong>
-    🐔 爆小鸡 · V1 / V2 MODEL TEST
-  </strong>
-
-  <div>
-    白鸡 + 狼 · 新旧模型直接对比
-  </div>
-
+  <strong>🐔 爆小鸡 · MODEL SHOOTOUT</strong>
+  <div>3只白鸡 + 3只狼 · 同场比较</div>
 </div>
-
 
 <div id="status">
+  <b>加载状态</b><br>
 
-  <b>加载状态</b>
+  鸡 A：
+  <span id="cA">Loading...</span><br>
 
-  <br>
+  鸡 B：
+  <span id="cB">Loading...</span><br>
 
-  白鸡 V1：
-  <span id="c1">Loading...</span>
+  鸡 C：
+  <span id="cC">Loading...</span><br>
 
-  <br>
+  狼 A：
+  <span id="wA">Loading...</span><br>
 
-  白鸡 V2：
-  <span id="c2">Loading...</span>
+  狼 B：
+  <span id="wB">Loading...</span><br>
 
-  <br>
-
-  狼 V1：
-  <span id="w1">Loading...</span>
-
-  <br>
-
-  狼 V2：
-  <span id="w2">Loading...</span>
+  狼 C：
+  <span id="wC">Loading...</span>
 
   <br><br>
-
-  <span class="good">
-    绿色箭头 = +Z
-  </span>
-
+  <span class="good">绿色箭头 = +Z</span>
 </div>
 
+<div id="labels">
+  <b>上排：白鸡</b><br>
+  A = V2<br>
+  B = 第二个 V2<br>
+  C = V3<br><br>
 
-<div id="legend">
-
-  左上：白鸡 V1
-
-  <br>
-
-  右上：白鸡 V2
-
-  <br>
-
-  左下：狼 V1
-
-  <br>
-
-  右下：狼 V2
-
+  <b>下排：狼</b><br>
+  A = V2<br>
+  B = 第二个 V2<br>
+  C = V3
 </div>
 
-
-<div id="buttons">
-
-  <button id="front">
-    正面
-  </button>
-
-  <button id="side">
-    侧面
-  </button>
-
-  <button id="back">
-    背面
-  </button>
-
-  <button id="top">
-    俯视
-  </button>
-
-  <button id="angle">
-    45°
-  </button>
-
+<div id="controls">
+  <button id="front">正面</button>
+  <button id="side">侧面</button>
+  <button id="back">背面</button>
+  <button id="top">俯视</button>
+  <button id="angle">45°</button>
 </div>
-
 
 <div id="error"></div>
 
@@ -266,15 +184,12 @@ button{
 
 <script type="module">
 
-import * as THREE
-from "three";
-
+import * as THREE from "three";
 
 import {
   GLTFLoader
 }
 from "three/addons/loaders/GLTFLoader.js";
-
 
 import {
   OrbitControls
@@ -282,334 +197,242 @@ import {
 from "three/addons/controls/OrbitControls.js";
 
 
-
-/* ===========================
+/* =========================
    SCENE
-=========================== */
+========================= */
 
-
-const scene=
+const scene =
 new THREE.Scene();
 
-
-scene.background=
-new THREE.Color(
-  0x172332
-);
+scene.background =
+new THREE.Color(0x18212b);
 
 
-
-/* ===========================
+/* =========================
    CAMERA
-=========================== */
+========================= */
 
-
-const camera=
+const camera =
 new THREE.PerspectiveCamera(
-
   45,
-
-  innerWidth/innerHeight,
-
+  innerWidth / innerHeight,
   .1,
-
-  100
-
+  120
 );
-
 
 camera.position.set(
+  12,
   10,
-  8,
-  14
+  17
 );
 
 
-
-/* ===========================
+/* =========================
    RENDERER
-=========================== */
+========================= */
 
-
-const renderer=
+const renderer =
 new THREE.WebGLRenderer({
-
   antialias:true
-
 });
 
-
 renderer.setPixelRatio(
-
-  Math.min(
-    devicePixelRatio,
-    2
-  )
-
+  Math.min(devicePixelRatio,2)
 );
-
 
 renderer.setSize(
   innerWidth,
   innerHeight
 );
 
+renderer.shadowMap.enabled = true;
 
-renderer.shadowMap.enabled=
-true;
+renderer.shadowMap.type =
+THREE.PCFSoftShadowMap;
 
-
-renderer.outputColorSpace=
+renderer.outputColorSpace =
 THREE.SRGBColorSpace;
 
-
-renderer.toneMapping=
+renderer.toneMapping =
 THREE.ACESFilmicToneMapping;
 
-
-renderer.toneMappingExposure=
-1.18;
-
+/*
+  故意压低曝光，
+  避免模型看起来过分鲜艳。
+*/
+renderer.toneMappingExposure = 1.0;
 
 document.body.prepend(
   renderer.domElement
 );
 
 
-
-/* ===========================
+/* =========================
    CONTROLS
-=========================== */
+========================= */
 
-
-const controls=
+const controls =
 new OrbitControls(
-
   camera,
-
   renderer.domElement
-
 );
 
-
-controls.enableDamping=
-true;
-
+controls.enableDamping = true;
 
 controls.target.set(
   0,
-  1.5,
+  1.4,
   0
 );
 
 
-
-/* ===========================
+/* =========================
    LIGHTING
-=========================== */
+========================= */
 
+/*
+  比以前更克制的灯光。
+*/
 
-scene.add(
-
-  new THREE.HemisphereLight(
-
-    0xb6d2e4,
-
-    0x26331f,
-
-    1.85
-
-  )
-
+const hemi =
+new THREE.HemisphereLight(
+  0xaabfce,
+  0x31332b,
+  1.35
 );
 
+scene.add(hemi);
 
 
-const keyLight=
+const key =
 new THREE.DirectionalLight(
-
-  0xf4f1ea,
-
-  2.6
-
+  0xf1ede4,
+  2.15
 );
 
-
-keyLight.position.set(
+key.position.set(
   8,
   13,
   9
 );
 
+key.castShadow = true;
 
-keyLight.castShadow=
-true;
-
-
-scene.add(
-  keyLight
+key.shadow.mapSize.set(
+  2048,
+  2048
 );
 
+scene.add(key);
 
 
-const warm=
-new THREE.PointLight(
-
-  0xd78a58,
-
-  9,
-
-  18
-
+const fill =
+new THREE.DirectionalLight(
+  0x819bb0,
+  .7
 );
 
-
-warm.position.set(
-  -8,
-  4,
-  4
-);
-
-
-scene.add(
-  warm
-);
-
-
-
-const cool=
-new THREE.PointLight(
-
-  0x6a91aa,
-
-  7,
-
-  18
-
-);
-
-
-cool.position.set(
-  8,
-  4,
+fill.position.set(
+  -7,
+  6,
   -5
 );
 
+scene.add(fill);
 
-scene.add(
-  cool
+
+const warm =
+new THREE.PointLight(
+  0xc27f55,
+  4.5,
+  18
 );
 
+warm.position.set(
+  -9,
+  4,
+  5
+);
+
+scene.add(warm);
 
 
-/* ===========================
+/* =========================
    FLOOR
-=========================== */
+========================= */
 
-
-const floor=
+const floor =
 new THREE.Mesh(
 
   new THREE.PlaneGeometry(
-    36,
-    36
+    40,
+    32
   ),
 
   new THREE.MeshStandardMaterial({
-
-    color:0x3a4d40,
-
-    roughness:.95
-
+    color:0x39483e,
+    roughness:.98,
+    metalness:0
   })
 
 );
 
-
-floor.rotation.x=
+floor.rotation.x =
 -Math.PI/2;
 
+floor.receiveShadow = true;
 
-floor.receiveShadow=
-true;
-
-
-scene.add(
-  floor
-);
+scene.add(floor);
 
 
-
-/* ===========================
+/* =========================
    GRID
-=========================== */
+========================= */
 
-
-const grid=
+const grid =
 new THREE.GridHelper(
-
-  36,
-
-  36,
-
-  0x71899a,
-
-  0x465864
-
+  40,
+  40,
+  0x667985,
+  0x45545d
 );
 
+grid.position.y = .01;
 
-grid.position.y=
-.01;
-
-
-scene.add(
-  grid
-);
+scene.add(grid);
 
 
+/* =========================
+   +Z DIRECTION
+========================= */
 
-/* ===========================
-   +Z ARROW
-=========================== */
-
-
-const arrow=
+const arrow =
 new THREE.ArrowHelper(
 
   new THREE.Vector3(
-    0,
-    0,
-    1
+    0,0,1
   ),
 
   new THREE.Vector3(
-    0,
-    .04,
-    0
+    0,.04,0
   ),
 
   5,
 
-  0x00ff88,
+  0x00dd88,
 
   .7,
 
-  .35
+  .32
 
 );
 
-
-scene.add(
-  arrow
-);
+scene.add(arrow);
 
 
-
-/* ===========================
+/* =========================
    PEDESTALS
-=========================== */
-
+========================= */
 
 function pedestal(
   x,
@@ -617,87 +440,91 @@ function pedestal(
   color
 ){
 
-  const mesh=
+  const p =
   new THREE.Mesh(
 
     new THREE.BoxGeometry(
-      4.8,
-      .32,
-      4.8
+      4.3,
+      .28,
+      4.3
     ),
 
     new THREE.MeshStandardMaterial({
-
       color,
-
-      roughness:.9
-
+      roughness:.95
     })
 
   );
 
-
-  mesh.position.set(
+  p.position.set(
     x,
-    .16,
+    .14,
     z
   );
 
+  p.receiveShadow = true;
 
-  mesh.receiveShadow=
-  true;
-
-
-  scene.add(
-    mesh
-  );
-
+  scene.add(p);
 }
 
 
+/*
+   上排鸡
+*/
+
 pedestal(
-  -4.2,
-  -3,
-  0x526d80
+  -6,
+  -3.4,
+  0x536b78
+);
+
+pedestal(
+  0,
+  -3.4,
+  0x556d79
+);
+
+pedestal(
+  6,
+  -3.4,
+  0x586f79
 );
 
 
+/*
+   下排狼
+*/
+
 pedestal(
-  4.2,
-  -3,
-  0x496576
+  -6,
+  3.7,
+  0x685a53
+);
+
+pedestal(
+  0,
+  3.7,
+  0x665851
+);
+
+pedestal(
+  6,
+  3.7,
+  0x62554f
 );
 
 
-pedestal(
-  -4.2,
-  3.4,
-  0x6f5a54
-);
+/* =========================
+   MODEL LOADING
+========================= */
 
-
-pedestal(
-  4.2,
-  3.4,
-  0x654f4b
-);
-
-
-
-/* ===========================
-   LOADER
-=========================== */
-
-
-const loader=
+const loader =
 new GLTFLoader();
 
-
-const models={};
-
+const models = {};
 
 
-function prepare(
+function prepareModel(
   model,
   x,
   z
@@ -709,7 +536,6 @@ function prepare(
     z
   );
 
-
   model.traverse(
   object=>{
 
@@ -717,47 +543,122 @@ function prepare(
       object.isMesh
     ){
 
-      object.castShadow=
-      true;
+      object.castShadow = true;
 
-
-      object.receiveShadow=
-      true;
-
+      object.receiveShadow = true;
 
       if(
         object.material
       ){
 
-        object.material.needsUpdate=
+        /*
+          防止 GLB 材质过亮、过塑料。
+        */
+
+        if(
+          "roughness"
+          in object.material
+        ){
+
+          object.material.roughness =
+          Math.max(
+            object.material.roughness ?? 0,
+            .72
+          );
+
+        }
+
+        if(
+          "metalness"
+          in object.material
+        ){
+
+          object.material.metalness =
+          Math.min(
+            object.material.metalness ?? 0,
+            .08
+          );
+
+        }
+
+        object.material.needsUpdate =
         true;
-
       }
-
     }
-
   });
 
-
-  scene.add(
-    model
-  );
-
+  scene.add(model);
 }
 
 
+/* =========================
+   AUTO NORMALIZE SIZE
+========================= */
 
-/* ===========================
-   LOAD HELPER
-=========================== */
+/*
+  这里很重要。
 
+  不同 AI 生成的模型尺寸
+  很可能完全不同。
+
+  所以测试时自动调整到合理高度，
+  避免因为尺寸不同造成误判。
+*/
+
+function normalizeHeight(
+  model,
+  wantedHeight
+){
+
+  const box =
+  new THREE.Box3()
+  .setFromObject(model);
+
+  const size =
+  new THREE.Vector3();
+
+  box.getSize(size);
+
+  if(
+    size.y > 0
+  ){
+
+    const scale =
+    wantedHeight / size.y;
+
+    model.scale.multiplyScalar(
+      scale
+    );
+  }
+
+
+  /*
+    缩放后再计算脚底，
+    自动把模型放到地面。
+  */
+
+  model.updateMatrixWorld(true);
+
+  const newBox =
+  new THREE.Box3()
+  .setFromObject(model);
+
+  model.position.y -=
+  newBox.min.y;
+}
+
+
+/* =========================
+   LOAD FUNCTION
+========================= */
 
 function loadModel(
   key,
   path,
-  statusId,
+  status,
   x,
-  z
+  z,
+  type
 ){
 
   loader.load(
@@ -766,221 +667,185 @@ function loadModel(
 
     gltf=>{
 
-      models[key]=
+      const model =
       gltf.scene;
 
+      models[key] = model;
 
-      prepare(
-        models[key],
+      normalizeHeight(
+        model,
+        type==="chicken"
+        ? 2.45
+        : 1.85
+      );
+
+      prepareModel(
+        model,
         x,
         z
       );
 
-
       document
-      .getElementById(
-        statusId
-      )
-      .innerHTML=
+      .getElementById(status)
+      .innerHTML =
       '<span class="good">LOADED ✓</span>';
 
-
-      inspectModel(
-        models[key],
+      inspect(
+        model,
         key
       );
 
     },
 
-
     undefined,
-
 
     error=>{
 
       document
-      .getElementById(
-        statusId
-      )
-      .innerHTML=
+      .getElementById(status)
+      .innerHTML =
       '<span class="bad">FAILED ✕</span>';
 
-
       showError(
-
         key
-
         +
-
-        " FAILED TO LOAD\n\n"
-
+        "\n\n"
         +
-
-        String(error)
-
-        +
-
-        "\n\nPATH:\n"
-
-        +
-
         path
-
+        +
+        "\n\n"
+        +
+        String(error)
       );
-
     }
 
   );
-
 }
 
 
-
-/* ===========================
-   LOAD ALL 4 MODELS
-=========================== */
-
+/* =========================
+   WHITE CHICKENS
+========================= */
 
 loadModel(
-
-  "WHITE CHICKEN V1",
-
-  "./white_chicken.glb",
-
-  "c1",
-
-  -4.2,
-
-  -3
-
-);
-
-
-loadModel(
-
-  "WHITE CHICKEN V2",
-
+  "CHICKEN A - V2",
   "./white_chicken_v2.glb",
+  "cA",
+  -6,
+  -3.4,
+  "chicken"
+);
 
-  "c2",
 
-  4.2,
+/*
+  文件名里面有空格。
+  %20 = 空格。
+*/
 
-  -3
-
+loadModel(
+  "CHICKEN B - V2 SECOND",
+  "./white_chicken_v2%202.glb",
+  "cB",
+  0,
+  -3.4,
+  "chicken"
 );
 
 
 loadModel(
-
-  "WOLF V1",
-
-  "./wolf.glb",
-
-  "w1",
-
-  -4.2,
-
-  3.4
-
+  "CHICKEN C - V3",
+  "./white_chicken_v3.glb",
+  "cC",
+  6,
+  -3.4,
+  "chicken"
 );
 
 
+/* =========================
+   WOLVES
+========================= */
+
 loadModel(
-
-  "WOLF V2",
-
+  "WOLF A - V2",
   "./wolf_v2.glb",
-
-  "w2",
-
-  4.2,
-
-  3.4
-
+  "wA",
+  -6,
+  3.7,
+  "wolf"
 );
 
 
+loadModel(
+  "WOLF B - V2 SECOND",
+  "./wolf_v2%202.glb",
+  "wB",
+  0,
+  3.7,
+  "wolf"
+);
 
-/* ===========================
-   INSPECT
-=========================== */
+
+loadModel(
+  "WOLF C - V3",
+  "./wolf_v3.glb",
+  "wC",
+  6,
+  3.7,
+  "wolf"
+);
 
 
-function inspectModel(
+/* =========================
+   MODEL INFO
+========================= */
+
+function inspect(
   model,
   name
 ){
 
-  const box=
+  const box =
   new THREE.Box3()
-  .setFromObject(
-    model
-  );
+  .setFromObject(model);
 
-
-  const size=
+  const size =
   new THREE.Vector3();
 
-
-  const center=
-  new THREE.Vector3();
-
-
-  box.getSize(
-    size
-  );
-
-
-  box.getCenter(
-    center
-  );
-
+  box.getSize(size);
 
   console.log(
     name,
     {
-      size,
-      center,
-      min:box.min,
-      max:box.max
+      width:size.x,
+      height:size.y,
+      depth:size.z
     }
   );
-
 }
 
 
-
-/* ===========================
+/* =========================
    ERROR
-=========================== */
+========================= */
 
+function showError(text){
 
-function showError(
-  text
-){
-
-  const errorBox=
+  const box =
   document.getElementById(
     "error"
   );
 
+  box.textContent = text;
 
-  errorBox.textContent=
-  text;
-
-
-  errorBox.style.display=
+  box.style.display =
   "block";
-
 }
 
 
-
-/* ===========================
-   CAMERA PRESETS
-=========================== */
-
+/* =========================
+   CAMERA
+========================= */
 
 function moveCamera(
   x,
@@ -994,109 +859,84 @@ function moveCamera(
     z
   );
 
-
   controls.target.set(
     0,
-    1.5,
+    1.3,
     0
   );
 
-
   controls.update();
-
 }
 
 
-
 document
-.getElementById(
-  "front"
-)
-.onclick=
+.getElementById("front")
+.onclick =
 ()=>{
 
   moveCamera(
     0,
     5,
-    17
+    20
   );
-
 };
 
 
-
 document
-.getElementById(
-  "side"
-)
-.onclick=
+.getElementById("side")
+.onclick =
 ()=>{
 
   moveCamera(
-    17,
+    20,
     5,
     0
   );
-
 };
 
 
-
 document
-.getElementById(
-  "back"
-)
-.onclick=
+.getElementById("back")
+.onclick =
 ()=>{
 
   moveCamera(
     0,
     5,
-    -17
+    -20
   );
-
 };
 
 
-
 document
-.getElementById(
-  "top"
-)
-.onclick=
+.getElementById("top")
+.onclick =
 ()=>{
 
   moveCamera(
     0,
-    20,
+    22,
     .01
   );
-
 };
-
 
 
 document
-.getElementById(
-  "angle"
-)
-.onclick=
+.getElementById("angle")
+.onclick =
 ()=>{
 
   moveCamera(
+    12,
     10,
-    8,
-    14
+    17
   );
-
 };
 
 
-
-/* ===========================
-   LOOP
-=========================== */
-
+/* =========================
+   RENDER LOOP
+========================= */
 
 function animate(){
 
@@ -1104,37 +944,30 @@ function animate(){
     animate
   );
 
-
   controls.update();
-
 
   renderer.render(
     scene,
     camera
   );
-
 }
-
 
 animate();
 
 
-
-/* ===========================
+/* =========================
    RESIZE
-=========================== */
-
+========================= */
 
 window.addEventListener(
 "resize",
 ()=>{
 
-  camera.aspect=
-  innerWidth/innerHeight;
-
+  camera.aspect =
+  innerWidth /
+  innerHeight;
 
   camera.updateProjectionMatrix();
-
 
   renderer.setSize(
     innerWidth,
@@ -1144,6 +977,5 @@ window.addEventListener(
 });
 
 </script>
-
 </body>
 </html>
