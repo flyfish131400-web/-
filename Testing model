@@ -1,0 +1,1248 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+
+<meta
+  name="viewport"
+  content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"
+>
+
+<title>爆小鸡 GLB 模型测试</title>
+
+<style>
+*{
+  box-sizing:border-box;
+}
+
+html,
+body{
+  margin:0;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  background:#101722;
+  font-family:Arial,sans-serif;
+  color:white;
+}
+
+canvas{
+  display:block;
+}
+
+#title{
+  position:fixed;
+  left:20px;
+  top:18px;
+  z-index:10;
+
+  padding:12px 16px;
+
+  background:rgba(10,18,28,.85);
+  border:2px solid #60778b;
+  border-radius:8px;
+}
+
+#title h1{
+  margin:0;
+  font-size:20px;
+}
+
+#title div{
+  margin-top:5px;
+  font-size:12px;
+  color:#aac1d3;
+}
+
+#info{
+  position:fixed;
+  right:20px;
+  top:18px;
+  z-index:10;
+
+  width:260px;
+  padding:12px;
+
+  background:rgba(10,18,28,.88);
+  border:2px solid #60778b;
+  border-radius:8px;
+
+  font-size:12px;
+  line-height:1.6;
+}
+
+.good{
+  color:#70e18b;
+}
+
+.bad{
+  color:#ff6b6b;
+}
+
+#controls{
+  position:fixed;
+  left:50%;
+  bottom:18px;
+  transform:translateX(-50%);
+
+  z-index:10;
+
+  display:flex;
+  gap:8px;
+
+  padding:10px;
+
+  background:rgba(10,18,28,.85);
+  border:2px solid #60778b;
+  border-radius:8px;
+}
+
+button{
+  min-width:100px;
+  height:42px;
+
+  border:0;
+  border-radius:6px;
+
+  background:#ff8838;
+  color:white;
+
+  font-weight:bold;
+  cursor:pointer;
+}
+
+button:hover{
+  background:#ff9e5f;
+}
+
+#loading{
+  position:fixed;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+
+  z-index:20;
+
+  font-size:22px;
+  font-weight:bold;
+}
+
+#error{
+  position:fixed;
+  inset:0;
+
+  display:none;
+  align-items:center;
+  justify-content:center;
+
+  z-index:100;
+
+  padding:30px;
+
+  background:rgba(5,8,12,.95);
+}
+
+#errorBox{
+  max-width:700px;
+
+  padding:20px;
+
+  border:2px solid #ff5555;
+  background:#171d25;
+
+  white-space:pre-wrap;
+  word-break:break-word;
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="title">
+  <h1>🐔 爆小鸡 · GLB TEST</h1>
+
+  <div>
+    白鸡 + 方块狼模型检查
+  </div>
+</div>
+
+
+<div id="info">
+
+  <b>检查：</b>
+
+  <br>
+
+  ① 鸡是不是站在地面
+
+  <br>
+
+  ② 狼是不是站在地面
+
+  <br>
+
+  ③ 鸡是不是面对蓝色箭头
+
+  <br>
+
+  ④ 狼是不是面对蓝色箭头
+
+  <br>
+
+  ⑤ 鸡和狼比例是否合理
+
+  <br>
+
+  ⑥ 枪、嘴、腿、尾巴有没有问题
+
+  <br><br>
+
+  <span class="good">
+    绿色 = +Z 正方向
+  </span>
+
+</div>
+
+
+<div id="controls">
+
+  <button id="frontBtn">
+    正面
+  </button>
+
+  <button id="sideBtn">
+    侧面
+  </button>
+
+  <button id="backBtn">
+    背面
+  </button>
+
+  <button id="topBtn">
+    俯视
+  </button>
+
+  <button id="resetBtn">
+    45°
+  </button>
+
+</div>
+
+
+<div id="loading">
+  LOADING GLB...
+</div>
+
+
+<div id="error">
+
+  <div id="errorBox"></div>
+
+</div>
+
+
+<script type="importmap">
+
+{
+  "imports":{
+    "three":
+    "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
+
+    "three/addons/":
+    "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"
+  }
+}
+
+</script>
+
+
+<script type="module">
+
+import * as THREE
+from "three";
+
+
+import {
+  GLTFLoader
+}
+from "three/addons/loaders/GLTFLoader.js";
+
+
+import {
+  OrbitControls
+}
+from "three/addons/controls/OrbitControls.js";
+
+
+/* ==============================
+   BASIC SETUP
+============================== */
+
+
+const scene=
+new THREE.Scene();
+
+
+scene.background=
+new THREE.Color(
+  0x172231
+);
+
+
+scene.fog=
+new THREE.Fog(
+  0x172231,
+  20,
+  55
+);
+
+
+
+const camera=
+new THREE.PerspectiveCamera(
+
+  45,
+
+  window.innerWidth
+  /
+  window.innerHeight,
+
+  0.1,
+
+  100
+
+);
+
+
+camera.position.set(
+  8,
+  6,
+  10
+);
+
+
+
+const renderer=
+new THREE.WebGLRenderer({
+
+  antialias:true
+
+});
+
+
+renderer.setPixelRatio(
+
+  Math.min(
+    window.devicePixelRatio,
+    2
+  )
+
+);
+
+
+renderer.setSize(
+
+  window.innerWidth,
+
+  window.innerHeight
+
+);
+
+
+renderer.shadowMap.enabled=
+true;
+
+
+renderer.shadowMap.type=
+THREE.PCFSoftShadowMap;
+
+
+renderer.outputColorSpace=
+THREE.SRGBColorSpace;
+
+
+renderer.toneMapping=
+THREE.ACESFilmicToneMapping;
+
+
+renderer.toneMappingExposure=
+1.25;
+
+
+document.body.prepend(
+  renderer.domElement
+);
+
+
+
+/* ==============================
+   CONTROLS
+============================== */
+
+
+const controls=
+new OrbitControls(
+
+  camera,
+
+  renderer.domElement
+
+);
+
+
+controls.enableDamping=
+true;
+
+
+controls.dampingFactor=
+0.08;
+
+
+controls.target.set(
+  0,
+  1,
+  0
+);
+
+
+
+/* ==============================
+   LIGHTS
+============================== */
+
+
+const hemi=
+new THREE.HemisphereLight(
+
+  0xbadfff,
+
+  0x26351d,
+
+  2.2
+
+);
+
+
+scene.add(
+  hemi
+);
+
+
+
+const sun=
+new THREE.DirectionalLight(
+
+  0xffffff,
+
+  3
+
+);
+
+
+sun.position.set(
+  6,
+  12,
+  8
+);
+
+
+sun.castShadow=
+true;
+
+
+sun.shadow.mapSize.set(
+  2048,
+  2048
+);
+
+
+scene.add(
+  sun
+);
+
+
+
+const warm=
+new THREE.PointLight(
+
+  0xff9b52,
+
+  18,
+
+  15
+
+);
+
+
+warm.position.set(
+  -5,
+  4,
+  4
+);
+
+
+scene.add(
+  warm
+);
+
+
+
+const blue=
+new THREE.PointLight(
+
+  0x61baff,
+
+  12,
+
+  15
+
+);
+
+
+blue.position.set(
+  5,
+  3,
+  -4
+);
+
+
+scene.add(
+  blue
+);
+
+
+
+/* ==============================
+   FLOOR
+============================== */
+
+
+const floor=
+new THREE.Mesh(
+
+  new THREE.PlaneGeometry(
+    30,
+    30
+  ),
+
+  new THREE.MeshStandardMaterial({
+
+    color:0x405a45,
+
+    roughness:0.9
+
+  })
+
+);
+
+
+floor.rotation.x=
+-Math.PI/2;
+
+
+floor.receiveShadow=
+true;
+
+
+scene.add(
+  floor
+);
+
+
+
+/* ==============================
+   GRID
+============================== */
+
+
+const grid=
+new THREE.GridHelper(
+
+  30,
+
+  30,
+
+  0x9ab7ca,
+
+  0x607080
+
+);
+
+
+grid.position.y=
+0.01;
+
+
+scene.add(
+  grid
+);
+
+
+
+/* ==============================
+   +Z DIRECTION
+============================== */
+
+
+const arrow=
+new THREE.ArrowHelper(
+
+  new THREE.Vector3(
+    0,
+    0,
+    1
+  ),
+
+  new THREE.Vector3(
+    0,
+    0.05,
+    0
+  ),
+
+  5,
+
+  0x00ff88,
+
+  0.7,
+
+  0.35
+
+);
+
+
+scene.add(
+  arrow
+);
+
+
+
+/* ==============================
+   LABEL PEDESTALS
+============================== */
+
+
+function pedestal(
+  x,
+  color
+){
+
+  const mesh=
+  new THREE.Mesh(
+
+    new THREE.BoxGeometry(
+      4,
+      0.35,
+      4
+    ),
+
+    new THREE.MeshStandardMaterial({
+
+      color,
+
+      roughness:0.75
+
+    })
+
+  );
+
+
+  mesh.position.set(
+    x,
+    0.175,
+    0
+  );
+
+
+  mesh.receiveShadow=
+  true;
+
+
+  scene.add(
+    mesh
+  );
+
+
+  return mesh;
+}
+
+
+
+pedestal(
+  -3,
+  0x526d80
+);
+
+
+pedestal(
+  3,
+  0x6c5a52
+);
+
+
+
+/* ==============================
+   MODEL LOADER
+============================== */
+
+
+const loader=
+new GLTFLoader();
+
+
+let chicken=null;
+
+let wolf=null;
+
+
+let loadedCount=0;
+
+
+
+function modelLoaded(){
+
+  loadedCount++;
+
+
+  if(
+    loadedCount>=2
+  ){
+
+    document
+    .getElementById(
+      "loading"
+    )
+    .style
+    .display=
+    "none";
+
+  }
+
+}
+
+
+
+/* ==============================
+   PREPARE MODEL
+============================== */
+
+
+function prepareModel(
+  model,
+  x
+){
+
+  model.position.set(
+    x,
+    0,
+    0
+  );
+
+
+  model.traverse(
+
+    object=>{
+
+      if(
+        object.isMesh
+      ){
+
+        object.castShadow=
+        true;
+
+
+        object.receiveShadow=
+        true;
+
+
+        if(
+          object.material
+        ){
+
+          object.material.needsUpdate=
+          true;
+
+        }
+
+      }
+
+    }
+
+  );
+
+
+  scene.add(
+    model
+  );
+
+}
+
+
+
+/* ==============================
+   CHICKEN
+============================== */
+
+
+loader.load(
+
+  "./assets/white_chicken.glb",
+
+  gltf=>{
+
+    chicken=
+    gltf.scene;
+
+
+    prepareModel(
+      chicken,
+      -3
+    );
+
+
+    console.log(
+      "Chicken loaded",
+      chicken
+    );
+
+
+    modelLoaded();
+
+  },
+
+  progress=>{
+
+    console.log(
+      "Chicken loading:",
+      progress.loaded
+    );
+
+  },
+
+  error=>{
+
+    showError(
+
+      "WHITE CHICKEN FAILED TO LOAD\n\n"
+
+      +
+
+      error
+
+      +
+
+      "\n\n检查路径：assets/white_chicken.glb"
+
+    );
+
+  }
+
+);
+
+
+
+/* ==============================
+   WOLF
+============================== */
+
+
+loader.load(
+
+  "./assets/wolf.glb",
+
+  gltf=>{
+
+    wolf=
+    gltf.scene;
+
+
+    prepareModel(
+      wolf,
+      3
+    );
+
+
+    console.log(
+      "Wolf loaded",
+      wolf
+    );
+
+
+    modelLoaded();
+
+  },
+
+  progress=>{
+
+    console.log(
+      "Wolf loading:",
+      progress.loaded
+    );
+
+  },
+
+  error=>{
+
+    showError(
+
+      "WOLF FAILED TO LOAD\n\n"
+
+      +
+
+      error
+
+      +
+
+      "\n\n检查路径：assets/wolf.glb"
+
+    );
+
+  }
+
+);
+
+
+
+/* ==============================
+   ERROR
+============================== */
+
+
+function showError(
+  text
+){
+
+  const error=
+  document.getElementById(
+    "error"
+  );
+
+
+  const box=
+  document.getElementById(
+    "errorBox"
+  );
+
+
+  box.textContent=
+  text;
+
+
+  error.style.display=
+  "flex";
+
+}
+
+
+
+/* ==============================
+   CAMERA BUTTONS
+============================== */
+
+
+function cameraMove(
+  x,
+  y,
+  z
+){
+
+  camera.position.set(
+    x,
+    y,
+    z
+  );
+
+
+  controls.target.set(
+    0,
+    1,
+    0
+  );
+
+
+  controls.update();
+
+}
+
+
+
+document
+.getElementById(
+  "frontBtn"
+)
+.onclick=
+()=>{
+
+  cameraMove(
+    0,
+    3,
+    12
+  );
+
+};
+
+
+
+document
+.getElementById(
+  "sideBtn"
+)
+.onclick=
+()=>{
+
+  cameraMove(
+    12,
+    3,
+    0
+  );
+
+};
+
+
+
+document
+.getElementById(
+  "backBtn"
+)
+.onclick=
+()=>{
+
+  cameraMove(
+    0,
+    3,
+    -12
+  );
+
+};
+
+
+
+document
+.getElementById(
+  "topBtn"
+)
+.onclick=
+()=>{
+
+  cameraMove(
+    0,
+    15,
+    0.01
+  );
+
+};
+
+
+
+document
+.getElementById(
+  "resetBtn"
+)
+.onclick=
+()=>{
+
+  cameraMove(
+    8,
+    6,
+    10
+  );
+
+};
+
+
+
+/* ==============================
+   AUTO MODEL INFO
+============================== */
+
+
+function printModelInfo(
+  model,
+  name
+){
+
+  if(
+    !model
+  ){
+    return;
+  }
+
+
+  const box=
+  new THREE.Box3()
+  .setFromObject(
+    model
+  );
+
+
+  const size=
+  new THREE.Vector3();
+
+
+  box.getSize(
+    size
+  );
+
+
+  const center=
+  new THREE.Vector3();
+
+
+  box.getCenter(
+    center
+  );
+
+
+  console.log(
+    name,
+    {
+      min:box.min,
+      max:box.max,
+      size,
+      center
+    }
+  );
+
+}
+
+
+
+/* ==============================
+   KEY SHORTCUT
+============================== */
+
+
+window.addEventListener(
+
+  "keydown",
+
+  event=>{
+
+    if(
+      event.code==="KeyI"
+    ){
+
+      printModelInfo(
+        chicken,
+        "WHITE CHICKEN"
+      );
+
+
+      printModelInfo(
+        wolf,
+        "WOLF"
+      );
+
+    }
+
+  }
+
+);
+
+
+
+/* ==============================
+   ANIMATION LOOP
+============================== */
+
+
+const clock=
+new THREE.Clock();
+
+
+function animate(){
+
+  requestAnimationFrame(
+    animate
+  );
+
+
+  const dt=
+  clock.getDelta();
+
+
+  controls.update();
+
+
+  /*
+    Very small idle animation.
+    This is only for testing.
+  */
+
+
+  if(
+    chicken
+  ){
+
+    chicken.position.y=
+    Math.sin(
+      performance.now()*0.002
+    )
+    *
+    0.025;
+
+  }
+
+
+  if(
+    wolf
+  ){
+
+    wolf.rotation.y=
+    Math.sin(
+      performance.now()*0.0007
+    )
+    *
+    0.08;
+
+  }
+
+
+  renderer.render(
+    scene,
+    camera
+  );
+
+}
+
+
+animate();
+
+
+
+/* ==============================
+   RESIZE
+============================== */
+
+
+window.addEventListener(
+
+  "resize",
+
+  ()=>{
+
+    camera.aspect=
+    window.innerWidth
+    /
+    window.innerHeight;
+
+
+    camera.updateProjectionMatrix();
+
+
+    renderer.setSize(
+
+      window.innerWidth,
+
+      window.innerHeight
+
+    );
+
+  }
+
+);
+
+</script>
+
+</body>
+</html>
