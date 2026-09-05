@@ -2,10 +2,13 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
-<meta name="viewport"
-content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 
-<title>爆小鸡 · 3版本模型比较</title>
+<meta
+  name="viewport"
+  content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"
+>
+
+<title>爆小鸡 · A vs V4</title>
 
 <style>
 *{box-sizing:border-box}
@@ -16,18 +19,22 @@ html,body{
   height:100%;
   overflow:hidden;
   background:#111923;
-  color:white;
+  color:#fff;
   font-family:Arial,sans-serif;
 }
 
-canvas{display:block}
+canvas{
+  display:block;
+}
 
 #title{
   position:fixed;
   left:14px;
   top:14px;
   z-index:10;
+
   padding:12px 15px;
+
   background:rgba(7,14,22,.92);
   border:2px solid #546b7c;
   border-radius:9px;
@@ -48,27 +55,50 @@ canvas{display:block}
   right:14px;
   top:14px;
   z-index:10;
-  width:290px;
+
+  width:285px;
   padding:12px;
+
   background:rgba(7,14,22,.93);
   border:2px solid #546b7c;
   border-radius:9px;
+
   font-size:11px;
-  line-height:1.6;
+  line-height:1.65;
 }
 
 .good{color:#66dc87}
 .bad{color:#ff6666}
+
+#legend{
+  position:fixed;
+  left:14px;
+  bottom:15px;
+  z-index:10;
+
+  padding:10px 12px;
+
+  background:rgba(7,14,22,.9);
+  border:2px solid #546b7c;
+  border-radius:8px;
+
+  font-size:11px;
+  line-height:1.7;
+}
 
 #controls{
   position:fixed;
   z-index:10;
   left:50%;
   bottom:15px;
+
   transform:translateX(-50%);
+
   display:flex;
   gap:6px;
+
   padding:8px;
+
   background:rgba(7,14,22,.93);
   border:2px solid #546b7c;
   border-radius:9px;
@@ -77,85 +107,77 @@ canvas{display:block}
 button{
   height:42px;
   min-width:72px;
+
   border:0;
   border-radius:6px;
+
   background:#d47736;
   color:#fff;
-  font-weight:bold;
-}
 
-#labels{
-  position:fixed;
-  left:14px;
-  bottom:15px;
-  z-index:10;
-  padding:10px 12px;
-  background:rgba(7,14,22,.9);
-  border:2px solid #546b7c;
-  border-radius:8px;
-  font-size:11px;
-  line-height:1.7;
+  font-weight:bold;
 }
 
 #error{
   position:fixed;
   left:50%;
   top:50%;
+
   transform:translate(-50%,-50%);
+
   z-index:100;
+
   display:none;
+
   width:min(700px,92vw);
   padding:18px;
+
   background:#171e27;
   border:3px solid #ff5555;
+
   white-space:pre-wrap;
   word-break:break-word;
 }
+
 </style>
 </head>
 
 <body>
 
 <div id="title">
-  <strong>🐔 爆小鸡 · MODEL SHOOTOUT</strong>
-  <div>3只白鸡 + 3只狼 · 同场比较</div>
+  <strong>🐔 爆小鸡 · A vs V4</strong>
+  <div>主方案 A 与新版本 V4 对比</div>
 </div>
 
 <div id="status">
   <b>加载状态</b><br>
 
-  鸡 A：
+  白鸡 A：
   <span id="cA">Loading...</span><br>
 
-  鸡 B：
-  <span id="cB">Loading...</span><br>
-
-  鸡 C：
-  <span id="cC">Loading...</span><br>
+  白鸡 V4：
+  <span id="c4">Loading...</span><br>
 
   狼 A：
   <span id="wA">Loading...</span><br>
 
-  狼 B：
-  <span id="wB">Loading...</span><br>
-
-  狼 C：
-  <span id="wC">Loading...</span>
+  狼 V4：
+  <span id="w4">Loading...</span>
 
   <br><br>
-  <span class="good">绿色箭头 = +Z</span>
+
+  <span class="good">
+    绿色箭头 = +Z
+  </span>
 </div>
 
-<div id="labels">
+<div id="legend">
   <b>上排：白鸡</b><br>
-  A = V2<br>
-  B = 第二个 V2<br>
-  C = V3<br><br>
+  左 = A / V2<br>
+  右 = V4<br><br>
 
   <b>下排：狼</b><br>
-  A = V2<br>
-  B = 第二个 V2<br>
-  C = V3
+  左 = A / V2<br>
+  右 = V4
 </div>
 
 <div id="controls">
@@ -168,7 +190,6 @@ button{
 
 <div id="error"></div>
 
-
 <script type="importmap">
 {
   "imports":{
@@ -180,7 +201,6 @@ button{
   }
 }
 </script>
-
 
 <script type="module">
 
@@ -215,15 +235,15 @@ new THREE.Color(0x18212b);
 const camera =
 new THREE.PerspectiveCamera(
   45,
-  innerWidth / innerHeight,
+  innerWidth/innerHeight,
   .1,
   120
 );
 
 camera.position.set(
-  12,
   10,
-  17
+  8,
+  15
 );
 
 
@@ -256,11 +276,8 @@ THREE.SRGBColorSpace;
 renderer.toneMapping =
 THREE.ACESFilmicToneMapping;
 
-/*
-  故意压低曝光，
-  避免模型看起来过分鲜艳。
-*/
-renderer.toneMappingExposure = 1.0;
+renderer.toneMappingExposure =
+1.0;
 
 document.body.prepend(
   renderer.domElement
@@ -289,10 +306,6 @@ controls.target.set(
 /* =========================
    LIGHTING
 ========================= */
-
-/*
-  比以前更克制的灯光。
-*/
 
 const hemi =
 new THREE.HemisphereLight(
@@ -365,8 +378,8 @@ const floor =
 new THREE.Mesh(
 
   new THREE.PlaneGeometry(
-    40,
-    32
+    34,
+    28
   ),
 
   new THREE.MeshStandardMaterial({
@@ -391,8 +404,8 @@ scene.add(floor);
 
 const grid =
 new THREE.GridHelper(
-  40,
-  40,
+  34,
+  34,
   0x667985,
   0x45545d
 );
@@ -403,7 +416,7 @@ scene.add(grid);
 
 
 /* =========================
-   +Z DIRECTION
+   +Z
 ========================= */
 
 const arrow =
@@ -444,9 +457,9 @@ function pedestal(
   new THREE.Mesh(
 
     new THREE.BoxGeometry(
-      4.3,
+      5,
       .28,
-      4.3
+      5
     ),
 
     new THREE.MeshStandardMaterial({
@@ -469,53 +482,41 @@ function pedestal(
 
 
 /*
-   上排鸡
+  上排白鸡
 */
 
 pedestal(
-  -6,
-  -3.4,
+  -4.5,
+  -3,
   0x536b78
 );
 
 pedestal(
-  0,
-  -3.4,
-  0x556d79
-);
-
-pedestal(
-  6,
-  -3.4,
+  4.5,
+  -3,
   0x586f79
 );
 
 
 /*
-   下排狼
+  下排狼
 */
 
 pedestal(
-  -6,
-  3.7,
+  -4.5,
+  3.8,
   0x685a53
 );
 
 pedestal(
-  0,
-  3.7,
-  0x665851
-);
-
-pedestal(
-  6,
-  3.7,
+  4.5,
+  3.8,
   0x62554f
 );
 
 
 /* =========================
-   MODEL LOADING
+   GLTF LOADER
 ========================= */
 
 const loader =
@@ -523,6 +524,51 @@ new GLTFLoader();
 
 const models = {};
 
+
+/* =========================
+   MATERIAL TUNING
+========================= */
+
+function tuneMaterial(
+  material
+){
+
+  if(!material){
+    return;
+  }
+
+  if(
+    "roughness"
+    in material
+  ){
+
+    material.roughness =
+    Math.max(
+      material.roughness ?? 0,
+      .72
+    );
+  }
+
+  if(
+    "metalness"
+    in material
+  ){
+
+    material.metalness =
+    Math.min(
+      material.metalness ?? 0,
+      .08
+    );
+  }
+
+  material.needsUpdate =
+  true;
+}
+
+
+/* =========================
+   PREPARE MODEL
+========================= */
 
 function prepareModel(
   model,
@@ -548,41 +594,21 @@ function prepareModel(
       object.receiveShadow = true;
 
       if(
-        object.material
+        Array.isArray(
+          object.material
+        )
       ){
 
-        /*
-          防止 GLB 材质过亮、过塑料。
-        */
+        object.material
+        .forEach(
+          tuneMaterial
+        );
 
-        if(
-          "roughness"
-          in object.material
-        ){
+      }else{
 
-          object.material.roughness =
-          Math.max(
-            object.material.roughness ?? 0,
-            .72
-          );
-
-        }
-
-        if(
-          "metalness"
-          in object.material
-        ){
-
-          object.material.metalness =
-          Math.min(
-            object.material.metalness ?? 0,
-            .08
-          );
-
-        }
-
-        object.material.needsUpdate =
-        true;
+        tuneMaterial(
+          object.material
+        );
       }
     }
   });
@@ -592,25 +618,17 @@ function prepareModel(
 
 
 /* =========================
-   AUTO NORMALIZE SIZE
+   AUTO HEIGHT NORMALIZATION
 ========================= */
-
-/*
-  这里很重要。
-
-  不同 AI 生成的模型尺寸
-  很可能完全不同。
-
-  所以测试时自动调整到合理高度，
-  避免因为尺寸不同造成误判。
-*/
 
 function normalizeHeight(
   model,
   wantedHeight
 ){
 
-  const box =
+  model.updateMatrixWorld(true);
+
+  let box =
   new THREE.Box3()
   .setFromObject(model);
 
@@ -631,31 +649,25 @@ function normalizeHeight(
     );
   }
 
-
-  /*
-    缩放后再计算脚底，
-    自动把模型放到地面。
-  */
-
   model.updateMatrixWorld(true);
 
-  const newBox =
+  box =
   new THREE.Box3()
   .setFromObject(model);
 
   model.position.y -=
-  newBox.min.y;
+  box.min.y;
 }
 
 
 /* =========================
-   LOAD FUNCTION
+   LOAD MODEL
 ========================= */
 
 function loadModel(
   key,
   path,
-  status,
+  statusId,
   x,
   z,
   type
@@ -670,13 +682,14 @@ function loadModel(
       const model =
       gltf.scene;
 
-      models[key] = model;
+      models[key] =
+      model;
 
       normalizeHeight(
         model,
         type==="chicken"
-        ? 2.45
-        : 1.85
+        ? 2.5
+        : 1.95
       );
 
       prepareModel(
@@ -686,7 +699,9 @@ function loadModel(
       );
 
       document
-      .getElementById(status)
+      .getElementById(
+        statusId
+      )
       .innerHTML =
       '<span class="good">LOADED ✓</span>';
 
@@ -694,7 +709,6 @@ function loadModel(
         model,
         key
       );
-
     },
 
     undefined,
@@ -702,7 +716,9 @@ function loadModel(
     error=>{
 
       document
-      .getElementById(status)
+      .getElementById(
+        statusId
+      )
       .innerHTML =
       '<span class="bad">FAILED ✕</span>';
 
@@ -718,86 +734,68 @@ function loadModel(
         String(error)
       );
     }
-
   );
 }
 
 
 /* =========================
-   WHITE CHICKENS
+   WHITE CHICKEN A
 ========================= */
 
 loadModel(
-  "CHICKEN A - V2",
+  "WHITE CHICKEN A",
   "./white_chicken_v2.glb",
   "cA",
-  -6,
-  -3.4,
-  "chicken"
-);
-
-
-/*
-  文件名里面有空格。
-  %20 = 空格。
-*/
-
-loadModel(
-  "CHICKEN B - V2 SECOND",
-  "./white_chicken_v2%202.glb",
-  "cB",
-  0,
-  -3.4,
-  "chicken"
-);
-
-
-loadModel(
-  "CHICKEN C - V3",
-  "./white_chicken_v3.glb",
-  "cC",
-  6,
-  -3.4,
+  -4.5,
+  -3,
   "chicken"
 );
 
 
 /* =========================
-   WOLVES
+   WHITE CHICKEN V4
 ========================= */
 
 loadModel(
-  "WOLF A - V2",
+  "WHITE CHICKEN V4",
+  "./white_chicken_v4.glb",
+  "c4",
+  4.5,
+  -3,
+  "chicken"
+);
+
+
+/* =========================
+   WOLF A
+========================= */
+
+loadModel(
+  "WOLF A",
   "./wolf_v2.glb",
   "wA",
-  -6,
-  3.7,
-  "wolf"
-);
-
-
-loadModel(
-  "WOLF B - V2 SECOND",
-  "./wolf_v2%202.glb",
-  "wB",
-  0,
-  3.7,
-  "wolf"
-);
-
-
-loadModel(
-  "WOLF C - V3",
-  "./wolf_v3.glb",
-  "wC",
-  6,
-  3.7,
+  -4.5,
+  3.8,
   "wolf"
 );
 
 
 /* =========================
-   MODEL INFO
+   WOLF V4
+========================= */
+
+loadModel(
+  "WOLF V4",
+  "./wolf_v4.glb",
+  "w4",
+  4.5,
+  3.8,
+  "wolf"
+);
+
+
+/* =========================
+   INSPECT
 ========================= */
 
 function inspect(
@@ -829,14 +827,17 @@ function inspect(
    ERROR
 ========================= */
 
-function showError(text){
+function showError(
+  text
+){
 
   const box =
   document.getElementById(
     "error"
   );
 
-  box.textContent = text;
+  box.textContent =
+  text;
 
   box.style.display =
   "block";
@@ -844,7 +845,7 @@ function showError(text){
 
 
 /* =========================
-   CAMERA
+   CAMERA PRESETS
 ========================= */
 
 function moveCamera(
@@ -861,7 +862,7 @@ function moveCamera(
 
   controls.target.set(
     0,
-    1.3,
+    1.4,
     0
   );
 
@@ -877,7 +878,7 @@ document
   moveCamera(
     0,
     5,
-    20
+    17
   );
 };
 
@@ -888,7 +889,7 @@ document
 ()=>{
 
   moveCamera(
-    20,
+    17,
     5,
     0
   );
@@ -903,7 +904,7 @@ document
   moveCamera(
     0,
     5,
-    -20
+    -17
   );
 };
 
@@ -915,7 +916,7 @@ document
 
   moveCamera(
     0,
-    22,
+    20,
     .01
   );
 };
@@ -927,15 +928,15 @@ document
 ()=>{
 
   moveCamera(
-    12,
     10,
-    17
+    8,
+    15
   );
 };
 
 
 /* =========================
-   RENDER LOOP
+   LOOP
 ========================= */
 
 function animate(){
@@ -973,9 +974,9 @@ window.addEventListener(
     innerWidth,
     innerHeight
   );
-
 });
 
 </script>
+
 </body>
 </html>
